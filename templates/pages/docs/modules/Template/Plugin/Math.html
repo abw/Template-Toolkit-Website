@@ -1,0 +1,160 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE Math %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% Math.sqrt(9) %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The Math plugin provides numerous mathematical functions for use within
+      templates.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    <p>
+      <code>Template::Plugin::Math</code> makes available the following
+      functions from the Perl core:
+    </p>
+    <ul>
+    <li id="item_abs">abs
+    </li>
+    <li id="item_atan2">atan2
+    </li>
+    <li id="item_cos">cos
+    </li>
+    <li id="item_exp">exp
+    </li>
+    <li id="item_hex">hex
+    </li>
+    <li id="item_int">int
+    </li>
+    <li id="item_log">log
+    </li>
+    <li id="item_oct">oct
+    </li>
+    <li id="item_rand">rand
+    </li>
+    <li id="item_sin">sin
+    </li>
+    <li id="item_sqrt">sqrt
+    </li>
+    <li id="item_srand">srand
+    </li>
+    </ul>
+    <p>
+      In addition, if the <a href="[** cpanmod('Math::Trig')
+      **]">Math::Trig</a> module can be loaded, the following functions are
+      also available:
+    </p>
+    <ul>
+    <li id="item_pi">pi
+    </li>
+    <li id="item_tan">tan
+    </li>
+    <li id="item_csc">csc
+    </li>
+    <li id="item_cosec">cosec
+    </li>
+    <li id="item_sec">sec
+    </li>
+    <li id="item_cot">cot
+    </li>
+    <li id="item_cotan">cotan
+    </li>
+    <li id="item_asin">asin
+    </li>
+    <li id="item_acos">acos
+    </li>
+    <li id="item_atan">atan
+    </li>
+    <li id="item_acsc">acsc
+    </li>
+    <li id="item_acosec">acosec
+    </li>
+    <li id="item_asec">asec
+    </li>
+    <li id="item_acot">acot
+    </li>
+    <li id="item_acotan">acotan
+    </li>
+    <li id="item_sinh">sinh
+    </li>
+    <li id="item_cosh">cosh
+    </li>
+    <li id="item_tanh">tanh
+    </li>
+    <li id="item_csch">csch
+    </li>
+    <li id="item_cosech">cosech
+    </li>
+    <li id="item_sech">sech
+    </li>
+    <li id="item_coth">coth
+    </li>
+    <li id="item_cotanh">cotanh
+    </li>
+    <li id="item_asinh">asinh
+    </li>
+    <li id="item_acosh">acosh
+    </li>
+    <li id="item_atanh">atanh
+    </li>
+    <li id="item_acsch">acsch
+    </li>
+    <li id="item_acosech">acosech
+    </li>
+    <li id="item_asech">asech
+    </li>
+    <li id="item_acoth">acoth
+    </li>
+    <li id="item_acotanh">acotanh
+    </li>
+    <li id="item_rad2deg">rad2deg
+    </li>
+    <li id="item_rad2grad">rad2grad
+    </li>
+    <li id="item_deg2rad">deg2rad
+    </li>
+    <li id="item_deg2grad">deg2grad
+    </li>
+    <li id="item_grad2rad">grad2rad
+    </li>
+    <li id="item_grad2deg">grad2deg
+    </li>
+    </ul>
+    <p>
+      If the <a href="[** cpanmod('Math::TrulyRandom')
+      **]">Math::TrulyRandom</a> module is available, and you've got the time
+      to wait, the <code>truly_random_number</code> method is available:
+    </p>
+    <pre>
+      <span class="tt">[% Math.truly_random_number %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+    </p>
+[** END -**]
+
+</div>

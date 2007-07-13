@@ -1,0 +1,39 @@
+[%  # configuration template to define the layout, colour scheme and 
+    # various other style parameters for the CSS skin
+
+    img    = '../images';
+    common = "$img/glass/common";
+    font   = {
+        size = 14
+        text = 'Verdana, Arial, Helvetica, sans-serif'
+        mono = '"Courier New", Courier, monospace'
+    };
+    rgb = {
+      dark_blue   = '#0059a5'
+      light_blue  = '#d9e3ec'
+      sky_blue    = '#00AAF0'
+      pale_blue   = '#b0d2e9'
+      dull_blue   = '#40698c'
+
+      orange      = '#FF7F00'
+      dark_orange = '#da3700'
+      pale_orange = '#E7C8A8'
+
+      dark_green   = '#216b25'
+      light_green  = '#39b93f'
+      dull_green   = '#418c44'
+      pale_green   = '#97E29B'
+
+      dark_purple  = '#46216b'
+      light_purple = '#7239b9'
+      mid_purple   = '#582a86'
+      dull_purple  = '#66418c'
+      pink         = '#d921d9'
+
+      mid_grey    = '#888888'
+      dark_grey   = '#444444'
+      light_grey  = '#aaaaaa'
+      greyC       = '#cccccc'
+      grey6       = '#666666'
+    };
+-%]

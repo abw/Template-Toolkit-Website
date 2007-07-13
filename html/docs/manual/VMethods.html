@@ -1,0 +1,1048 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Manual::VMethods</title>
+    <link rel="stylesheet" type="text/css" href="../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/manual/index.html">Manual</a></li>
+            <li class="last"><a href="../../docs/manual/VMethods.html">VMethods</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../docs/manual/Variables.html" title="Template::Manual::Variables" class="go back">Back<span class="about"><strong>Template::Manual::Variables</strong>Template variables and code bindings</span></a>
+            <a href="../../docs/manual/index.html" title="Template::Manual" class="go up">Up<span class="about"><strong>Template::Manual</strong>Template Toolkit User Manual</span></a>
+            <a href="../../docs/manual/Config.html" title="Template::Manual::Config" class="go next">Next<span class="about"><strong>Template::Manual::Config</strong>Configuration options</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Manual::VMethods</h1>
+          <h2 class="subhead">Virtual Methods</h2>
+        
+          <a href="http://template-toolkit.org/docs/manual/VMethods.html" class="permalink">http://template-toolkit.org/docs/manual/VMethods.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../about.html">About</a></li>
+                <li class="l0"><a href="../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../docs/manual/index.html" class="warm">Manual</a></li>
+                <li class="l2"><a href="../../docs/manual/Intro.html">Intro</a></li>
+                <li class="l2"><a href="../../docs/manual/Syntax.html">Syntax</a></li>
+                <li class="l2"><a href="../../docs/manual/Directives.html">Directives</a></li>
+                <li class="l2"><a href="../../docs/manual/Variables.html">Variables</a></li>
+                <li class="l2"><a href="../../docs/manual/VMethods.html" class="warm">VMethods</a></li>
+                <li class="l2"><a href="../../docs/manual/Config.html">Config</a></li>
+                <li class="l2"><a href="../../docs/manual/Filters.html">Filters</a></li>
+                <li class="l2"><a href="../../docs/manual/Plugins.html">Plugins</a></li>
+                <li class="l2"><a href="../../docs/manual/Internals.html">Internals</a></li>
+                <li class="l2"><a href="../../docs/manual/Views.html">Views</a></li>
+                <li class="l2"><a href="../../docs/manual/Credits.html">Credits</a></li>
+                <li class="l1"><a href="../../docs/modules/index.html">Modules</a></li>
+                <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_Scalar_Virtual_Methods">Scalar Virtual Methods</a></li>
+                  <li class="sub"><a href="#section_defined">defined</a></li>
+                  <li class="sub"><a href="#section_length">length</a></li>
+                  <li class="sub"><a href="#method_repeat">repeat(n)</a></li>
+                  <li class="sub"><a href="#method_replace">replace(search, replace)</a></li>
+                  <li class="sub"><a href="#method_remove">remove(pattern)</a></li>
+                  <li class="sub"><a href="#method_match">match(pattern, global)</a></li>
+                  <li class="sub"><a href="#method_search">search(pattern)</a></li>
+                  <li class="sub"><a href="#method_split">split(pattern)</a></li>
+                  <li class="sub"><a href="#method_chunk">chunk(size)</a></li>
+                  <li class="sub"><a href="#method_substr">substr(offset, length, replacement)</a></li>
+                  <li class="sub"><a href="#section_list">list</a></li>
+                  <li class="sub"><a href="#section_hash_">hash </a></li>
+                  <li class="sub"><a href="#section_size">size</a></li>
+                  <li class=""><a href="#section_Hash_Virtual_Methods">Hash Virtual Methods</a></li>
+                  <li class="sub"><a href="#section_keys">keys</a></li>
+                  <li class="sub"><a href="#section_values">values</a></li>
+                  <li class="sub"><a href="#section_items">items</a></li>
+                  <li class="sub"><a href="#section_each">each</a></li>
+                  <li class="sub"><a href="#section_pairs_">pairs </a></li>
+                  <li class="sub"><a href="#section_list">list</a></li>
+                  <li class="sub"><a href="#section_sort_nsort">sort, nsort</a></li>
+                  <li class="sub"><a href="#section_import">import</a></li>
+                  <li class="sub"><a href="#section_defined_exists">defined, exists</a></li>
+                  <li class="sub"><a href="#section_delete_">delete </a></li>
+                  <li class="sub"><a href="#section_size">size</a></li>
+                  <li class="sub"><a href="#section_item">item</a></li>
+                  <li class=""><a href="#section_List_Virtual_Methods">List Virtual Methods</a></li>
+                  <li class="sub"><a href="#section_first_last">first, last</a></li>
+                  <li class="sub"><a href="#section_size_max">size, max</a></li>
+                  <li class="sub"><a href="#section_defined">defined</a></li>
+                  <li class="sub"><a href="#section_reverse">reverse</a></li>
+                  <li class="sub"><a href="#section_join">join</a></li>
+                  <li class="sub"><a href="#section_grep">grep</a></li>
+                  <li class="sub"><a href="#section_sort_nsort">sort, nsort</a></li>
+                  <li class="sub"><a href="#method_unshift_item_push">unshift(item), push(item)</a></li>
+                  <li class="sub"><a href="#section_shift_pop">shift, pop</a></li>
+                  <li class="sub"><a href="#section_unique">unique</a></li>
+                  <li class="sub"><a href="#section_import">import</a></li>
+                  <li class="sub"><a href="#section_merge">merge</a></li>
+                  <li class="sub"><a href="#method_slice">slice(from, to)</a></li>
+                  <li class="sub"><a href="#method_splice">splice(offset, length, list)</a></li>
+                  <li class="sub"><a href="#section_hash_">hash </a></li>
+                  <li class=""><a href="#section_Automagic_Promotion_of_Scalar_to_List_for_Virtual_Methods">Automagic Promotion of Scalar to List for Virtual Methods</a></li>
+                  <li class=""><a href="#section_Defining_Custom_Virtual_Methods">Defining Custom Virtual Methods</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Scalar_Virtual_Methods" onclick="switch_section(this)" title="Click title to show/hide section content.">Scalar Virtual Methods</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_defined" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">defined</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns true if the value is defined.
+                        </p>
+                        <pre><span class="tt">[% user = get_user(uid) IF uid.defined %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_length" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">length</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the length of the string representation of the item:
+                        </p>
+                        <pre><span class="tt">[% IF password.length &lt; 8 %]</span>
+   Password too short, dumbass!
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_repeat" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">repeat(n)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Repeat the string a specified number of times.
+                        </p>
+                        <pre><span class="tt">[% name = 'foo' %]</span>
+<span class="tt">[% name.repeat(3) %]</span>        # foofoofoo</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_replace" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">replace(search, replace)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Outputs the string with all instances of the first argument (specified as
+                          a Perl regular expression) with the second.
+                        </p>
+                        <pre><span class="tt">[% name = 'foo, bar &amp; baz' %]</span>
+<span class="tt">[% name.replace('\W+', '_') %]</span>    # foo_bar_baz</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_remove" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">remove(pattern)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Outputs the string with all instances of the pattern (specified as a Perl
+                          regular expression) removed.
+                        </p>
+                        <pre><span class="tt">[% name = 'foo, bar &amp; baz' %]</span>
+<span class="tt">[% name.remove('\W+') %]</span>    # foobarbaz</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_match" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">match(pattern, global)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Performs a regular expression match on the string using the pattern
+                          passed as an argument. If the pattern matches the string then the method
+                          returns a reference to a list of any strings captured within parenthesis
+                          in the pattern.
+                        </p>
+                        <pre><span class="tt">[% name = 'Larry Wall' %]</span>
+<span class="tt">[% matches = name.match('(\w+) (\w+)') %]</span>
+<span class="tt">[% matches.1 %]</span>, <span class="tt">[% matches.0 %]</span>        # Wall, Larry</pre>
+                        <p>
+                          If the pattern does not match then the method returns false, rather than
+                          returning an empty list which Perl and the Template Toolkit both consider
+                          to be a true value. This allows you to write expression like this.
+                        </p>
+                        <pre><span class="tt">[% "We're not worthy!" IF name.match('Larry Wall') %]</span></pre>
+                        <pre><span class="tt">[% IF (matches = name.match('(\w+) (\w+)')) %]</span>
+   pattern matches: <span class="tt">[% matches.join(', ') %]</span>
+<span class="tt">[% ELSE %]</span>
+   pattern does not match
+<span class="tt">[% END %]</span></pre>
+                        <p>
+                          Any regex modifiers, like <code>/s</code>, should be added in the regex
+                          using the <code>(?s)</code> syntax. For example, to modify the regex to
+                          disregard whitespace (the <code>/x</code> switch), use:
+                        </p>
+                        <pre><span class="tt">[% re = '(?x)
+           (\w+)
+           [ ]
+           (\w+)
+         ';
+  matches = name.match(re);
+%]</span></pre>
+                        <p>
+                          To perform a global search to match the pattern as many times as it
+                          appears in the source string, provide a true value for the
+                          <code>global</code> argument following the pattern.
+                        </p>
+                        <pre><span class="tt">[% text = 'bandanna';
+   text.match('an+', 1).join(', )      # an, ann
+%]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_search" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">search(pattern)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Performs a similar function to <a href="#section_match">match</a> but
+                          simply returns true if the string matches the regular expression pattern
+                          passed as an argument.
+                        </p>
+                        <pre><span class="tt">[% name = 'foo bar baz' %]</span>
+<span class="tt">[% name.search('bar') ? 'bar' : 'no bar' %]</span>        # bar</pre>
+                        <p>
+                          This virtual method is now deprecated in favour of <a
+                          href="#section_match">match</a>. Move along now, there's nothing more to
+                          see here.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_split" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">split(pattern)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Calls Perl's <code>split()</code> function to split a string into a list
+                          of strings.
+                        </p>
+                        <pre><span class="tt">[% FOREACH dir IN mypath.split(':') %]</span>
+   <span class="tt">[% dir %]</span>
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_chunk" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">chunk(size)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Splits the value into a list of chunks of a certain size.
+                        </p>
+                        <pre><span class="tt">[% ccard_no = "1234567824683579";
+   ccard_no.chunk(4).join
+%]</span></pre>
+                        <p>
+                          Output:
+                        </p>
+                        <pre>1234 5678 2468 3579</pre>
+                        <p>
+                          If the size is specified as a negative number then the text will be
+                          chunked from right-to-left. This gives the correct grouping for numbers,
+                          for example.
+                        </p>
+                        <pre><span class="tt">[% number = 1234567;
+   number.chunk(-3).join(',')
+%]</span></pre>
+                        <p>
+                          Output:
+                        </p>
+                        <pre>1,234,567</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_substr" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">substr(offset, length, replacement)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a substring starting at <code>offset</code>, for
+                          <code>length</code> characters.
+                        </p>
+                        <pre><span class="tt">[% str 'foo bar baz wiz waz woz') %]</span>
+<span class="tt">[% str.substr(4, 3) %]</span>    # bar</pre>
+                        <p>
+                          If <code>length</code> is not specified then it returns everything from
+                          the <code>offset</code> to the end of the string.
+                        </p>
+                        <pre><span class="tt">[% str.substr(12) %]</span>      # wiz waz woz</pre>
+                        <p>
+                          If both <code>length</code> and <code>replacement</code> are specified,
+                          then the method replaces everything from <code>offset</code> for
+                          <code>length</code> characters with <code>$replacement</code>. The
+                          substring removed from the string is then returned.
+                        </p>
+                        <pre><span class="tt">[% str.substr(0, 11, 'FOO') %]</span>   # foo bar baz
+<span class="tt">[% str %]</span>                        # FOO wiz waz woz</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_list" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">list</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Return the value as a single element list. This can be useful if you have
+                          a variable which may contain a single item or a list and you want to
+                          treat them equally. The <code>list</code> method can be called against a
+                          list reference and will simply return the original reference, effectively
+                          a no-op.
+                        </p>
+                        <pre><span class="tt">[% thing.list.size %]</span>  # thing can be a scalar or a list</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_hash_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">hash </h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Return the value as a hash reference containing a single entry with the
+                          key <code>value</code> indicating the original scalar value. As with the
+                          <code>list</code> virtual method, this is generally used to help massage
+                          data into different formats.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_size" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">size</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Always returns 1 for scalar values. This method is provided for
+                          consistency with the hash and list size methods.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Hash_Virtual_Methods" onclick="switch_section(this)" title="Click title to show/hide section content.">Hash Virtual Methods</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_keys" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">keys</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a list of keys in the hash. They are not returned in any
+                          particular order, but the order is the same as for the corresponding
+                          values method.
+                        </p>
+                        <pre><span class="tt">[% FOREACH key IN hash.keys %]</span>
+   * <span class="tt">[% key %]</span>
+<span class="tt">[% END %]</span></pre>
+                        <p>
+                          If you want the keys in sorted order, use the list <code>sort</code>
+                          method.
+                        </p>
+                        <pre><span class="tt">[% FOREACH key IN hash.keys.sort %]</span>
+   * <span class="tt">[% key %]</span>
+<span class="tt">[% END %]</span></pre>
+                        <p>
+                          Having got the keys in sorted order, you can then use variable
+                          interpolation to fetch the value. This is shown in the following example
+                          by the use of <code>$key</code> to fetch the item from <code>hash</code>
+                          whose key is stored in the <code>key</code> variable.
+                        </p>
+                        <pre><span class="tt">[% FOREACH key IN hash.keys.sort %]</span>
+   * <span class="tt">[% key %]</span> = <span class="tt">[% hash.$key %]</span>
+<span class="tt">[% END %]</span></pre>
+                        <p>
+                          Alternately, you can use the <code>pairs</code> method to get a list of
+                          key/value pairs in sorted order.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_values" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">values</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a list of the values in the hash. As with the <code>keys</code>
+                          method, they are not returned in any particular order, although it is the
+                          same order that the keys are returned in.
+                        </p>
+                        <pre><span class="tt">[% hash.values.join(', ') %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_items" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">items</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a list of both the keys and the values expanded into a single
+                          list.
+                        </p>
+                        <pre><span class="tt">[% hash = {
+      a = 10
+      b = 20
+   };
+
+   hash.items.join(', ')    # a, 10, b, 20
+%]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_each" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">each</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method currently returns the same thing as the <code>items</code>
+                          method.
+                        </p>
+                        <p>
+                          However, please note that this method will change in the next major
+                          version of the Template Toolkit (v3) to return the same thing as the
+                          <code>pairs</code> method. This will be done in an effort to make these
+                          virtual method more consistent with each other and how Perl works.
+                        </p>
+                        <p>
+                          In anticipation of this, we recommend that you stop using
+                          <code>hash.each</code> and instead use <code>hash.items</code>.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_pairs_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">pairs </h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method returns a list of key/value pairs. They are returned in
+                          sorted order according to the keys.
+                        </p>
+                        <pre><span class="tt">[% FOREACH pair IN product.pairs %]</span>
+   * <span class="tt">[% pair.key %]</span> is <span class="tt">[% pair.value %]</span>
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_list" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">list</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the contents of the hash in list form. An argument can be passed
+                          to indicate the desired items required in the list: <code>keys</code> to
+                          return a list of the keys (same as <code>hash.keys</code>),
+                          <code>values</code> to return a list of the values (same as
+                          <code>hash.values</code>), <code>each</code> to return as list of key and
+                          values (same as <code>hash.each</code>), or <code>pairs</code> to return
+                          a list of key/value pairs (same as <code>hash.pairs</code>).
+                        </p>
+                        <pre><span class="tt">[% keys   = hash.list('keys') %]</span>
+<span class="tt">[% values = hash.list('values') %]</span>
+<span class="tt">[% items  = hash.list('each') %]</span>
+<span class="tt">[% pairs  = hash.list('pairs') %]</span></pre>
+                        <p>
+                          When called without an argument it currently returns the same thing as
+                          the <code>pairs</code> method. However, please note that this method will
+                          change in the next major version of the Template Toolkit (v3) to return a
+                          reference to a list containing the single hash reference (as per the
+                          scalar list method).
+                        </p>
+                        <p>
+                          In anticipation of this, we recommend that you stop using
+                          <code>hash.list</code> and instead use <code>hash.pairs</code>.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_sort_nsort" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">sort, nsort</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Return a list of the keys, sorted alphabetically (<code>sort</code>) or
+                          numerically (<code>nsort</code>) according to the corresponding values in
+                          the hash.
+                        </p>
+                        <pre><span class="tt">[% FOREACH n IN phones.sort %]</span>
+   <span class="tt">[% phones.$n %]</span> is <span class="tt">[% n %]</span>,
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_import" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">import</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>import</code> method can be called on a hash array to import
+                          the contents of another hash array.
+                        </p>
+                        <pre><span class="tt">[% hash1 = {
+     foo = 'Foo'
+     bar = 'Bar'
+   }
+   hash2 = {
+       wiz = 'Wiz'
+       woz = 'Woz'
+   }
+%]</span>
+
+<span class="tt">[% hash1.import(hash2) %]</span>
+<span class="tt">[% hash1.wiz %]</span>             # Wiz</pre>
+                        <p>
+                          You can also call the <code>import()</code> method by itself to import a
+                          hash array into the current namespace hash.
+                        </p>
+                        <pre><span class="tt">[% user = { id =&gt; 'lwall', name =&gt; 'Larry Wall' } %]</span>
+<span class="tt">[% import(user) %]</span>
+<span class="tt">[% id %]</span>: <span class="tt">[% name %]</span>        # lwall: Larry Wall</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_defined_exists" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">defined, exists</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a true or false value if an item in the hash denoted by the key
+                          passed as an argument is defined or exists, respectively.
+                        </p>
+                        <pre><span class="tt">[% hash.defined('somekey') ? 'yes' : 'no' %]</span>
+<span class="tt">[% hash.exists('somekey') ? 'yes' : 'no' %]</span></pre>
+                        <p>
+                          When called without any argument, <code>hash.defined</code> returns true
+                          if the hash itself is defined (e.g. the same effect as
+                          <code>scalar.defined</code>).
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_delete_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">delete </h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Delete one or more items from the hash.
+                        </p>
+                        <pre><span class="tt">[% hash.delete('foo', 'bar') %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_size" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">size</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the number of key/value pairs in the hash.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_item" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">item</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns an item from the hash using a key passed as an argument.
+                        </p>
+                        <pre><span class="tt">[% hash.item('foo') %]</span>  # same as hash.foo</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_List_Virtual_Methods" onclick="switch_section(this)" title="Click title to show/hide section content.">List Virtual Methods</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_first_last" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">first, last</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the first/last item in the list. The item is not removed from the
+                          list.
+                        </p>
+                        <pre><span class="tt">[% results.first %]</span> to <span class="tt">[% results.last %]</span></pre>
+                        <p>
+                          If either is given a numeric argument <code>n</code>, they return the
+                          first or last <code>n</code> elements:
+                        </p>
+                        <pre>The first 5 results are <span class="tt">[% results.first(5).join(", ") %]</span>.</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_size_max" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">size, max</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the size of a list (number of elements) and the maximum index
+                          number (size - 1), respectively.
+                        </p>
+                        <pre><span class="tt">[% results.size %]</span> search results matched your query</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_defined" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">defined</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a true or false value if the item in the list denoted by the
+                          argument is defined.
+                        </p>
+                        <pre><span class="tt">[% list.defined(3) ? 'yes' : 'no' %]</span></pre>
+                        <p>
+                          When called without any argument, <code>list.defined</code> returns true
+                          if the list itself is defined (e.g. the same effect as
+                          <code>scalar.defined</code>).
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_reverse" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">reverse</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the items of the list in reverse order.
+                        </p>
+                        <pre><span class="tt">[% FOREACH s IN scores.reverse %]</span>
+   ...
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_join" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">join</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Joins the items in the list into a single string, using Perl's
+                          <code>join()</code> function.
+                        </p>
+                        <pre><span class="tt">[% items.join(', ') %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_grep" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">grep</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a list of the items in the list that match a regular expression
+                          pattern.
+                        </p>
+                        <pre><span class="tt">[% FOREACH directory.files.grep('\.txt$') %]</span>
+   ...
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_sort_nsort" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">sort, nsort</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the items in alpha (<code>sort</code>) or numerical
+                          (<code>nsort</code>) order.
+                        </p>
+                        <pre><span class="tt">[% library = books.sort %]</span></pre>
+                        <p>
+                          An argument can be provided to specify a search key. Where an item in the
+                          list is a hash reference, the search key will be used to retrieve a value
+                          from the hash which will then be used as the comparison value. Where an
+                          item is an object which implements a method of that name, the method will
+                          be called to return a comparison value.
+                        </p>
+                        <pre><span class="tt">[% library = books.sort('author') %]</span></pre>
+                        <p>
+                          In the example, the <code>books</code> list can contains hash references
+                          with an <code>author</code> key or objects with an <code>author</code>
+                          method.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_unshift_item_push" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">unshift(item), push(item)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>push()</code> method adds an item or items to the end of list.
+                        </p>
+                        <pre><span class="tt">[% mylist.push(foo) %]</span>
+<span class="tt">[% mylist.push(foo, bar) %]</span>
+
+The C&lt;unshift()&gt; method adds an item or items to the start of a list.</pre>
+                        <pre><span class="tt">[% mylist.unshift(foo) %]</span>
+<span class="tt">[% mylist.push(foo, bar)    %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_shift_pop" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">shift, pop</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes the first/last item from the list and returns it.
+                        </p>
+                        <pre><span class="tt">[% first = mylist.shift %]</span>
+<span class="tt">[% last  = mylist.pop   %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_unique" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">unique</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a list of the unique elements in a list, in the same order as in
+                          the list itself.
+                        </p>
+                        <pre><span class="tt">[% mylist = [ 1, 2, 3, 2, 3, 4, 1, 4, 3, 4, 5 ] %]</span>
+<span class="tt">[% numbers = mylist.unique %]</span></pre>
+                        <p>
+                          While this can be explicitly sorted, it is not required that the list be
+                          sorted before the unique elements are pulled out (unlike the Unix command
+                          line utility).
+                        </p>
+                        <pre><span class="tt">[% numbers = mylist.unique.sort %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_import" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">import</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Appends the contents of one or more other lists to the end of the current
+                          list.
+                        </p>
+                        <pre><span class="tt">[% one   = [ 1 2 3 ];
+   two   = [ 4 5 6 ];
+   three = [ 7 8 9 ];
+   one.import(two, three);
+   one.join(', );     # 1, 2, 3, 4, 5, 6, 7, 8, 9       
+%]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_merge" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">merge</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a list composed of zero or more other lists:
+                        </p>
+                        <pre><span class="tt">[% list_one = [ 1 2 3 ];
+   list_two = [ 4 5 6 ];
+   list_three = [ 7 8 9 ];
+   list_four = list_one.merge(list_two, list_three);
+%]</span></pre>
+                        <p>
+                          The original lists are not modified.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_slice" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">slice(from, to)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a slice of items in the list between the bounds passed as
+                          arguments. If the second argument, <code>to</code>, isn't specified, then
+                          it defaults to the last item in the list. The original list is not
+                          modified.
+                        </p>
+                        <pre><span class="tt">[% first_three = list.slice(0,2) %]</span>
+<span class="tt">[% last_three  = list.slice(-3, -1) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_splice" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">splice(offset, length, list)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Behaves just like Perl's <code>splice()</code> function allowing you to
+                          selectively remove and/or replace elements in a list. It removes
+                          <code>length</code> items from the list, starting at <code>offset</code>
+                          and replaces them with the items in <code>list</code>.
+                        </p>
+                        <pre><span class="tt">[% play_game = [ 'play', 'scrabble' ];
+   ping_pong = [ 'ping', 'pong' ];
+   redundant = play_game.splice(1, 1, ping_pong);
+   redundant.join;     # scrabble
+   play_game.join;     # play ping pong
+%]</span></pre>
+                        <p>
+                          The method returns a list of the items removed by the splice. You can use
+                          the <code>CALL</code> directive to ignore the output if you're not
+                          planning to do anything with it.
+                        </p>
+                        <pre><span class="tt">[% CALL play_game.splice(1, 1, ping_pong) %]</span></pre>
+                        <p>
+                          As well as providing a reference to a list of replacement values, you can
+                          pass in a list of items.
+                        </p>
+                        <pre><span class="tt">[% CALL list.splice(-1, 0, 'foo', 'bar') %]</span></pre>
+                        <p>
+                          Be careful about passing just one item in as a replacement value. If it
+                          is a reference to a list then the contents of the list will be used. If
+                          it's not a list, then it will be treated as a single value. You can use
+                          square brackets around a single item if you need to be explicit:
+                        </p>
+                        <pre><span class="tt">[% # push a single item, an_item
+   CALL list.splice(-1, 0, an_item);
+
+   # push the items from another_list
+   CALL list.splice(-1, 0, another_list);
+
+   # push a reference to another_list
+   CALL list.splice(-1, 0, [ another_list ]);
+%]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_hash_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">hash </h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a reference to a hash array comprised of the elements in the
+                          list. The even-numbered elements (0, 2, 4, etc) become the keys and the
+                          odd-numbered elements (1, 3, 5, etc) the values.
+                        </p>
+                        <pre><span class="tt">[% list = ['pi', 3.14, 'e', 2.718] %]</span>
+<span class="tt">[% hash = list.hash %]</span>
+<span class="tt">[% hash.pi %]</span>               # 3.14
+<span class="tt">[% hash.e  %]</span>               # 2.718</pre>
+                        <p>
+                          If a numerical argument is provided then the hash returned will have keys
+                          generated for each item starting at the number specified.
+                        </p>
+                        <pre><span class="tt">[% list = ['beer', 'peanuts'] %]</span>
+<span class="tt">[% hash = list.hash(1) %]</span>
+<span class="tt">[% hash.1  %]</span>               # beer          
+<span class="tt">[% hash.2  %]</span>               # peanuts</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Automagic_Promotion_of_Scalar_to_List_for_Virtual_Methods" onclick="switch_section(this)" title="Click title to show/hide section content.">Automagic Promotion of Scalar to List for Virtual Methods</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      In addition to the scalar virtual methods listed in the previous section,
+                      you can also call any list virtual method against a scalar. The item will
+                      be automagically promoted to a single element list and the appropriate
+                      list virtual method will be called.
+                    </p>
+                    <p>
+                      One particular benefit of this comes when calling subroutines or object
+                      methods that return a list of items, rather than the preferred reference
+                      to a list of items. In this case, the Template Toolkit automatically
+                      folds the items returned into a list.
+                    </p>
+                    <p>
+                      The upshot is that you can continue to use existing Perl modules or code
+                      that returns lists of items, without having to refactor it just to keep
+                      the Template Toolkit happy (by returning references to list).
+                      <code>Class::DBI</code> module is just one example of a particularly
+                      useful module which returns values this way.
+                    </p>
+                    <p>
+                      If only a single item is returned from a subroutine then the Template
+                      Toolkit assumes it meant to return a single item (rather than a list of 1
+                      item) and leaves it well alone, returning the single value as it is. If
+                      you're executing a database query, for example, you might get 1 item
+                      returned, or perhaps many items which are then folded into a list.
+                    </p>
+                    <p>
+                      The <code>FOREACH</code> directive will happily accept either a list or a
+                      single item which it will treat as a list. So it's safe to write
+                      directives like this, where we assume that the <code>something</code>
+                      variable is bound to a subroutine which may return one or more items:
+                    </p>
+                    <pre><span class="tt">[% FOREACH item IN something %]</span>
+   ...
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      The automagic promotion of scalars to single item lists means that you
+                      can also use list virtual methods safely, even if you only get one item
+                      returned. For example:
+                    </p>
+                    <pre><span class="tt">[% something.first   %]</span>
+<span class="tt">[% something.join    %]</span>
+<span class="tt">[% something.reverse.join(', ') %]</span></pre>
+                    <p>
+                      Note that this is very much a last-ditch behaviour. If the single item
+                      return is an object with a <code>first</code> method, for example, then
+                      that will be called, as expected, in preference to the list virtual
+                      method.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Defining_Custom_Virtual_Methods" onclick="switch_section(this)" title="Click title to show/hide section content.">Defining Custom Virtual Methods</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      You can define your own virtual methods for scalars, lists and hash
+                      arrays. The <a href="../../docs/modules/Template/Stash.html">Template::Stash</a> package variables <code>$SCALAR_OPS</code>,
+                      <code>$LIST_OPS</code> and <code>$HASH_OPS</code> are references to hash
+                      arrays that define these virtual methods. <code>HASH_OPS</code> and
+                      <code>LIST_OPS</code> methods are subroutines that accept a hash/list
+                      reference as the first item. <code>SCALAR_OPS</code> are subroutines that
+                      accept a scalar value as the first item. Any other arguments specified
+                      when the method is called will be passed to the subroutine.
+                    </p>
+                    <pre># load Template::Stash to make method tables visible
+use Template::Stash;
+
+# define list method to return new list of odd numbers only
+$Template::Stash::LIST_OPS-&gt;{ odd } = sub {
+    my $list = shift;
+    return [ grep { $_ % 2 } @$list ];
+};</pre>
+                    <p>
+                      Example template:
+                    </p>
+                    <pre><span class="tt">[% primes = [ 2, 3, 5, 7, 9 ] %]</span>
+<span class="tt">[% primes.odd.join(', ') %]</span>        # 3, 5, 7, 9</pre>
+                    <p>
+                      TODO: document the define_vmethod() method which makes this even easier
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/manual/VMethods.html last modified 14:40:05 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../docs/manual/Variables.html" title="Template::Manual::Variables" class="go back">Back<span class="about"><strong>Template::Manual::Variables</strong></span></a>
+            <a href="../../docs/manual/index.html" title="Template::Manual" class="go up">Up<span class="about"><strong>Template::Manual</strong></span></a>
+            <a href="../../docs/manual/Config.html" title="Template::Manual::Config" class="go next">Next<span class="about"><strong>Template::Manual::Config</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

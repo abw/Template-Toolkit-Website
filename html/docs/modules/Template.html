@@ -1,0 +1,1193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template</title>
+    <link rel="stylesheet" type="text/css" href="../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/modules/index.html">Modules</a></li>
+            <li class="last"><a href="../../docs/modules/Template.html">Template.pm</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <span class="go back">Back<span class="about">Go back?  Are you mad?</span></span>
+            <a href="../../docs/modules/index.html" title="Template::Modules" class="go up">Up<span class="about"><strong>Template::Modules</strong>Template Toolkit Modules</span></a>
+            <a href="../../docs/modules/Template/index.html" title="Template::* Modules" class="go next">Next<span class="about"><strong>Template::* Modules</strong></span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template</h1>
+          <h2 class="subhead">Front-end module to the Template Toolkit</h2>
+        
+          <a href="http://template-toolkit.org/docs/modules/Template.html" class="permalink">http://template-toolkit.org/docs/modules/Template.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../about.html">About</a></li>
+                <li class="l0"><a href="../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../docs/modules/index.html" class="warm">Modules</a></li>
+                <li class="l2"><a href="../../docs/modules/Template.html" class="warm">Template.pm</a></li>
+                <li class="l2"><a href="../../docs/modules/Template/index.html">Template::*</a></li>
+                <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_SYNOPSIS_">SYNOPSIS </a></li>
+                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class=""><a href="#section_METHODS">METHODS</a></li>
+                  <li class="sub"><a href="#method_new">new(\%config)</a></li>
+                  <li class="sub"><a href="#method_process">process($template, \%vars, $output, %options)</a></li>
+                  <li class="sub"><a href="#method_error">error()</a></li>
+                  <li class="sub"><a href="#method_service">service()</a></li>
+                  <li class="sub"><a href="#method_context">context()</a></li>
+                  <li class=""><a href="#section_CONFIGURATION_SUMMARY">CONFIGURATION SUMMARY</a></li>
+                  <li class="sub"><a href="#section_Template_Style_and_Parsing_Options">Template Style and Parsing Options</a></li>
+                  <li class="subsub"><a href="#section_START_TAG_END_TAG">START_TAG, END_TAG</a></li>
+                  <li class="subsub"><a href="#section_TAG_STYLE">TAG_STYLE</a></li>
+                  <li class="subsub"><a href="#section_PRE_CHOMP_POST_CHOMP">PRE_CHOMP, POST_CHOMP</a></li>
+                  <li class="subsub"><a href="#section_TRIM">TRIM</a></li>
+                  <li class="subsub"><a href="#section_INTERPOLATE">INTERPOLATE</a></li>
+                  <li class="subsub"><a href="#section_ANYCASE">ANYCASE</a></li>
+                  <li class="sub"><a href="#section_Template_Files_and_Blocks">Template Files and Blocks</a></li>
+                  <li class="subsub"><a href="#section_INCLUDE_PATH">INCLUDE_PATH</a></li>
+                  <li class="subsub"><a href="#section_DELIMITER">DELIMITER</a></li>
+                  <li class="subsub"><a href="#section_ABSOLUTE">ABSOLUTE</a></li>
+                  <li class="subsub"><a href="#section_RELATIVE">RELATIVE</a></li>
+                  <li class="subsub"><a href="#section_DEFAULT">DEFAULT</a></li>
+                  <li class="subsub"><a href="#section_BLOCKS">BLOCKS</a></li>
+                  <li class="subsub"><a href="#section_AUTO_RESET">AUTO_RESET</a></li>
+                  <li class="subsub"><a href="#section_RECURSION">RECURSION</a></li>
+                  <li class="sub"><a href="#section_Template_Variables">Template Variables</a></li>
+                  <li class="subsub"><a href="#section_VARIABLES">VARIABLES</a></li>
+                  <li class="sub"><a href="#section_Runtime_Processing_Options">Runtime Processing Options</a></li>
+                  <li class="subsub"><a href="#section_EVAL_PERL">EVAL_PERL</a></li>
+                  <li class="subsub"><a href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS, POST_PROCESS</a></li>
+                  <li class="subsub"><a href="#section_PROCESS">PROCESS</a></li>
+                  <li class="subsub"><a href="#section_ERROR">ERROR</a></li>
+                  <li class="subsub"><a href="#section_OUTPUT">OUTPUT</a></li>
+                  <li class="subsub"><a href="#section_OUTPUT_PATH">OUTPUT_PATH</a></li>
+                  <li class="subsub"><a href="#section_DEBUG">DEBUG</a></li>
+                  <li class="sub"><a href="#section_Caching_and_Compiling_Options">Caching and Compiling Options</a></li>
+                  <li class="subsub"><a href="#section_CACHE_SIZE">CACHE_SIZE</a></li>
+                  <li class="subsub"><a href="#section_COMPILE_EXT">COMPILE_EXT</a></li>
+                  <li class="subsub"><a href="#section_COMPILE_DIR">COMPILE_DIR</a></li>
+                  <li class="sub"><a href="#section_Plugins_and_Filters">Plugins and Filters</a></li>
+                  <li class="subsub"><a href="#section_PLUGINS">PLUGINS</a></li>
+                  <li class="subsub"><a href="#section_PLUGIN_BASE">PLUGIN_BASE</a></li>
+                  <li class="subsub"><a href="#section_LOAD_PERL">LOAD_PERL</a></li>
+                  <li class="subsub"><a href="#section_FILTERS">FILTERS</a></li>
+                  <li class="sub"><a href="#section_Customisation_and_Extension">Customisation and Extension</a></li>
+                  <li class="subsub"><a href="#section_LOAD_TEMPLATES">LOAD_TEMPLATES</a></li>
+                  <li class="subsub"><a href="#section_LOAD_PLUGINS">LOAD_PLUGINS</a></li>
+                  <li class="subsub"><a href="#section_LOAD_FILTERS">LOAD_FILTERS</a></li>
+                  <li class="subsub"><a href="#section_TOLERANT">TOLERANT</a></li>
+                  <li class="subsub"><a href="#section_SERVICE">SERVICE</a></li>
+                  <li class="subsub"><a href="#section_CONTEXT">CONTEXT</a></li>
+                  <li class="subsub"><a href="#section_STASH">STASH</a></li>
+                  <li class="subsub"><a href="#section_PARSER">PARSER</a></li>
+                  <li class="subsub"><a href="#section_GRAMMAR">GRAMMAR</a></li>
+                  <li class=""><a href="#section_DIRECTIVE_SUMMARY">DIRECTIVE SUMMARY</a></li>
+                  <li class="sub"><a href="#section_GET">GET</a></li>
+                  <li class="sub"><a href="#section_CALL">CALL</a></li>
+                  <li class="sub"><a href="#section_SET">SET</a></li>
+                  <li class="sub"><a href="#section_DEFAULT">DEFAULT</a></li>
+                  <li class="sub"><a href="#section_INSERT">INSERT</a></li>
+                  <li class="sub"><a href="#section_PROCESS">PROCESS</a></li>
+                  <li class="sub"><a href="#section_INCLUDE">INCLUDE</a></li>
+                  <li class="sub"><a href="#section_WRAPPER">WRAPPER</a></li>
+                  <li class="sub"><a href="#section_BLOCK">BLOCK</a></li>
+                  <li class="sub"><a href="#section_FOREACH">FOREACH</a></li>
+                  <li class="sub"><a href="#section_WHILE">WHILE</a></li>
+                  <li class="sub"><a href="#section_IF_UNLESS_ELSIF_ELSE">IF / UNLESS / ELSIF / ELSE</a></li>
+                  <li class="sub"><a href="#section_SWITCH_CASE">SWITCH / CASE</a></li>
+                  <li class="sub"><a href="#section_MACRO">MACRO</a></li>
+                  <li class="sub"><a href="#section_FILTER">FILTER</a></li>
+                  <li class="sub"><a href="#section_USE">USE</a></li>
+                  <li class="sub"><a href="#section_PERL_RAWPERL">PERL / RAWPERL</a></li>
+                  <li class="sub"><a href="#section_TRY_THROW_CATCH_FINAL">TRY / THROW / CATCH / FINAL</a></li>
+                  <li class="sub"><a href="#section_NEXT">NEXT</a></li>
+                  <li class="sub"><a href="#section_LAST">LAST</a></li>
+                  <li class="sub"><a href="#section_RETURN">RETURN</a></li>
+                  <li class="sub"><a href="#section_STOP">STOP</a></li>
+                  <li class="sub"><a href="#section_TAGS">TAGS</a></li>
+                  <li class="sub"><a href="#section_COMMENTS">COMMENTS</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_VERSION">VERSION</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SYNOPSIS_" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS </h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <pre>use Template;
+
+# some useful options (see below for full list)
+my $config = {
+    INCLUDE_PATH =&gt; '/search/path',  # or list ref
+    INTERPOLATE  =&gt; 1,               # expand "$var" in plain text
+    POST_CHOMP   =&gt; 1,               # cleanup whitespace 
+    PRE_PROCESS  =&gt; 'header',        # prefix each template
+    EVAL_PERL    =&gt; 1,               # evaluate Perl code blocks
+};
+
+# create Template object
+my $template = Template-&gt;new($config);
+
+# define template variables for replacement
+my $vars = {
+    var1  =&gt; $value,
+    var2  =&gt; \%hash,
+    var3  =&gt; \@list,
+    var4  =&gt; \&amp;code,
+    var5  =&gt; $object,
+};
+
+# specify input filename, or file handle, text reference, etc.
+my $input = 'myfile.html';
+
+# process input template, substituting variables
+$template-&gt;process($input, $vars)
+    || die $template-&gt;error();</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      This documentation describes the Template module which is the direct Perl
+                      interface into the Template Toolkit. It covers the use of the module and
+                      gives a brief summary of configuration options and template directives.
+                      Please see <a href="../../docs/manual/index.html">Template::Manual</a> for the complete reference manual which goes
+                      into much greater depth about the features and use of the Template
+                      Toolkit. The <a href="../../docs/tutorial/index.html">Template::Tutorial</a> is also available as an introductory guide to
+                      using the Template Toolkit.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_new" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">new(\%config)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>new()</code> constructor method (implemented by the <a
+                          href="../../docs/modules/Template/Base.html#method_new">Template::Base</a>
+                          base class) instantiates a new <code>Template</code> object. A reference
+                          to a hash array of configuration items may be passed as a parameter.
+                        </p>
+                        <pre>my $tt = Template-&gt;new({
+    INCLUDE_PATH =&gt; '/usr/local/templates',
+    EVAL_PERL    =&gt; 1,
+}) || die $Template::ERROR, "\n";</pre>
+                        <p>
+                          A reference to a new <code>Template</code> object is returned, or undef
+                          on error. In the latter case, the error message can be retrieved by
+                          calling <a href="#method_error">error()</a> as a class method or by
+                          examining the <code>$Template::ERROR</code> package variable directly.
+                        </p>
+                        <pre>my $tt = Template-&gt;new(\%config)
+    || die Template-&gt;error(), "\n";</pre>
+                        <pre>my $tt = Template-&gt;new(\%config)
+    || die $Template::ERROR, "\n";</pre>
+                        <p>
+                          For convenience, configuration items may also be specified as a list of
+                          items instead of a hash array reference. These are automatically folded
+                          into a hash array by the constructor.
+                        </p>
+                        <pre>my $tt = Template-&gt;new(INCLUDE_PATH =&gt; '/tmp', POST_CHOMP =&gt; 1)
+    || die $Template::ERROR, "\n";</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_process" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">process($template, \%vars, $output, %options)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>process()</code> method is called to process a template. The
+                          first parameter indicates the input template as one of: a filename
+                          relative to <code>INCLUDE_PATH</code>, if defined; a reference to a text
+                          string containing the template text; or a file handle reference (e.g.
+                          <code>IO::Handle</code> or sub-class) or <code>GLOB</code> (e.g.
+                          <code>\*STDIN</code>), from which the template can be read. A reference
+                          to a hash array may be passed as the second parameter, containing
+                          definitions of template variables.
+                        </p>
+                        <pre># filename
+$tt-&gt;process('welcome.tt2')
+    || die $tt-&gt;error(), "\n";</pre>
+                        <pre># text reference
+$text = "<span class="tt">[% INCLUDE header %]</span>\nHello world!\n<span class="tt">[% INCLUDE footer %]</span>";
+$tt-&gt;process(\$text)
+    || die $tt-&gt;error(), "\n";</pre>
+                        <pre># file handle (GLOB)
+$tt-&gt;process(\*DATA)
+    || die $tt-&gt;error(), "\n";
+
+__END__
+<span class="tt">[% INCLUDE header %]</span>
+This is a template defined in the __END__ section which is 
+accessible via the DATA "file handle".
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                        <p>
+                          By default, the processed template output is printed to
+                          <code>STDOUT</code>. The <code>process()</code> method then returns
+                          <code>1</code> to indicate success. A third parameter may be passed to
+                          the <code>process()</code> method to specify a different output location.
+                          This value may be one of: a plain string indicating a filename which will
+                          be opened (relative to <code>OUTPUT_PATH</code>, if defined) and the
+                          output written to; a file GLOB opened ready for output; a reference to a
+                          scalar (e.g. a text string) to which output/error is appended; a
+                          reference to a subroutine which is called, passing the output as a
+                          parameter; or any object reference which implements a
+                          <code>print()</code> method (e.g. <code>IO::Handle</code>,
+                          <code>Apache::Request</code>, etc.) which will be called, passing the
+                          generated output as a parameter.
+                        </p>
+                        <p>
+                          Examples:
+                        </p>
+                        <pre># output filename
+$tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
+    || die $tt-&gt;error(), "\n";</pre>
+                        <pre># reference to output subroutine
+sub myout {
+    my $output = shift;
+    ...
+}
+$tt-&gt;process('welcome.tt2', $vars, \&amp;myout)
+    || die $tt-&gt;error(), "\n";</pre>
+                        <pre># reference to output text string
+my $output = '';
+$tt-&gt;process('welcome.tt2', $vars, \$output)
+    || die $tt-&gt;error(), "\n";
+
+print "output: $output\n";</pre>
+                        <p>
+                          In an Apache/mod_perl handler:
+                        </p>
+                        <pre>sub handler {
+    my $req = shift;
+
+    # ...your code here...
+
+    # direct output to Apache::Request via $req-&gt;print($output)
+    $tt-&gt;process($file, $vars, $req) || do {
+        $req-&gt;log_reason($tt-&gt;error());
+        return SERVER_ERROR;
+    };
+    return OK;
+}</pre>
+                        <p>
+                          After the optional third output argument can come an optional reference
+                          to a hash or a list of <code>(name, value)</code> pairs providing further
+                          options for the output. The only option currently supported is
+                          <code>binmode</code> which, when set to any true value will ensure that
+                          files created (but not any existing file handles passed) will be set to
+                          binary mode.
+                        </p>
+                        <pre># either: hash reference of options
+$tt-&gt;process($infile, $vars, $outfile, { binmode =&gt; 1 })
+    || die $tt-&gt;error(), "\n";
+
+# or: list of name, value pairs
+$tt-&gt;process($infile, $vars, $outfile, binmode =&gt; 1)
+    || die $tt-&gt;error(), "\n";</pre>
+                        <p>
+                          Alternately, the <code>binmode</code> argument can specify a particular
+                          IO layer such as <code>:utf8</code>.
+                        </p>
+                        <pre>$tt-&gt;process($infile, $vars, $outfile, binmode =&gt; ':utf8')
+    || die $tt-&gt;error(), "\n";</pre>
+                        <p>
+                          The <code>OUTPUT</code> configuration item can be used to specify a
+                          default output location other than <code>\*STDOUT</code>. The
+                          <code>OUTPUT_PATH</code> specifies a directory which should be prefixed
+                          to all output locations specified as filenames.
+                        </p>
+                        <pre>my $tt = Template-&gt;new({
+    OUTPUT      =&gt; sub { ... },       # default
+    OUTPUT_PATH =&gt; '/tmp',
+...
+}) || die Template-&gt;error(), "\n";
+
+# use default OUTPUT (sub is called)
+$tt-&gt;process('welcome.tt2', $vars)
+    || die $tt-&gt;error(), "\n";
+
+# write file to '/tmp/welcome.html'
+$tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
+    || die $tt-&gt;error(), "\n";</pre>
+                        <p>
+                          The <code>process()</code> method returns <code>1</code> on success or
+                          <code>undef</code> on error. The error message generated in the latter
+                          case can be retrieved by calling the <a href="#method_error">error()</a>
+                          method. See also <a href="#section_CONFIGURATION_SUMMARY">CONFIGURATION
+                          SUMMARY</a> which describes how error handling may be further customised.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_error" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">error()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          When called as a class method, it returns the value of the
+                          <code>$ERROR</code> package variable. Thus, the following are equivalent.
+                        </p>
+                        <pre>my $tt = Template-&gt;new()
+    || die Template-&gt;error(), "\n";</pre>
+                        <pre>my $tt = Template-&gt;new()
+    || die $Template::ERROR, "\n";</pre>
+                        <p>
+                          When called as an object method, it returns the value of the internal
+                          <code>_ERROR</code> variable, as set by an error condition in a previous
+                          call to process().
+                        </p>
+                        <pre>$tt-&gt;process('welcome.tt2')
+    || die $tt-&gt;error(), "\n";</pre>
+                        <p>
+                          Errors are represented in the Template Toolkit by objects of the <a
+                          href="../../docs/modules/Template/Exception.html">Template::Exception</a>
+                          class. If the <a href="#method_process">process()</a> method returns a
+                          false value then the <code>error()</code> method can be called to return
+                          an object of this class. The <a href="../../docs/modules/Template/Exception.html#method_type">type()</a> and <a
+                          href="../../docs/modules/Template/Exception.html#method_info">info()</a>
+                          methods can called on the object to retrieve the error type and
+                          information string, respectively. The <a href="../../docs/modules/Template/Exception.html#method_as_string">as_string()</a>
+                          method can be called to return a string of the form <code>$type -
+                          $info</code>. This method is also overloaded onto the stringification
+                          operator allowing the object reference itself to be printed to return the
+                          formatted error string.
+                        </p>
+                        <pre>$tt-&gt;process('somefile') || do {
+    my $error = $tt-&gt;error();
+    print "error type: ", $error-&gt;type(), "\n";
+    print "error info: ", $error-&gt;info(), "\n";
+    print $error, "\n";
+};</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_service" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">service()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>Template</code> module delegates most of the effort of
+                          processing templates to an underlying <a href="../../docs/modules/Template/Service.html">Template::Service</a> object. This
+                          method returns a reference to that object.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_context" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">context()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Service.html">Template::Service</a> module uses a core <a href="../../docs/modules/Template/Context.html">Template::Context</a> object for
+                          runtime processing of templates. This method returns a reference to that
+                          object and is equivalent to
+                          <code>$template-&gt;service-&gt;context()</code>.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_CONFIGURATION_SUMMARY" onclick="switch_section(this)" title="Click title to show/hide section content.">CONFIGURATION SUMMARY</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The following list gives a short summary of each Template Toolkit
+                      configuration option. See <a href="../../docs/manual/Config.html">Template::Manual::Config</a>
+                      for full details.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Template_Style_and_Parsing_Options" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template Style and Parsing Options</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_START_TAG_END_TAG">START_TAG, END_TAG</h3>
+                        <p>
+                          Define tokens that indicate start and end of directives (default:
+                          '<code>[%</code>' and '<code>%]</code>').
+                        </p>
+                        
+                        <h3 class="method" id="section_TAG_STYLE">TAG_STYLE</h3>
+                        <p>
+                          Set <code>START_TAG</code> and <code>END_TAG</code> according to a
+                          pre-defined style (default: '<code>template</code>', as above).
+                        </p>
+                        
+                        <h3 class="method" id="section_PRE_CHOMP_POST_CHOMP">PRE_CHOMP, POST_CHOMP</h3>
+                        <p>
+                          Removes whitespace before/after directives (default: 0/0).
+                        </p>
+                        
+                        <h3 class="method" id="section_TRIM">TRIM</h3>
+                        <p>
+                          Remove leading and trailing whitespace from template output (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_INTERPOLATE">INTERPOLATE</h3>
+                        <p>
+                          Interpolate variables embedded like <code>$this</code> or
+                          <code>${this}</code> (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_ANYCASE">ANYCASE</h3>
+                        <p>
+                          Allow directive keywords in lower case (default: 0 - UPPER only).
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Template_Files_and_Blocks" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template Files and Blocks</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_INCLUDE_PATH">INCLUDE_PATH</h3>
+                        <p>
+                          One or more directories to search for templates.
+                        </p>
+                        
+                        <h3 class="method" id="section_DELIMITER">DELIMITER</h3>
+                        <p>
+                          Delimiter for separating paths in <code>INCLUDE_PATH</code> (default:
+                          '<code>:</code>').
+                        </p>
+                        
+                        <h3 class="method" id="section_ABSOLUTE">ABSOLUTE</h3>
+                        <p>
+                          Allow absolute file names, e.g. <code>/foo/bar.html</code> (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_RELATIVE">RELATIVE</h3>
+                        <p>
+                          Allow relative filenames, e.g. <code>../foo/bar.html</code> (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_DEFAULT">DEFAULT</h3>
+                        <p>
+                          Default template to use when another not found.
+                        </p>
+                        
+                        <h3 class="method" id="section_BLOCKS">BLOCKS</h3>
+                        <p>
+                          Hash array pre-defining template blocks.
+                        </p>
+                        
+                        <h3 class="method" id="section_AUTO_RESET">AUTO_RESET</h3>
+                        <p>
+                          Enabled by default causing <code>BLOCK</code> definitions to be reset
+                          each time a template is processed. Disable to allow <code>BLOCK</code>
+                          definitions to persist.
+                        </p>
+                        
+                        <h3 class="method" id="section_RECURSION">RECURSION</h3>
+                        <p>
+                          Flag to permit recursion into templates (default: 0).
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Template_Variables" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template Variables</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_VARIABLES">VARIABLES</h3>
+                        <p>
+                          Hash array of variables and values to pre-define in the stash.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Runtime_Processing_Options" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Runtime Processing Options</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_EVAL_PERL">EVAL_PERL</h3>
+                        <p>
+                          Flag to indicate if <code>PERL</code>/<code>RAWPERL</code> blocks should
+                          be processed (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS, POST_PROCESS</h3>
+                        <p>
+                          Name of template(s) to process before/after main template.
+                        </p>
+                        
+                        <h3 class="method" id="section_PROCESS">PROCESS</h3>
+                        <p>
+                          Name of template(s) to process instead of main template.
+                        </p>
+                        
+                        <h3 class="method" id="section_ERROR">ERROR</h3>
+                        <p>
+                          Name of error template or reference to hash array mapping error types to
+                          templates.
+                        </p>
+                        
+                        <h3 class="method" id="section_OUTPUT">OUTPUT</h3>
+                        <p>
+                          Default output location or handler.
+                        </p>
+                        
+                        <h3 class="method" id="section_OUTPUT_PATH">OUTPUT_PATH</h3>
+                        <p>
+                          Directory into which output files can be written.
+                        </p>
+                        
+                        <h3 class="method" id="section_DEBUG">DEBUG</h3>
+                        <p>
+                          Enable debugging messages.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Caching_and_Compiling_Options" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Caching and Compiling Options</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_CACHE_SIZE">CACHE_SIZE</h3>
+                        <p>
+                          Maximum number of compiled templates to cache in memory (default: undef -
+                          cache all)
+                        </p>
+                        
+                        <h3 class="method" id="section_COMPILE_EXT">COMPILE_EXT</h3>
+                        <p>
+                          Filename extension for compiled template files (default: undef - don't
+                          compile).
+                        </p>
+                        
+                        <h3 class="method" id="section_COMPILE_DIR">COMPILE_DIR</h3>
+                        <p>
+                          Root of directory in which compiled template files should be written
+                          (default: undef - don't compile).
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Plugins_and_Filters" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Plugins and Filters</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_PLUGINS">PLUGINS</h3>
+                        <p>
+                          Reference to a hash array mapping plugin names to Perl packages.
+                        </p>
+                        
+                        <h3 class="method" id="section_PLUGIN_BASE">PLUGIN_BASE</h3>
+                        <p>
+                          One or more base classes under which plugins may be found.
+                        </p>
+                        
+                        <h3 class="method" id="section_LOAD_PERL">LOAD_PERL</h3>
+                        <p>
+                          Flag to indicate regular Perl modules should be loaded if a named plugin
+                          can't be found (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_FILTERS">FILTERS</h3>
+                        <p>
+                          Hash array mapping filter names to filter subroutines or factories.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Customisation_and_Extension" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Customisation and Extension</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <h3 class="method" id="section_LOAD_TEMPLATES">LOAD_TEMPLATES</h3>
+                        <p>
+                          List of template providers.
+                        </p>
+                        
+                        <h3 class="method" id="section_LOAD_PLUGINS">LOAD_PLUGINS</h3>
+                        <p>
+                          List of plugin providers.
+                        </p>
+                        
+                        <h3 class="method" id="section_LOAD_FILTERS">LOAD_FILTERS</h3>
+                        <p>
+                          List of filter providers.
+                        </p>
+                        
+                        <h3 class="method" id="section_TOLERANT">TOLERANT</h3>
+                        <p>
+                          Set providers to tolerate errors as declinations (default: 0).
+                        </p>
+                        
+                        <h3 class="method" id="section_SERVICE">SERVICE</h3>
+                        <p>
+                          Reference to a custom service object (default: <a href="../../docs/modules/Template/Service.html">Template::Service</a>).
+                        </p>
+                        
+                        <h3 class="method" id="section_CONTEXT">CONTEXT</h3>
+                        <p>
+                          Reference to a custom context object (default: <a href="../../docs/modules/Template/Context.html">Template::Context</a>).
+                        </p>
+                        
+                        <h3 class="method" id="section_STASH">STASH</h3>
+                        <p>
+                          Reference to a custom stash object (default: <a href="../../docs/modules/Template/Stash.html">Template::Stash</a>).
+                        </p>
+                        
+                        <h3 class="method" id="section_PARSER">PARSER</h3>
+                        <p>
+                          Reference to a custom parser object (default: <a href="../../docs/modules/Template/Parser.html">Template::Parser</a>).
+                        </p>
+                        
+                        <h3 class="method" id="section_GRAMMAR">GRAMMAR</h3>
+                        <p>
+                          Reference to a custom grammar object (default: <a href="../../docs/modules/Template/Grammar.html">Template::Grammar</a>).
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DIRECTIVE_SUMMARY" onclick="switch_section(this)" title="Click title to show/hide section content.">DIRECTIVE SUMMARY</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The following list gives a short summary of each Template Toolkit
+                      directive. See <a href="../../docs/manual/Directives.html">Template::Manual::Directives</a> for full details.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_GET" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">GET</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Evaluate and print a variable or value.
+                        </p>
+                        <pre><span class="tt">[%   GET variable %]</span>    # 'GET' keyword is optional
+<span class="tt">[%       variable %]</span>
+<span class="tt">[%       hash.key %]</span>
+<span class="tt">[%         list.n %]</span>
+<span class="tt">[%     code(args) %]</span>
+<span class="tt">[% obj.meth(args) %]</span>
+<span class="tt">[%  "value: $var" %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_CALL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">CALL</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          As per <a href="#section_GET">GET</a> but without printing result (e.g.
+                          call code)
+                        </p>
+                        <pre><span class="tt">[%  CALL variable %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_SET" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">SET</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Assign a values to variables.
+                        </p>
+                        <pre><span class="tt">[% SET variable = value %]</span>    # 'SET' also optional
+<span class="tt">[%     variable = other_variable
+       variable = 'literal text @ $100'
+       variable = "interpolated text: $var"
+       list     = [ val, val, val, val, ... ]
+       list     = [ val..val ]
+       hash     = { var =&gt; val, var =&gt; val, ... }
+%]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_DEFAULT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">DEFAULT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Like <a href="#section_SET">SET</a>, but variables are only set if
+                          currently unset (i.e. have no true value).
+                        </p>
+                        <pre><span class="tt">[% DEFAULT variable = value %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_INSERT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">INSERT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Insert a file without any processing performed on the contents.
+                        </p>
+                        <pre><span class="tt">[% INSERT legalese.txt %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_PROCESS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">PROCESS</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Process another template file or block and insert the generated output.
+                          Any template <a href="#section_BLOCK">BLOCK</a>s or variables defined or
+                          updated in the <code>PROCESS</code>ed template will thereafter be defined
+                          in the calling template.
+                        </p>
+                        <pre><span class="tt">[% PROCESS template %]</span>
+<span class="tt">[% PROCESS template  var = val, ... %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_INCLUDE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">INCLUDE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Similar to <code>PROCESS</code>, but using a local copy of the current
+                          variables. Any template <code>BLOCK</code>s or variables defined in the
+                          <code>INCLUDE</code>d template remain local to it.
+                        </p>
+                        <pre><span class="tt">[% INCLUDE template %]</span>
+<span class="tt">[% INCLUDE template  var = val, ... %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_WRAPPER" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">WRAPPER</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The content between the <code>WRAPPER</code> and correspondng
+                          <code>END</code> directives is first evaluated, with the output generated
+                          being stored in the <code>content</code> variable. The named template is
+                          then process as per <code>INCLUDE</code>.
+                        </p>
+                        <pre><span class="tt">[% WRAPPER layout %]</span>
+   Some template markup <span class="tt">[% blah %]</span>...
+<span class="tt">[% END %]</span></pre>
+                        <p>
+                          A simple <code class="file">layout</code> template might look something
+                          like this:
+                        </p>
+                        <pre>Your header here...
+<span class="tt">[% content %]</span>
+Your footer here...</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_BLOCK" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">BLOCK</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Define a named template block for <a href="#section_INCLUDE">INCLUDE</a>,
+                          <a href="#section_PROCESS">PROCESS</a> and <a
+                          href="#section_WRAPPER">WRAPPER</a> to use.
+                        </p>
+                        <pre><span class="tt">[% BLOCK hello %]</span>
+   Hello World
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% INCLUDE hello %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_FOREACH" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">FOREACH</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Repeat the enclosed <code>FOREACH</code> ... <code>END</code> block for
+                          each value in the list.
+                        </p>
+                        <pre><span class="tt">[% FOREACH variable IN [ val, val, val ] %]</span>    # either
+<span class="tt">[% FOREACH variable IN list %]</span>                 # or
+   The variable is set to <span class="tt">[% variable %]</span>
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_WHILE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">WHILE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The block enclosed between <code>WHILE</code> and <code>END</code> block
+                          is processed while the specified condition is true.
+                        </p>
+                        <pre><span class="tt">[% WHILE condition %]</span>
+   content
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_IF_UNLESS_ELSIF_ELSE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">IF / UNLESS / ELSIF / ELSE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The enclosed block is processed if the condition is true / false.
+                        </p>
+                        <pre><span class="tt">[% IF condition %]</span>
+   content
+<span class="tt">[% ELSIF condition %]</span>
+ content
+<span class="tt">[% ELSE %]</span>
+ content
+<span class="tt">[% END %]</span></pre>
+                        <pre><span class="tt">[% UNLESS condition %]</span>
+   content
+<span class="tt">[% # ELSIF/ELSE as per IF, above %]</span>
+   content
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_SWITCH_CASE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">SWITCH / CASE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Multi-way switch/case statement.
+                        </p>
+                        <pre><span class="tt">[% SWITCH variable %]</span>
+<span class="tt">[%   CASE val1 %]</span>
+       content
+<span class="tt">[%   CASE [ val2, val3 ] %]</span>
+       content
+<span class="tt">[%   CASE %]</span>         # or <span class="tt">[% CASE DEFAULT %]</span>
+       content
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_MACRO" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">MACRO</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Define a named macro.
+                        </p>
+                        <pre><span class="tt">[% MACRO name &lt;directive&gt; %]</span>
+<span class="tt">[% MACRO name(arg1, arg2) &lt;directive&gt; %]</span>
+...
+<span class="tt">[% name %]</span>
+<span class="tt">[% name(val1, val2) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_FILTER" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">FILTER</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Process enclosed <code>FILTER</code> ... <code>END</code> block then pipe
+                          through a filter.
+                        </p>
+                        <pre><span class="tt">[% FILTER name %]</span>                       # either
+<span class="tt">[% FILTER name( params ) %]</span>             # or
+<span class="tt">[% FILTER alias = name( params ) %]</span>     # or
+   content
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_USE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">USE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Load a plugin module (see <code>Template::&lt;Manual::Plugins</code>), or
+                          any regular Perl module when the <code>LOAD_PERL</code> option is set.
+                        </p>
+                        <pre><span class="tt">[% USE name %]</span>                      # either
+<span class="tt">[% USE name( params ) %]</span>            # or
+<span class="tt">[% USE var = name( params ) %]</span>      # or
+...
+<span class="tt">[% name.method %]</span>
+<span class="tt">[% var.method %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_PERL_RAWPERL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">PERL / RAWPERL</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Evaluate enclosed blocks as Perl code (requires the
+                          <code>EVAL_PERL</code> option to be set).
+                        </p>
+                        <pre><span class="tt">[% PERL %]</span>
+ # perl code goes here
+ $stash-&gt;set('foo', 10);
+ print "set 'foo' to ", $stash-&gt;get('foo'), "\n";
+ print $context-&gt;include('footer', { var =&gt; $val });
+<span class="tt">[% END %]</span></pre>
+                        <pre><span class="tt">[% RAWPERL %]</span>
+   # raw perl code goes here, no magic but fast.
+   $output .= 'some output';
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_TRY_THROW_CATCH_FINAL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">TRY / THROW / CATCH / FINAL</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Exception handling.
+                        </p>
+                        <pre><span class="tt">[% TRY %]</span>
+ content
+   <span class="tt">[% THROW type info %]</span>
+<span class="tt">[% CATCH type %]</span>
+ catch content
+   <span class="tt">[% error.type %]</span> <span class="tt">[% error.info %]</span>
+<span class="tt">[% CATCH %]</span> # or <span class="tt">[% CATCH DEFAULT %]</span>
+ content
+<span class="tt">[% FINAL %]</span>
+   this block is always processed
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_NEXT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">NEXT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Jump straight to the next item in a <code>FOREACH</code> or
+                          <code>WHILE</code> loop.
+                        </p>
+                        <pre><span class="tt">[% NEXT %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_LAST" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">LAST</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Break out of <code>FOREACH</code> or <code>WHILE</code> loop.
+                        </p>
+                        <pre><span class="tt">[% LAST %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_RETURN" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">RETURN</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Stop processing current template and return to including templates.
+                        </p>
+                        <pre><span class="tt">[% RETURN %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_STOP" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">STOP</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Stop processing all templates and return to caller.
+                        </p>
+                        <pre><span class="tt">[% STOP %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_TAGS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">TAGS</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Define new tag style or characters (default: <code>[%</code>
+                          <code>%]</code>).
+                        </p>
+                        <pre><span class="tt">[% TAGS html %]</span>
+<span class="tt">[% TAGS &lt;!-- --&gt; %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_COMMENTS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">COMMENTS</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Ignored and deleted.
+                        </p>
+                        <pre><span class="tt">[% # this is a comment to the end of line
+   foo = 'bar'
+%]</span></pre>
+                        <pre><span class="tt">[%# placing the '#' immediately inside the directive
+    tag comments out the entire directive
+%]</span></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_VERSION" onclick="switch_section(this)" title="Click title to show/hide section content.">VERSION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Template Toolkit version 2.20, released June 2007.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/modules/Template.html last modified 14:40:09 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <span class="go back">Back<span class="about"></span></span>
+            <a href="../../docs/modules/index.html" title="Template::Modules" class="go up">Up<span class="about"><strong>Template::Modules</strong></span></a>
+            <a href="../../docs/modules/Template/index.html" title="Template::* Modules" class="go next">Next<span class="about"><strong>Template::* Modules</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

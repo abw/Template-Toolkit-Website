@@ -1,0 +1,91 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE CGI %]</span>
+      <span class="tt">[% CGI.param('parameter') %]</span>
+      
+      <span class="tt">[% USE things = CGI %]</span>
+      <span class="tt">[% things.param('name') %]</span>
+      
+      # see CGI docs for other methods provided by the CGI object
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This is a very simple Template Toolkit Plugin interface to the
+      <code>CGI</code> module. A <code>CGI</code> object will be instantiated
+      via the following directive:
+    </p>
+    <pre>
+      <span class="tt">[% USE CGI %]</span>
+    </pre>
+    <p>
+      <code>CGI</code> methods may then be called as follows:
+    </p>
+    <pre>
+      <span class="tt">[% CGI.header %]</span>
+      <span class="tt">[% CGI.param('parameter') %]</span>
+    </pre>
+    <p>
+      An alias can be used to provide an alternate name by which the object
+      should be identified.
+    </p>
+    <pre>
+      <span class="tt">[% USE mycgi = CGI %]</span>
+      <span class="tt">[% mycgi.start_form %]</span>
+      <span class="tt">[% mycgi.popup_menu({ Name   =&gt; 'Color'
+                            Values =&gt; [ 'Green' 'Black' 'Brown' ] }) %]</span>
+    </pre>
+    <p>
+      Parenthesised parameters to the <code>USE</code> directive will be passed
+      to the plugin constructor:
+    </p>
+    <pre>
+      <span class="tt">[% USE cgiprm = CGI('uid=abw&amp;name=Andy+Wardley') %]</span>
+      <span class="tt">[% cgiprm.param('uid') %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    <p>
+      In addition to all the methods supported by the <code>CGI</code> module,
+      this plugin defines the following.
+    </p>
+    [** WRAPPER page/subsection title='params()' id='method_params' class='method' -**]
+    <p>
+      This method returns a reference to a hash of all the <code>CGI</code>
+      parameters. Any parameters that have multiple values will be returned as
+      lists.
+    </p>
+    <pre>
+      <span class="tt">[% USE CGI('user=abw&amp;item=foo&amp;item=bar') %]</span>
+      <span class="tt">[% CGI.params.user %]</span>            # abw
+      <span class="tt">[% CGI.params.item.join(', ') %]</span> # foo, bar
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>, <a
+      href="[** cpanmod('CGI') **]">CGI</a>
+    </p>
+[** END -**]
+
+</div>

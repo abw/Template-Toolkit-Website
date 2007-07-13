@@ -1,0 +1,23 @@
+---
+/:
+  menu:
+    - /about.html
+    - /download/index.html
+    - /docs/index.html
+    - /mail/index.html
+    - /book.html
+/mail/:
+  menu:
+    - /mail/templates/index.html
+    - /mail/templates-announce/index.html
+    - /mail/templates-svn/index.html
+/mail/templates/:
+  menu:
+    - /mail/templates/archive.html
+/mail/templates-announce/:
+  menu:
+    - /mail/templates-announce/archive.html
+/mail/templates-svn/:
+  menu:
+    - /mail/templates-svn/archive.html
+/download/:

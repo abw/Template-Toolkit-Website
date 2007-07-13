@@ -1,0 +1,144 @@
+[% PROCESS css/grey.css %]
+
+#palette,
+#header #logo,
+#header #trail,
+#header div.controls,
+#footer div.controls,
+#sidebar,
+a.top {
+    display: none;
+}
+
+#body {
+    padding: 10px;
+    background-color: white;
+    background-image: none;
+}
+
+#layout, #page {
+    background-image: none;
+}    
+
+#header {
+    height: 80px;
+    background-image: none;
+    padding: 10px;
+}
+
+#header h1.headline {
+    padding: 0;
+}
+
+#header h2.subhead {
+    padding: 0;
+}
+
+#header a.permalink {
+    display: block;
+    margin: 5px 0;
+    font-size: 12px;
+    color: black;
+}
+
+
+#page {
+    padding: 0px;
+    margin: 0 0 0 0;
+    background-image: none;
+    background-color: white;
+}
+
+#content {
+    padding: 0 10px;
+    background: white none;
+}
+
+#footer {
+    margin: 0;
+    padding: 0;
+    height: 80px;
+    background-image: none;
+}
+
+#footer a.osi {
+    display: none;
+    left: 20px;
+}
+
+#footer .copyright {
+    padding: 0;
+}
+
+div.section,
+div.subsection {
+    padding-left: 0px;
+}
+
+div.section div.head h1,
+div.section.open div.head h1,
+div.section.shut div.head h1,
+div.section div.head h2,
+div.section.open div.head h2,
+div.section.shut div.head h2,
+div.subsection div.head h1,
+div.subsection.open div.head h1,
+div.subsection.shut div.head h1,
+div.subsection div.head h2,
+div.subsection.open div.head h2,
+div.subsection.shut div.head h2 {
+    margin-left: 0;
+    padding-left: 0;
+    background-image: none;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    list-style: disc;
+    padding: 0;
+    background-image: none;
+}
+
+ul.toc  {
+    padding-left: 0px;
+}
+
+ul.toc li {
+    list-style: none;
+    padding: 0;
+    background-image: none;
+}
+
+ul.toc li a {
+    padding: 4px 0 1px 0px;
+    background-image: none;
+    color: black;
+}
+
+ul.toc li.sub a {
+    margin-left: 15px;
+    padding: 4px 0 1px 0px;
+    background-image: none;
+    color: black;
+}
+
+ul.toc li.subsub a {
+    margin-left: 30px;
+    padding: 4px 0 1px 0px;
+    background-image: none;
+    color: black;
+}
+
+#content a.ext, a.ext:visited {
+    padding: 0;
+    background-image: none;
+}
+
+#content a.ext:after {
+   content: " [" attr(href) "] ";
+   font-size: 90%;
+}
+

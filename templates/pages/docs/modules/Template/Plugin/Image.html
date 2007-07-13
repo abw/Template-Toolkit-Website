@@ -1,0 +1,303 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE Image(filename) %]</span>
+      <span class="tt">[% Image.width %]</span>
+      <span class="tt">[% Image.height %]</span>
+      <span class="tt">[% Image.size.join(', ') %]</span>
+      <span class="tt">[% Image.attr %]</span>
+      <span class="tt">[% Image.tag %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This plugin provides an interface to the <a href="[**
+      cpanmod('Image::Info') **]">Image::Info</a> or <a href="[**
+      cpanmod('Image::Size') **]">Image::Size</a> modules for determining the
+      size of image files.
+    </p>
+    <p>
+      You can specify the plugin name as either '<code>Image</code>' or
+      '<code>image</code>'. The plugin object created will then have the same
+      name. The file name of the image should be specified as a positional or
+      named argument.
+    </p>
+    <pre>
+      <span class="tt">[% # all these are valid, take your pick %]</span>
+      <span class="tt">[% USE Image('foo.gif') %]</span>
+      <span class="tt">[% USE image('bar.gif') %]</span>
+      <span class="tt">[% USE Image 'ping.gif' %]</span>
+      <span class="tt">[% USE image(name='baz.gif') %]</span>
+      <span class="tt">[% USE Image name='pong.gif' %]</span>
+    </pre>
+    <p>
+      A <code>root</code> parameter can be used to specify the location of the
+      image file:
+    </p>
+    <pre>
+      <span class="tt">[% USE Image(root='/path/to/root', name='images/home.png') %]</span>
+      # image path: /path/to/root/images/home.png
+      # img src: images/home.png
+    </pre>
+    <p>
+      In cases where the image path and image url do not match up, specify the
+      file name directly:
+    </p>
+    <pre>
+      <span class="tt">[% USE Image(file='/path/to/home.png', name='/images/home.png') %]</span>
+    </pre>
+    <p>
+      The <code>alt</code> parameter can be used to specify an alternate name
+      for the image, for use in constructing an XHTML element (see the
+      <code>tag()</code> method below).
+    </p>
+    <pre>
+      <span class="tt">[% USE Image('home.png', alt="Home") %]</span>
+    </pre>
+    <p>
+      You can also provide an alternate name for an <code>Image</code> plugin
+      object.
+    </p>
+    <pre>
+      <span class="tt">[% USE img1 = image 'foo.gif' %]</span>
+      <span class="tt">[% USE img2 = image 'bar.gif' %]</span>
+    </pre>
+    <p>
+      The <code>name</code> method returns the image file name.
+    </p>
+    <pre>
+      <span class="tt">[% img1.name %]</span>     # foo.gif
+    </pre>
+    <p>
+      The <code>width</code> and <code>height</code> methods return the width
+      and height of the image, respectively. The <code>size</code> method
+      returns a reference to a 2 element list containing the width and height.
+    </p>
+    <pre>
+      <span class="tt">[% USE image 'foo.gif' %]</span>
+      width: <span class="tt">[% image.width %]</span>
+      height: <span class="tt">[% image.height %]</span>
+      size: <span class="tt">[% image.size.join(', ') %]</span>
+    </pre>
+    <p>
+      The <code>modtime</code> method returns the modification time of the file
+      in question, suitable for use with the <a href="[**
+      ttmodlink('Template::Plugin::Date') **]">Date</a> plugin, for example:
+    </p>
+    <pre>
+      <span class="tt">[% USE image 'foo.gif' %]</span>
+      <span class="tt">[% USE date %]</span>
+      <span class="tt">[% date.format(image.modtime, "%B, %e %Y") %]</span>
+    </pre>
+    <p>
+      The <code>attr</code> method returns the height and width as HTML/XML
+      attributes.
+    </p>
+    <pre>
+      <span class="tt">[% USE image 'foo.gif' %]</span>
+      <span class="tt">[% image.attr %]</span>
+    </pre>
+    <p>
+      Typical output:
+    </p>
+    <pre>
+      width="60" height="20"
+    </pre>
+    <p>
+      The <code>tag</code> method returns a complete XHTML tag referencing the
+      image.
+    </p>
+    <pre>
+      <span class="tt">[% USE image 'foo.gif' %]</span>
+      <span class="tt">[% image.tag %]</span>
+    </pre>
+    <p>
+      Typical output:
+    </p>
+    <pre>
+      &lt;img src="foo.gif" width="60" height="20" alt="" /&gt;
+    </pre>
+    <p>
+      You can provide any additional attributes that should be added to the
+      XHTML tag.
+    </p>
+    <pre>
+      <span class="tt">[% USE image 'foo.gif' %]</span>
+      <span class="tt">[% image.tag(class="logo" alt="Logo") %]</span>
+    </pre>
+    <p>
+      Typical output:
+    </p>
+    <pre>
+      &lt;img src="foo.gif" width="60" height="20" alt="Logo" class="logo" /&gt;
+    </pre>
+    <p>
+      Note that the <code>alt</code> attribute is mandatory in a strict XHTML
+      <code>img</code> element (even if it's empty) so it is always added even
+      if you don't explicitly provide a value for it. You can do so as an
+      argument to the <code>tag</code> method, as shown in the previous
+      example, or as an argument
+    </p>
+    <pre>
+      <span class="tt">[% USE image('foo.gif', alt='Logo') %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='CATCHING ERRORS' id='section_CATCHING_ERRORS' -**]
+    <p>
+      If the image file cannot be found then the above methods will throw an
+      <code>Image</code> error. You can enclose calls to these methods in a
+      <code>TRY...CATCH</code> block to catch any potential errors.
+    </p>
+    <pre>
+      <span class="tt">[% TRY;
+           image.width;
+         CATCH;
+           error;      # print error
+         END
+      %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='USING Image::Info' id='section_USING_Image_Info' -**]
+    <p>
+      At run time, the plugin tries to load <a href="[** cpanmod('Image::Info')
+      **]">Image::Info</a> in preference to <a href="[** cpanmod('Image::Size')
+      **]">Image::Size</a>. If <a href="[** cpanmod('Image::Info')
+      **]">Image::Info</a> is found, then some additional methods are
+      available, in addition to <code>size</code>, <code>width</code>,
+      <code>height</code>, <code>attr</code>, and <code>tag</code>. These
+      additional methods are named after the elements that <a href="[**
+      cpanmod('Image::Info') **]">Image::Info</a> retrieves from the image
+      itself. The types of methods available depend on the type of image (see
+      <a href="[** cpanmod('Image::Info') **]">Image::Info</a> for more
+      details). These additional methods will always include the following:
+    </p>
+    [** WRAPPER page/subsection title='file_media_type' id='section_file_media_type' class='' -**]
+    <p>
+      This is the MIME type that is appropriate for the given file format. The
+      corresponding value is a string like: "<code>image/png</code>" or
+      "<code>image/jpeg</code>".
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='file_ext' id='section_file_ext' class='' -**]
+    <p>
+      The is the suggested file name extention for a file of the given file
+      format. The value is a 3 letter, lowercase string like
+      "<code>png</code>", "<code>jpg</code>".
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='color_type' id='section_color_type' class='' -**]
+    <p>
+      The value is a short string describing what kind of values the pixels
+      encode. The value can be one of the following:
+    </p>
+    <pre>
+      Gray
+      GrayA
+      RGB
+      RGBA
+      CMYK
+      YCbCr
+      CIELab
+    </pre>
+    <p>
+      These names can also be prefixed by "<code>Indexed-</code>" if the image
+      is composed of indexes into a palette. Of these, only
+      "<code>Indexed-RGB</code>" is likely to occur.
+    </p>
+    <p>
+      (It is similar to the TIFF field PhotometricInterpretation, but this name
+      was found to be too long, so we used the PNG inpired term instead.)
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='resolution' id='section_resolution' class='' -**]
+    <p>
+      The value of this field normally gives the physical size of the image on
+      screen or paper. When the unit specifier is missing then this field
+      denotes the squareness of pixels in the image.
+    </p>
+    <p>
+      The syntax of this field is:
+    </p>
+    <pre>
+         &lt;res&gt; &lt;unit&gt;
+         &lt;xres&gt; "/" &lt;yres&gt; &lt;unit&gt;
+         &lt;xres&gt; "/" &lt;yres&gt;
+    </pre>
+    <p>
+      The <code>&lt;res&gt;</code>, <code>&lt;xres&gt;</code> and
+      <code>&lt;yres&gt;</code> fields are numbers. The
+      <code>&lt;unit&gt;</code> is a string like <code>dpi</code>,
+      <code>dpm</code> or <code>dpcm</code> (denoting "dots per inch/cm/meter).
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='SamplesPerPixel' id='section_SamplesPerPixel' class='' -**]
+    <p>
+      This says how many channels there are in the image. For some image
+      formats this number might be higher than the number implied from the
+      <code>color_type</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='BitsPerSample' id='section_BitsPerSample' class='' -**]
+    <p>
+      This says how many bits are used to encode each of samples. The value is
+      a reference to an array containing numbers. The number of elements in the
+      array should be the same as <code>SamplesPerPixel</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Comment' id='section_Comment' class='' -**]
+    <p>
+      Textual comments found in the file. The value is a reference to an array
+      if there are multiple comments found.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Interlace' id='section_Interlace' class='' -**]
+    <p>
+      If the image is interlaced, then this returns the interlace type.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Compression' id='section_Compression' class='' -**]
+    <p>
+      This returns the name of the compression algorithm is used.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Gamma' id='section_Gamma' class='' -**]
+    <p>
+      A number indicating the gamma curve of the image (e.g. 2.2)
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>, <a
+      href="[** cpanmod('Image::Info') **]">Image::Info</a>
+    </p>
+[** END -**]
+
+</div>

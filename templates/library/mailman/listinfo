@@ -1,0 +1,98 @@
+[% page.notoc = 1 %]
+[% WRAPPER page/section title="About the List" id='about' -%]
+<p>
+[% content %]
+</p>
+<a href="[% site.url.pipermail %]/[% id %]/" class="download">Read the [% name %] Archives</a>
+[% END %]
+
+[% WRAPPER page/section title="Using the List" id='using' -%]
+<p>
+  To post a message to all the list members, send email to
+  <a href="mailto:<MM-Posting-Addr>"><MM-Posting-Addr></a>.
+  You must be a subscribed member of the list to post.
+</p>
+[% END %]
+
+[% WRAPPER page/section title="Subscribing to the List" id='subscribing' -%]
+<p>
+  Subscribe to the [% name %] Mailing List by filling out the following
+  form.
+</p>
+<p>
+  <MM-List-Subscription-Msg>
+</p>
+
+<MM-Subscribe-Form-Start>
+<table class="mailman" cellspacing="2" cellpadding="2" width="90%">
+  <tr>
+    <td class="key">Your email address:</td>
+    <td class="value"><MM-Subscribe-Box></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="info">
+      You must enter a privacy password. This provides only mild security, but
+      should prevent others from messing with your subscription. Do not use
+      valuable passwords!
+      <MM-Reminder>
+    </td>
+  </tr>  
+  <tr>
+    <td class="key">Pick a password:</td>
+    <td class="value"><MM-New-Password-Box></td>
+  </tr>  
+  <tr>
+    <td class="key">Re-enter password to confirm:</td>
+    <td class="value"><MM-Confirm-Password></td>
+  </tr>  
+  <tr>
+    <td class="key">
+      Would you like to receive list mail batched in a daily
+      digest?
+    </td>
+    <td class="value">
+      <MM-Undigest-Radio-Button> No
+      <MM-Digest-Radio-Button> Yes
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>
+      <MM-Subscribe-Button>
+    </td>
+  </tr>
+</table>
+<MM-Form-End>
+[% END %]
+
+[% WRAPPER page/section title="List Subscribers" id='options' -%]
+<p>
+  To change your subscription (set options like digest and delivery modes, get
+  a reminder of your password, or unsubscribe from templates), enter your
+  subscription email address:
+</p>
+
+<MM-Subscribe-Form-Start>
+<table class="mailman" cellspacing="2" cellpadding="2" width="90%">
+  <tr>
+    <td class="key">Your email address:</td>
+    <td class="value">
+      <INPUT name="info" type="TEXT" value="" size="30" >
+    </td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td>
+      <INPUT name="UserOptions" type="SUBMIT" value="Edit Options" >
+    </td>
+  </tr>
+</table>
+<MM-Form-End>
+[% END %]
+
+[% IF admin %]
+<div class="mailadmin">
+  <a href="[% site.url.mailman %]/admin/[% id %]">[% name %] administrative interface</a> (requires authorization)
+</div>
+[% END %]

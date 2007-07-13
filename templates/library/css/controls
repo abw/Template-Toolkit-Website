@@ -1,0 +1,222 @@
+/*------------------------------------------------------------------------*/
+/* controls for showing/hiding the menu                                   */
+/*------------------------------------------------------------------------*/
+
+div.controls a.menu {
+    display: block;
+    float: right;
+    margin-right: 5px;
+    width: 40px;
+    height: 30px;
+    background: url('[% glass %]/hide_menu.gif') no-repeat 0 5px;
+}
+
+div.controls a.hide:hover {
+    background-image: url('[% glass %]/hide_menu_roll.gif');
+}
+
+div.controls a.show {
+    background-image: url('[% glass %]/show_menu.gif');
+}
+
+div.controls a.show:hover {
+    background-image: url('[% glass %]/show_menu_roll.gif');
+}
+
+body div.controls a.hide {
+    display: block;
+}
+
+body div.controls a.show {
+    display: none;
+}
+
+body.wide div.controls a.hide {
+    display: none;
+}
+
+body.wide div.controls a.show {
+    display: block;
+}
+
+
+/*------------------------------------------------------------------------*/
+/* rollover tooltip box for our talking badger                            */
+/*------------------------------------------------------------------------*/
+
+div.controls a span.about,
+div.controls span span.about {
+    display: none;
+    position: absolute;
+    right: 175px;
+    top: 5px;
+    height: 40px;
+    width: 200px;
+    padding: 10px 37px 13px 10px;
+    font-size: 10px;
+    line-height: 13px;
+    text-align: left;
+    color: [% rgb.mid_grey %];
+    background: url('[% common %]/talkbox.gif') no-repeat top right;
+}
+
+div.controls a:hover span.about,
+div.controls span:hover span.about {
+    display: block;
+}
+
+div.controls span.about h4 {
+    display: block;
+    font-size: 11px;
+    margin: 0;
+    padding: 0 0 1px 0;
+    color: [% rgb.dark_grey %];
+}
+
+
+/*------------------------------------------------------------------------*/
+/* pager for going to the previous/index/next page                        */
+/*------------------------------------------------------------------------*/
+
+div.pager {
+    clear: right;
+    float: right;
+    padding-top: 5px;
+    width: 98px;
+}
+
+div.pager .go {
+    display: block;
+    float: left;
+    height: 18px;
+    padding-top: 18px;
+    width: 32px;
+    font-size: 10px;
+    text-align: center;
+    background: url('[% arrows %]/large/[% cold %]/dot.gif') no-repeat top center;
+}
+
+div.pager span.go {
+    color: #aaa;
+}
+
+div.pager a.go {
+    color: [% col.link %];
+}
+
+div.pager a.go:hover {
+    color: [% col.roll %];
+}
+
+[%  directions = {
+       back = 'left'
+       up   = 'up'
+       next = 'right'
+    };
+    FOREACH direction IN directions.keys.sort;
+       dir_img = directions.$direction;
+-%]
+div.pager a.[% direction %] {
+    background-image: url('[% arrows %]/large/[% warm %]/[% dir_img %].gif');
+}
+div.pager a.[% direction %]:hover {
+    background-image: url('[% arrows %]/large/[% roll %]/[% dir_img %].gif');
+}
+div.pager span.[% direction %] {
+    background-image: url('[% arrows %]/large/[% cold %]/[% dir_img %].gif');
+}
+
+div.pager strong {
+    display: block;
+    font-weight: bold;
+    color: [% col.head %];
+}
+
+[% END -%]
+
+
+/*------------------------------------------------------------------------*/
+/* pager is repeated in footer, but with text above arrows not below      */
+/*------------------------------------------------------------------------*/
+
+#footer .pager  {
+    padding-top: 0;
+}
+
+#footer .pager .go {
+    height: 42px;
+    padding-top: 0;
+    background-position: bottom center;
+}
+
+#footer a span.about {
+    display: none;
+    position: absolute;
+    right: 28px;
+    width: 200px;
+    top: 58px;
+    height: 25px;
+    padding: 0;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: right;
+    color: [% rgb.dark_grey %];
+    background-image: none;
+}
+
+#footer span span.about {
+    display: none;
+}
+
+#footer a:hover span.about {
+    display: block;
+}
+
+
+/*------------------------------------------------------------------------*/
+/* colour selection palette                                               */
+/*------------------------------------------------------------------------*/
+
+#palette {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    height: 20px;
+    margin-top: 0px;
+    width: [% 24 * site.schemes.size + 24 %]px;
+    background: url('[% glass %]/palette.gif') no-repeat top right;
+}
+
+#palette ul {
+    display: block;
+    height: 20px;
+    margin: 0 12px 0 0;
+    padding: 0 0 0 12px;
+    background: url('[% glass %]/palette.gif') no-repeat top left;
+}
+
+#palette li {
+    display: inline;
+    padding: 0;
+    margin: 0;
+}
+
+#palette li a {
+    display: block;
+    float: left;
+    height: 20px;
+    width: 24px;
+    padding: 0;
+    margin: 0;
+    background: url('[% glass %]/col_grey_in.gif') no-repeat top right;
+}
+
+[% FOREACH scheme IN site.schemes -%]
+#palette li a.[% scheme %] {
+    background-image: url('[% glass %]/col_[% scheme %]_[% scheme == name ? 'out' : 'in' %].gif');
+}
+#palette li a.[% scheme %]:hover {
+    background-image: url('[% glass %]/col_[% scheme %]_out.gif');
+}
+[% END %]
+

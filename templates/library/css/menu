@@ -1,0 +1,70 @@
+/*------------------------------------------------------------------------*/
+/* menu styles                                                            */
+/*------------------------------------------------------------------------*/
+
+ul.menu {
+    list-style: none;
+    margin: 0 20px;
+    padding: 0;
+}
+
+ul.menu li {
+    list-style: none;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+ul.menu li.last {
+    background: url('[% glass %]/menu_item_foot.gif') no-repeat top left;
+    padding-top: 1px;
+}
+
+ul.menu li a {
+    display: block;
+    margin: 0;
+    padding: 4px 8px;
+    font-size: 13px;
+    line-height: 16px;
+    min-height: 16px;
+    color: [% col.menu.link %];
+    text-decoration: none;
+    background: url('[% glass %]/menu_item_body.gif') no-repeat top left;
+}
+
+ul.menu li.first a {
+    background-image: url('[% glass %]/menu_item_head.gif');
+}
+
+ul.menu li.last a {
+    background: url('[% glass %]/menu_item_foot.gif') no-repeat bottom left;
+}
+
+ul.menu li a:hover {
+    color: [% col.menu.roll %];
+    background-image: url('[% glass %]/menu_warm_body.gif'); 
+}
+
+ul.menu li a.warm {
+    font-weight: bold;
+    background-image: url('[% glass %]/menu_warm_body.gif');
+}
+
+ul.menu li.first a.warm,
+ul.menu li.first a:hover {
+    background-image: url('[% glass %]/menu_warm_head.gif');
+}
+
+ul.menu li.last a.warm,
+ul.menu li.last a:hover {
+    background: url('[% glass %]/menu_warm_foot.gif') no-repeat bottom left;
+}
+
+[% FOREACH level IN [1..7] -%]
+ul.menu li.l[% level %] a {
+    padding: 3px 8px 3px [% 8 + level * 14 %]px;
+    font-size: 11px;
+}
+[% END %]
+
+

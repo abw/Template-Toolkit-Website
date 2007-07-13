@@ -1,0 +1,166 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE autoformat(options) %]</span>
+      
+      <span class="tt">[% autoformat(text, more_text, ..., options) %]</span>
+      
+      <span class="tt">[% FILTER autoformat(options) %]</span>
+         a block of text
+      <span class="tt">[% END %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='EXAMPLES' id='section_EXAMPLES' -**]
+    <pre>
+      # define some text for the examples
+      <span class="tt">[% text = BLOCK %]</span>
+         Be not afeard.  The isle is full of noises, sounds and sweet 
+         airs that give delight but hurt not.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # pass options to constructor...
+      <span class="tt">[% USE autoformat(case =&gt; 'upper') %]</span>
+      <span class="tt">[% autoformat(text) %]</span>
+      
+      # and/or pass options to the autoformat subroutine itself
+      <span class="tt">[% USE autoformat %]</span>
+      <span class="tt">[% autoformat(text, case =&gt; 'upper') %]</span>
+      
+      # using the autoformat filter
+      <span class="tt">[% USE autoformat(left =&gt; 10, right =&gt; 30) %]</span>
+      <span class="tt">[% FILTER autoformat %]</span>
+         Be not afeard.  The isle is full of noises, sounds and sweet 
+         airs that give delight but hurt not.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # another filter example with configuration options
+      <span class="tt">[% USE autoformat %]</span>
+      <span class="tt">[% FILTER autoformat(left =&gt; 20) %]</span>
+         Be not afeard.  The isle is full of noises, sounds and sweet 
+         airs that give delight but hurt not.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # another FILTER example, defining a 'poetry' filter alias
+      <span class="tt">[% USE autoformat %]</span>
+      <span class="tt">[% text FILTER poetry = autoformat(left =&gt; 20, right =&gt; 40) %]</span>
+      
+      # reuse the 'poetry' filter alias
+      <span class="tt">[% text FILTER poetry %]</span>
+    </pre>
+    <pre>
+      # shorthand form ('|' is an alias for 'FILTER')
+      <span class="tt">[% text | autoformat %]</span>
+    </pre>
+    <pre>
+      # using forms
+      <span class="tt">[% USE autoformat(form =&gt; '&gt;&gt;&gt;&gt;.&lt;&lt;&lt;', numeric =&gt; 'AllPlaces') %]</span>
+      <span class="tt">[% autoformat(10, 20.32, 11.35) %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The autoformat plugin is an interface to Damian Conway's
+      <code>Text::Autoformat</code> Perl module which provides advanced text
+      wrapping and formatting.
+    </p>
+    <p>
+      Configuration options may be passed to the plugin constructor via the
+      <code>USE</code> directive.
+    </p>
+    <pre>
+      <span class="tt">[% USE autoformat(right =&gt; 30) %]</span>
+    </pre>
+    <p>
+      The autoformat subroutine can then be called, passing in text items which
+      will be wrapped and formatted according to the current configuration.
+    </p>
+    <pre>
+      <span class="tt">[% autoformat('The cat sat on the mat') %]</span>
+    </pre>
+    <p>
+      Additional configuration items can be passed to the autoformat subroutine
+      and will be merged with any existing configuration specified via the
+      constructor.
+    </p>
+    <pre>
+      <span class="tt">[% autoformat(text, left =&gt; 20) %]</span>
+    </pre>
+    <p>
+      Configuration options are passed directly to the
+      <code>Text::Autoformat</code> plugin. At the time of writing, the basic
+      configuration items are:
+    </p>
+    <pre>
+      left        left margin (default: 1)
+      right       right margin (default 72)
+      justify     justification as one of 'left', 'right', 'full'
+                  or 'centre' (default: left)
+      case        case conversion as one of 'lower', 'upper',
+                  'sentence', 'title', or 'highlight' (default: none)
+      squeeze     squeeze whitespace (default: enabled)
+    </pre>
+    <p>
+      The plugin also accepts a <code>form</code> item which can be used to
+      define a format string. When a form is defined, the plugin will call the
+      underlying <code>form()</code> subroutine in preference to
+      <code>autoformat()</code>.
+    </p>
+    <pre>
+      <span class="tt">[% USE autoformat(form =&gt; '&gt;&gt;&gt;&gt;.&lt;&lt;') %]</span>
+      <span class="tt">[% autoformat(123.45, 666, 3.14) %]</span>
+    </pre>
+    <p>
+      Additional configuration items relevant to forms can also be specified.
+    </p>
+    <pre>
+      <span class="tt">[% USE autoformat(form =&gt; '&gt;&gt;&gt;&gt;.&lt;&lt;', numeric =&gt; 'AllPlaces') %]</span>
+      <span class="tt">[% autoformat(123.45, 666, 3.14) %]</span>
+    </pre>
+    <p>
+      These can also be passed directly to the autoformat subroutine.
+    </p>
+    <pre>
+      <span class="tt">[% USE autoformat %]</span>
+      <span class="tt">[% autoformat( 123.45, 666, 3.14,
+                     form    =&gt; '&gt;&gt;&gt;&gt;.&lt;&lt;', 
+                     numeric =&gt; 'AllPlaces' )
+      %]</span>
+    </pre>
+    <p>
+      See <a href="[** cpanmod('Text::Autoformat') **]">Text::Autoformat</a>
+      for further details.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='AUTHORS' id='section_AUTHORS' -**]
+    <p>
+      Robert McArthur wrote the original plugin code, with some modifications
+      and additions from Andy Wardley.
+    </p>
+    <p>
+      Damian Conway wrote the <a href="[** cpanmod('Text::Autoformat')
+      **]">Text::Autoformat</a> module which does all the clever stuff.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 2000-2007 Robert McArthur &amp; Andy Wardley. All Rights
+      Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>, <a
+      href="[** cpanmod('Text::Autoformat') **]">Text::Autoformat</a>
+    </p>
+[** END -**]
+
+</div>

@@ -1,0 +1,11 @@
+<div id="content">
+[% IF page.notoc;
+     content | trim | indent(2);
+   ELSE;
+     # scan content to build a table of contents
+     USE ht = TOC(content);
+     INCLUDE page/toc;
+     ht.html | trim | indent(2);
+   END;
+-%]
+</div>

@@ -1,0 +1,375 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Test;
+         
+      $Template::Test::DEBUG = 0;   # set this true to see each test running
+      $Template::Test::EXTRA = 2;   # 2 extra tests follow test_expect()...
+      
+      # ok() can be called any number of times before test_expect
+      ok( $true_or_false )
+      
+      # test_expect() splits $input into individual tests, processes each 
+      # and compares generated output against expected output
+      test_expect($input, $template, \%replace );
+      
+      # $input is text or filehandle (e.g. DATA section after __END__)
+      test_expect( $text );
+      test_expect( \*DATA );
+      
+      # $template is a Template object or configuration hash
+      my $template_cfg = { ... };
+      test_expect( $input, $template_cfg );
+      my $template_obj = Template-&gt;new($template_cfg);
+      test_expect( $input, $template_obj );
+      
+      # $replace is a hash reference of template variables
+      my $replace = {
+          a =&gt; 'alpha',
+          b =&gt; 'bravo'
+      };
+      test_expect( $input, $template, $replace );
+      
+      # ok() called after test_expect should be declared in $EXTRA (2)
+      ok( $true_or_false )   
+      ok( $true_or_false )   
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Test</code> module defines the <a
+      href="#method_test_expect">test_expect()</a> and other related
+      subroutines which can be used to automate test scripts for the Template
+      Toolkit. See the numerous tests in the <code class="file">t</code>
+      sub-directory of the distribution for examples of use.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='PACKAGE SUBROUTINES' id='section_PACKAGE_SUBROUTINES' -**]
+    [** WRAPPER page/subsection title='text_expect()' id='method_text_expect' class='method' -**]
+    <p>
+      The <code>test_expect()</code> subroutine splits an input document into a
+      number of separate tests, processes each one using the Template Toolkit
+      and then compares the generated output against an expected output, also
+      specified in the input document. It generates the familiar
+      <code>ok</code>/<code>not ok</code> output compatible with
+      <code>Test::Harness</code>.
+    </p>
+    <p>
+      The test input should be specified as a text string or a reference to a
+      filehandle (e.g. <code>GLOB</code> or <code>IO::Handle</code>) from which
+      it can be read. In particular, this allows the test input to be placed
+      after the <code>__END__</code> marker and read via the <code>DATA</code>
+      filehandle.
+    </p>
+    <pre>
+      use Template::Test;
+      
+      test_expect(\*DATA);
+      
+      __END__
+      # this is the first test (this is a comment)
+      -- test --
+      blah blah blah <span class="tt">[% foo %]</span>
+      -- expect --
+      blah blah blah value_of_foo
+      
+      # here's the second test (no surprise, so is this)
+      -- test --
+      more blah blah <span class="tt">[% bar %]</span>
+      -- expect --
+      more blah blah value_of_bar
+    </pre>
+    <p>
+      Blank lines between test sections are generally ignored. Any line
+      starting with <code>#</code> is treated as a comment and is ignored.
+    </p>
+    <p>
+      The second and third parameters to <code>test_expect()</code> are
+      optional. The second may be either a reference to a Template object which
+      should be used to process the template fragments, or a reference to a
+      hash array containing configuration values which should be used to
+      instantiate a new Template object.
+    </p>
+    <pre>
+      # pass reference to config hash
+      my $config = {
+          INCLUDE_PATH =&gt; '/here/there:/every/where',
+          POST_CHOMP   =&gt; 1,
+      };
+      test_expect(\*DATA, $config);
+      
+      # or create Template object explicitly
+      my $template = Template-&gt;new($config);
+      test_expect(\*DATA, $template);
+    </pre>
+    <p>
+      The third parameter may be used to reference a hash array of template
+      variable which should be defined when processing the tests. This is
+      passed to the <a href="[** ttmodlink('Template') **]">Template</a> <a
+      href="[** ttmodlink('Template') **]#method_process">process()</a> method.
+    </p>
+    <pre>
+      my $replace = {
+          a =&gt; 'alpha',
+          b =&gt; 'bravo',
+      };
+      
+      test_expect(\*DATA, $config, $replace);
+    </pre>
+    <p>
+      The second parameter may be left undefined to specify a default <a
+      href="[** ttmodlink('Template') **]">Template</a> configuration.
+    </p>
+    <pre>
+      test_expect(\*DATA, undef, $replace);
+    </pre>
+    <p>
+      For testing the output of different <a href="[** ttmodlink('Template')
+      **]">Template</a> configurations, a reference to a list of named <a
+      href="[** ttmodlink('Template') **]">Template</a> objects also may be
+      passed as the second parameter.
+    </p>
+    <pre>
+      my $tt1 = Template-&gt;new({ ... });
+      my $tt2 = Template-&gt;new({ ... });
+      my @tts = [ one =&gt; $tt1, two =&gt; $tt1 ];
+    </pre>
+    <p>
+      The first object in the list is used by default. Other objects may be
+      switched in with a '<code>-- use $name --</code>' marker. This should
+      immediately follow a '<code>-- test --</code>' line. That object will
+      then be used for the rest of the test, or until a different object is
+      selected.
+    </p>
+    <pre>
+      -- test --
+      -- use one --
+      <span class="tt">[% blah %]</span>
+      -- expect --
+      blah, blah
+      
+      -- test --
+      still using one...
+      -- expect --
+      ...
+      
+      -- test --
+      -- use two --
+      <span class="tt">[% blah %]</span>
+      -- expect --
+      blah, blah, more blah
+    </pre>
+    <p>
+      The <code>test_expect()</code> sub counts the number of tests, and then
+      calls <a href="#method_ntests">ntests()</a> to generate the familiar
+      "<code>1..$ntests\n</code>" test harness line. Each test defined
+      generates two test numbers. The first indicates that the input was
+      processed without error, and the second that the output matches that
+      expected.
+    </p>
+    <p>
+      Additional test may be run before <code>test_expect()</code> by calling
+      <a href="#method_ok">ok()</a>. These test results are cached until <a
+      href="#method_ntests">ntests()</a> is called and the final number of
+      tests can be calculated. Then, the "<code>1..$ntests</code>" line is
+      output, along with "<code>ok $n</code>" / "<code>not ok $n</code>" lines
+      for each of the cached test result. Subsequent calls to <a
+      href="#method_ok">ok()</a> then generate an output line immediately.
+    </p>
+    <pre>
+      my $something = SomeObject-&gt;new();
+      ok( $something );
+      
+      my $other = AnotherThing-&gt;new();
+      ok( $other );
+      
+      test_expect(\*DATA);
+    </pre>
+    <p>
+      If any tests are to follow after <code>test_expect()</code> is called
+      then these should be pre-declared by setting the <code>$EXTRA</code>
+      package variable. This value (default: <code>0</code>) is added to the
+      grand total calculated by <a href="#method_ntests">ntests()</a>. The
+      results of the additional tests are also registered by calling <a
+      href="#method_ok">ok()</a>.
+    </p>
+    <pre>
+      $Template::Test::EXTRA = 2;
+      
+      # can call ok() any number of times before test_expect()
+      ok( $did_that_work );             
+      ok( $make_sure );
+      ok( $dead_certain ); 
+      
+      # &lt;some&gt; number of tests...
+      test_expect(\*DATA, $config, $replace);
+      
+      # here's those $EXTRA tests
+      ok( defined $some_result &amp;&amp; ref $some_result eq 'ARRAY' );
+      ok( $some_result-&gt;[0] eq 'some expected value' );
+    </pre>
+    <p>
+      If you don't want to call <code>test_expect()</code> at all then you can
+      call <code>ntests($n)</code> to declare the number of tests and generate
+      the test header line. After that, simply call <a
+      href="#method_ok">ok()</a> for each test passing a true or false values
+      to indicate that the test passed or failed.
+    </p>
+    <pre>
+      ntests(2);
+      ok(1);
+      ok(0);
+    </pre>
+    <p>
+      If you're really lazy, you can just call <a href="#method_ok">ok()</a>
+      and not bother declaring the number of tests at all. All tests results
+      will be cached until the end of the script and then printed in one go
+      before the program exits.
+    </p>
+    <pre>
+      ok( $x );
+      ok( $y );
+    </pre>
+    <p>
+      You can identify only a specific part of the input file for testing using
+      the '<code>-- start --</code>' and '<code>-- stop --</code>' markers.
+      Anything before the first '<code>-- start --</code>' is ignored, along
+      with anything after the next '<code>-- stop --</code>' marker.
+    </p>
+    <pre>
+      -- test --
+      this is test 1 (not performed)
+      -- expect --
+      this is test 1 (not performed)
+      
+      -- start --
+      
+      -- test --
+      this is test 2
+      -- expect --
+      this is test 2
+          
+      -- stop --
+      
+      ...
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ntests()' id='method_ntests' class='method' -**]
+    <p>
+      Subroutine used to specify how many tests you're expecting to run.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ok($test)' id='method_ok' class='method' -**]
+    <p>
+      Generates an "<code>ok $n</code>" or "<code>not ok $n</code>" message if
+      <code>$test</code> is true or false.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='not_ok($test)' id='method_not_ok' class='method' -**]
+    <p>
+      The logical inverse of <a href="#method_ok">ok()</a>. Prints an "<code>ok
+      $n</code>" message is <code>$test</code> is <i>false</i> and vice-versa.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='callsign()' id='method_callsign' class='method' -**]
+    <p>
+      For historical reasons and general utility, the module also defines a
+      <code>callsign()</code> subroutine which returns a hash mapping the
+      letters <code>a</code> to <code>z</code> to their phonetic alphabet
+      equivalent (e.g. radio callsigns). This is used by many of the test
+      scripts as a known source of variable values.
+    </p>
+    <pre>
+      test_expect(\*DATA, $config, callsign());
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='banner()' id='method_banner' class='method' -**]
+    <p>
+      This subroutine prints a simple banner including any text passed as
+      parameters. The <code>$DEBUG</code> variable must be set for it to
+      generate any output.
+    </p>
+    <pre>
+      banner('Testing something-or-other');
+    </pre>
+    <p>
+      example output:
+    </p>
+    <pre>
+      #------------------------------------------------------------
+      # Testing something-or-other (27 tests completed)
+      #------------------------------------------------------------
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='PACKAGE VARIABLES' id='section_PACKAGE_VARIABLES' -**]
+    [** WRAPPER page/subsection title='$DEBUG' id='section__DEBUG' class='' -**]
+    <p>
+      The $DEBUG package variable can be set to enable debugging mode.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='$PRESERVE' id='section__PRESERVE' class='' -**]
+    <p>
+      The $PRESERVE package variable can be set to stop the test_expect() from
+      converting newlines in the output and expected output into the literal
+      strings '\n'.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='HISTORY' id='section_HISTORY' -**]
+    <p>
+      This module started its butt-ugly life as the <code>t/texpect.pl</code>
+      script. It was cleaned up to became the <code>Template::Test</code>
+      module some time around version 0.29. It underwent further cosmetic
+      surgery for version 2.00 but still retains some remarkable rear-end
+      resemblances.
+    </p>
+    <p>
+      Since then the <code>Test::More</code> and related modules have appeared
+      on CPAN making this module mostly, but not entirely, redundant.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='BUGS / KNOWN "FEATURES"' id='section_BUGS_KNOWN_FEATURES_' -**]
+    <p>
+      Imports all methods by default. This is generally a Bad Thing, but this
+      module is only used in test scripts (i.e. at build time) so a) we don't
+      really care and b) it saves typing.
+    </p>
+    <p>
+      The line splitter may be a bit dumb, especially if it sees lines like
+      <code>-- this --</code> that aren't supposed to be special markers. So
+      don't do that.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>
+    </p>
+[** END -**]
+
+</div>

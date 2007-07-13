@@ -1,0 +1,51 @@
+table.mailman {
+    margin: 10px;
+    border: 1px solid [% col.line %];
+}
+
+table.mailman td {
+    font-size: [% font.size - 1 %]px;
+}
+
+table.mailman td.key {
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    text-align: right;
+    width: 50%;
+}
+
+table.mailman td.value {
+    background-color: #f0f0f0;
+    width: 50%;
+    border: 1px solid #ddd;
+}
+
+table.mailman td.value input {
+    background-color: #fafafa;
+/*    border: 1px solid [% col.link %]; */
+}
+
+table.mailman td.value input:focus {
+    background-color: #fff;
+/*    border: 1px solid [% col.roll %]; */
+}
+
+table.mailman td.info,
+table.mailman td.question {
+    background-color: #f0f0f0;
+    font-size: [% font.size - 3 %]px;
+    border: 1px solid #ddd; 
+    padding: 4px;
+    color: #444;
+}
+
+table.mailman td.info {
+    text-align: center;
+}
+
+div.mailadmin {
+    border-top: 1px solid [% col.line %];
+    margin: 10px 10px 0 10px;
+    font-size: 11px;
+}
+

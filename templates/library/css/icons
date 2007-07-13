@@ -1,0 +1,31 @@
+div.badges {
+    width: 100px;
+    margin: 0 auto;
+}
+
+.badge {
+    display: block;
+    width: 80px;
+    height: 15px;
+    margin: 5px;
+    padding: 0;
+}
+
+.abw {
+    background: url('[% glass %]/badges/andy_wardley.gif') no-repeat top left;
+}
+
+a.abw:hover {
+    background-image: url('[% glass %]/badges/andy_wardley_roll.gif');
+}
+
+[% FOREACH badge IN ['html_valid', 'css_valid', 'badger_power'] -%]
+.[% badge %] {
+    background: url('[% glass %]/badges/[% badge %].gif') no-repeat top left;
+}
+
+a.[% badge %]:hover {
+    background-image: url('[% glass %]/badges/[% badge %]_roll.gif');
+}
+
+[% END %]

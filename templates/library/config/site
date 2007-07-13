@@ -1,0 +1,36 @@
+[%  # This configuration template defines a 'site' data structure which
+    # contains all the information relating to the web site as a whole.
+    # Various other configuration templates in the config directory
+    # add to this data structure as they are called by config/main.
+
+    site = {
+        name      = 'template-toolkit.org'
+        title     = "The Template Toolkit Web Site"
+        copyright = '1995-2007 Andy Wardley' 
+        server    = 'http://template-toolkit.org'
+        keywords  = 'Template Toolkit, Perl, template, web, html'
+        schemes   = ['blue' 'orange' 'green' 'purple' 'grey']
+        google    = {
+            search  = 1
+            adverts = 1
+        }
+    };
+
+    site.dir = {
+        root     = rootdir
+        images   = "$rootdir/images"
+    };
+    
+    tt2.version = {
+        stable = '2.19'
+    };
+
+    # metadata should be defined by Metadata plugin
+    USE Metadata;
+    site.pages    = Metadata.pages;
+    site.sections = Metadata.sections;
+    site.modules  = Metadata.modules;
+    debug3("metadata for $site.pages.size pages");
+    debug3("metadata for $site.sections.size sections");
+    debug3("metadata for $site.modules.size modules");
+-%]

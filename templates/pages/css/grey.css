@@ -1,0 +1,41 @@
+[%  # configuration template to define the layout, colour scheme and 
+    # various other style parameters for the CSS skin
+
+    PROCESS config/css;
+
+    name   = 'grey';
+    glass  = "$img/glass/$name";
+    arrows = "$img/arrows";
+    cold   = 'blank'
+    warm   = 'blue'
+    roll   = 'orange'
+    logo   = {
+        warm = 'blue'
+        roll = 'orange'
+    }
+    col    = {
+        back = rgb.greyC
+        head = rgb.dark_grey
+        link = rgb.sky_blue
+        seen = rgb.dark_blue
+        roll = rgb.orange
+        line = rgb.pale_blue
+        code = rgb.dark_grey
+        tags = rgb.dark_blue
+
+        menu = {
+            link = rgb.dark_blue
+            roll = rgb.orange
+        }
+        tabs = {
+            cold = rgb.mid_grey
+            roll = rgb.orange
+            warm = rgb.dark_grey
+        }
+        foot = {
+            link = rgb.dull_blue
+        }
+    };
+    
+    PROCESS css/tt2.css 
+-%]

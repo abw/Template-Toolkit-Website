@@ -1,0 +1,611 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Context;
+      
+      # constructor
+      $context = Template::Context-&gt;new(\%config)
+          || die $Template::Context::ERROR;
+      
+      # fetch (load and compile) a template
+      $template = $context-&gt;template($template_name);
+      
+      # fetch (load and instantiate) a plugin object
+      $plugin = $context-&gt;plugin($name, \@args);
+      
+      # fetch (return or create) a filter subroutine
+      $filter = $context-&gt;filter($name, \@args, $alias);
+      
+      # process/include a template, errors are thrown via die()
+      $output = $context-&gt;process($template, \%vars);
+      $output = $context-&gt;include($template, \%vars);
+      
+      # raise an exception via die()
+      $context-&gt;throw($error_type, $error_message, \$output_buffer);
+      
+      # catch an exception, clean it up and fix output buffer
+      $exception = $context-&gt;catch($exception, \$output_buffer);
+      
+      # save/restore the stash to effect variable localisation
+      $new_stash = $context-&gt;localise(\%vars);
+      $old_stash = $context-&gt;delocalise();
+      
+      # add new BLOCK or FILTER definitions
+      $context-&gt;define_block($name, $block);
+      $context-&gt;define_filter($name, \&amp;filtersub, $is_dynamic);
+      
+      # reset context, clearing any imported BLOCK definitions
+      $context-&gt;reset();
+      
+      # methods for accessing internal items
+      $stash     = $context-&gt;stash();
+      $tflag     = $context-&gt;trim();
+      $epflag    = $context-&gt;eval_perl();
+      $providers = $context-&gt;templates();
+      $providers = $context-&gt;plugins();
+      $providers = $context-&gt;filters();
+      ...
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Context</code> module defines an object class for
+      representing a runtime context in which templates are processed. It
+      provides an interface to the fundamental operations of the Template
+      Toolkit processing engine through which compiled templates (i.e. Perl
+      code constructed from the template source) can process templates, load
+      plugins and filters, raise exceptions and so on.
+    </p>
+    <p>
+      A default <code>Template::Context</code> object is created by the <a
+      href="[** ttmodlink('Template') **]">Template</a> module. Any
+      <code>Template::Context</code> options may be passed to the <a href="[**
+      ttmodlink('Template') **]">Template</a> <a href="[**
+      ttmodlink('Template') **]#method_new">new()</a> constructor method and
+      will be forwarded to the <code>Template::Context</code> constructor.
+    </p>
+    <pre>
+      use Template;
+      
+      my $template = Template-&gt;new({
+          TRIM      =&gt; 1,
+          EVAL_PERL =&gt; 1,
+          BLOCKS    =&gt; {
+              header =&gt; 'This is the header',
+              footer =&gt; 'This is the footer',
+          },
+      });
+    </pre>
+    <p>
+      Similarly, the <code>Template::Context</code> constructor will forward
+      all configuration parameters onto other default objects (e.g. <a
+      href="[** ttmodlink('Template::Provider') **]">Template::Provider</a>, <a
+      href="[** ttmodlink('Template::Plugins') **]">Template::Plugins</a>, <a
+      href="[** ttmodlink('Template::Filters') **]">Template::Filters</a>,
+      etc.) that it may need to instantiate.
+    </p>
+    <pre>
+      $context = Template::Context-&gt;new({
+          INCLUDE_PATH =&gt; '/home/abw/templates', # provider option
+          TAG_STYLE    =&gt; 'html',                # parser option
+      });
+    </pre>
+    <p>
+      A <code>Template::Context</code> object (or subclass) can be explicitly
+      instantiated and passed to the <a href="[** ttmodlink('Template')
+      **]">Template</a> <a href="[** ttmodlink('Template')
+      **]#method_new">new()</a> constructor method as the <code>CONTEXT</code>
+      configuration item.
+    </p>
+    <pre>
+      use Template;
+      use Template::Context;
+      
+      my $context  = Template::Context-&gt;new({ TRIM =&gt; 1 });
+      my $template = Template-&gt;new({ CONTEXT =&gt; $context });
+    </pre>
+    <p>
+      The <a href="[** ttmodlink('Template') **]">Template</a> module uses the
+      <a href="[** ttmodlink('Template::Config') **]">Template::Config</a> <a
+      href="[** ttmodlink('Template::Config') **]#method_context">context()</a>
+      factory method to create a default context object when required. The
+      <code>$Template::Config::CONTEXT</code> package variable may be set to
+      specify an alternate context module. This will be loaded automatically
+      and its <a href="#method_new">new()</a> constructor method called by the
+      <a href="[** ttmodlink('Template::Config')
+      **]#method_context">context()</a> factory method when a default context
+      object is required.
+    </p>
+    <pre>
+      use Template;
+      
+      $Template::Config::CONTEXT = 'MyOrg::Template::Context';
+      
+      my $template = Template-&gt;new({
+          EVAL_PERL   =&gt; 1,
+          EXTRA_MAGIC =&gt; 'red hot',  # your extra config items
+          ...
+      });
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%params) ' id='method_new' class='method' -**]
+    <p>
+      The <code>new()</code> constructor method is called to instantiate a
+      <code>Template::Context</code> object. Configuration parameters may be
+      specified as a HASH reference or as a list of <code>name =&gt;
+      value</code> pairs.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          INCLUDE_PATH =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+      });
+      
+      my $context = Template::Context-&gt;new( EVAL_PERL =&gt; 1 );
+    </pre>
+    <p>
+      The <code>new()</code> method returns a <code>Template::Context</code>
+      object or <code>undef</code> on error. In the latter case, a relevant
+      error message can be retrieved by the <a href="[**
+      ttmodlink('Template::Base') **]#method_error">error()</a> class method or
+      directly from the <code>$Template::Context::ERROR</code> package
+      variable.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new(\%config)
+          || die Template::Context-&gt;error();
+      
+      my $context = Template::Context-&gt;new(\%config)
+          || die $Template::Context::ERROR;
+    </pre>
+    <p>
+      The following configuration items may be specified. Please see <a
+      href="[** ttmodlink('Template::Manual::Config')
+      **]">Template::Manual::Config</a> for further details.
+    </p>
+    <h3 class="method" id="section_VARIABLES">VARIABLES</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_VARIABLES">VARIABLES</a> option can be used to specify a hash
+      array of template variables.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          VARIABLES =&gt; {
+              title   =&gt; 'A Demo Page',
+              author  =&gt; 'Joe Random Hacker',
+              version =&gt; 3.14,
+          },
+      };
+    </pre>
+    
+    <h3 class="method" id="section_BLOCKS">BLOCKS</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_BLOCKS">BLOCKS</a> option can be used to pre-define a default
+      set of template blocks.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          BLOCKS =&gt; {
+              header  =&gt; 'The Header.  <span class="tt">[% title %]</span>',
+              footer  =&gt; sub { return $some_output_text },
+              another =&gt; Template::Document-&gt;new({ ... }),
+          },
+      }); 
+    </pre>
+    
+    <h3 class="method" id="section_TRIM">TRIM</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_TRIM">TRIM</a> option can be set to have any leading and
+      trailing whitespace automatically removed from the output of all template
+      files and <code>BLOCK</code>s.
+    </p>
+    <p>
+      example:
+    </p>
+    <pre>
+      <span class="tt">[% BLOCK foo %]</span>
+      
+      Line 1 of foo
+      
+      <span class="tt">[% END %]</span>
+      
+      before 
+      <span class="tt">[% INCLUDE foo %]</span>
+      after
+    </pre>
+    <p>
+      output:
+    </p>
+    <pre>
+      before
+      Line 1 of foo
+      after
+    </pre>
+    
+    <h3 class="method" id="section_EVAL_PERL">EVAL_PERL</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_EVAL_PERL">EVAL_PERL</a> is used to indicate if
+      <code>PERL</code> and/or <code>RAWPERL</code> blocks should be evaluated.
+      It is disabled by default.
+    </p>
+    
+    <h3 class="method" id="section_RECURSION">RECURSION</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_RECURSION">RECURSION</a> can be set to allow templates to
+      recursively process themselves, either directly (e.g. template
+      <code>foo</code> calls <code>INCLUDE foo</code>) or indirectly (e.g.
+      <code>foo</code> calls <code>INCLUDE bar</code> which calls <code>INCLUDE
+      foo</code>).
+    </p>
+    
+    <h3 class="method" id="section_LOAD_TEMPLATES">LOAD_TEMPLATES</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_LOAD_TEMPLATES">LOAD_TEMPLATES</a> option can be used to
+      provide a reference to a list of <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> objects or
+      sub-classes thereof which will take responsibility for loading and
+      compiling templates.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          LOAD_TEMPLATES =&gt; [
+              MyOrg::Template::Provider-&gt;new({ ... }),
+              Template::Provider-&gt;new({ ... }),
+          ],
+      });
+    </pre>
+    
+    <h3 class="method" id="section_LOAD_PLUGINS">LOAD_PLUGINS</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_LOAD_PLUGINS">LOAD_PLUGINS</a> options can be used to specify
+      a list of provider objects responsible for loading and instantiating
+      template plugin objects.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          LOAD_PLUGINS =&gt; [
+              MyOrg::Template::Plugins-&gt;new({ ... }),
+              Template::Plugins-&gt;new({ ... }),
+          ],
+      });
+    </pre>
+    
+    <h3 class="method" id="section_LOAD_FILTERS">LOAD_FILTERS</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_LOAD_FILTERS">LOAD_FILTERS</a> option can be used to specify
+      a list of provider objects for returning and/or creating filter
+      subroutines.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          LOAD_FILTERS =&gt; [
+              MyTemplate::Filters-&gt;new(),
+              Template::Filters-&gt;new(),
+          ],
+      });
+    </pre>
+    
+    <h3 class="method" id="section_STASH">STASH</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_STASH">STASH</a> option can be used to specify a <a href="[**
+      ttmodlink('Template::Stash') **]">Template::Stash</a> object or sub-class
+      which will take responsibility for managing template variables.
+    </p>
+    <pre>
+      my $stash = MyOrg::Template::Stash-&gt;new({ ... });
+      my $context = Template::Context-&gt;new({
+          STASH =&gt; $stash,
+      });
+    </pre>
+    
+    <h3 class="method" id="section_DEBUG">DEBUG</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_DEBUG">DEBUG</a> option can be used to enable various
+      debugging features of the <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> module.
+    </p>
+    <pre>
+      use Template::Constants qw( :debug );
+      
+      my $template = Template-&gt;new({
+          DEBUG =&gt; DEBUG_CONTEXT | DEBUG_DIRS,
+      });
+    </pre>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='template($name) ' id='method_template' class='method' -**]
+    <p>
+      Returns a compiled template by querying each of the <a
+      href="#section_LOAD_TEMPLATES">LOAD_TEMPLATES</a> providers (instances of
+      <a href="[** ttmodlink('Template::Provider') **]">Template::Provider</a>,
+      or sub-class) in turn.
+    </p>
+    <pre>
+      $template = $context-&gt;template('header');
+    </pre>
+    <p>
+      On error, a <a href="[** ttmodlink('Template::Exception')
+      **]">Template::Exception</a> object of type '<code>file</code>' is thrown
+      via <code>die()</code>. This can be caught by enclosing the call to
+      <code>template()</code> in an <code>eval</code> block and examining
+      <code>$@</code>.
+    </p>
+    <pre>
+      eval { $template = $context-&gt;template('header') };
+      if ($@) {
+          print "failed to fetch template: $@\n";
+      }
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='plugin($name, \@args)' id='method_plugin' class='method' -**]
+    <p>
+      Instantiates a plugin object by querying each of the <a
+      href="#section_LOAD_PLUGINS">LOAD_PLUGINS</a> providers. The default <a
+      href="#section_LOAD_PLUGINS">LOAD_PLUGINS</a> provider is a <a href="[**
+      ttmodlink('Template::Plugins') **]">Template::Plugins</a> object which
+      attempts to load plugin modules, according the various configuration
+      items such as <a href="[** ttmodlink('Template::Plugins')
+      **]#section_PLUGIN_BASE">PLUGIN_BASE</a>, <a href="[**
+      ttmodlink('Template::Plugins') **]#section_LOAD_PERL">LOAD_PERL</a>,
+      etc., and then instantiate an object via <a href="[**
+      ttmodlink('Template::Plugin') **]#method_new">new()</a>. A reference to a
+      list of constructor arguments may be passed as the second parameter.
+      These are forwarded to the plugin constructor.
+    </p>
+    <p>
+      Returns a reference to a plugin (which is generally an object, but
+      doesn't have to be). Errors are thrown as <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> objects
+      with the type set to '<code>plugin</code>'.
+    </p>
+    <pre>
+      $plugin = $context-&gt;plugin('DBI', 'dbi:msql:mydbname');
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='filter($name, \@args, $alias)' id='method_filter' class='method' -**]
+    <p>
+      Instantiates a filter subroutine by querying the <a
+      href="#section_LOAD_FILTERS">LOAD_FILTERS</a> providers. The default <a
+      href="#section_LOAD_FILTERS">LOAD_FILTERS</a> provider is a <a href="[**
+      ttmodlink('Template::Filters') **]">Template::Filters</a> object.
+    </p>
+    <p>
+      Additional arguments may be passed by list reference along with an
+      optional alias under which the filter will be cached for subsequent use.
+      The filter is cached under its own <code>$name</code> if
+      <code>$alias</code> is undefined. Subsequent calls to
+      <code>filter($name)</code> will return the cached entry, if defined.
+      Specifying arguments bypasses the caching mechanism and always creates a
+      new filter. Errors are thrown as <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> objects
+      with the type set to '<code>filter</code>'.
+    </p>
+    <pre>
+      # static filter (no args)
+      $filter = $context-&gt;filter('html');
+      
+      # dynamic filter (args) aliased to 'padright'
+      $filter = $context-&gt;filter('format', '%60s', 'padright');
+      
+      # retrieve previous filter via 'padright' alias
+      $filter = $context-&gt;filter('padright');
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='process($template, \%vars)' id='method_process' class='method' -**]
+    <p>
+      Processes a template named or referenced by the first parameter and
+      returns the output generated. An optional reference to a hash array may
+      be passed as the second parameter, containing variable definitions which
+      will be set before the template is processed. The template is processed
+      in the current context, with no localisation of variables performed.
+      Errors are thrown as <a href="[** ttmodlink('Template::Exception')
+      **]">Template::Exception</a> objects via <code>die()</code>.
+    </p>
+    <pre>
+      $output = $context-&gt;process('header', { title =&gt; 'Hello World' });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='include($template, \%vars)' id='method_include' class='method' -**]
+    <p>
+      Similar to <a href="#method_process">process()</a>, but using localised
+      variables. Changes made to any variables will only persist until the
+      <code>include()</code> method completes.
+    </p>
+    <pre>
+      $output = $context-&gt;include('header', { title =&gt; 'Hello World' });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='throw($error_type, $error_message, \$output)' id='method_throw' class='method' -**]
+    <p>
+      Raises an exception in the form of a <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> object by
+      calling <code>die()</code>. This method may be passed a reference to an
+      existing <a href="[** ttmodlink('Template::Exception')
+      **]">Template::Exception</a> object; a single value containing an error
+      message which is used to instantiate a <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> of type
+      '<code>undef</code>'; or a pair of values representing the exception
+      <code>type</code> and <code>info</code> from which a <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> object is
+      instantiated. e.g.
+    </p>
+    <pre>
+      $context-&gt;throw($exception);
+      $context-&gt;throw("I'm sorry Dave, I can't do that");
+      $context-&gt;throw('denied', "I'm sorry Dave, I can't do that");
+    </pre>
+    <p>
+      The optional third parameter may be a reference to the current output
+      buffer. This is then stored in the exception object when created,
+      allowing the catcher to examine and use the output up to the point at
+      which the exception was raised.
+    </p>
+    <pre>
+      $output .= 'blah blah blah';
+      $output .= 'more rhubarb';
+      $context-&gt;throw('yack', 'Too much yacking', \$output);
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='catch($exception, \$output)' id='method_catch' class='method' -**]
+    <p>
+      Catches an exception thrown, either as a reference to a <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> object or
+      some other value. In the latter case, the error string is promoted to a
+      <a href="[** ttmodlink('Template::Exception')
+      **]">Template::Exception</a> object of '<code>undef</code>' type. This
+      method also accepts a reference to the current output buffer which is
+      passed to the <a href="[** ttmodlink('Template::Exception')
+      **]">Template::Exception</a> constructor, or is appended to the output
+      buffer stored in an existing <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> object, if
+      unique (i.e. not the same reference). By this process, the correct state
+      of the output buffer can be reconstructed for simple or nested throws.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='define_block($name, $block)' id='method_define_block' class='method' -**]
+    <p>
+      Adds a new block definition to the internal <a
+      href="#section_BLOCKS">BLOCKS</a> cache. The first argument should
+      contain the name of the block and the second a reference to a <a
+      href="[** ttmodlink('Template::Document') **]">Template::Document</a>
+      object or template sub-routine, or template text which is automatically
+      compiled into a template sub-routine.
+    </p>
+    <p>
+      Returns a true value (the sub-routine or <a href="[**
+      ttmodlink('Template::Document') **]">Template::Document</a> reference) on
+      success or undef on failure. The relevant error message can be retrieved
+      by calling the <a href="[** ttmodlink('Template::Base')
+      **]#method_error">error()</a> method.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='define_filter($name, \&amp;filter, $is_dynamic)' id='method_define_filter' class='method' -**]
+    <p>
+      Adds a new filter definition by calling the <a href="[**
+      ttmodlink('Template::Filters') **]#method_store">store()</a> method on
+      each of the <a href="#section_LOAD_FILTERS">LOAD_FILTERS</a> providers
+      until accepted (in the usual case, this is accepted straight away by the
+      one and only <a href="[** ttmodlink('Template::Filters')
+      **]">Template::Filters</a> provider). The first argument should contain
+      the name of the filter and the second a reference to a filter subroutine.
+      The optional third argument can be set to any true value to indicate that
+      the subroutine is a dynamic filter factory.
+    </p>
+    <p>
+      Returns a true value or throws a '<code>filter</code>' exception on
+      error.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='localise(\%vars)' id='method_localise' class='method' -**]
+    <p>
+      Clones the stash to create a context with localised variables. Returns a
+      reference to the newly cloned stash object which is also stored
+      internally.
+    </p>
+    <pre>
+      $stash = $context-&gt;localise();
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='delocalise()' id='method_delocalise' class='method' -**]
+    <p>
+      Restore the stash to its state prior to localisation.
+    </p>
+    <pre>
+      $stash = $context-&gt;delocalise();
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='visit(\%blocks)' id='method_visit' class='method' -**]
+    <p>
+      This method is called by <a href="[** ttmodlink('Template::Document')
+      **]">Template::Document</a> objects immediately before they process their
+      content. It is called to register any local <code>BLOCK</code>
+      definitions with the context object so that they may be subsequently
+      delivered on request.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='leave()' id='method_leave' class='method' -**]
+    <p>
+      Compliment to the <a href="#method_visit">visit()</a> method. Called by
+      <a href="[** ttmodlink('Template::Document') **]">Template::Document</a>
+      objects immediately after they process their content.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='reset()' id='method_reset' class='method' -**]
+    <p>
+      Clears the local <a href="#section_BLOCKS">BLOCKS</a> cache of any
+      <code>BLOCK</code> definitions. Any initial set of <a
+      href="#section_BLOCKS">BLOCKS</a> specified as a configuration item to
+      the constructor will be reinstated.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='AUTOLOAD' id='section_AUTOLOAD' class='' -**]
+    <p>
+      An <code>AUTOLOAD</code> method provides access to context configuration
+      items.
+    </p>
+    <pre>
+      $stash     = $context-&gt;stash();
+      $tflag     = $context-&gt;trim();
+      $epflag    = $context-&gt;eval_perl();
+      ...
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>, <a href="[**
+      ttmodlink('Template::Document') **]">Template::Document</a>, <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a>, <a
+      href="[** ttmodlink('Template::Filters') **]">Template::Filters</a>, <a
+      href="[** ttmodlink('Template::Plugins') **]">Template::Plugins</a>, <a
+      href="[** ttmodlink('Template::Provider') **]">Template::Provider</a>, <a
+      href="[** ttmodlink('Template::Service') **]">Template::Service</a>, <a
+      href="[** ttmodlink('Template::Stash') **]">Template::Stash</a>
+    </p>
+[** END -**]
+
+</div>

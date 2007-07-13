@@ -1,0 +1,524 @@
+---
+/docs/faq/index.html:
+  about: Frequently Asked Questions about the Template Toolkit
+  back: /docs/tutorial/index.html
+  name: FAQ
+  title: Template::FAQ
+  up: /docs/index.html
+  uri: /docs/faq/index.html
+/docs/index.html:
+  about: Template Processing System
+  back: /download/index.html
+  name: Documentation
+  next: /mail/index.html
+  short: Docs
+  title: Template Toolkit Documentation
+  up: /index.html
+  uri: /docs/index.html
+/docs/manual/Config.html:
+  about: Configuration options
+  back: /docs/manual/VMethods.html
+  name: Config
+  next: /docs/manual/Filters.html
+  title: Template::Manual::Config
+  up: /docs/manual/index.html
+  uri: /docs/manual/Config.html
+/docs/manual/Credits.html:
+  about: Author and contributor credits
+  back: /docs/manual/Views.html
+  name: Credits
+  title: Template::Manual::Credits
+  up: /docs/manual/index.html
+  uri: /docs/manual/Credits.html
+/docs/manual/Directives.html:
+  about: Template directives
+  back: /docs/manual/Syntax.html
+  name: Directives
+  next: /docs/manual/Variables.html
+  title: Template::Manual::Directives
+  up: /docs/manual/index.html
+  uri: /docs/manual/Directives.html
+/docs/manual/Filters.html:
+  about: Standard filters
+  back: /docs/manual/Config.html
+  name: Filters
+  next: /docs/manual/Plugins.html
+  title: Template::Manual::Filters
+  up: /docs/manual/index.html
+  uri: /docs/manual/Filters.html
+/docs/manual/Internals.html:
+  about: Template Toolkit internals
+  back: /docs/manual/Plugins.html
+  name: Internals
+  next: /docs/manual/Views.html
+  title: Template::Manual::Internals
+  up: /docs/manual/index.html
+  uri: /docs/manual/Internals.html
+/docs/manual/Intro.html:
+  about: Introduction to the Template Toolkit
+  name: Intro
+  next: /docs/manual/Syntax.html
+  title: Template::Manual::Intro
+  up: /docs/manual/index.html
+  uri: /docs/manual/Intro.html
+/docs/manual/Plugins.html:
+  about: Standard plugins
+  back: /docs/manual/Filters.html
+  name: Plugins
+  next: /docs/manual/Internals.html
+  title: Template::Manual::Plugins
+  up: /docs/manual/index.html
+  uri: /docs/manual/Plugins.html
+/docs/manual/Syntax.html:
+  about: 'Directive syntax, structure and semantics'
+  back: /docs/manual/Intro.html
+  name: Syntax
+  next: /docs/manual/Directives.html
+  title: Template::Manual::Syntax
+  up: /docs/manual/index.html
+  uri: /docs/manual/Syntax.html
+/docs/manual/VMethods.html:
+  about: Virtual Methods
+  back: /docs/manual/Variables.html
+  name: VMethods
+  next: /docs/manual/Config.html
+  title: Template::Manual::VMethods
+  up: /docs/manual/index.html
+  uri: /docs/manual/VMethods.html
+/docs/manual/Variables.html:
+  about: Template variables and code bindings
+  back: /docs/manual/Directives.html
+  name: Variables
+  next: /docs/manual/VMethods.html
+  title: Template::Manual::Variables
+  up: /docs/manual/index.html
+  uri: /docs/manual/Variables.html
+/docs/manual/Views.html:
+  about: Template Toolkit views (experimental)
+  back: /docs/manual/Internals.html
+  name: Views
+  next: /docs/manual/Credits.html
+  title: Template::Manual::Views
+  up: /docs/manual/index.html
+  uri: /docs/manual/Views.html
+/docs/manual/index.html:
+  about: Template Toolkit User Manual
+  name: Manual
+  next: /docs/modules/index.html
+  title: Template::Manual
+  up: /docs/index.html
+  uri: /docs/manual/index.html
+/docs/modules/Template.html:
+  about: Front-end module to the Template Toolkit
+  name: Template.pm
+  next: /docs/modules/Template/index.html
+  title: Template
+  up: /docs/modules/index.html
+  uri: /docs/modules/Template.html
+/docs/modules/Template/Base.html:
+  about: Base class module implementing common functionality
+  name: Base.pm
+  next: /docs/modules/Template/Config.html
+  title: Template::Base
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Base.html
+/docs/modules/Template/Config.html:
+  about: Factory module for instantiating other TT2 modules
+  back: /docs/modules/Template/Base.html
+  name: Config.pm
+  next: /docs/modules/Template/Constants.html
+  title: Template::Config
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Config.html
+/docs/modules/Template/Constants.html:
+  about: Defines constants for the Template Toolkit
+  back: /docs/modules/Template/Config.html
+  name: Constants.pm
+  next: /docs/modules/Template/Context.html
+  title: Template::Constants
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Constants.html
+/docs/modules/Template/Context.html:
+  about: Runtime context in which templates are processed
+  back: /docs/modules/Template/Constants.html
+  name: Context.pm
+  next: /docs/modules/Template/Directive.html
+  title: Template::Context
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Context.html
+/docs/modules/Template/Directive.html:
+  about: Perl code generator for template directives
+  back: /docs/modules/Template/Context.html
+  name: Directive.pm
+  next: /docs/modules/Template/Document.html
+  title: Template::Directive
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Directive.html
+/docs/modules/Template/Document.html:
+  about: Compiled template document object
+  back: /docs/modules/Template/Directive.html
+  name: Document.pm
+  next: /docs/modules/Template/Exception.html
+  title: Template::Document
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Document.html
+/docs/modules/Template/Exception.html:
+  about: Exception handling class module
+  back: /docs/modules/Template/Document.html
+  name: Exception.pm
+  next: /docs/modules/Template/Filters.html
+  title: Template::Exception
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Exception.html
+/docs/modules/Template/Filters.html:
+  about: Post-processing filters for template blocks
+  back: /docs/modules/Template/Exception.html
+  name: Filters.pm
+  next: /docs/modules/Template/Grammar.html
+  title: Template::Filters
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Filters.html
+/docs/modules/Template/Grammar.html:
+  about: Parser state/rule tables for the TT grammar
+  back: /docs/modules/Template/Filters.html
+  name: Grammar.pm
+  next: /docs/modules/Template/Iterator.html
+  title: Template::Grammar
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Grammar.html
+/docs/modules/Template/Iterator.html:
+  about: Data iterator used by the FOREACH directive
+  back: /docs/modules/Template/Grammar.html
+  name: Iterator.pm
+  next: /docs/modules/Template/Namespace/index.html
+  title: Template::Iterator
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Iterator.html
+/docs/modules/Template/Namespace/Constants.html:
+  about: Compile time constant folding
+  name: Constants.pm
+  title: Template::Namespace::Constants
+  up: /docs/modules/Template/Namespace/index.html
+  uri: /docs/modules/Template/Namespace/Constants.html
+/docs/modules/Template/Namespace/index.html:
+  back: /docs/modules/Template/Iterator.html
+  name: Namespace::*
+  next: /docs/modules/Template/Parser.html
+  title: Template::Namespace::* Modules
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Namespace/index.html
+/docs/modules/Template/Parser.html:
+  about: LALR(1) parser for compiling template documents
+  back: /docs/modules/Template/Namespace/index.html
+  name: Parser.pm
+  next: /docs/modules/Template/Plugin.html
+  title: Template::Parser
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Parser.html
+/docs/modules/Template/Plugin.html:
+  about: Base class for Template Toolkit plugins
+  back: /docs/modules/Template/Parser.html
+  name: Plugin.pm
+  next: /docs/modules/Template/Plugin/index.html
+  title: Template::Plugin
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Plugin.html
+/docs/modules/Template/Plugin/Autoformat.html:
+  about: Interface to Text::Autoformat module
+  name: Autoformat.pm
+  next: /docs/modules/Template/Plugin/CGI.html
+  title: Template::Plugin::Autoformat
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Autoformat.html
+/docs/modules/Template/Plugin/CGI.html:
+  about: Interface to the CGI module
+  back: /docs/modules/Template/Plugin/Autoformat.html
+  name: CGI.pm
+  next: /docs/modules/Template/Plugin/Datafile.html
+  title: Template::Plugin::CGI
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/CGI.html
+/docs/modules/Template/Plugin/Datafile.html:
+  about: Plugin to construct records from a simple data file
+  back: /docs/modules/Template/Plugin/CGI.html
+  name: Datafile.pm
+  next: /docs/modules/Template/Plugin/Date.html
+  title: Template::Plugin::Datafile
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Datafile.html
+/docs/modules/Template/Plugin/Date.html:
+  about: Plugin to generate formatted date strings
+  back: /docs/modules/Template/Plugin/Datafile.html
+  name: Date.pm
+  next: /docs/modules/Template/Plugin/Directory.html
+  title: Template::Plugin::Date
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Date.html
+/docs/modules/Template/Plugin/Directory.html:
+  about: Plugin for generating directory listings
+  back: /docs/modules/Template/Plugin/Date.html
+  name: Directory.pm
+  next: /docs/modules/Template/Plugin/Dumper.html
+  title: Template::Plugin::Directory
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Directory.html
+/docs/modules/Template/Plugin/Dumper.html:
+  about: Plugin interface to Data::Dumper
+  back: /docs/modules/Template/Plugin/Directory.html
+  name: Dumper.pm
+  next: /docs/modules/Template/Plugin/File.html
+  title: Template::Plugin::Dumper
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Dumper.html
+/docs/modules/Template/Plugin/File.html:
+  about: Plugin providing information about files
+  back: /docs/modules/Template/Plugin/Dumper.html
+  name: File.pm
+  next: /docs/modules/Template/Plugin/Filter.html
+  title: Template::Plugin::File
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/File.html
+/docs/modules/Template/Plugin/Filter.html:
+  about: Base class for plugin filters
+  back: /docs/modules/Template/Plugin/File.html
+  name: Filter.pm
+  next: /docs/modules/Template/Plugin/Format.html
+  title: Template::Plugin::Filter
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Filter.html
+/docs/modules/Template/Plugin/Format.html:
+  about: Plugin to create formatting functions
+  back: /docs/modules/Template/Plugin/Filter.html
+  name: Format.pm
+  next: /docs/modules/Template/Plugin/HTML.html
+  title: Template::Plugin::Format
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Format.html
+/docs/modules/Template/Plugin/HTML.html:
+  about: Plugin to create HTML elements
+  back: /docs/modules/Template/Plugin/Format.html
+  name: HTML.pm
+  next: /docs/modules/Template/Plugin/Image.html
+  title: Template::Plugin::HTML
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/HTML.html
+/docs/modules/Template/Plugin/Image.html:
+  about: Plugin access to image sizes
+  back: /docs/modules/Template/Plugin/HTML.html
+  name: Image.pm
+  next: /docs/modules/Template/Plugin/Iterator.html
+  title: Template::Plugin::Image
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Image.html
+/docs/modules/Template/Plugin/Iterator.html:
+  about: Plugin to create iterators (Template::Iterator)
+  back: /docs/modules/Template/Plugin/Image.html
+  name: Iterator.pm
+  next: /docs/modules/Template/Plugin/Math.html
+  title: Template::Plugin::Iterator
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Iterator.html
+/docs/modules/Template/Plugin/Math.html:
+  about: Plugin providing mathematical functions
+  back: /docs/modules/Template/Plugin/Iterator.html
+  name: Math.pm
+  next: /docs/modules/Template/Plugin/Pod.html
+  title: Template::Plugin::Math
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Math.html
+/docs/modules/Template/Plugin/Pod.html:
+  about: Plugin interface to Pod::POM (Pod Object Model)
+  back: /docs/modules/Template/Plugin/Math.html
+  name: Pod.pm
+  next: /docs/modules/Template/Plugin/Procedural.html
+  title: Template::Plugin::Pod
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Pod.html
+/docs/modules/Template/Plugin/Procedural.html:
+  about: Base class for procedural plugins
+  back: /docs/modules/Template/Plugin/Pod.html
+  name: Procedural.pm
+  next: /docs/modules/Template/Plugin/String.html
+  title: Template::Plugin::Procedural
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Procedural.html
+/docs/modules/Template/Plugin/String.html:
+  about: Object oriented interface for string manipulation
+  back: /docs/modules/Template/Plugin/Procedural.html
+  name: String.pm
+  next: /docs/modules/Template/Plugin/Table.html
+  title: Template::Plugin::String
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/String.html
+/docs/modules/Template/Plugin/Table.html:
+  about: Plugin to present data in a table
+  back: /docs/modules/Template/Plugin/String.html
+  name: Table.pm
+  next: /docs/modules/Template/Plugin/URL.html
+  title: Template::Plugin::Table
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Table.html
+/docs/modules/Template/Plugin/URL.html:
+  about: Plugin to construct complex URLs
+  back: /docs/modules/Template/Plugin/Table.html
+  name: URL.pm
+  next: /docs/modules/Template/Plugin/View.html
+  title: Template::Plugin::URL
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/URL.html
+/docs/modules/Template/Plugin/View.html:
+  about: Plugin to create views (Template::View)
+  back: /docs/modules/Template/Plugin/URL.html
+  name: View.pm
+  next: /docs/modules/Template/Plugin/Wrap.html
+  title: Template::Plugin::View
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/View.html
+/docs/modules/Template/Plugin/Wrap.html:
+  about: Plugin interface to Text::Wrap
+  back: /docs/modules/Template/Plugin/View.html
+  name: Wrap.pm
+  title: Template::Plugin::Wrap
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Wrap.html
+/docs/modules/Template/Plugin/index.html:
+  back: /docs/modules/Template/Plugin.html
+  name: Plugin::*
+  next: /docs/modules/Template/Plugins.html
+  title: Template::Plugin::* Modules
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Plugin/index.html
+/docs/modules/Template/Plugins.html:
+  about: Plugin provider module
+  back: /docs/modules/Template/Plugin/index.html
+  name: Plugins.pm
+  next: /docs/modules/Template/Provider.html
+  title: Template::Plugins
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Plugins.html
+/docs/modules/Template/Provider.html:
+  about: Provider module for loading/compiling templates
+  back: /docs/modules/Template/Plugins.html
+  name: Provider.pm
+  next: /docs/modules/Template/Service.html
+  title: Template::Provider
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Provider.html
+/docs/modules/Template/Service.html:
+  about: General purpose template processing service
+  back: /docs/modules/Template/Provider.html
+  name: Service.pm
+  next: /docs/modules/Template/Stash.html
+  title: Template::Service
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Service.html
+/docs/modules/Template/Stash.html:
+  about: Magical storage for template variables
+  back: /docs/modules/Template/Service.html
+  name: Stash.pm
+  next: /docs/modules/Template/Stash/index.html
+  title: Template::Stash
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Stash.html
+/docs/modules/Template/Stash/Context.html:
+  about: Experimetal stash allowing list/scalar context definition
+  name: Context.pm
+  next: /docs/modules/Template/Stash/XS.html
+  title: Template::Stash::Context
+  up: /docs/modules/Template/Stash/index.html
+  uri: /docs/modules/Template/Stash/Context.html
+/docs/modules/Template/Stash/XS.html:
+  about: High-speed variable stash written in C
+  back: /docs/modules/Template/Stash/Context.html
+  name: XS.pm
+  title: Template::Stash::XS
+  up: /docs/modules/Template/Stash/index.html
+  uri: /docs/modules/Template/Stash/XS.html
+/docs/modules/Template/Stash/index.html:
+  back: /docs/modules/Template/Stash.html
+  name: Stash::*
+  next: /docs/modules/Template/Test.html
+  title: Template::Stash::* Modules
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Stash/index.html
+/docs/modules/Template/Test.html:
+  about: Module for automating TT2 test scripts
+  back: /docs/modules/Template/Stash/index.html
+  name: Test.pm
+  next: /docs/modules/Template/VMethods.html
+  title: Template::Test
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Test.html
+/docs/modules/Template/VMethods.html:
+  about: Virtual methods for variables
+  back: /docs/modules/Template/Test.html
+  name: VMethods.pm
+  next: /docs/modules/Template/View.html
+  title: Template::VMethods
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/VMethods.html
+/docs/modules/Template/View.html:
+  about: customised view of a template processing context
+  back: /docs/modules/Template/VMethods.html
+  name: View.pm
+  title: Template::View
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/View.html
+/docs/modules/Template/index.html:
+  back: /docs/modules/Template.html
+  name: Template::*
+  title: Template::* Modules
+  up: /docs/modules/index.html
+  uri: /docs/modules/Template/index.html
+/docs/modules/index.html:
+  about: Template Toolkit Modules
+  back: /docs/manual/index.html
+  name: Modules
+  next: /docs/tools/index.html
+  title: Template::Modules
+  up: /docs/index.html
+  uri: /docs/modules/index.html
+/docs/tools/index.html:
+  about: Command Line Tools for the Template Toolkit
+  back: /docs/modules/index.html
+  name: Tools
+  next: /docs/tutorial/index.html
+  title: Template::Tools
+  up: /docs/index.html
+  uri: /docs/tools/index.html
+/docs/tools/tpage.html:
+  about: Process templates from command line
+  name: tpage
+  next: /docs/tools/ttree.html
+  title: Template::Tools::tpage
+  up: /docs/tools/index.html
+  uri: /docs/tools/tpage.html
+/docs/tools/ttree.html:
+  about: Process entire directory trees of templates
+  back: /docs/tools/tpage.html
+  name: ttree
+  title: Template::Tools::ttree
+  up: /docs/tools/index.html
+  uri: /docs/tools/ttree.html
+/docs/tutorial/Datafile.html:
+  about: Creating Data Output Files Using the Template Toolkit
+  back: /docs/tutorial/Web.html
+  name: Datafile
+  title: Template::Tutorial::Datafile
+  up: /docs/tutorial/index.html
+  uri: /docs/tutorial/Datafile.html
+/docs/tutorial/Web.html:
+  about: Generating Web Content Using the Template Toolkit
+  name: Web
+  next: /docs/tutorial/Datafile.html
+  title: Template::Tutorial::Web
+  up: /docs/tutorial/index.html
+  uri: /docs/tutorial/Web.html
+/docs/tutorial/index.html:
+  about: Template Toolkit Tutorials
+  back: /docs/tools/index.html
+  name: Tutorial
+  next: /docs/faq/index.html
+  title: Template::Tutorial
+  up: /docs/index.html
+  uri: /docs/tutorial/index.html

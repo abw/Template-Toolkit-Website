@@ -1,0 +1,18 @@
+#!/usr/bin/perl
+#
+# Perl script to convert a POD file to HTML using Pod::POM with a custom view
+#
+# Written by Andy Wardley http://wardley.org/
+#
+# 05 June 2007
+#
+
+use strict;
+use warnings;
+use FindBin qw( $Bin );
+use lib "$Bin/../perl/lib";
+use Template::Docs::Pod::HTML;
+
+our $file     = shift || die "usage: pod2html file.pod\n";
+our $pod2html = Template::Docs::Pod::HTML->new();
+print $pod2html->convert_pod_file($file); 

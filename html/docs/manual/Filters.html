@@ -1,0 +1,802 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Manual::Filters</title>
+    <link rel="stylesheet" type="text/css" href="../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/manual/index.html">Manual</a></li>
+            <li class="last"><a href="../../docs/manual/Filters.html">Filters</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../docs/manual/Config.html" title="Template::Manual::Config" class="go back">Back<span class="about"><strong>Template::Manual::Config</strong>Configuration options</span></a>
+            <a href="../../docs/manual/index.html" title="Template::Manual" class="go up">Up<span class="about"><strong>Template::Manual</strong>Template Toolkit User Manual</span></a>
+            <a href="../../docs/manual/Plugins.html" title="Template::Manual::Plugins" class="go next">Next<span class="about"><strong>Template::Manual::Plugins</strong>Standard plugins</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Manual::Filters</h1>
+          <h2 class="subhead">Standard filters</h2>
+        
+          <a href="http://template-toolkit.org/docs/manual/Filters.html" class="permalink">http://template-toolkit.org/docs/manual/Filters.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../about.html">About</a></li>
+                <li class="l0"><a href="../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../docs/manual/index.html" class="warm">Manual</a></li>
+                <li class="l2"><a href="../../docs/manual/Intro.html">Intro</a></li>
+                <li class="l2"><a href="../../docs/manual/Syntax.html">Syntax</a></li>
+                <li class="l2"><a href="../../docs/manual/Directives.html">Directives</a></li>
+                <li class="l2"><a href="../../docs/manual/Variables.html">Variables</a></li>
+                <li class="l2"><a href="../../docs/manual/VMethods.html">VMethods</a></li>
+                <li class="l2"><a href="../../docs/manual/Config.html">Config</a></li>
+                <li class="l2"><a href="../../docs/manual/Filters.html" class="warm">Filters</a></li>
+                <li class="l2"><a href="../../docs/manual/Plugins.html">Plugins</a></li>
+                <li class="l2"><a href="../../docs/manual/Internals.html">Internals</a></li>
+                <li class="l2"><a href="../../docs/manual/Views.html">Views</a></li>
+                <li class="l2"><a href="../../docs/manual/Credits.html">Credits</a></li>
+                <li class="l1"><a href="../../docs/modules/index.html">Modules</a></li>
+                <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_format_format_">format(format)</a></li>
+                  <li class=""><a href="#section_upper">upper</a></li>
+                  <li class=""><a href="#section_lower">lower</a></li>
+                  <li class=""><a href="#section_ucfirst">ucfirst</a></li>
+                  <li class=""><a href="#section_lcfirst">lcfirst</a></li>
+                  <li class=""><a href="#section_trim">trim</a></li>
+                  <li class=""><a href="#section_collapse">collapse</a></li>
+                  <li class=""><a href="#section_html">html</a></li>
+                  <li class=""><a href="#section_html_entity">html_entity</a></li>
+                  <li class=""><a href="#section_html_para">html_para</a></li>
+                  <li class=""><a href="#section_html_break_html_para_break">html_break / html_para_break</a></li>
+                  <li class=""><a href="#section_html_line_break">html_line_break</a></li>
+                  <li class=""><a href="#section_uri">uri</a></li>
+                  <li class=""><a href="#section_url">url</a></li>
+                  <li class=""><a href="#section_indent_pad_">indent(pad)</a></li>
+                  <li class=""><a href="#section_truncate_length_dots_">truncate(length,dots)</a></li>
+                  <li class=""><a href="#section_repeat_iterations_">repeat(iterations)</a></li>
+                  <li class=""><a href="#section_remove_string_">remove(string) </a></li>
+                  <li class=""><a href="#section_replace_search_replace_">replace(search, replace) </a></li>
+                  <li class=""><a href="#section_redirect_file_options_">redirect(file, options)</a></li>
+                  <li class=""><a href="#section_eval_evaltt">eval / evaltt</a></li>
+                  <li class=""><a href="#section_perl_evalperl">perl / evalperl</a></li>
+                  <li class=""><a href="#section_stdout_options_">stdout(options)</a></li>
+                  <li class=""><a href="#section_stderr">stderr</a></li>
+                  <li class=""><a href="#section_null">null</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_format_format_" onclick="switch_section(this)" title="Click title to show/hide section content.">format(format)</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>format</code> filter takes a format string as a parameter (as
+                      per <code>printf()</code>) and formats each line of text accordingly.
+                    </p>
+                    <pre><span class="tt">[% FILTER format('&lt;!-- %-40s --&gt;') %]</span>
+This is a block of text filtered 
+through the above format.
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>&lt;!-- This is a block of text filtered        --&gt;
+&lt;!-- through the above format.               --&gt;</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_upper" onclick="switch_section(this)" title="Click title to show/hide section content.">upper</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Folds the input to UPPER CASE.
+                    </p>
+                    <pre><span class="tt">[% "hello world" FILTER upper %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>HELLO WORLD</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_lower" onclick="switch_section(this)" title="Click title to show/hide section content.">lower</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Folds the input to lower case.
+                    </p>
+                    <pre><span class="tt">[% "Hello World" FILTER lower %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>hello world</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_ucfirst" onclick="switch_section(this)" title="Click title to show/hide section content.">ucfirst</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Folds the first character of the input to UPPER CASE.
+                    </p>
+                    <pre><span class="tt">[% "hello" FILTER ucfirst %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>Hello</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_lcfirst" onclick="switch_section(this)" title="Click title to show/hide section content.">lcfirst</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Folds the first character of the input to lower case.
+                    </p>
+                    <pre><span class="tt">[% "HELLO" FILTER lcfirst %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>hELLO</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_trim" onclick="switch_section(this)" title="Click title to show/hide section content.">trim</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Trims any leading or trailing whitespace from the input text.
+                      Particularly useful in conjunction with <code>INCLUDE</code>,
+                      <code>PROCESS</code>, etc., having the same effect as the
+                      <code>TRIM</code> configuration option.
+                    </p>
+                    <pre><span class="tt">[% INCLUDE myfile | trim %]</span></pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_collapse" onclick="switch_section(this)" title="Click title to show/hide section content.">collapse</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Collapse any whitespace sequences in the input text into a single space.
+                      Leading and trailing whitespace (which would be reduced to a single
+                      space) is removed, as per trim.
+                    </p>
+                    <pre><span class="tt">[% FILTER collapse %]</span>
+
+   The   cat
+
+   sat    on
+
+   the   mat
+
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>The cat sat on the mat</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_html" onclick="switch_section(this)" title="Click title to show/hide section content.">html</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Converts the characters <code>&lt;</code>, <code>&gt;</code>,
+                      <code>&amp;</code> and <code>"</code> to <code>&amp;lt;</code>,
+                      <code>&amp;gt;</code>, <code>&amp;amp;</code>, and
+                      <code>&amp;quot;</code> respectively, protecting them from being
+                      interpreted as representing HTML tags or entities.
+                    </p>
+                    <pre><span class="tt">[% FILTER html %]</span>
+Binary "&lt;=&gt;" returns -1, 0, or 1 depending on...
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>Binary "&amp;lt;=&amp;gt;" returns -1, 0, or 1 depending on...</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_html_entity" onclick="switch_section(this)" title="Click title to show/hide section content.">html_entity</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>html</code> filter is fast and simple but it doesn't encode the
+                      full range of HTML entities that your text may contain. The
+                      <code>html_entity</code> filter uses either the <code>Apache::Util</code>
+                      module (which is written in C and is therefore faster) or the
+                      <code>HTML::Entities</code> module (written in Perl but equally as
+                      comprehensive) to perform the encoding. If one or other of these modules
+                      are installed on your system then the text will be encoded (via the
+                      <code>escape_html()</code> or <code>encode_entities()</code> subroutines
+                      respectively) to convert all extended characters into their appropriate
+                      HTML entities (e.g. converting '<code>é</code>' to
+                      '<code>&amp;eacute;</code>'). If neither module is available on your
+                      system then an '<code>html_entity</code>' exception will be thrown
+                      reporting an appropriate message.
+                    </p>
+                    <p>
+                      For further information on HTML entity encoding, see <a
+                      href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_html_para" onclick="switch_section(this)" title="Click title to show/hide section content.">html_para</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      This filter formats a block of text into HTML paragraphs. A sequence of
+                      two or more newlines is used as the delimiter for paragraphs which are
+                      then wrapped in HTML <code>&lt;p&gt;</code>...<code>&lt;/p&gt;</code>
+                      tags.
+                    </p>
+                    <pre><span class="tt">[% FILTER html_para %]</span>
+The cat sat on the mat.
+
+Mary had a little lamb.
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>&lt;p&gt;
+The cat sat on the mat.
+&lt;/p&gt;
+
+&lt;p&gt;
+Mary had a little lamb.
+&lt;/p&gt;</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_html_break_html_para_break" onclick="switch_section(this)" title="Click title to show/hide section content.">html_break / html_para_break</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Similar to the html_para filter described above, but uses the HTML tag
+                      sequence <code>&lt;br&gt;&lt;br&gt;</code> to join paragraphs.
+                    </p>
+                    <pre><span class="tt">[% FILTER html_break %]</span>
+The cat sat on the mat.
+
+Mary had a little lamb.
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>The cat sat on the mat.
+&lt;br&gt;
+&lt;br&gt;
+Mary had a little lamb.</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_html_line_break" onclick="switch_section(this)" title="Click title to show/hide section content.">html_line_break</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      This filter replaces any newlines with <code>&lt;br&gt;</code> HTML tags,
+                      thus preserving the line breaks of the original text in the HTML output.
+                    </p>
+                    <pre><span class="tt">[% FILTER html_line_break %]</span>
+The cat sat on the mat.
+Mary had a little lamb.
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>The cat sat on the mat.&lt;br&gt;
+Mary had a little lamb.&lt;br&gt;</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_uri" onclick="switch_section(this)" title="Click title to show/hide section content.">uri</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      This filter URI escapes the input text, converting any characters outside
+                      of the permitted URI character set (as defined by RFC 2396) into a
+                      <code>%nn</code> hex escape.
+                    </p>
+                    <pre><span class="tt">[% 'my file.html' | uri %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>my%20file.html</pre>
+                    <p>
+                      The uri filter correctly encodes all reserved characters, including
+                      <code>&amp;</code>, <code>@</code>, <code>/</code>, <code>;</code>,
+                      <code>:</code>, <code>=</code>, <code>+</code>, <code>?</code> and
+                      <code>$</code>. This filter is typically used to encode parameters in a
+                      URL that could otherwise be interpreted as part of the URL. Here's an
+                      example:
+                    </p>
+                    <pre><span class="tt">[% path  = 'http://tt2.org/example'
+   back  = '/other?foo=bar&amp;baz=bam' 
+   title = 'Earth: "Mostly Harmless"'
+%]</span>
+&lt;a href="<span class="tt">[% path %]</span>?back=<span class="tt">[% back | uri %]</span>&amp;title=<span class="tt">[% title | uri %]</span>"&gt;</pre>
+                    <p>
+                      The output generated is rather long so we'll show it split across two
+                      lines:
+                    </p>
+                    <pre>&lt;a href="http://tt2.org/example?back=%2Fother%3Ffoo%3Dbar%26
+baz%3Dbam&amp;title=Earth%3A%20%22Mostly%20Harmless%22"&gt;</pre>
+                    <p>
+                      Without the uri filter the output would look like this (also split across
+                      two lines).
+                    </p>
+                    <pre>&lt;a href="http://tt2.org/example?back=/other?foo=bar
+&amp;baz=bam&amp;title=Earth: "Mostly Harmless""&gt;</pre>
+                    <p>
+                      In this rather contrived example we've manage to generate both a broken
+                      URL (the repeated <code>?</code> is not allowed) and a broken HTML
+                      element (the href attribute is terminated by the first <code>"</code>
+                      after <code>Earth: </code> leaving <code>Mostly Harmless"</code> dangling
+                      on the end of the tag in precisely the way that harmless things shouldn't
+                      dangle). So don't do that. Always use the uri filter to encode your URL
+                      parameters.
+                    </p>
+                    <p>
+                      However, you should <b>not</b> use the uri filter to encode an entire
+                      URL.
+                    </p>
+                    <pre>&lt;a href="<span class="tt">[% page_url | uri %]</span>"&gt;   # WRONG!</pre>
+                    <p>
+                      This will incorrectly encode any reserved characters like <code>:</code>
+                      and <code>/</code> and that's almost certainly not what you want in this
+                      case. Instead you should use the <b>url</b> (note spelling) filter for
+                      this purpose.
+                    </p>
+                    <pre>&lt;a href="<span class="tt">[% page_url | url %]</span>"&gt;   # CORRECT</pre>
+                    <p>
+                      Please note that this behaviour was changed in version 2.16 of the
+                      Template Toolkit. Prior to that, the uri filter did not encode the
+                      reserved characters, making it technically incorrect according to the RFC
+                      2396 specification. So we fixed it in 2.16 and provided the url filter to
+                      implement the old behaviour of not encoding reserved characters.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_url" onclick="switch_section(this)" title="Click title to show/hide section content.">url</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The url filter is a less aggressive version of the uri filter. It encodes
+                      any characters outside of the permitted URI character set (as defined by
+                      RFC 2396) into <code>%nn</code> hex escapes. However, unlike the uri
+                      filter, the url filter does <b>not</b> encode the reserved characters
+                      <code>&amp;</code>, <code>@</code>, <code>/</code>, <code>;</code>,
+                      <code>:</code>, <code>=</code>, <code>+</code>, <code>?</code> and
+                      <code>$</code>.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_indent_pad_" onclick="switch_section(this)" title="Click title to show/hide section content.">indent(pad)</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Indents the text block by a fixed pad string or width. The
+                      '<code>pad</code>' argument can be specified as a string, or as a
+                      numerical value to indicate a pad width (spaces). Defaults to 4 spaces if
+                      unspecified.
+                    </p>
+                    <pre><span class="tt">[% FILTER indent('ME&gt; ') %]</span>
+blah blah blah
+cabbages, rhubard, onions 
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>ME&gt; blah blah blah
+ME&gt; cabbages, rhubard, onions</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_truncate_length_dots_" onclick="switch_section(this)" title="Click title to show/hide section content.">truncate(length,dots)</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Truncates the text block to the length specified, or a default length of
+                      32. Truncated text will be terminated with '<code>...</code>' (i.e. the
+                      '<code>...</code>' falls inside the required length, rather than
+                      appending to it).
+                    </p>
+                    <pre><span class="tt">[% FILTER truncate(21) %]</span>
+I have much to say on this matter that has previously 
+been said on more than one occasion.
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>I have much to say...</pre>
+                    <p>
+                      If you want to use something other than '<code>...</code>' you can pass
+                      that as a second argument.
+                    </p>
+                    <pre><span class="tt">[% FILTER truncate(26, '&amp;hellip;') %]</span>
+I have much to say on this matter that has previously 
+been said on more than one occasion.
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>I have much to say&amp;hellip;</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_repeat_iterations_" onclick="switch_section(this)" title="Click title to show/hide section content.">repeat(iterations)</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Repeats the text block for as many iterations as are specified (default:
+                      1).
+                    </p>
+                    <pre><span class="tt">[% FILTER repeat(3) %]</span>
+We want more beer and we want more beer,
+<span class="tt">[% END %]</span>
+We are the more beer wanters!</pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>We want more beer and we want more beer,
+We want more beer and we want more beer,
+We want more beer and we want more beer,
+We are the more beer wanters!</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_remove_string_" onclick="switch_section(this)" title="Click title to show/hide section content.">remove(string) </h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Searches the input text for any occurrences of the specified string and
+                      removes them. A Perl regular expression may be specified as the search
+                      string.
+                    </p>
+                    <pre><span class="tt">[% "The  cat  sat  on  the  mat" FILTER remove('\s+') %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>Thecatsatonthemat</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_replace_search_replace_" onclick="switch_section(this)" title="Click title to show/hide section content.">replace(search, replace) </h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Similar to the remove filter described above, but taking a second
+                      parameter which is used as a replacement string for instances of the
+                      search string.
+                    </p>
+                    <pre><span class="tt">[% "The  cat  sat  on  the  mat" | replace('\s+', '_') %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>The_cat_sat_on_the_mat</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_redirect_file_options_" onclick="switch_section(this)" title="Click title to show/hide section content.">redirect(file, options)</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>redirect</code> filter redirects the output of the block into a
+                      separate file, specified relative to the <code>OUTPUT_PATH</code>
+                      configuration item.
+                    </p>
+                    <pre><span class="tt">[% FOREACH user IN myorg.userlist %]</span>
+   <span class="tt">[% FILTER redirect("users/${user.id}.html") %]</span>
+      <span class="tt">[% INCLUDE userinfo %]</span>
+   <span class="tt">[% END %]</span>
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      or more succinctly, using side-effect notation:
+                    </p>
+                    <pre><span class="tt">[%  FOREACH user IN myorg.userlist;
+      INCLUDE userinfo 
+        FILTER redirect("users/${user.id}.html");
+    END
+%]</span></pre>
+                    <p>
+                      A <code>file</code> exception will be thrown if the
+                      <code>OUTPUT_PATH</code> option is undefined.
+                    </p>
+                    <p>
+                      An optional <code>binmode</code> argument can follow the filename to
+                      explicitly set the output file to binary mode.
+                    </p>
+                    <pre><span class="tt">[% PROCESS my/png/generator 
+     FILTER redirect("images/logo.png", binmode=1) %]</span></pre>
+                    <p>
+                      For backwards compatibility with earlier versions, a single true/false
+                      value can be used to set binary mode.
+                    </p>
+                    <pre><span class="tt">[% PROCESS my/png/generator 
+     FILTER redirect("images/logo.png", 1) %]</span></pre>
+                    <p>
+                      For the sake of future compatibility and clarity, if nothing else, we
+                      would strongly recommend you explicitly use the named
+                      <code>binmode</code> option as shown in the first example.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_eval_evaltt" onclick="switch_section(this)" title="Click title to show/hide section content.">eval / evaltt</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>eval</code> filter evaluates the block as template text,
+                      processing any directives embedded within it. This allows template
+                      variables to contain template fragments, or for some method to be
+                      provided for returning template fragments from an external source such as
+                      a database, which can then be processed in the template as required.
+                    </p>
+                    <pre>my $vars  = {
+    fragment =&gt; "The cat sat on the <span class="tt">[% place %]</span>",
+};
+$template-&gt;process($file, $vars);</pre>
+                    <p>
+                      The following example:
+                    </p>
+                    <pre><span class="tt">[% fragment | eval %]</span></pre>
+                    <p>
+                      is therefore equivalent to
+                    </p>
+                    <pre>The cat sat on the <span class="tt">[% place %]</span></pre>
+                    <p>
+                      The <code>evaltt</code> filter is provided as an alias for
+                      <code>eval</code>.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_perl_evalperl" onclick="switch_section(this)" title="Click title to show/hide section content.">perl / evalperl</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>perl</code> filter evaluates the block as Perl code. The
+                      <code>EVAL_PERL</code> option must be set to a true value or a
+                      <code>perl</code> exception will be thrown.
+                    </p>
+                    <pre><span class="tt">[% my_perl_code | perl %]</span></pre>
+                    <p>
+                      In most cases, the <code>[% PERL %]</code> ... <code>[% END %]</code>
+                      block should suffice for evaluating Perl code, given that template
+                      directives are processed before being evaluate as Perl. Thus, the
+                      previous example could have been written in the more verbose form:
+                    </p>
+                    <pre><span class="tt">[% PERL %]</span>
+<span class="tt">[% my_perl_code %]</span>
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      as well as
+                    </p>
+                    <pre><span class="tt">[% FILTER perl %]</span>
+<span class="tt">[% my_perl_code %]</span>
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      The <code>evalperl</code> filter is provided as an alias for
+                      <code>perl</code> for backwards compatibility.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_stdout_options_" onclick="switch_section(this)" title="Click title to show/hide section content.">stdout(options)</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The stdout filter prints the output generated by the enclosing block to
+                      <code>STDOUT</code>. The <code>binmode</code> option can be passed as
+                      either a named parameter or a single argument to set <code>STDOUT</code>
+                      to binary mode (see the binmode perl function).
+                    </p>
+                    <pre><span class="tt">[% PROCESS something/cool
+       FILTER stdout(binmode=1) # recommended %]</span>
+
+<span class="tt">[% PROCESS something/cool
+       FILTER stdout(1)         # alternate %]</span></pre>
+                    <p>
+                      The <code>stdout</code> filter can be used to force <code>binmode</code>
+                      on <code>STDOUT</code>, or also inside <code>redirect</code>,
+                      <code>null</code> or <code>stderr</code> blocks to make sure that
+                      particular output goes to <code>STDOUT</code>. See the <code>null</code>
+                      filter below for an example.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_stderr" onclick="switch_section(this)" title="Click title to show/hide section content.">stderr</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The stderr filter prints the output generated by the enclosing block to
+                      <code>STDERR</code>.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_null" onclick="switch_section(this)" title="Click title to show/hide section content.">null</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>null</code> filter prints nothing. This is useful for plugins
+                      whose methods return values that you don't want to appear in the output.
+                      Rather than assigning every plugin method call to a dummy variable to
+                      silence it, you can wrap the block in a null filter:
+                    </p>
+                    <pre><span class="tt">[% FILTER null;
+    USE im = GD.Image(100,100);
+    black = im.colorAllocate(0,   0, 0);
+    red   = im.colorAllocate(255,0,  0);
+    blue  = im.colorAllocate(0,  0,  255);
+    im.arc(50,50,95,75,0,360,blue);
+    im.fill(50,50,red);
+    im.png | stdout(1);
+   END;
+-%]</span></pre>
+                    <p>
+                      Notice the use of the <code>stdout</code> filter to ensure that a
+                      particular expression generates output to <code>STDOUT</code> (in this
+                      case in binary mode).
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/manual/Filters.html last modified 14:40:05 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../docs/manual/Config.html" title="Template::Manual::Config" class="go back">Back<span class="about"><strong>Template::Manual::Config</strong></span></a>
+            <a href="../../docs/manual/index.html" title="Template::Manual" class="go up">Up<span class="about"><strong>Template::Manual</strong></span></a>
+            <a href="../../docs/manual/Plugins.html" title="Template::Manual::Plugins" class="go next">Next<span class="about"><strong>Template::Manual::Plugins</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

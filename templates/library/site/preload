@@ -1,0 +1,6 @@
+[% preload = 'logo tab hide show arrow1 arrow2 ext talk menu menu_head menu_foot top dotminus1 dotminus2 dotplus1' -%]
+<div id="preload">
+[%- FOREACH item IN preload.split -%]
+  <span class="[% item %]"></span>
+[% END -%]
+</div>

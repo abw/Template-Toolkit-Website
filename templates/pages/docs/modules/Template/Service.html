@@ -1,0 +1,362 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Service;
+      
+      my $service = Template::Service-&gt;new({
+          PRE_PROCESS  =&gt; [ 'config', 'header' ],
+          POST_PROCESS =&gt; 'footer',
+          ERROR        =&gt; {
+              user     =&gt; 'user/index.html', 
+              dbi      =&gt; 'error/database',
+              default  =&gt; 'error/default',
+          },
+      });
+      
+      my $output = $service-&gt;process($template_name, \%replace)
+          || die $service-&gt;error(), "\n";
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Service</code> module implements an object class for
+      providing a consistent template processing service.
+    </p>
+    <p>
+      Standard header (<a
+      href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a>) and footer (<a
+      href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a>) templates may
+      be specified which are prepended and appended to all templates processed
+      by the service (but not any other templates or blocks
+      <code>INCLUDE</code>d or <code>PROCESS</code>ed from within). An <a
+      href="#section_ERROR">ERROR</a> hash may be specified which redirects the
+      service to an alternate template file in the case of uncaught exceptions
+      being thrown. This allows errors to be automatically handled by the
+      service and a guaranteed valid response to be generated regardless of any
+      processing problems encountered.
+    </p>
+    <p>
+      A default <code>Template::Service</code> object is created by the <a
+      href="[** ttmodlink('Template') **]">Template</a> module. Any
+      <code>Template::Service</code> options may be passed to the <a href="[**
+      ttmodlink('Template') **]">Template</a> <a href="[**
+      ttmodlink('Template') **]#method_new">new()</a> constructor method and
+      will be forwarded to the <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> constructor.
+    </p>
+    <pre>
+      use Template;
+      
+      my $template = Template-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+      });
+    </pre>
+    <p>
+      Similarly, the <code>Template::Service</code> constructor will forward
+      all configuration parameters onto other default objects (e.g. <a
+      href="[** ttmodlink('Template::Context') **]">Template::Context</a>) that
+      it may need to instantiate.
+    </p>
+    <p>
+      A <code>Template::Service</code> object (or subclass) can be explicitly
+      instantiated and passed to the <a href="[** ttmodlink('Template')
+      **]">Template</a> <a href="[** ttmodlink('Template')
+      **]#method_new">new()</a> constructor method as the <a
+      href="#section_SERVICE">SERVICE</a> item.
+    </p>
+    <pre>
+      use Template;
+      use Template::Service;
+      
+      my $service = Template::Service-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+      });
+      
+      my $template = Template-&gt;new({
+          SERVICE =&gt; $service,
+      });
+    </pre>
+    <p>
+      The <code>Template::Service</code> module can be sub-classed to create
+      custom service handlers.
+    </p>
+    <pre>
+      use Template;
+      use MyOrg::Template::Service;
+      
+      my $service = MyOrg::Template::Service-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+          COOL_OPTION  =&gt; 'enabled in spades',
+      });
+      
+      my $template = Template-&gt;new({
+          SERVICE =&gt; $service,
+      });
+    </pre>
+    <p>
+      The <a href="[** ttmodlink('Template') **]">Template</a> module uses the
+      <a href="[** ttmodlink('Template::Config') **]">Template::Config</a> <a
+      href="[** ttmodlink('Template::Config') **]#method_service">service()</a>
+      factory method to create a default service object when required. The
+      <code>$Template::Config::SERVICE</code> package variable may be set to
+      specify an alternate service module. This will be loaded automatically
+      and its <a href="#method_new">new()</a> constructor method called by the
+      <a href="[** ttmodlink('Template::Config')
+      **]#method_service">service()</a> factory method when a default service
+      object is required. Thus the previous example could be written as:
+    </p>
+    <pre>
+      use Template;
+      
+      $Template::Config::SERVICE = 'MyOrg::Template::Service';
+      
+      my $template = Template-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+          COOL_OPTION  =&gt; 'enabled in spades',
+      });
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%config)' id='method_new' class='method' -**]
+    <p>
+      The <code>new()</code> constructor method is called to instantiate a
+      <code>Template::Service</code> object. Configuration parameters may be
+      specified as a HASH reference or as a list of <code>name =&gt;
+      value</code> pairs.
+    </p>
+    <pre>
+      my $service1 = Template::Service-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+      });
+      
+      my $service2 = Template::Service-&gt;new( ERROR =&gt; 'error.html' );
+    </pre>
+    <p>
+      The <code>new()</code> method returns a <code>Template::Service</code>
+      object or <code>undef</code> on error. In the latter case, a relevant
+      error message can be retrieved by the <a href="[**
+      ttmodlink('Template::Base') **]#method_error">error()</a> class method or
+      directly from the <code>$Template::Service::ERROR</code> package
+      variable.
+    </p>
+    <pre>
+      my $service = Template::Service-&gt;new(\%config)
+          || die Template::Service-&gt;error();
+          
+      my $service = Template::Service-&gt;new(\%config)
+          || die $Template::Service::ERROR;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='process($input, \%replace)' id='method_process' class='method' -**]
+    <p>
+      The <code>process()</code> method is called to process a template
+      specified as the first parameter, <code>$input</code>. This may be a file
+      name, file handle (e.g. <code>GLOB</code> or <code>IO::Handle</code>) or
+      a reference to a text string containing the template text. An additional
+      hash reference may be passed containing template variable definitions.
+    </p>
+    <p>
+      The method processes the template, adding any <a
+      href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> or <a
+      href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> templates
+      defined, and returns the output text. An uncaught exception thrown by the
+      template will be handled by a relevant <a href="#section_ERROR">ERROR</a>
+      handler if defined. Errors that occur in the <a
+      href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> or <a
+      href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> templates, or
+      those that occur in the main input template and aren't handled, cause the
+      method to return <code>undef</code> to indicate failure. The appropriate
+      error message can be retrieved via the <a href="[**
+      ttmodlink('Template::Base') **]#method_error">error()</a> method.
+    </p>
+    <pre>
+      $service-&gt;process('myfile.html', { title =&gt; 'My Test File' })
+          || die $service-&gt;error();
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='context()' id='method_context' class='method' -**]
+    <p>
+      Returns a reference to the internal context object which is, by default,
+      an instance of the <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> class.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='CONFIGURATION OPTIONS' id='section_CONFIGURATION_OPTIONS' -**]
+    <p>
+      The following list summarises the configuration options that can be
+      provided to the <code>Template::Service</code> <a
+      href="#method_new">new()</a> constructor. Please consult <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for further details and examples of each configuration option in use.
+    </p>
+    [** WRAPPER page/subsection title='PRE_PROCESS, POST_PROCESS' id='section_PRE_PROCESS_POST_PROCESS' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> and <a href="[**
+      ttmodlink('Template::Manual::Config')
+      **]#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> options may be set
+      to contain the name(s) of template files which should be processed
+      immediately before and/or after each template. These do not get added to
+      templates processed into a document via directives such as
+      <code>INCLUDE</code> <code>PROCESS</code>, <code>WRAPPER</code>, etc.
+    </p>
+    <pre>
+      my $service = Template::Service-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+      };
+    </pre>
+    <p>
+      Multiple templates may be specified as a reference to a list. Each is
+      processed in the order defined.
+    </p>
+    <pre>
+      my $service = Template::Service-&gt;new({
+          PRE_PROCESS  =&gt; [ 'config', 'header' ],
+          POST_PROCESS =&gt; 'footer',
+      };
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PROCESS' id='section_PROCESS' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_PROCESS">PROCESS</a> option may be set to contain the name(s)
+      of template files which should be processed instead of the main template
+      passed to the <code>Template::Service</code> <a
+      href="#method_process">process()</a> method. This can be used to apply
+      consistent wrappers around all templates, similar to the use of <a
+      href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> and <a
+      href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> templates.
+    </p>
+    <pre>
+      my $service = Template::Service-&gt;new({
+          PROCESS  =&gt; 'content',
+      };
+      
+      # processes 'content' instead of 'foo.html'
+      $service-&gt;process('foo.html');
+    </pre>
+    <p>
+      A reference to the original template is available in the
+      <code>template</code> variable. Metadata items can be inspected and the
+      template can be processed by specifying it as a variable reference (i.e.
+      prefixed by '<code>$</code>') to an <code>INCLUDE</code>,
+      <code>PROCESS</code> or <code>WRAPPER</code> directive.
+    </p>
+    <p>
+      Example <code>PROCESS</code> template:
+    </p>
+    <pre>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% template.title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+        <span class="tt">[% PROCESS $template %]</span>
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ERROR' id='section_ERROR' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_ERROR">ERROR</a> (or <code>ERRORS</code> if you prefer)
+      configuration item can be used to name a single template or specify a
+      hash array mapping exception types to templates which should be used for
+      error handling. If an uncaught exception is raised from within a template
+      then the appropriate error template will instead be processed.
+    </p>
+    <p>
+      If specified as a single value then that template will be processed for
+      all uncaught exceptions.
+    </p>
+    <pre>
+      my $service = Template::Service-&gt;new({
+          ERROR =&gt; 'error.html'
+      });
+    </pre>
+    <p>
+      If the <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_ERROR">ERROR/ERRORS</a> item is a hash reference the keys are
+      assumed to be exception types and the relevant template for a given
+      exception will be selected. A <code>default</code> template may be
+      provided for the general case.
+    </p>
+    <pre>
+      my $service = Template::Service-&gt;new({
+          ERRORS =&gt; {
+              user     =&gt; 'user/index.html',
+              dbi      =&gt; 'error/database',
+              default  =&gt; 'error/default',
+          },
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='AUTO_RESET' id='section_AUTO_RESET' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_AUTO_RESET">AUTO_RESET</a> option is set by default and
+      causes the local <code>BLOCKS</code> cache for the <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object to be
+      reset on each call to the <a href="[** ttmodlink('Template')
+      **]">Template</a> <a href="[** ttmodlink('Template')
+      **]#method_process">process()</a> method. This ensures that any
+      <code>BLOCK</code>s defined within a template will only persist until
+      that template is finished processing.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEBUG' id='section_DEBUG' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_DEBUG">DEBUG</a> option can be used to enable debugging
+      messages from the <code>Template::Service</code> module by setting it to
+      include the <code>DEBUG_SERVICE</code> value.
+    </p>
+    <pre>
+      use Template::Constants qw( :debug );
+      
+      my $template = Template-&gt;new({
+          DEBUG =&gt; DEBUG_SERVICE,
+      });
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>, <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a>
+    </p>
+[** END -**]
+
+</div>

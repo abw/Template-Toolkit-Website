@@ -1,0 +1,49 @@
+[% PROCESS css/defaults
+         + css/layout
+         + css/widescreen
+         + css/controls
+         + css/menu
+         + css/toc
+         + css/sections
+         + css/pod
+         + css/icons
+         + css/mailman
+         + css/preload
+%]
+
+
+/*------------------------------------------------------------------------*/
+/* Index page list                                                        */
+/*------------------------------------------------------------------------*/
+
+ul.index {
+    margin: 10px 10px 10px 0;
+    padding: 0px;
+}
+
+ul.index li {
+    list-style: none;
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+ul.index li a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0 0 0 20px;
+    margin: 0;
+    color: [% col.link %];
+    background: url('[% img %]/arrows/ff16_blue/right.gif') no-repeat top left;
+}
+
+ul.index li a:hover {
+    color: [% col.roll %];
+    background-image: url('[% img %]/arrows/ff16_orange/right.gif');
+}
+
+ul.index li p {
+    margin: 0 0 10px 0;
+    padding: 0 0 0 20px;
+}
+
+

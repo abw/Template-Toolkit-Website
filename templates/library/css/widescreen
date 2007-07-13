@@ -1,0 +1,48 @@
+/*------------------------------------------------------------------------*/
+/* widescreen mode                                                        */
+/*------------------------------------------------------------------------*/
+
+#body.wide {
+    padding: 10px 0 0 0;
+}
+
+#body.wide #palette {
+    display: none;
+}
+
+#body.wide #header {
+    padding: 0 20px 0 20px;
+    margin: -50px -20px 0 0;
+}
+
+#body.wide #header #logo {
+    display: none;
+}
+
+#body.wide #page {
+    padding: 10px;
+    margin: 0 0 0 0;
+    background-image: none;
+    background-color: white;
+    min-width: 560px;
+}
+
+#body.wide #sidebar {
+    display: none;
+}
+
+#body.wide #content {
+    padding: 0 10px;
+    background: white none;
+}
+
+#body.wide #footer {
+    padding: 0 150px 0px 90px;
+    margin-right: -20px;
+    background-position: bottom right;
+}
+
+#body.wide #footer a.osi {
+    left: 20px;
+}
+

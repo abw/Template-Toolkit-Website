@@ -1,0 +1,10 @@
+[%  IF rooturl;
+        debug3("Using pre-defined rooturl: $rooturl");
+    ELSE;
+        # Construct a relative path (e.g. ../..) upwards to the site root
+        rooturl = template.name;                    # get page template path
+        rooturl = rooturl.remove('\/?\w+\.\w+$');   # remove filename
+        rooturl = rooturl.replace('[\-\w]+', '..');     # replace each component with '..'
+        debug3("Generated relative rooturl: $rooturl");
+    END;
+-%]

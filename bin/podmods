@@ -1,0 +1,508 @@
+#!/usr/bin/perl -w                                            # -*- perl -*-
+#------------------------------------------------------------------------
+# podmods.pl
+#
+# Script to generate HTML pages from .pm and .pod files.  This was copied
+# from the Template-Docs distribution on 4th June 2007 and adapted 
+# slightly to define different output directories
+# 
+# Written by Andy Wardley.  This is free software.
+#------------------------------------------------------------------------
+
+use strict;
+use warnings;
+use FindBin qw( $Bin );
+use lib "$Bin/../perl/lib";
+use AppConfig;
+use File::Find::Rule;
+use File::Path;
+use File::Basename;
+use Path::Class;
+use Template::Docs::Pod::HTML;
+use YAML qw( DumpFile Dump );
+use Data::Dumper;
+use constant {
+    RULE     => 'File::Find::Rule',
+    POD2HTML => 'Template::Docs::Pod::HTML',
+};
+
+#-----------------------------------------------------------------------
+# configuration, most of which can be controlled via command line args
+#-----------------------------------------------------------------------
+
+our $PROGRAM  = 'podmods';
+our $BIN_DIR  = dir($Bin); 
+our $BASE_DIR = $BIN_DIR->parent();
+our $META_DIR = dir('metadata', 'docs');
+our $PAGE_DIR = dir('templates', 'pages');
+our @ACCEPT   = qw( *.pm *.pod );   # files to look for
+our @IGNORE   = qw( .svn );         # ignore SVN directories
+our $INDEX    = 'index.html';       # HTML index page, e.g. Template::Manual => manual/index.html
+our $BASE_URL = '/docs/';            # base URL for docs
+
+# list of Template::XXX.pod sections which get moved into their own sections 
+our @PODSECTS = qw( Manual Tutorial Tools FAQ );    
+
+# specify the pages that we don't want
+our $SKIP_PAGES = { 
+    map { ($_, 1) }
+    qw(Template/Plugin/List.pm Template/Map.pm),
+};
+
+# define the page order we want for Manual/Tutorial sections
+our $ORDER = {
+    Template => 'Manual Modules Tools Tutorial FAQ',
+    Manual   => 'Intro Syntax Directives Variables VMethods Config Filters Plugins Internals Views Credits',
+    Tutorial => 'Web Datafile',
+};
+
+# expand page $ORDER values into hash mapping name to position
+while (my ($k, $v) = each %$ORDER) {
+    my $n = 0;
+    $ORDER->{ $k } = {
+        map { ($_ => $n++) }
+        split(/\s+/s, $v)
+    };
+}
+
+# where to store the metadata we generate
+our $METADATA = {
+    pages     => 'pages.yaml',    # YAML filename for page metadata
+    modules   => 'modules.yaml',    # ditto for mapping module names to pages
+    sections  => 'sections.yaml',    # ditto for sections/dirs
+};
+
+our $REL_URL  = {                   # relative URLs for different sections
+    modules   => 'modules/',
+    manual    => 'manual/',
+    tutorial  => 'tutorial/',
+    tools     => 'tools/',
+    faq       => 'faq/',
+    misc      => 'misc/',
+};
+
+# hack to figure out path separator (is there a less ugly way?)
+File::Spec->catfile('a', 'b') =~ /^a(.*?)b$/ 
+    || die "Cannot determine file separator for this filesystem";
+our $PATHSEP = $1;
+our $PATHSEP_QM = quotemeta($1);
+
+our $USAGE =<<END_OF_HELP;
+
+usage: $PROGRAM [options] <perldir>
+
+This script trawls the Perl directory specified as the command line 
+argument <perldir> looking for the .pm and .pod files that contain 
+the source documentation for the Template Toolkit . It converts them 
+to HTML page templates and generates a YAML file containing metadata 
+for all of the modules, manual pages, and other documentation found.
+
+options:
+    --url     / -u    base url ($BASE_URL)
+    --dir     / -d    base directory ($BASE_DIR)
+    --metadir / -m    metadata directory ($META_DIR)
+    --pagedir / -p    page template directory ($PAGE_DIR)
+    --nothing / -n    do nothing for a dry run
+    --verbose / -v    verbose mode
+    --debug   / -g    debugging mode
+    --help    / -h    this help
+END_OF_HELP
+
+
+#-----------------------------------------------------------------------
+# handle command line arguments
+#-----------------------------------------------------------------------
+
+our $config  = AppConfig->new(
+    'nothing|n!',
+    'debug|g!',
+    'verbose|v!',
+    'help|h!',
+    'url|u=s'     => { DEFAULT => $BASE_URL },
+    'dir|d=s'     => { DEFAULT => $BASE_DIR },
+    'metadir|m=s' => { DEFAULT => $META_DIR },
+    'pagedir|p=s' => { DEFAULT => $PAGE_DIR },
+);
+
+$config->args() 
+    || die $config->error();
+
+die $USAGE if $config->help;
+
+# grok command line flags
+our $dry_run  = $config->nothing();
+our $verbose  = $config->verbose();
+our $debug    = $config->debug();
+
+# first non-switch argument is the perl directory to scan for files
+our $perldir  = shift  || die "Please specifiy a Perl directory to search for .pm and .pod files\n", $USAGE;
+$perldir =~ s/$PATHSEP_QM$//;
+$perldir = dir($perldir);
+die "Failed to scan $perldir: $!\n" unless $perldir->stat();
+
+# grok directories specified or use defaults
+our $rootdir  = dir( $config->dir() );
+our $metadir  = dir( $config->metadir() );
+our $pagedir  = dir( $config->pagedir() );
+
+# metadata and template page directory are relative to 
+# base directory unless they're already absolute
+$metadir = $rootdir->subdir($metadir) 
+    unless $metadir->is_absolute();
+$pagedir = $rootdir->subdir($pagedir) 
+    unless $pagedir->is_absolute();
+
+# make sure the pages and metadata directories exists or can be created
+$pagedir->mkpath() unless $pagedir->stat();
+$metadir->mkpath() unless $metadir->stat();
+
+# contruct full URLs from base URL argument and relative paths in $REL_URL
+our $base_url = $config->url();
+our $full_url = {
+    map { ($_, "${base_url}$REL_URL->{$_}") }
+    keys %$REL_URL,
+};
+
+if ($debug) {
+    print 
+        "perldir: $perldir\n",
+        "rootdir: $rootdir\n",
+        "metadir: $metadir\n",
+        "pagedir: $pagedir\n",
+        "pageurl:\n", 
+        map { sprintf("  %8s: %s\n", $_, $full_url->{ $_ }) } 
+        keys %$full_url;
+}
+    
+print "Scanning $perldir for files\n" if $verbose;
+
+
+#-----------------------------------------------------------------------
+# construct a File::Find rule to find all relevant files
+#-----------------------------------------------------------------------
+
+my $rule   = RULE->new();
+our @files = sort $rule->or( 
+    # either find a .svn directory and ignore it
+    $rule->new->directory->name(@IGNORE)->prune->discard, 
+    # or find a .pm or .pod file
+    $rule->new->file->name(@ACCEPT)
+)->in($perldir);
+
+
+#-----------------------------------------------------------------------
+# iterate through the files, converting POD to HTML and harvesting
+# metadata 
+#-----------------------------------------------------------------------
+
+our $pod2html = POD2HTML->new();
+our $pages    = { };
+our $modules  = { };
+our $sections = { };
+our $meta;
+local *FP;
+
+#$sections->{ $full_url->{ modules } } = {
+#    name  => 'Modules',
+#    title => 'Template Toolkit Modules',
+#    menu  => [ ],
+#};
+
+print "Processing ", scalar(@files), " files\n" if $verbose;
+
+foreach my $file (@files) {
+    my $path = $file;
+    $path =~ s[^$perldir$PATHSEP_QM][] || die "Cannot extract root directory ($perldir$PATHSEP) from $path";
+
+    if ($SKIP_PAGES->{ $path }) {
+        print "- $path\n" if $verbose;
+        next;
+    }
+    print "+ $path\n" if $verbose;
+
+    # grok the directory, file name, extension, etc.
+    my $name   = basename($path);
+    my $ext    = ($name =~ s[\.(\w+)$][] ? $1 : '');
+    my $module = "$path";
+    $module =~ s[\.(\w+)$][];
+    $module =~ s/$PATHSEP_QM/::/g;
+
+    my ($page, $html, $meta);
+    my ($link, $order);
+    
+    if ($ext eq 'pm') {
+        # if this is a .pm Perl module then we generate the page under the
+        # modules URL/directory
+        $page = $full_url->{ modules } . $path;
+        
+        # We also add the .pm exension back onto the name
+        $name = "$name.pm";
+
+        # generate index page metadata for the parent directory if
+        # it doesn't already exist
+        if ($path =~ m[(.+)/]) {
+            my $prefix = $1;
+            my $index  = $full_url->{ modules } . "$prefix/$INDEX";
+            my $mods   = $prefix;
+            $mods      =~ s[/][::]g;
+
+            unless ($pages->{ $index }) {
+                print "** Generating INDEX for $index\n" if $debug or 1;
+
+                my $base = ($prefix =~ m/(.+\/)/) ? $1 : '';
+                $base = $full_url->{ modules } . $base;
+                print "** + menu entry in $base [$index]\n" if $debug;
+                my $menu = $sections->{ $base }->{ menu } ||= [ ];
+                push(@$menu, $index);
+
+                my $shortmod = $mods;
+                $shortmod =~ s/(.*?::)*//;
+                
+                # generate new directory node first time we see it
+                $pages->{ $index } = {
+                    uri   => $index,
+                    name  => "${shortmod}::*",
+                    title => "${mods}::* Modules",
+                };
+#                 $link = $index;
+            }
+            
+#            $sections->{ $prefix } ||= {
+#                menu => [ ],
+#            };  
+        }
+    }
+    elsif ($ext eq 'pod') {
+        if ($path eq 'Template/Modules.pod') {
+            $page  = $full_url->{ modules } . $INDEX;
+            $order = $ORDER->{ Template }->{ $name };
+        }
+        elsif ($path eq 'Template/Toolkit.pod') {
+            $page = $base_url . $INDEX;
+        }
+        else {
+            foreach my $podsect (@PODSECTS) {
+                # look for a page in a section like Template::Manual::Whatever.pod
+                if ($path =~ s[Template/$podsect/][]) {
+                    $page = $full_url->{ lc $podsect } . $path;
+                    # lookup the position this item should appear in menu
+                    $order = $ORDER->{ $podsect }->{ $name };
+                    last;
+                }
+                # look for an index page for a section like Template::Manual.pod
+                elsif ($path eq "Template/$podsect.pod") {
+    #                $file->{ SECTION } = $full_url->{ lc $podsect };
+                    my $fu = $full_url->{ lc $podsect } || do {
+                        warn "No URL specified for section: $podsect\n";
+                        next;
+                    };
+                    $order = $ORDER->{ Template }->{ $name };
+#                    print "ORDER: [$name] $order\n";
+                    $page = $fu . $INDEX;
+                    last;
+                }
+            }
+        }
+            
+        # if we didn't match any of the known section then we stick it in misc
+        unless ($page) {
+            print STDERR "MISC PAGE: $path\n";
+            $path =~ s[Template/][];
+            $page = $full_url->{ misc } . $path;
+        }
+    }
+    else {
+        die "Don't know how to handle .$ext files\n";
+    }
+    $page =~ s/\.(pm|pod)$/.html/;
+    $html = "" . $pagedir->file($page);
+    $page = file($page);
+    
+    # grok the parent section of the output file
+    my $pathup  = $page->dir();
+    if ($page =~ m[$INDEX$]) {
+        $pathup = $pathup->parent();
+    }
+    my $securi  = "$pathup";   # force stringification
+    $securi .= '/' unless $securi =~ m[/$];
+
+    # fetch the section data (or create it) and then the menu 
+    # from the section (again, creating it if necessary) for us
+    # to add this page to
+    my $section = $sections->{ $securi } ||= { };
+    my $menu    = $section->{ menu   } ||= [ ];
+
+    # don't add the index page to the section menu
+    unless ($page eq "$base_url$INDEX") {
+        # add the item at a specific position in the menu, or at the end if
+        # no order is defined
+        if (defined $order) {
+            $menu->[$order] = "$page";
+        }
+        else {
+            push(@$menu, "$page");
+        }
+    }
+
+    # now process the file
+    if ($debug) {
+        print "    <= $file\n";
+        print "    => $html\n";
+    }
+    
+    if ($dry_run) {
+        $meta = { title => $module };
+    }
+    else {
+        # make destination directory if necessary
+        my $hdir = dirname($html);
+        mkpath($hdir) unless -d $hdir;
+        
+        # convert POD to HTML and write to file
+        open(FP, ">$html") || die "cannot open $html: $!";
+        eval { print FP $pod2html->convert_pod_file($file); };
+        close(FP) || die "cannot close $html: $!";
+        if ($@) {
+            warn("skipping $html: $@\n");
+            next;
+        }
+
+        # fetch the metadata harvested from the POD
+        $meta = $pod2html->metadata();
+    }
+
+#    my $data = {
+#        pod    => $file,
+#        path   => $path,
+#        name   => $name,
+#        ext    => $ext,
+#        module => $module,
+#        dir    => dirname($path),
+#    };
+
+    # add the new page to the hash of all pages
+    $pages->{ $page } = {
+        uri    => "$page",   # force stringification
+        name   => $name,
+        title  => $meta->{ title } || $module,
+        about  => $meta->{ summary },
+    };
+    
+    # $link may be set if we should link any references to this
+    # module to a page other than the default
+    $link ||= $page;
+    $modules->{ $module } = "$link";   # force stringification
+
+#    print STDERR "$page => $pathup\n";
+}
+
+# walk through each menu and attach back/next links to each page
+while (my ($k, $v) = each %$sections) {
+    my $menu = $v->{ menu } || next;
+    my @todo = @$menu;
+    my @done;
+
+    while (@todo) {
+        my $this = shift @todo;
+        next unless $this;
+        my $page = $pages->{ $this };
+        $page->{ up } = "${k}index.html"
+            unless $page->{ uri } eq "${k}index.html";
+        if (@done) {
+            $page->{ back } = $done[-1];
+            print STDERR "LINK BACK [$this] [$page->{ back }]\n" if $debug;
+        }
+        if (@todo) {
+            $page->{ next } = $todo[0];
+            print STDERR "LINK NEXT [$this] [$page->{ next }]\n" if $debug;
+        }
+        push(@done, $this);
+    }
+}
+
+#-----------------------------------------------------------------------
+# tweak some metadata values
+#-----------------------------------------------------------------------
+
+my $docs = $pages->{'/docs/index.html'};
+$docs->{ name  } = 'Documentation';
+$docs->{ short } = 'Docs';
+$docs->{ title } = 'Template Toolkit Documentation';
+$docs->{ back  } = '/download/index.html';
+$docs->{ next  } = '/mail/index.html';
+$docs->{ up    } = '/index.html';
+
+delete $sections->{'/'};
+
+# add back/next to docs/index
+
+#-----------------------------------------------------------------------
+# write the metadata YAML files
+#-----------------------------------------------------------------------
+
+my $metafile = $metadir->file($METADATA->{ pages });
+print "Generating pages metadata file: $metafile\n" if $verbose;
+DumpFile($metafile, $pages);
+
+$metafile = $metadir->file($METADATA->{ sections });
+print "Generating section metadata file: $metafile\n" if $verbose;
+DumpFile($metafile, $sections);
+
+$metafile = $metadir->file($METADATA->{ modules });
+print "Generating modules metadata file: $metafile\n" if $verbose;
+DumpFile($metafile, $modules);
+
+
+#-----------------------------------------------------------------------
+# look for index files
+#-----------------------------------------------------------------------
+
+if ($debug) {
+   print Dumper(\@files);
+   print Dumper($pages);
+}
+
+
+#-----------------------------------------------------------------------
+# comment...
+#-----------------------------------------------------------------------
+
+
+__END__
+
+#-----------------------------------------------------------------------
+# figure out where we are in the filesystem and construct paths to all
+# the relevant directories and files we'll be using
+#-----------------------------------------------------------------------
+
+
+print <<EOF if ($debug);
+Locations:
+------------------------------------------------------------------------
+   perl modules: $perldir
+           root: $rootdir
+      HTML docs: $htmldir
+   modules file: $modfile
+------------------------------------------------------------------------
+EOF
+
+# create a Pod-to-HTML transmogrifier
+my $podifier = Template::Docs::Pod::HTML->new();
+local $/ = undef;
+
+print "Scanning for POD to convert to HTML...\n";
+my $tree = expand_dir($perldir, {
+});
+
+print "Generating $metamods...\n";
+DumpFile($metamods, $tree);
+
+
+mkpath($tsrc) unless -d $tsrc;
+mkpath($tcfg) unless -d $tcfg;
+
+
+my $podifier = Template::Docs::Pod::HTML->new();
+my $ttdefs = '';
+my $ttmenu = '';
+

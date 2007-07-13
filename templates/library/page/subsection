@@ -1,0 +1,11 @@
+<div class="subsection">
+  <div class="head">
+    <h2[% " id=\"$id\"" IF id; " class=\"$class\"" IF class %] onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">[% title %]</h2>
+    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+  </div>
+  <div class="body">
+[% content | trim | indent(4) %]
+  </div>
+</div>

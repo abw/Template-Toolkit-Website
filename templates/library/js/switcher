@@ -1,0 +1,80 @@
+/*------------------------------------------------------------------------
+ * widescreen_on()
+ * widescreen_off()
+ * 
+ * Turn widescreen mode on/off by setting the #body class
+ *------------------------------------------------------------------------*/
+
+function widescreen_on() {
+    document.getElementById("body").className = "wide";
+    set_cookie("body", "wide", 365);
+}
+
+function widescreen_off() {
+    document.getElementById("body").className = "";
+    set_cookie("body", "", 365);
+}
+
+/*------------------------------------------------------------------------
+ * switch_element(node, class)
+ * 
+ * Toggle the node's className between "open $class" and "shut $class"
+ *------------------------------------------------------------------------*/
+
+function switch_element(node, classname) { 
+    node.className =
+    node.className == 'open ' + classname
+                    ? 'shut ' + classname
+                    : 'open ' + classname;
+    return false;
+}
+
+function switch_section(section) { 
+    return switch_element(section.parentNode.parentNode, 'section');
+}
+
+function switch_subsection(subsect) { 
+    return switch_element(subsect.parentNode.parentNode, 'subsection');
+}
+
+/*------------------------------------------------------------------------
+ * switch_tag_class(root, tag, from, to)
+ * 
+ * Switch all tag elements under the root from one class to another.
+ *------------------------------------------------------------------------*/
+
+function switch_tag_class(root, tag, cfrom, cto) {
+    var nodes = root.getElementsByTagName(tag);
+    var n, node;
+ 
+    for (n = 0; (node = nodes[n]); n++) {
+        if (node.className == cfrom) {
+            node.className = cto;
+        }
+    }
+}
+  
+function shut_all(root) {
+    if (! root) root = document;
+    switch_tag_class(root, 'div', 'section', 'shut section');
+    switch_tag_class(root, 'div', 'subsection', 'shut subsection');
+    switch_tag_class(root, 'div', 'open section', 'shut section');
+    switch_tag_class(root, 'div', 'open subsection', 'shut subsection');
+    switch_tag_class(root, 'div', 'wedged section', 'open section');
+    switch_tag_class(root, 'div', 'wedged subsection', 'open subsection');
+    return false;
+}
+
+function open_all(root) {
+    if (! root) root = document;
+    switch_tag_class(root, 'div', 'section', 'open section');
+    switch_tag_class(root, 'div', 'subsection', 'open subsection');
+    switch_tag_class(root, 'div', 'shut section', 'open section');
+    switch_tag_class(root, 'div', 'shut subsection', 'open subsection');
+    switch_tag_class(root, 'div', 'wedged section', 'open section');
+    switch_tag_class(root, 'div', 'wedged subsection', 'open subsection');
+    return false;
+}
+
+page_onload('open_all()');
+

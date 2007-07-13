@@ -1,0 +1,138 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE url('/cgi-bin/foo.pl') %]</span>
+      
+      <span class="tt">[% url(debug = 1, id = 123) %]</span>
+         # ==&gt; /cgi/bin/foo.pl?debug=1&amp;amp;id=123
+    </pre>
+    <pre>
+      <span class="tt">[% USE mycgi = url('/cgi-bin/bar.pl', mode='browse', debug=1) %]</span>
+      
+      <span class="tt">[% mycgi %]</span>
+         # ==&gt; /cgi/bin/bar.pl?mode=browse&amp;amp;debug=1
+      
+      <span class="tt">[% mycgi(mode='submit') %]</span>
+         # ==&gt; /cgi/bin/bar.pl?mode=submit&amp;amp;debug=1
+      
+      <span class="tt">[% mycgi(debug='d2 p0', id='D4-2k[4]') %]</span>
+         # ==&gt; /cgi-bin/bar.pl?mode=browse&amp;amp;debug=d2%20p0&amp;amp;id=D4-2k%5B4%5D
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>URL</code> plugin can be used to construct complex URLs from a
+      base stem and a hash array of additional query parameters.
+    </p>
+    <p>
+      The constructor should be passed a base URL and optionally, a hash array
+      reference of default parameters and values. Used from with a template, it
+      would look something like the following:
+    </p>
+    <pre>
+      <span class="tt">[% USE url('http://www.somewhere.com/cgi-bin/foo.pl') %]</span>
+      <span class="tt">[% USE url('/cgi-bin/bar.pl', mode='browse') %]</span>
+      <span class="tt">[% USE url('/cgi-bin/baz.pl', mode='browse', debug=1) %]</span>
+    </pre>
+    <p>
+      When the plugin is then called without any arguments, the default base
+      and parameters are returned as a formatted query string.
+    </p>
+    <pre>
+      <span class="tt">[% url %]</span>
+    </pre>
+    <p>
+      For the above three examples, these will produce the following outputs:
+    </p>
+    <pre>
+      http://www.somewhere.com/cgi-bin/foo.pl
+      /cgi-bin/bar.pl?mode=browse
+      /cgi-bin/baz.pl?mode=browse&amp;amp;debug=1
+    </pre>
+    <p>
+      Note that additional parameters are separated by '<code>&amp;amp;</code>'
+      rather than simply '<code>&amp;</code>'. This is the correct behaviour
+      for HTML pages but is, unfortunately, incorrect when creating URLs that
+      do not need to be encoded safely for HTML. This is likely to be corrected
+      in a future version of the plugin (most probably with TT3). In the mean
+      time, you can set <code>$Template::Plugin::URL::JOINT</code> to
+      <code>&amp;</code> to get the correct behaviour.
+    </p>
+    <p>
+      Additional parameters may be also be specified to the URL:
+    </p>
+    <pre>
+      <span class="tt">[% url(mode='submit', id='wiz') %]</span>
+    </pre>
+    <p>
+      Which, for the same three examples, produces:
+    </p>
+    <pre>
+      http://www.somewhere.com/cgi-bin/foo.pl?mode=submit&amp;amp;id=wiz
+      /cgi-bin/bar.pl?mode=browse&amp;amp;id=wiz
+      /cgi-bin/baz.pl?mode=browse&amp;amp;debug=1&amp;amp;id=wiz
+    </pre>
+    <p>
+      A new base URL may also be specified as the first option:
+    </p>
+    <pre>
+      <span class="tt">[% url('/cgi-bin/waz.pl', test=1) %]</span>
+    </pre>
+    <p>
+      producing
+    </p>
+    <pre>
+      /cgi-bin/waz.pl?test=1
+      /cgi-bin/waz.pl?mode=browse&amp;amp;test=1
+      /cgi-bin/waz.pl?mode=browse&amp;amp;debug=1&amp;amp;test=1
+    </pre>
+    <p>
+      The ordering of the parameters is non-deterministic due to fact that
+      Perl's hashes themselves are unordered. This isn't a problem as the
+      ordering of CGI parameters is insignificant (to the best of my
+      knowledge). All values will be properly escaped thanks to some code
+      borrowed from Lincoln Stein's <code>CGI</code> module. e.g.
+    </p>
+    <pre>
+      <span class="tt">[% USE url('/cgi-bin/woz.pl') %]</span>
+      <span class="tt">[% url(name="Elrich von Benjy d'Weiro") %]</span>
+    </pre>
+    <p>
+      Here the spaces and "<code>'</code>" character are escaped in the output:
+    </p>
+    <pre>
+      /cgi-bin/woz.pl?name=Elrich%20von%20Benjy%20d%27Weiro
+    </pre>
+    <p>
+      An alternate name may be provided for the plugin at construction time as
+      per regular Template Toolkit syntax.
+    </p>
+    <pre>
+      <span class="tt">[% USE mycgi = url('cgi-bin/min.pl') %]</span>
+      <span class="tt">[% mycgi(debug=1) %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+    </p>
+[** END -**]
+
+</div>

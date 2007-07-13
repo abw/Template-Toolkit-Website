@@ -1,0 +1,69 @@
+#preload {
+    height: 1px; 
+    width: 1px; 
+    overflow: hidden;
+}
+
+#preload span.logo { 
+    background-image: url('[% glass %]/logo_[% logo.roll %].gif');
+}
+
+#preload span.tab { 
+    background-image: url('[% glass %]/tab_roll.gif');
+}
+
+#preload span.hide { 
+    background-image: url('[% glass %]/hide_menu_roll.gif');
+}
+
+#preload span.show { 
+    background-image: url('[% glass %]/show_menu_roll.gif');
+}
+
+#preload span.arrow1 { 
+    background-image: url('[% arrows %]/small/[% roll %]/right.gif');
+}
+
+#preload span.arrow2 { 
+    background-image: url('[% arrows %]/large/[% roll %]/right.gif');
+}
+
+#preload span.ext { 
+    background-image: url('[% glass %]/extlinkroll.gif');
+}
+
+#preload span.talk { 
+    background-image: url('[% common %]/talkbox.gif');
+}
+
+#preload span.menu { 
+    background-image: url('[% glass %]/menu_warm_body.gif');
+}
+
+#preload span.menu_head { 
+    background-image: url('[% glass %]/menu_warm_head.gif');
+}
+
+#preload span.menu_foot { 
+    background-image: url('[% glass %]/menu_warm_foot.gif');
+}
+
+#preload span.top { 
+    background-image: url('[% arrows %]/small/[% roll %]/up.gif');
+}
+
+#preload span.dotminus1 { 
+    background-image: url('[% arrows %]/large/[% roll %]/dotminus.gif');
+}
+
+#preload span.dotminus2 { 
+    background-image: url('[% arrows %]/small/[% roll %]/dotminus.gif');
+}
+
+#preload span.dotplus1 { 
+    background-image: url('[% arrows %]/large/[% roll %]/dotplus.gif');
+}
+
+#preload span.dotplus2 { 
+    background-image: url('[% arrows %]/small/[% roll %]/dotplus.gif');
+}

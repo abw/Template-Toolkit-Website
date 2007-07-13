@@ -1,0 +1,508 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      # create String objects via USE directive
+      <span class="tt">[% USE String %]</span>
+      <span class="tt">[% USE String 'initial text' %]</span>
+      <span class="tt">[% USE String text =&gt; 'initial text' %]</span>
+    </pre>
+    <pre>
+      # or from an existing String via new()
+      <span class="tt">[% newstring = String.new %]</span>
+      <span class="tt">[% newstring = String.new('newstring text') %]</span>
+      <span class="tt">[% newstring = String.new( text =&gt; 'newstring text' ) %]</span>
+    </pre>
+    <pre>
+      # or from an existing String via copy()
+      <span class="tt">[% newstring = String.copy %]</span>
+    </pre>
+    <pre>
+      # append text to string
+      <span class="tt">[% String.append('text to append') %]</span>
+    </pre>
+    <pre>
+      # format left, right or center/centre padded
+      <span class="tt">[% String.left(20) %]</span>
+      <span class="tt">[% String.right(20) %]</span>
+      <span class="tt">[% String.center(20) %]</span>   # American spelling
+      <span class="tt">[% String.centre(20) %]</span>   # European spelling
+    </pre>
+    <pre>
+      # and various other methods...
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This module implements a <code>String</code> class for doing stringy
+      things to text in an object-oriented way.
+    </p>
+    <p>
+      You can create a <code>String</code> object via the <code>USE</code>
+      directive, adding any initial text value as an argument or as the named
+      parameter <code>text</code>.
+    </p>
+    <pre>
+      <span class="tt">[% USE String %]</span>
+      <span class="tt">[% USE String 'initial text' %]</span>
+      <span class="tt">[% USE String text='initial text' %]</span>
+    </pre>
+    <p>
+      The object created will be referenced as <code>String</code> by default,
+      but you can provide a different variable name for the object to be
+      assigned to:
+    </p>
+    <pre>
+      <span class="tt">[% USE greeting = String 'Hello World' %]</span>
+    </pre>
+    <p>
+      Once you've got a <code>String</code> object, you can use it as a
+      prototype to create other <code>String</code> objects with the
+      <code>new()</code> method.
+    </p>
+    <pre>
+      <span class="tt">[% USE String %]</span>
+      <span class="tt">[% greeting = String.new('Hello World') %]</span>
+    </pre>
+    <p>
+      The <code>new()</code> method also accepts an initial text string as an
+      argument or the named parameter <code>text</code>.
+    </p>
+    <pre>
+      <span class="tt">[% greeting = String.new( text =&gt; 'Hello World' ) %]</span>
+    </pre>
+    <p>
+      You can also call <code>copy()</code> to create a new <code>String</code>
+      as a copy of the original.
+    </p>
+    <pre>
+      <span class="tt">[% greet2 = greeting.copy %]</span>
+    </pre>
+    <p>
+      The <code>String</code> object has a <code>text()</code> method to return
+      the content of the string.
+    </p>
+    <pre>
+      <span class="tt">[% greeting.text %]</span>
+    </pre>
+    <p>
+      However, it is sufficient to simply print the string and let the
+      overloaded stringification operator call the <code>text()</code> method
+      automatically for you.
+    </p>
+    <pre>
+      <span class="tt">[% greeting %]</span>
+    </pre>
+    <p>
+      Thus, you can treat <code>String</code> objects pretty much like any
+      regular piece of text, interpolating it into other strings, for example:
+    </p>
+    <pre>
+      <span class="tt">[% msg = "It printed '$greeting' and then dumped core\n" %]</span>
+    </pre>
+    <p>
+      You also have the benefit of numerous other methods for manipulating the
+      string.
+    </p>
+    <pre>
+      <span class="tt">[% msg.append("PS  Don't eat the yellow snow") %]</span>
+    </pre>
+    <p>
+      Note that all methods operate on and mutate the contents of the string
+      itself. If you want to operate on a copy of the string then simply take a
+      copy first:
+    </p>
+    <pre>
+      <span class="tt">[% msg.copy.append("PS  Don't eat the yellow snow") %]</span>
+    </pre>
+    <p>
+      These methods return a reference to the <code>String</code> object
+      itself. This allows you to chain multiple methods together.
+    </p>
+    <pre>
+      <span class="tt">[% msg.copy.append('foo').right(72) %]</span>
+    </pre>
+    <p>
+      It also means that in the above examples, the <code>String</code> is
+      returned which causes the <code>text()</code> method to be called, which
+      results in the new value of the string being printed. To suppress
+      printing of the string, you can use the <code>CALL</code> directive.
+    </p>
+    <pre>
+      <span class="tt">[% foo = String.new('foo') %]</span>
+      
+      <span class="tt">[% foo.append('bar') %]</span>         # prints "foobar"
+      
+      <span class="tt">[% CALL foo.append('bar') %]</span>    # nothing
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='CONSTRUCTOR METHODS' id='section_CONSTRUCTOR_METHODS' -**]
+    <p>
+      These methods are used to create new <code>String</code> objects.
+    </p>
+    [** WRAPPER page/subsection title='new()' id='method_new' class='method' -**]
+    <p>
+      Creates a new string using an initial value passed as a positional
+      argument or the named parameter <code>text</code>.
+    </p>
+    <pre>
+      <span class="tt">[% USE String %]</span>
+      <span class="tt">[% msg = String.new('Hello World') %]</span>
+      <span class="tt">[% msg = String.new( text =&gt; 'Hello World' ) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='copy()' id='method_copy' class='method' -**]
+    <p>
+      Creates a new <code>String</code> object which contains a copy of the
+      original string.
+    </p>
+    <pre>
+      <span class="tt">[% msg2 = msg.copy %]</span>
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='INSPECTOR METHODS' id='section_INSPECTOR_METHODS' -**]
+    <p>
+      These methods are used to examine the string.
+    </p>
+    [** WRAPPER page/subsection title='text()' id='method_text' class='method' -**]
+    <p>
+      Returns the internal text value of the string. The stringification
+      operator is overloaded to call this method. Thus the following are
+      equivalent:
+    </p>
+    <pre>
+      <span class="tt">[% msg.text %]</span>
+      <span class="tt">[% msg %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='length()' id='method_length' class='method' -**]
+    <p>
+      Returns the length of the string.
+    </p>
+    <pre>
+      <span class="tt">[% USE String("foo") %]</span>
+      <span class="tt">[% String.length %]</span>   # =&gt; 3
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='search($pattern)' id='method_search' class='method' -**]
+    <p>
+      Searches the string for the regular expression specified in
+      <code>$pattern</code> returning true if found or false otherwise.
+    </p>
+    <pre>
+      <span class="tt">[% item = String.new('foo bar baz wiz waz woz') %]</span>
+      <span class="tt">[% item.search('wiz') ? 'WIZZY! :-)' : 'not wizzy :-(' %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='split($pattern, $limit)' id='method_split' class='method' -**]
+    <p>
+      Splits the string based on the delimiter <code>$pattern</code> and
+      optional <code>$limit</code>. Delegates to Perl's internal
+      <code>split()</code> so the parameters are exactly the same.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH item.split %]</span>
+           ...
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% FOREACH item.split('baz|waz') %]</span>
+           ...
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='MUTATOR METHODS' id='section_MUTATOR_METHODS' -**]
+    <p>
+      These methods modify the internal value of the string. For example:
+    </p>
+    <pre>
+      <span class="tt">[% USE str=String('foobar') %]</span>
+      <span class="tt">[% str.append('.html') %]</span>   # str =&gt; 'foobar.html'
+    </pre>
+    <p>
+      The value of <code>str</code> is now '<code>foobar.html</code>'. If you
+      don't want to modify the string then simply take a copy first.
+    </p>
+    <pre>
+      <span class="tt">[% str.copy.append('.html') %]</span>
+    </pre>
+    <p>
+      These methods all return a reference to the <code>String</code> object
+      itself. This has two important benefits. The first is that when used as
+      above, the <code>String</code> object '<code>str</code>' returned by the
+      <code>append()</code> method will be stringified with a call to its
+      <code>text()</code> method. This will return the newly modified string
+      content. In other words, a directive like:
+    </p>
+    <pre>
+      <span class="tt">[% str.append('.html') %]</span>
+    </pre>
+    <p>
+      will update the string and also print the new value. If you just want to
+      update the string but not print the new value then use <code>CALL</code>.
+    </p>
+    <pre>
+      <span class="tt">[% CALL str.append('.html') %]</span>
+    </pre>
+    <p>
+      The other benefit of these methods returning a reference to the
+      <code>String</code> is that you can chain as many different method calls
+      together as you like. For example:
+    </p>
+    <pre>
+      <span class="tt">[% String.append('.html').trim.format(href) %]</span>
+    </pre>
+    <p>
+      Here are the methods:
+    </p>
+    [** WRAPPER page/subsection title='push($suffix, ...) / append($suffix, ...)' id='method_push_suffix_append' class='method' -**]
+    <p>
+      Appends all arguments to the end of the string. The <code>append()</code>
+      method is provided as an alias for <code>push()</code>.
+    </p>
+    <pre>
+      <span class="tt">[% msg.push('foo', 'bar') %]</span>
+      <span class="tt">[% msg.append('foo', 'bar') %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='pop($suffix)' id='method_pop' class='method' -**]
+    <p>
+      Removes the suffix passed as an argument from the end of the String.
+    </p>
+    <pre>
+      <span class="tt">[% USE String 'foo bar' %]</span>
+      <span class="tt">[% String.pop(' bar')   %]</span>   # =&gt; 'foo'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='unshift($prefix, ...) / prepend($prefix, ...)' id='method_unshift_prefix_prepend' class='method' -**]
+    <p>
+      Prepends all arguments to the beginning of the string. The
+      <code>prepend()</code> method is provided as an alias for
+      <code>unshift()</code>.
+    </p>
+    <pre>
+      <span class="tt">[% msg.unshift('foo ', 'bar ') %]</span>
+      <span class="tt">[% msg.prepend('foo ', 'bar ') %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='shift($prefix)' id='method_shift' class='method' -**]
+    <p>
+      Removes the prefix passed as an argument from the start of the String.
+    </p>
+    <pre>
+      <span class="tt">[% USE String 'foo bar' %]</span>
+      <span class="tt">[% String.shift('foo ') %]</span>   # =&gt; 'bar'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='left($pad)' id='method_left' class='method' -**]
+    <p>
+      If the length of the string is less than <code>$pad</code> then the
+      string is left formatted and padded with spaces to <code>$pad</code>
+      length.
+    </p>
+    <pre>
+      <span class="tt">[% msg.left(20) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='right($pad)' id='method_right' class='method' -**]
+    <p>
+      As per <a href="#method_left">left()</a> but right padding the
+      <code>String</code> to a length of <code>$pad</code>.
+    </p>
+    <pre>
+      <span class="tt">[% msg.right(20) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='center($pad) / centre($pad)' id='method_center_pad_centre' class='method' -**]
+    <p>
+      As per <a href="#method_left">left()</a> and <a
+      href="#method_right">right()</a> but formatting the <code>String</code>
+      to be centered within a space padded string of length <code>$pad</code>.
+      The <code>centre()</code> method is provided as an alias for
+      <code>center()</code>.
+    </p>
+    <pre>
+      <span class="tt">[% msg.center(20) %]</span>    # American spelling
+      <span class="tt">[% msg.centre(20) %]</span>    # European spelling
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='format($format)' id='method_format' class='method' -**]
+    <p>
+      Apply a format in the style of <code>sprintf()</code> to the string.
+    </p>
+    <pre>
+      <span class="tt">[% USE String("world") %]</span>
+      <span class="tt">[% String.format("Hello %s\n") %]</span>  # =&gt; "Hello World\n"
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='upper()' id='method_upper' class='method' -**]
+    <p>
+      Converts the string to upper case.
+    </p>
+    <pre>
+      <span class="tt">[% USE String("foo") %]</span>
+      <span class="tt">[% String.upper %]</span>  # =&gt; 'FOO'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='lower()' id='method_lower' class='method' -**]
+    <p>
+      Converts the string to lower case
+    </p>
+    <pre>
+      <span class="tt">[% USE String("FOO") %]</span>
+      <span class="tt">[% String.lower %]</span>  # =&gt; 'foo'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='capital()' id='method_capital' class='method' -**]
+    <p>
+      Converts the first character of the string to upper case.
+    </p>
+    <pre>
+      <span class="tt">[% USE String("foo") %]</span>
+      <span class="tt">[% String.capital %]</span>  # =&gt; 'Foo'
+    </pre>
+    <p>
+      The remainder of the string is left untouched. To force the string to be
+      all lower case with only the first letter capitalised, you can do
+      something like this:
+    </p>
+    <pre>
+      <span class="tt">[% USE String("FOO") %]</span>
+      <span class="tt">[% String.lower.capital %]</span>  # =&gt; 'Foo'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='chop()' id='method_chop' class='method' -**]
+    <p>
+      Removes the last character from the string.
+    </p>
+    <pre>
+      <span class="tt">[% USE String("foop") %]</span>
+      <span class="tt">[% String.chop %]</span>   # =&gt; 'foo'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='chomp()' id='method_chomp' class='method' -**]
+    <p>
+      Removes the trailing newline from the string.
+    </p>
+    <pre>
+      <span class="tt">[% USE String("foo\n") %]</span>
+      <span class="tt">[% String.chomp %]</span>  # =&gt; 'foo'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='trim()' id='method_trim' class='method' -**]
+    <p>
+      Removes all leading and trailing whitespace from the string
+    </p>
+    <pre>
+      <span class="tt">[% USE String("   foo   \n\n ") %]</span>
+      <span class="tt">[% String.trim %]</span>   # =&gt; 'foo'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='collapse()' id='method_collapse' class='method' -**]
+    <p>
+      Removes all leading and trailing whitespace and collapses any sequences
+      of multiple whitespace to a single space.
+    </p>
+    <pre>
+      <span class="tt">[% USE String(" \n\r  \t  foo   \n \n bar  \n") %]</span>
+      <span class="tt">[% String.collapse %]</span>   # =&gt; "foo bar"
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='truncate($length, $suffix)' id='method_truncate' class='method' -**]
+    <p>
+      Truncates the string to <code>$length</code> characters.
+    </p>
+    <pre>
+      <span class="tt">[% USE String('long string') %]</span>
+      <span class="tt">[% String.truncate(4) %]</span>  # =&gt; 'long'
+    </pre>
+    <p>
+      If <code>$suffix</code> is specified then it will be appended to the
+      truncated string. In this case, the string will be further shortened by
+      the length of the suffix to ensure that the newly constructed string
+      complete with suffix is exactly <code>$length</code> characters long.
+    </p>
+    <pre>
+      <span class="tt">[% USE msg = String('Hello World') %]</span>
+      <span class="tt">[% msg.truncate(8, '...') %]</span>   # =&gt; 'Hello...'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='replace($search, $replace)' id='method_replace' class='method' -**]
+    <p>
+      Replaces all occurences of <code>$search</code> in the string with
+      <code>$replace</code>.
+    </p>
+    <pre>
+      <span class="tt">[% USE String('foo bar foo baz') %]</span>
+      <span class="tt">[% String.replace('foo', 'wiz')  %]</span>  # =&gt; 'wiz bar wiz baz'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='remove($search)' id='method_remove' class='method' -**]
+    <p>
+      Remove all occurences of <code>$search</code> in the string.
+    </p>
+    <pre>
+      <span class="tt">[% USE String('foo bar foo baz') %]</span>
+      <span class="tt">[% String.remove('foo ')  %]</span>  # =&gt; 'bar baz'
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='repeat($count)' id='method_repeat' class='method' -**]
+    <p>
+      Repeats the string <code>$count</code> times.
+    </p>
+    <pre>
+      <span class="tt">[% USE String('foo ') %]</span>
+      <span class="tt">[% String.repeat(3)  %]</span>  # =&gt; 'foo foo foo '
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+    </p>
+[** END -**]
+
+</div>

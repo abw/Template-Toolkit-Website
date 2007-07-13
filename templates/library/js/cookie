@@ -1,0 +1,47 @@
+/*------------------------------------------------------------------------
+ * set_cookie(name, value, days)
+ * 
+ * Set a cookie with the name and value passed as the first two arguments, 
+ * set to expire in the number of days specified in the third argument.
+ *------------------------------------------------------------------------*/
+
+function set_cookie(name, value, days) {
+    var expires;
+
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else 
+        expires = "";
+
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+
+/*------------------------------------------------------------------------
+ * get_cookie(name)
+ * 
+ * Returns the value of the cookie identified by the name argument.
+ *------------------------------------------------------------------------*/
+
+function get_cookie(name) {
+    var namestr  = name + "=";
+    var cookbits = document.cookie.split(';');
+    var n;
+
+    for(n = 0; n < cookbits.length; n++) {
+        var c = cookbits[n];
+
+        /* remove leading whitespace */
+        while (c.charAt(0) == ' ') 
+            c = c.substring(1, c.length);
+
+        /* if the name start this cookie fragment, return the value */
+        if (c.indexOf(namestr) == 0) 
+            return c.substring(namestr.length, c.length);
+    }
+    return null;
+}
+

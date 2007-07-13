@@ -1,0 +1,556 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Service</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../../docs/index.html">Docs</a></li>
+            <li><a href="../../../docs/modules/index.html">Modules</a></li>
+            <li><a href="../../../docs/modules/Template/index.html">Template::*</a></li>
+            <li class="last"><a href="../../../docs/modules/Template/Service.html">Service.pm</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../../docs/modules/Template/Provider.html" title="Template::Provider" class="go back">Back<span class="about"><strong>Template::Provider</strong>Provider module for loading/compiling templates</span></a>
+            <a href="../../../docs/modules/Template/index.html" title="Template::* Modules" class="go up">Up<span class="about"><strong>Template::* Modules</strong></span></a>
+            <a href="../../../docs/modules/Template/Stash.html" title="Template::Stash" class="go next">Next<span class="about"><strong>Template::Stash</strong>Magical storage for template variables</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Service</h1>
+          <h2 class="subhead">General purpose template processing service</h2>
+        
+          <a href="http://template-toolkit.org/docs/modules/Template/Service.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Service.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../../about.html">About</a></li>
+                <li class="l0"><a href="../../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../../docs/modules/index.html" class="warm">Modules</a></li>
+                <li class="l2"><a href="../../../docs/modules/Template.html">Template.pm</a></li>
+                <li class="l2"><a href="../../../docs/modules/Template/index.html" class="warm">Template::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Base.html">Base.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Config.html">Config.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Constants.html">Constants.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Context.html">Context.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Directive.html">Directive.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Document.html">Document.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Exception.html">Exception.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Filters.html">Filters.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Iterator.html">Iterator.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Namespace/index.html">Namespace::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Parser.html">Parser.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Plugin.html">Plugin.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Plugin/index.html">Plugin::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Plugins.html">Plugins.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Provider.html">Provider.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Service.html" class="warm">Service.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Stash.html">Stash.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Stash/index.html">Stash::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Test.html">Test.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/VMethods.html">VMethods.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/View.html">View.pm</a></li>
+                <li class="l1"><a href="../../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
+                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class=""><a href="#section_METHODS">METHODS</a></li>
+                  <li class="sub"><a href="#method_new">new(\%config)</a></li>
+                  <li class="sub"><a href="#method_process">process($input, \%replace)</a></li>
+                  <li class="sub"><a href="#method_context">context()</a></li>
+                  <li class=""><a href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a></li>
+                  <li class="sub"><a href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS, POST_PROCESS</a></li>
+                  <li class="sub"><a href="#section_PROCESS">PROCESS</a></li>
+                  <li class="sub"><a href="#section_ERROR">ERROR</a></li>
+                  <li class="sub"><a href="#section_AUTO_RESET">AUTO_RESET</a></li>
+                  <li class="sub"><a href="#section_DEBUG">DEBUG</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+                  <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <pre>use Template::Service;
+
+my $service = Template::Service-&gt;new({
+    PRE_PROCESS  =&gt; [ 'config', 'header' ],
+    POST_PROCESS =&gt; 'footer',
+    ERROR        =&gt; {
+        user     =&gt; 'user/index.html', 
+        dbi      =&gt; 'error/database',
+        default  =&gt; 'error/default',
+    },
+});
+
+my $output = $service-&gt;process($template_name, \%replace)
+    || die $service-&gt;error(), "\n";</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>Template::Service</code> module implements an object class for
+                      providing a consistent template processing service.
+                    </p>
+                    <p>
+                      Standard header (<a
+                      href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a>) and footer (<a
+                      href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a>) templates may
+                      be specified which are prepended and appended to all templates processed
+                      by the service (but not any other templates or blocks
+                      <code>INCLUDE</code>d or <code>PROCESS</code>ed from within). An <a
+                      href="#section_ERROR">ERROR</a> hash may be specified which redirects the
+                      service to an alternate template file in the case of uncaught exceptions
+                      being thrown. This allows errors to be automatically handled by the
+                      service and a guaranteed valid response to be generated regardless of any
+                      processing problems encountered.
+                    </p>
+                    <p>
+                      A default <code>Template::Service</code> object is created by the <a
+                      href="../../../docs/modules/Template.html">Template</a> module. Any
+                      <code>Template::Service</code> options may be passed to the <a href="../../../docs/modules/Template.html">Template</a> <a href="../../../docs/modules/Template.html#method_new">new()</a> constructor method and
+                      will be forwarded to the <a href="../../../docs/modules/Template/Service.html">Template::Service</a> constructor.
+                    </p>
+                    <pre>use Template;
+
+my $template = Template-&gt;new({
+    PRE_PROCESS  =&gt; 'header',
+    POST_PROCESS =&gt; 'footer',
+});</pre>
+                    <p>
+                      Similarly, the <code>Template::Service</code> constructor will forward
+                      all configuration parameters onto other default objects (e.g. <a
+                      href="../../../docs/modules/Template/Context.html">Template::Context</a>) that
+                      it may need to instantiate.
+                    </p>
+                    <p>
+                      A <code>Template::Service</code> object (or subclass) can be explicitly
+                      instantiated and passed to the <a href="../../../docs/modules/Template.html">Template</a> <a href="../../../docs/modules/Template.html#method_new">new()</a> constructor method as the <a
+                      href="#section_SERVICE">SERVICE</a> item.
+                    </p>
+                    <pre>use Template;
+use Template::Service;
+
+my $service = Template::Service-&gt;new({
+    PRE_PROCESS  =&gt; 'header',
+    POST_PROCESS =&gt; 'footer',
+});
+
+my $template = Template-&gt;new({
+    SERVICE =&gt; $service,
+});</pre>
+                    <p>
+                      The <code>Template::Service</code> module can be sub-classed to create
+                      custom service handlers.
+                    </p>
+                    <pre>use Template;
+use MyOrg::Template::Service;
+
+my $service = MyOrg::Template::Service-&gt;new({
+    PRE_PROCESS  =&gt; 'header',
+    POST_PROCESS =&gt; 'footer',
+    COOL_OPTION  =&gt; 'enabled in spades',
+});
+
+my $template = Template-&gt;new({
+    SERVICE =&gt; $service,
+});</pre>
+                    <p>
+                      The <a href="../../../docs/modules/Template.html">Template</a> module uses the
+                      <a href="../../../docs/modules/Template/Config.html">Template::Config</a> <a
+                      href="../../../docs/modules/Template/Config.html#method_service">service()</a>
+                      factory method to create a default service object when required. The
+                      <code>$Template::Config::SERVICE</code> package variable may be set to
+                      specify an alternate service module. This will be loaded automatically
+                      and its <a href="#method_new">new()</a> constructor method called by the
+                      <a href="../../../docs/modules/Template/Config.html#method_service">service()</a> factory method when a default service
+                      object is required. Thus the previous example could be written as:
+                    </p>
+                    <pre>use Template;
+
+$Template::Config::SERVICE = 'MyOrg::Template::Service';
+
+my $template = Template-&gt;new({
+    PRE_PROCESS  =&gt; 'header',
+    POST_PROCESS =&gt; 'footer',
+    COOL_OPTION  =&gt; 'enabled in spades',
+});</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_new" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">new(\%config)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>new()</code> constructor method is called to instantiate a
+                          <code>Template::Service</code> object. Configuration parameters may be
+                          specified as a HASH reference or as a list of <code>name =&gt;
+                          value</code> pairs.
+                        </p>
+                        <pre>my $service1 = Template::Service-&gt;new({
+    PRE_PROCESS  =&gt; 'header',
+    POST_PROCESS =&gt; 'footer',
+});
+
+my $service2 = Template::Service-&gt;new( ERROR =&gt; 'error.html' );</pre>
+                        <p>
+                          The <code>new()</code> method returns a <code>Template::Service</code>
+                          object or <code>undef</code> on error. In the latter case, a relevant
+                          error message can be retrieved by the <a href="../../../docs/modules/Template/Base.html#method_error">error()</a> class method or
+                          directly from the <code>$Template::Service::ERROR</code> package
+                          variable.
+                        </p>
+                        <pre>my $service = Template::Service-&gt;new(\%config)
+    || die Template::Service-&gt;error();
+
+my $service = Template::Service-&gt;new(\%config)
+    || die $Template::Service::ERROR;</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_process" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">process($input, \%replace)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>process()</code> method is called to process a template
+                          specified as the first parameter, <code>$input</code>. This may be a file
+                          name, file handle (e.g. <code>GLOB</code> or <code>IO::Handle</code>) or
+                          a reference to a text string containing the template text. An additional
+                          hash reference may be passed containing template variable definitions.
+                        </p>
+                        <p>
+                          The method processes the template, adding any <a
+                          href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> or <a
+                          href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> templates
+                          defined, and returns the output text. An uncaught exception thrown by the
+                          template will be handled by a relevant <a href="#section_ERROR">ERROR</a>
+                          handler if defined. Errors that occur in the <a
+                          href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> or <a
+                          href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> templates, or
+                          those that occur in the main input template and aren't handled, cause the
+                          method to return <code>undef</code> to indicate failure. The appropriate
+                          error message can be retrieved via the <a href="../../../docs/modules/Template/Base.html#method_error">error()</a> method.
+                        </p>
+                        <pre>$service-&gt;process('myfile.html', { title =&gt; 'My Test File' })
+    || die $service-&gt;error();</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_context" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">context()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a reference to the internal context object which is, by default,
+                          an instance of the <a href="../../../docs/modules/Template/Context.html">Template::Context</a> class.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_CONFIGURATION_OPTIONS" onclick="switch_section(this)" title="Click title to show/hide section content.">CONFIGURATION OPTIONS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The following list summarises the configuration options that can be
+                      provided to the <code>Template::Service</code> <a
+                      href="#method_new">new()</a> constructor. Please consult <a href="../../../docs/manual/Config.html">Template::Manual::Config</a>
+                      for further details and examples of each configuration option in use.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_PRE_PROCESS_POST_PROCESS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">PRE_PROCESS, POST_PROCESS</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> and <a href="../../../docs/manual/Config.html#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> options may be set
+                          to contain the name(s) of template files which should be processed
+                          immediately before and/or after each template. These do not get added to
+                          templates processed into a document via directives such as
+                          <code>INCLUDE</code> <code>PROCESS</code>, <code>WRAPPER</code>, etc.
+                        </p>
+                        <pre>my $service = Template::Service-&gt;new({
+    PRE_PROCESS  =&gt; 'header',
+    POST_PROCESS =&gt; 'footer',
+};</pre>
+                        <p>
+                          Multiple templates may be specified as a reference to a list. Each is
+                          processed in the order defined.
+                        </p>
+                        <pre>my $service = Template::Service-&gt;new({
+    PRE_PROCESS  =&gt; [ 'config', 'header' ],
+    POST_PROCESS =&gt; 'footer',
+};</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_PROCESS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">PROCESS</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_PROCESS">PROCESS</a> option may be set to contain the name(s)
+                          of template files which should be processed instead of the main template
+                          passed to the <code>Template::Service</code> <a
+                          href="#method_process">process()</a> method. This can be used to apply
+                          consistent wrappers around all templates, similar to the use of <a
+                          href="#section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS</a> and <a
+                          href="#section_PRE_PROCESS_POST_PROCESS">POST_PROCESS</a> templates.
+                        </p>
+                        <pre>my $service = Template::Service-&gt;new({
+    PROCESS  =&gt; 'content',
+};
+
+# processes 'content' instead of 'foo.html'
+$service-&gt;process('foo.html');</pre>
+                        <p>
+                          A reference to the original template is available in the
+                          <code>template</code> variable. Metadata items can be inspected and the
+                          template can be processed by specifying it as a variable reference (i.e.
+                          prefixed by '<code>$</code>') to an <code>INCLUDE</code>,
+                          <code>PROCESS</code> or <code>WRAPPER</code> directive.
+                        </p>
+                        <p>
+                          Example <code>PROCESS</code> template:
+                        </p>
+                        <pre>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;<span class="tt">[% template.title %]</span>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+  <span class="tt">[% PROCESS $template %]</span>
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_ERROR" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">ERROR</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_ERROR">ERROR</a> (or <code>ERRORS</code> if you prefer)
+                          configuration item can be used to name a single template or specify a
+                          hash array mapping exception types to templates which should be used for
+                          error handling. If an uncaught exception is raised from within a template
+                          then the appropriate error template will instead be processed.
+                        </p>
+                        <p>
+                          If specified as a single value then that template will be processed for
+                          all uncaught exceptions.
+                        </p>
+                        <pre>my $service = Template::Service-&gt;new({
+    ERROR =&gt; 'error.html'
+});</pre>
+                        <p>
+                          If the <a href="../../../docs/manual/Config.html#section_ERROR">ERROR/ERRORS</a> item is a hash reference the keys are
+                          assumed to be exception types and the relevant template for a given
+                          exception will be selected. A <code>default</code> template may be
+                          provided for the general case.
+                        </p>
+                        <pre>my $service = Template::Service-&gt;new({
+    ERRORS =&gt; {
+        user     =&gt; 'user/index.html',
+        dbi      =&gt; 'error/database',
+        default  =&gt; 'error/default',
+    },
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_AUTO_RESET" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">AUTO_RESET</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_AUTO_RESET">AUTO_RESET</a> option is set by default and
+                          causes the local <code>BLOCKS</code> cache for the <a href="../../../docs/modules/Template/Context.html">Template::Context</a> object to be
+                          reset on each call to the <a href="../../../docs/modules/Template.html">Template</a> <a href="../../../docs/modules/Template.html#method_process">process()</a> method. This ensures that any
+                          <code>BLOCK</code>s defined within a template will only persist until
+                          that template is finished processing.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_DEBUG" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">DEBUG</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_DEBUG">DEBUG</a> option can be used to enable debugging
+                          messages from the <code>Template::Service</code> module by setting it to
+                          include the <code>DEBUG_SERVICE</code> value.
+                        </p>
+                        <pre>use Template::Constants qw( :debug );
+
+my $template = Template-&gt;new({
+    DEBUG =&gt; DEBUG_SERVICE,
+});</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      <a href="../../../docs/modules/Template.html">Template</a>, <a href="../../../docs/modules/Template/Context.html">Template::Context</a>
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/modules/Template/Service.html last modified 14:40:08 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../../docs/modules/Template/Provider.html" title="Template::Provider" class="go back">Back<span class="about"><strong>Template::Provider</strong></span></a>
+            <a href="../../../docs/modules/Template/index.html" title="Template::* Modules" class="go up">Up<span class="about"><strong>Template::* Modules</strong></span></a>
+            <a href="../../../docs/modules/Template/Stash.html" title="Template::Stash" class="go next">Next<span class="about"><strong>Template::Stash</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

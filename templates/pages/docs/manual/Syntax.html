@@ -1,0 +1,294 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='Tag Styles' id='section_Tag_Styles' -**]
+    <p>
+      By default, template directives are embedded within the character
+      sequences <code>[%</code> and <code>%]</code>.
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS header %]</span>
+      
+      &lt;h1&gt;Hello World!&lt;/h1&gt;
+      &lt;a href="<span class="tt">[% page.next %]</span>"&gt;&lt;img src="<span class="tt">[% icon.next %]</span>.gif"&gt;&lt;/a&gt;
+      
+      <span class="tt">[% PROCESS footer %]</span>
+    </pre>
+    <p>
+      You can change the tag characters using the <code>START_TAG</code>,
+      <code>END_TAG</code> and <code>TAG_STYLE</code> configuration options.
+      You can also use the <code>TAGS</code> directive to define a new tag
+      style for the current template file.
+    </p>
+    <p>
+      You can also set the <code>INTERPOLATE</code> option to allow simple
+      variable references to be embedded directly in templates, prefixed by a
+      <code>$</code>.
+    </p>
+    <pre>
+      # INTERPOLATE = 0
+      &lt;td&gt;<span class="tt">[% name %]</span>&lt;/td&gt;
+      &lt;td&gt;<span class="tt">[% email %]</span>&lt;/td&gt;
+      
+      # INTERPOLATE = 1
+      &lt;td&gt;$name&lt;/td&gt;
+      &lt;td&gt;$email&lt;/td&gt;
+    </pre>
+    <p>
+      Directives may be embedded anywhere in a line of text and can be split
+      across several lines. Insignificant whitespace is generally ignored
+      within the directive.
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE header
+           title = 'Hello World' 
+           bgcol = '#ffffff' 
+      %]</span>
+      
+      <span class="tt">[%INCLUDE menu align='right'%]</span>
+      
+      Name: <span class="tt">[% name %]</span>  (<span class="tt">[%id%]</span>)
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Comments' id='section_Comments' -**]
+    <p>
+      The <code>#</code> character is used to indicate comments within a
+      directive. When placed immediately inside the opening directive tag, it
+      causes the entire directive to be ignored.
+    </p>
+    <pre>
+      <span class="tt">[%# this entire directive is ignored no
+          matter how many lines it wraps onto
+      %]</span>
+    </pre>
+    <p>
+      In any other position, it causes the remainder of the current line to be
+      treated as a comment.
+    </p>
+    <pre>
+      <span class="tt">[% # this is a comment
+         theta = 20      # so is this
+         rho   = 30      # &lt;aol&gt;me too!&lt;/aol&gt;
+      %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Chomping Whitespace' id='section_Chomping_Whitespace' -**]
+    <p>
+      You can add <code>-</code> or <code>+</code> to the immediate start or
+      end of a directive tag to control the whitespace chomping options. See
+      the <code>PRE_CHOMP</code> and <code>POST_CHOMP</code> options for
+      further details.
+    </p>
+    <pre>
+      <span class="tt">[% BLOCK foo -%]</span>    # remove trailing newline
+      This is block foo
+      <span class="tt">[%- END %]</span>          # remove leading newline
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Implicit Directives: GET and SET' id='section_Implicit_Directives_GET_and_SET' -**]
+    <p>
+      The simplest directives are <code>GET</code> and <code>SET</code> which
+      retrieve and update variable values respectively. The <code>GET</code>
+      and <code>SET</code> keywords are actually optional as the parser is
+      smart enough to see them for what they really are (but note the caveat
+      below on using side-effect notation). Thus, you'll generally see:
+    </p>
+    <pre>
+      <span class="tt">[% SET foo = 10 %]</span>
+      <span class="tt">[% GET foo %]</span>
+    </pre>
+    <p>
+      written as:
+    </p>
+    <pre>
+      <span class="tt">[% foo = 10 %]</span>
+      <span class="tt">[% foo %]</span>
+    </pre>
+    <p>
+      You can also express simple logical statements as implicit
+      <code>GET</code> directives:
+    </p>
+    <pre>
+      <span class="tt">[% title or template.title or 'Default Title' %]</span>
+      
+      <span class="tt">[% mode == 'graphics' ? "Graphics Mode Enabled" : "Text Mode" %]</span>
+    </pre>
+    <p>
+      All other directives should start with a keyword specified in UPPER CASE
+      (but see the <code>ANYCASE</code> option). All directives keywords are in
+      UPPER CASE to make them visually distinctive and to distinguish them from
+      variables of the same name but different case. It is perfectly valid, for
+      example, to define a variable called <code>stop</code> which is entirely
+      separate from the <code>STOP</code> directive.
+    </p>
+    <pre>
+      <span class="tt">[% stop = 'Clackett Lane Bus Depot' %]</span>
+      
+      The bus will next stop at <span class="tt">[% stop %]</span>    # variable
+      
+      <span class="tt">[% STOP %]</span>                              # directive
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Block Directives' id='section_Block_Directives' -**]
+    <p>
+      Directives such as <code>FOREACH</code>, <code>WHILE</code>,
+      <code>BLOCK</code>, <code>FILTER</code>, etc., mark the start of a block
+      which may contain text or other directives up to the matching
+      <code>END</code> directive. Blocks may be nested indefinitely. The
+      <code>IF</code>, <code>UNLESS</code>, <code>ELSIF</code> and
+      <code>ELSE</code> directives also define blocks and may be grouped
+      together in the usual manner.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH item = [ 'foo' 'bar' 'baz' ] %]</span>
+         * Item: <span class="tt">[% item %]</span>
+      <span class="tt">[% END %]</span>
+      
+      <span class="tt">[% BLOCK footer %]</span>
+         Copyright 2000 <span class="tt">[% me %]</span>
+         <span class="tt">[% INCLUDE company/logo %]</span>
+      <span class="tt">[% END %]</span>
+      
+      <span class="tt">[% IF foo %]</span>
+         <span class="tt">[% FOREACH thing = foo.things %]</span>
+            <span class="tt">[% thing %]</span>
+         <span class="tt">[% END %]</span>
+      <span class="tt">[% ELSIF bar %]</span>
+         <span class="tt">[% INCLUDE barinfo %]</span>
+      <span class="tt">[% ELSE %]</span>
+         do nothing...
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Block directives can also be used in a convenient side-effect notation.
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE userinfo FOREACH user = userlist %]</span>
+      
+      <span class="tt">[% INCLUDE debugtxt msg="file: $error.info" 
+           IF debugging %]</span> 
+           
+      <span class="tt">[% "Danger Will Robinson" IF atrisk %]</span>
+    </pre>
+    <p>
+      versus:
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user = userlist %]</span>
+         <span class="tt">[% INCLUDE userinfo %]</span>
+      <span class="tt">[% END %]</span>
+      
+      <span class="tt">[% IF debugging %]</span>
+         <span class="tt">[% INCLUDE debugtxt msg="file: $error.info" %]</span>
+      <span class="tt">[% END %]</span>
+      
+      <span class="tt">[% IF atrisk %]</span>
+      Danger Will Robinson
+      <span class="tt">[% END %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Capturing Block Output' id='section_Capturing_Block_Output' -**]
+    <p>
+      The output of a directive can be captured by simply assigning the
+      directive to a variable.
+    </p>
+    <pre>
+      <span class="tt">[% headtext = PROCESS header title="Hello World" %]</span>
+      
+      <span class="tt">[% people = PROCESS userinfo FOREACH user = userlist %]</span>
+    </pre>
+    <p>
+      This can be used in conjunction with the <code>BLOCK</code> directive for
+      defining large blocks of text or other content.
+    </p>
+    <pre>
+      <span class="tt">[% poem = BLOCK %]</span>
+         The boy stood on the burning deck,
+         His fleece was white as snow.
+         A rolling stone gathers no moss,
+         And Keith is sure to follow.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Note one important caveat of using this syntax in conjunction with
+      side-effect notation. The following directive does not behave as might be
+      expected:
+    </p>
+    <pre>
+      <span class="tt">[% var = 'value' IF some_condition %]</span>   # does not work
+    </pre>
+    <p>
+      In this case, the directive is interpreted as (spacing added for clarity)
+    </p>
+    <pre>
+      <span class="tt">[% var = IF some_condition %]</span>
+         value
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      rather than
+    </p>
+    <pre>
+      <span class="tt">[% IF some_condition %]</span>
+         <span class="tt">[% var = 'value' %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      The variable is assigned the output of the <code>IF</code> block which
+      returns <code>'value'</code> if true, but nothing if false. In other
+      words, the following directive will always cause 'var' to be cleared.
+    </p>
+    <pre>
+      <span class="tt">[% var = 'value' IF 0 %]</span>
+    </pre>
+    <p>
+      To achieve the expected behaviour, the directive should be written as:
+    </p>
+    <pre>
+      <span class="tt">[% SET var = 'value' IF some_condition %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Chaining Filters' id='section_Chaining_Filters' -**]
+    <p>
+      Multiple <code>FILTER</code> directives can be chained together in
+      sequence. They are called in the order defined, piping the output of one
+      into the input of the next.
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS somefile FILTER truncate(100) FILTER html %]</span>
+    </pre>
+    <p>
+      The pipe character, <code>|</code>, can also be used as an alias for
+      <code>FILTER</code>.
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS somefile | truncate(100) | html %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Multiple Directive Blocks' id='section_Multiple_Directive_Blocks' -**]
+    <p>
+      Multiple directives can be included within a single tag when delimited by
+      semi-colons. Note however that the <code>TAGS</code> directive must
+      always be specified in a tag by itself.
+    </p>
+    <pre>
+      <span class="tt">[% IF title; 
+            INCLUDE header; 
+         ELSE; 
+            INCLUDE other/header  title="Some Other Title";
+         END
+      %]</span>
+    </pre>
+    <p>
+      versus
+    </p>
+    <pre>
+      <span class="tt">[% IF title %]</span>
+         <span class="tt">[% INCLUDE header %]</span>
+      <span class="tt">[% ELSE %]</span>
+         <span class="tt">[% INCLUDE other/header  title="Some Other Title" %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+[** END -**]
+
+</div>

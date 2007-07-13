@@ -1,0 +1,18 @@
+[%  
+    MACRO ttmodlink(m) BLOCK;
+      THROW ttmodlink "Invalid module reference: $m"
+        UNLESS (uri = site.modules.$m);
+      "${rooturl}$uri";
+    END;
+
+    USE cpan_url = URL('http://search.cpan.org/search', mode='module');
+
+    MACRO cpanmod(m) 
+      GET cpan_url(query=m);
+
+    MACRO scheme_title(name) BLOCK;
+      title = FILTER ucfirst; name; END;
+      GET "Clear $title";
+    END;
+
+-%]

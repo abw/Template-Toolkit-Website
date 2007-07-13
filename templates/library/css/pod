@@ -1,0 +1,27 @@
+/*------------------------------------------------------------------------*/
+/* POD markup                                                             */
+/*------------------------------------------------------------------------*/
+
+div.pod {
+}
+
+div.pod p {
+  margin: 0px 0px 10px 0px;
+}
+
+div.pod pre,
+pre.tt {
+  margin: 0 0 15px 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f6f6f6;
+  font-size: 13px;
+  color: [% col.code %];
+}
+
+div.pod pre span.tt,
+pre.tt span.tt {
+    font-weight: bold;
+    color: [% col.tags %];
+}
+

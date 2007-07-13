@@ -1,0 +1,108 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template;
+      use Template::Stash::XS;
+    </pre>
+    <pre>
+      my $stash = Template::Stash::XS-&gt;new(\%vars);
+      my $tt2   = Template-&gt;new({ STASH =&gt; $stash });
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The Template:Stash::XS module is an implementation of the Template::Stash
+      written in C. The "XS" in the name refers to Perl's XS extension system
+      for interfacing Perl to C code. It works just like the regular Perl
+      implementation of Template::Stash but runs about twice as fast.
+    </p>
+    <p>
+      The easiest way to use the XS stash is to configure the Template Toolkit
+      to use it by default. You can do this at installation time (when you run
+      <code>perl Makefile.PL</code>) by answering 'y' to the questions:
+    </p>
+    <pre>
+      Do you want to build the XS Stash module?      y
+      Do you want to use the XS Stash by default?    y
+    </pre>
+    <p>
+      See the <code class="file">INSTALL</code> file distributed with the
+      Template Toolkit for further details on installation.
+    </p>
+    <p>
+      If you don't elect to use the XS stash by default then you should use the
+      <code>STASH</code> configuration item when you create a new Template
+      object. This should reference an XS stash object that you have created
+      manually.
+    </p>
+    <pre>
+      use Template;
+      use Template::Stash::XS;
+    </pre>
+    <pre>
+      my $stash = Template::Stash::XS-&gt;new(\%vars);
+      my $tt2   = Template-&gt;new({ STASH =&gt; $stash });
+    </pre>
+    <p>
+      Alternately, you can set the <code>$Template::Config::STASH</code>
+      package variable like so:
+    </p>
+    <pre>
+      use Template;
+      use Template::Config;
+    </pre>
+    <pre>
+      $Template::Config::STASH = 'Template::Stash::XS';
+    </pre>
+    <pre>
+      my $tt2 = Template-&gt;new();
+    </pre>
+    <p>
+      The XS stash will then be automatically used.
+    </p>
+    <p>
+      If you want to use the XS stash by default and don't want to re-install
+      the Template Toolkit, then you can manually modify the
+      <code>Template/Config.pm</code> module near line 42 to read:
+    </p>
+    <pre>
+      $STASH = 'Template::Stash::XS';
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='BUGS' id='section_BUGS' -**]
+    <p>
+      Please report bugs to the Template Toolkit mailing list
+      templates@template-toolkit.org
+    </p>
+[** END -**]
+[** WRAPPER page/section title='AUTHORS' id='section_AUTHORS' -**]
+    <p>
+      Andy Wardley &lt;abw@tt2.org&gt;
+    </p>
+    <p>
+      Doug Steinwand &lt;dsteinwand@citysearch.com&gt;
+    </p>
+[** END -**]
+[** WRAPPER page/section title='VERSION' id='section_VERSION' -**]
+    <p>
+      Template Toolkit version 2.19, released on 27 April 2007.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <pre>
+        Copyright (C) 1996-2007 Andy Wardley.  All Rights Reserved.
+    </pre>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Stash') **]">Template::Stash</a>
+    </p>
+[** END -**]
+
+</div>

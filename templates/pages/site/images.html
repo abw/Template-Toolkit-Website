@@ -1,0 +1,39 @@
+[% 
+   imgdir  = site.dir.images
+   biodir  = "$imgdir/biochrome";
+   skindir = "$imgdir/glass";
+   USE Colour;
+
+   MACRO bio_image(in, out, scheme, cols) BLOCK;
+     USE BioChrome("$biodir/$in");
+     BioChrome.alphas(cols.join('_').remove('#'));
+     BioChrome.write_file("$skindir/$scheme/$out");
+#     debug_msg("$biodir/$in => $skindir/$scheme/$out");
+   END;
+   
+   debug2("Generating images for colour schemes");
+   FOREACH name IN site.schemes;
+     debug3("    + $name");
+     PROCESS "css/${name}.css" | null;
+     bio_image('extlink.gif', 'extlink.gif', name, ['ffffff', col.link]);
+     bio_image('extlink.gif', 'extlinkvis.gif', name, ['ffffff', col.seen]);
+     bio_image('extlink.gif', 'extlinkroll.gif', name, ['ffffff', col.roll]);
+     
+     base   = Colour.RGB(col.back).hsv;
+     dull   = base.copy.adjust( sat   = '-10%' );
+     dark   = base.copy.adjust( value = '-10%' ).rgb;
+     darker = dull.copy.adjust( value = '-20%' ).rgb;
+     light  = dull.copy.adjust( value = '10%' ).rgb;
+     dull   = dull.rgb;
+     scheme = base.rgb.scheme;
+     
+     cols = [ scheme.lighter, dark, dark, scheme.mid ]; 
+#     cols = [ col.back, scheme.dark, scheme.dark, scheme.light ]; 
+     roll = [ 'ffffff', '666666', col.roll, 'aaaaaa' ]; 
+
+     FOREACH badge IN ['andy_wardley', 'html_valid', 'css_valid', 'badger_power'];
+        bio_image("badges/${badge}.gif", "badges/${badge}.gif", name, cols);
+        bio_image("badges/${badge}.gif", "badges/${badge}_roll.gif", name, roll);
+     END;
+   END;
+%]

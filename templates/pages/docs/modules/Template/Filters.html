@@ -1,0 +1,170 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Filters;
+      
+      $filters = Template::Filters-&gt;new(\%config);
+      
+      ($filter, $error) = $filters-&gt;fetch($name, \@args, $context);
+      
+      if ($filter) {
+          print &amp;$filter("some text");
+      }
+      else {
+          print "Could not fetch $name filter: $error\n";
+      }
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Filters</code> module implements a provider for
+      creating subroutines that implement the standard filters. Additional
+      custom filters may be provided via the <a
+      href="#section_FILTERS">FILTERS</a> configuration option.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%params) ' id='method_new' class='method' -**]
+    <p>
+      Constructor method which instantiates and returns a reference to a
+      <code>Template::Filters</code> object. A reference to a hash array of
+      configuration items may be passed as a parameter. These are described
+      below.
+    </p>
+    <pre>
+      my $filters = Template::Filters-&gt;new({
+          FILTERS =&gt; { ... },
+      });
+      
+      my $template = Template-&gt;new({
+          LOAD_FILTERS =&gt; [ $filters ],
+      });
+    </pre>
+    <p>
+      A default <code>Template::Filters</code> module is created by the <a
+      href="[** ttmodlink('Template') **]">Template</a> module if the <a
+      href="#section_LOAD_FILTERS">LOAD_FILTERS</a> option isn't specified. All
+      configuration parameters are forwarded to the constructor.
+    </p>
+    <pre>
+      $template = Template-&gt;new({
+          FILTERS =&gt; { ... },
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='fetch($name, \@args, $context)' id='method_fetch' class='method' -**]
+    <p>
+      Called to request that a filter of a given name be provided. The name of
+      the filter should be specified as the first parameter. This should be one
+      of the standard filters or one specified in the <a
+      href="#section_FILTERS">FILTERS</a> configuration hash. The second
+      argument should be a reference to an array containing configuration
+      parameters for the filter. This may be specified as 0, or undef where no
+      parameters are provided. The third argument should be a reference to the
+      current <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> object.
+    </p>
+    <p>
+      The method returns a reference to a filter sub-routine on success. It may
+      also return <code>(undef, STATUS_DECLINE)</code> to decline the request,
+      to allow delegation onto other filter providers in the <a
+      href="#section_LOAD_FILTERS">LOAD_FILTERS</a> chain of responsibility. On
+      error, <code>($error, STATUS_ERROR)</code> is returned where $error is an
+      error message or <a href="[** ttmodlink('Template::Exception')
+      **]">Template::Exception</a> object indicating the error that occurred.
+    </p>
+    <p>
+      When the <code>TOLERANT</code> option is set, errors are automatically
+      downgraded to a <code>STATUS_DECLINE</code> response.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='CONFIGURATION OPTIONS' id='section_CONFIGURATION_OPTIONS' -**]
+    <p>
+      The following list summarises the configuration options that can be
+      provided to the <code>Template::Filters</code> <a
+      href="#method_new">new()</a> constructor. Please see <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for further information about each option.
+    </p>
+    [** WRAPPER page/subsection title='FILTERS' id='section_FILTERS' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_FILTERS">FILTERS</a> option can be used to specify custom
+      filters which can then be used with the <a href="[**
+      ttmodlink('Template::Manual::Directives') **]#section_FILTER">FILTER</a>
+      directive like any other. These are added to the standard filters which
+      are available by default.
+    </p>
+    <pre>
+      $filters = Template::Filters-&gt;new({
+          FILTERS =&gt; {
+              'sfilt1' =&gt;   \&amp;static_filter,
+              'dfilt1' =&gt; [ \&amp;dyanamic_filter_factory, 1 ],
+          },
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TOLERANT' id='section_TOLERANT' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_TOLERANT">TOLERANT</a> flag can be set to indicate that the
+      <code>Template::Filters</code> module should ignore any errors and
+      instead return <code>STATUS_DECLINED</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEBUG' id='section_DEBUG' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_DEBUG">DEBUG</a> option can be used to enable debugging
+      messages for the Template::Filters module by setting it to include the
+      <code>DEBUG_FILTERS</code> value.
+    </p>
+    <pre>
+      use Template::Constants qw( :debug );
+      
+      my $template = Template-&gt;new({
+          DEBUG =&gt; DEBUG_FILTERS | DEBUG_PLUGINS,
+      });
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='STANDARD FILTERS' id='section_STANDARD_FILTERS' -**]
+    <p>
+      Please see <a href="[** ttmodlink('Template::Manual::Filters')
+      **]">Template::Manual::Filters</a> for a list of the filters provided
+      with the Template Toolkit, complete with examples of use.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Manual::Filters')
+      **]">Template::Manual::Filters</a>, <a href="[** ttmodlink('Template')
+      **]">Template</a>, <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a>
+    </p>
+[** END -**]
+
+</div>

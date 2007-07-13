@@ -1,0 +1,8 @@
+<div id="sidebar">
+[% PROCESS site/menu | trim | indent(2) %]
+  <div class="badges">
+    <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+    <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+    <a href="http://wardley.org" class="abw badge"></a>
+  </div>
+</div>

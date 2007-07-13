@@ -1,0 +1,13 @@
+site/layout : site/header site/body site/footer site/palette
+site/header : site/trail site/controls
+site/controls : site/pager
+site/body : site/sidebar site/content
+site/sidebar : site/menu
+site/footer : site/pager
+css/blue : css/tt2.css
+css/green : css/tt2.css
+css/orange : css/tt2.css
+css/purple : css/tt2.css
+css/grey : css/tt2.css
+css/tt2.css : css/controls css/defaults css/layout css/menu css/pod css/sections css/toc css/widescreen
+js/tt2.js : js/cookie js/loader js/style js/switcher

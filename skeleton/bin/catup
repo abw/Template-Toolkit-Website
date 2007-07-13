@@ -1,0 +1,5 @@
+# script to rsync everything up onto ourshack (tt2.org)
+rsync -vrazl -e ssh  \
+      --exclude logs \
+      --exclude .svn \
+      $@ [% root %]/ cat.ourshack.org:web/tt2k7/

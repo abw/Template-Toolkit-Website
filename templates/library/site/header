@@ -1,0 +1,12 @@
+<div id="header">
+  <a href="[% rooturl %]/index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+[% PROCESS site/trail 
+         + site/controls
+         | trim | indent(2)
+%]
+  <h1 class="headline">[% page.title %]</h1>
+[% IF page.about -%]
+  <h2 class="subhead">[% page.about %]</h2>
+[% END %]
+  <a href="[% site.server %][% page.uri %]" class="permalink">[% site.server %][% page.uri %]</a>
+</div>

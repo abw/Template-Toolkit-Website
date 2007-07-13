@@ -1,0 +1,376 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='Template Toolkit Language' id='section_Template_Toolkit_Language' -**]
+    [** WRAPPER page/subsection title='Why doesn\'t [% a = b IF c %] work as expected?' id='section_Why_doesn_t_a_b_IF_c_work_as_expected_' class='' -**]
+    <p>
+      There's a limitation in the TT2 parser which means that the following
+      code doesn't work as you might expect:
+    </p>
+    <pre>
+      <span class="tt">[% a = b IF c %]</span>
+    </pre>
+    <p>
+      The parser interprets it as an attempt to set <code>a</code> to the
+      result of <code>b IF c</code>, like this:
+    </p>
+    <pre>
+      <span class="tt">[% a = (b IF c) %]</span>
+    </pre>
+    <p>
+      If you want to set <code>a = b</code> only if <code>c</code> is true,
+      then do this instead:
+    </p>
+    <pre>
+      <span class="tt">[% SET a = b IF c %]</span>
+    </pre>
+    <p>
+      The explcit <code>SET</code> keyword gives the parser the clue it needs
+      to do the right thing.
+    </p>
+    <p>
+      NOTE: this will be fixed in TT3
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='If I\'m using TT to write out a TT template, is there a good way to escape [% and %]?' id='section_If_I_m_using_TT_to_write_out_a_TT_template_is_there_a_good_way_to_escape_and_' class='' -**]
+    <p>
+      You can do something like this: [% stag = "[\%" etag = "%\]" %] and then:
+      [% stag; 'hello'; etag %]
+    </p>
+    <p>
+      Or you can use the <code>TAGS</code> directive, like so:
+    </p>
+    <pre>
+      <span class="tt">[% TAGS [- -] %]</span>
+      [- INCLUDE foo -]   # is a directive
+      <span class="tt">[% INCLUDE foo %]</span>   # not a directive
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='How do I iterate over a hash?' id='section_How_do_I_iterate_over_a_hash_' class='' -**]
+    <p>
+      This is covered in the <a href="[**
+      ttmodlink('Template::Manual::VMethods')
+      **]">Template::Manual::VMethods</a> section of the manual. A list of all
+      the keys that are in the hash can be obtained with the <code>keys</code>
+      virtual method. You can then iterate over that list and by looking up
+      each key in turn get the value.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH key = product.keys %]</span>
+         <span class="tt">[% key %]</span> =&gt; <span class="tt">[% product.$key %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Plugins' id='section_Plugins' -**]
+    [** WRAPPER page/subsection title='How do I get the Table plugin to order data across rather than down?' id='section_How_do_I_get_the_Table_plugin_to_order_data_across_rather_than_down_' class='' -**]
+    <p>
+      Order the data into rows:
+    </p>
+    <pre>
+      Steve     Karen     Jeff
+      Brooklyn  Nantucket Fairfax
+      NY        MA        VA
+      
+      <span class="tt">[% USE table(data, rows=3) %]</span>
+    </pre>
+    <p>
+      Then ask for each column
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH column = table.cols %]</span>
+    </pre>
+    <p>
+      And then print each item in the column going across the output rows
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH item = column %]</span>
+          &lt;td&gt;<span class="tt">[% item %]</span>&lt;/td&gt;
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Accessing Cookies' id='section_Accessing_Cookies' class='' -**]
+    <p>
+      Jeff Boes &lt;jboes@nexcerpt.com&gt; asks:
+    </p>
+    <pre>
+      Does anyone have a quick-n-dirty approach to accessing 
+      cookies from templates? 
+    </pre>
+    <p>
+      Jonas Liljegren answers:
+    </p>
+    <pre>
+      <span class="tt">[% USE CGI %]</span>
+      
+      &lt;p&gt;The value is <span class="tt">[% CGI.cookie('cookie_name') | html %]</span>
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Extending the Template Toolkit' id='section_Extending_the_Template_Toolkit' -**]
+    [** WRAPPER page/subsection title='Can I serve templates from a database?' id='section_Can_I_serve_templates_from_a_database_' class='' -**]
+    <p>
+      Short answer: yes, Chris Nandor has done this for Slash. You need to
+      subclass <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a>. See the mailing list archives for further
+      info.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Can I fetch templates via http?' id='section_Can_I_fetch_templates_via_http_' class='' -**]
+    <p>
+      To do the job properly, you should subclass <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> to
+      <code>Template::Provider::HTTP</code> and use a <code>PREFIX_MAP</code>
+      option to bind the <code>http</code> template prefix to that particular
+      provider (you may want to go digging around in the <code
+      class="file">Changes</code> file around version 2.01 for more info on
+      <code>PREFIX_MAP</code> - it may not be properly documented anywhere
+      else...yet!). e.g.
+    </p>
+    <pre>
+      use Template::Provider::HTTP;
+      
+      my $file = Template::Provider( INCLUDE_PATH =&gt; [...] );
+      my $http = Template::Provider::HTTP-&gt;new(...);
+      my $tt2  = Template-&gt;new({
+          LOAD_TEMPLATES =&gt; [ $file, $http ],
+          PREFIX_MAP =&gt; {
+              file    =&gt; '0',     # file:foo.html
+              http    =&gt; '1',     # http:foo.html
+              default =&gt; '0',     # foo.html =&gt; file:foo.html
+          }
+      });
+    </pre>
+    <p>
+      Now a template specified as:
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE foo %]</span>
+    </pre>
+    <p>
+      will be served by the 'file' provider (the default). Otherwise you can
+      explicitly add a prefix:
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE file:foo.html %]</span>
+      <span class="tt">[% INCLUDE http:foo.html %]</span>
+      <span class="tt">[% INCLUDE http://www.xyz.com/tt2/header.tt2 %]</span>
+    </pre>
+    <p>
+      This same principal can be used to create a DBI template provider. e.g.
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE dbi:foo.html %]</span>
+    </pre>
+    <p>
+      Alas, we don't yet have a DBI provider as part of the Template Toolkit.
+      There has been some talk on the mailing list about efforts to develop DBI
+      and/or HTTP providers but as yet no-one has stepped forward to take up
+      the challenge...
+    </p>
+    <p>
+      In the mean time, Craig Barrat's post from the mailing list has some
+      useful pointers on how to acheive this using existing modules. See <a
+      href="http://tt2.org/pipermail/templates/2001-May/000954.html">http://tt2.org/pipermail/templates/2001-May/000954.html</a>
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Miscellaneous' id='section_Miscellaneous' -**]
+    [** WRAPPER page/subsection title='How can I find out the name of the main template being processed?' id='section_How_can_I_find_out_the_name_of_the_main_template_being_processed_' class='' -**]
+    <p>
+      The <code>template</code> variable contains a reference to the
+      Template::Document object for the main template you're processing (i.e.
+      the one provided as the first argument to the Template process() method).
+      The <code>name</code> method returns its name.
+    </p>
+    <pre>
+      <span class="tt">[% template.name %]</span>     # e.g. index.html
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='How can I find out the name of the current template being processed?' id='section_How_can_I_find_out_the_name_of_the_current_template_being_processed_' class='' -**]
+    <p>
+      The <code>template</code> variable always references the <i>main</i>
+      template being processed. So even if you call [% INCLUDE header %], and
+      that calls [% INCLUDE menu %], the <code>template</code> variable will be
+      unchanged.
+    </p>
+    <p>
+      index.html:
+    </p>
+    <pre>
+      <span class="tt">[% template.name  %]</span>     # index.html
+      <span class="tt">[% INCLUDE header %]</span>
+    </pre>
+    <p>
+      header:
+    </p>
+    <pre>
+      <span class="tt">[% template.name  %]</span>     # index.html
+      <span class="tt">[% INCLUDE menu   %]</span>
+    </pre>
+    <p>
+      menu:
+    </p>
+    <pre>
+      <span class="tt">[% template.name  %]</span>     # index.html
+    </pre>
+    <p>
+      In constrast, the <code>component</code> variable always references the
+      <i>current</i> template being processed.
+    </p>
+    <p>
+      index.html
+    </p>
+    <pre>
+      <span class="tt">[% component.name %]</span>     # index.html
+      <span class="tt">[% INCLUDE header %]</span>
+    </pre>
+    <p>
+      header:
+    </p>
+    <pre>
+      <span class="tt">[% component.name %]</span>     # header
+      <span class="tt">[% INCLUDE menu   %]</span>
+    </pre>
+    <p>
+      menu:
+    </p>
+    <pre>
+      <span class="tt">[% component.name  %]</span>     # menu
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='How do I print the modification time of the template or component?' id='section_How_do_I_print_the_modification_time_of_the_template_or_component_' class='' -**]
+    <p>
+      The <code>template</code> and <code>component</code> variables reference
+      the main template and the current template being processed (see previous
+      questions). The <code>modtime</code> method returns the modification time
+      of the corresponding template file as a number of seconds since the Unix
+      epoch (00:00:00 GMT 1st January 1970).
+    </p>
+    <p>
+      This number doesn't mean much to anyone (except perhaps serious Unix
+      geeks) so you'll probably want to use the Date plugin to format it for
+      human consumption.
+    </p>
+    <pre>
+      <span class="tt">[% USE Date %]</span>
+      <span class="tt">[% template.name %]</span> last modified <span class="tt">[% Date.format(template.modtime) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='How can I configure variables on a per-request basis?' id='section_How_can_I_configure_variables_on_a_per_request_basis_' class='' -**]
+    <p>
+      One easy way to acheive this is to define a single
+      <code>PRE_PROCESS</code> template which loads in other configuration
+      files based on variables defined or other conditions.
+    </p>
+    <p>
+      For example, my setup usually looks something like this:
+    </p>
+    <pre>
+      PRE_PROCESS =&gt; 'config/main'
+    </pre>
+    <p>
+      config/main:
+    </p>
+    <pre>
+      <span class="tt">[%  DEFAULT  style   = 'text'
+                   section =  template.section or 'home';
+                   
+          PROCESS  config/site
+                +  config/urls
+                +  config/macros
+                + "config/style/$style"
+                + "config/section/$section"
+                + ...
+      %]</span>
+    </pre>
+    <p>
+      This allows me to set a single 'style' variable to control which config
+      file gets pre-processed to set my various style options (colours, img
+      paths, etc). For example:
+    </p>
+    <p>
+      config/style/basic:
+    </p>
+    <pre>
+      [%  style = {
+              name = style    # save existing 'style' var as 'style.name'
+    </pre>
+    <pre>
+              # define various other style variables....
+              col = {
+                  back =&gt; '#ffffff'
+                  text =&gt; '#000000'
+                      # ...etc...
+              }
+    </pre>
+    <pre>
+              logo = {
+                      # ...etc...
+              }
+    </pre>
+    <pre>
+              # ...etc...
+          }
+      %]
+    </pre>
+    <p>
+      Each source template can declare which section it's in via a META
+      directive:
+    </p>
+    <pre>
+        <span class="tt">[% META
+         title   = 'General Information'
+         section = 'info'
+        %]</span>
+        ...
+    </pre>
+    <p>
+      This controls which section configuration file gets loaded to set various
+      other variables for defining the section title, menu, etc.
+    </p>
+    <p>
+      config/section/info:
+    </p>
+    <pre>
+      <span class="tt">[%  section = {
+              name   = section  # save 'section' var as 'section.name'
+              title  = 'Information'
+              menu   = [ ... ]
+              # ...etc...
+          }
+      %]</span>
+    </pre>
+    <p>
+      This illustrates the basic principal but you can extend it to perform
+      pretty much any kind of per-document initialisation that you require.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Questions About This FAQ' id='section_Questions_About_This_FAQ' -**]
+    [** WRAPPER page/subsection title='Why is this FAQ so short?' id='section_Why_is_this_FAQ_so_short_' class='' -**]
+    <p>
+      Because we don't have anyone maintaining it.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Can I help?' id='section_Can_I_help_' class='' -**]
+    <p>
+      Yes please :-)
+    </p>
+    
+    [** END -**]
+[** END -**]
+
+</div>

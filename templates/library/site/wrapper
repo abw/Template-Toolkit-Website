@@ -1,0 +1,19 @@
+[% # if the template file name ends in '.html' then we process it as
+   # an HTML page complete with the correct HTML headers and footers
+   # (provided by the site/html wrapper template) and any extra markup
+   # we want to add to provide a layout style, including menus, etc.,
+
+   IF template.name.match('\.html$');
+     FILTER undent;
+       WRAPPER site/html + site/layout;
+         debug3("processing as HTML");
+         content;
+       END;
+     END;
+   ELSE;
+      # all other pages (CSS, JS, etc) get passed through without
+      # any kind of page adornment
+         debug3("processing as text");
+      content;
+   END;
+-%]

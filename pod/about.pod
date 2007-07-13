@@ -1,0 +1,306 @@
+=head1 Introduction
+
+The Template Toolkit is a fast, flexible and highly extensible template
+processing system. It is free (in both senses: beer and speech) open source
+software and runs on virtually every modern operating system known to man.
+It is written in the Perl programming language with certain key elements
+coded in C for maximum speed. However you don't need to know any Perl (or C)
+to be able to use it.
+
+It is ideally suited, but not limited to, the creation of static and dynamic
+web content and incorporates various modules and tools to simplify this
+process.  It is mature, robust, reliable and well documented.
+
+=head1 Features
+
+Here's an overview of some of the Template Toolkit's key features.
+
+=over 4
+
+=item Fast, powerful and extensible template processing system.
+
+=item Powerful presentation language supports all standard templating
+directives, e.g. variable substitution, includes, conditionals, loops.
+
+=item Additional features include output filters, exception handling, macro
+definition, support for plugin objects and definition of template metadata.
+
+=item Full support for complex data types including hashes, lists, objects and
+subroutine references.
+
+=item Provides a clear separation of concerns between content, user interface
+elements, application code and data.
+
+=item Designer-centric front end hides underlying complexity behind simple
+variable access.
+
+=item Programmer-centric back end, allowing application logic and data
+structures to be built in Perl.
+
+=item Templates are compiled to Perl code for maximum runtime efficiency and
+performance. Compiled templates are cached and can be written to disk in
+compiled form to achieve cache persistance.
+
+=item Well suited to online dynamic web content generation (e.g.
+Apache/mod_perl).
+
+=item Also has excellent support for offline batch processing for generating
+static pages (e.g. HTML, POD, LaTeX, PostScript, plain text) from source
+templates.
+
+=item Comprehensive documentation including tutorial and reference manuals.
+
+=item Fully Open Source and Free
+
+=back
+
+=head1 Examples
+
+Here are some example templates to give you a flavour of what the Template
+Toolkit can do.  See the L<Template::Manual> pages for more comprehensive
+information about the Template Toolkit and further examples of use.
+
+=head2 Templates and Variables
+
+Let's start with the eponymous "Hello World" template.
+
+    Hello World!
+
+OK, that's not much of a template, but it does illustrates the first important
+point that templates are regular text files. Anything that isn't contained
+inside a template directive tag gets passed through unaltered. 
+
+So let's add some tags now to make it a proper template.
+L<Tags|Template::Manual::Syntax> are enclosed between C<[%> and C<%]> and
+contain L<directives|Template::Manual::Directives> that instruct the Template
+Toolkit to perform some action. In the next example we'll
+L<INCLUDE|Template::Manual::Directives#INCLUDE> a F<header> at the top, a
+F<footer> at the bottom, and put the C<Hello World> message in an HTML
+paragraph.
+
+    [% INCLUDE header title="My First Example" %]
+    <p>
+      Hello World!
+    </p>
+    [% INCLUDE footer copyright="2007 Arthur Dent" %]
+
+This demonstrates a second important concept: we can create reusable template
+components like F<header> and F<footer> that can be loaded into other
+templates as required with a simple
+L<INCLUDE|Template::Manual::Directives#INCLUDE> directive. Here's what they
+might look like:
+
+F<header>
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+    <html>
+      <head>
+        <title>[% title %]</title>
+      </head>
+      <body> 
+        <div id="header">
+          <a href="/index.html" class="logo" alt="Home Page"></a>
+          <h1 class="headline">[% title %]</h1>
+        </div>
+
+F<footer>
+
+        <div id="footer">
+          <div id="copyright">
+            &copy; [% copyright %]
+          </div>
+        </div>
+      </body>
+    </html>
+
+Notice where the C<[% title %]> variable appears in the F<header> and 
+C<[% copyright %]> in the F<footer>. In this case we're providing the values for
+C<title> and C<copyright> when we
+L<INCLUDE|Template::Manual::Directives#INCLUDE> the F<header> and F<footer>
+template components respectively.  The Template Toolkit is very flexible about
+where and how you define L<variables|Template::Manual::Variables>.
+
+The only problem with this example is that we've got two separate templates
+implementing an overall page layout that would be easier to maintain if
+it were in a single template.  Just like this:
+
+F<layout>
+
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN">
+    <html>
+      <head>
+        <title>[% title %]</title>
+      </head>
+      <body> 
+        <div id="header">
+          <a href="/index.html" class="logo" alt="Home Page"></a>
+          <h1 class="headline">[% title %]</h1>
+        </div>
+          
+        [% content %]
+          
+        <div id="footer">
+          <div id="copyright">
+            &copy; [% copyright %]
+          </div>
+        </div>
+      </body>
+    </html>
+
+Now we can use the L<WRAPPER|Template::Manual::Directives#WRAPPER> directive
+to apply the layout template to our "Hello World" page template.
+
+    [% WRAPPER layout 
+         title     = "My First Example" 
+         copyright = "2007 Arthur Dent" 
+    %]
+    <p>
+      Hello World!
+    </p>
+    [% END %]
+
+Everything between the C<WRAPPER> and C<END> is processed first, and then
+passed over to the F<layout> template as the C<content> variable, along with
+the C<title> and C<copyright> variables that we specify explicit values for.
+In fact, we could have written this simple example like this:
+
+    [% INCLUDE layout 
+         title     = "My First Example" 
+         copyright = "2007 Arthur Dent" 
+         content   = "<p>\n  Hello World!\n</p>"
+    %]
+
+=head2 Complex Data
+
+The Template Toolkit allows you to define data in a template, to pass it in
+from a calling Perl program, or to read it from an external source (e.g. a
+database, XML file, etc) using a plugin module. You can define complex data
+types that include lists, hash arrays, objects and subroutines. 
+
+The dot operator is used to access the elements in complex data structures,
+regardless of what underlying data type they have. For example,
+C<person.email> and C<person.name> can be used to fetch the C<email> and
+C<name> items from a C<person> hash array, or to call the C<email> and C<name>
+methods on a C<person> object. The Template Toolkit takes cares of figuring
+out what needs to be done to access different data types so that you don't
+have to worry about it.
+
+Here's an example using a simple hash table defined in a template.
+The comments in the right column following the C<#> indicate the 
+output generated from each line.
+
+    [% person = { 
+         name    = 'Tom'
+         email   = 'tom@tt2.org'
+       }
+    %]
+    [% person.name  %]          # Tom
+    [% person.email %]          # tom@tt2.org
+
+And here's an example of a list.
+
+    [% people = ['Tom', 'Dick', 'Larry'] %]
+    [% people.0 %]              # Tom
+    [% people.1 %]              # Dick
+    [% people.2 %]              # Larry
+
+The Template Toolkit provides a large number of L<Virtual
+Methods|Template::Manual::VMethods> that can be called against data items to
+inspect or manipulate the values they contain. For example, we can find out
+how many items are in a list using C<.size>, or join them into a single item
+using C<.join>.
+
+    [% people.size %]           # 3
+    [% people.join(', ') %]     # Tom, Dick, Larry
+
+=head2 Loops and Conditions
+
+The next example shows the use of the
+L<FOREACH|Template::Manual::Directives#FOREACH> directive to repeat a block of
+template content for each item in a list. In this case, the items in the list
+are hash arrays.
+
+    [% people = [
+         { name = 'Tom',   email = 'tom@tt2.org'   }
+         { name = 'Dick',  email = 'dick@tt2.org'  }
+         { name = 'Larry', email = 'larry@tt2.org' }
+       ]
+    %]
+    <ul>
+    [% FOREACH person IN people %]
+      <li><a href="mailto:[% person.email %]">[% person.name %]</a></li>
+    [% END %]
+    </ul>
+
+Inside a C<FOREACH> loop, the C<loop> variable can be used to test 
+certain conditions.  For example, C<loop.first> and C<loop.last>
+indicate if we're on the first or last item in the loop respectively.
+
+Using the L<IF|Template::Manual::Directives#IF> directive in conjunction with
+C<loop>, we can generate different output for the first and last items in the
+list. We'll also use C<loop.count> to print the current iteration count next
+to each item.
+
+    [% FOREACH person IN people %]
+    [%   IF loop.first %]
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    [%   END %]
+      <tr>
+        <td>[% loop.count %]</td>
+        <td>[% person.name %]</td>
+        <td>[% person.email %]</td>
+      </tr>
+    [%   IF loop.last %]
+    </table>
+    [%   END %]
+    [% END %]
+
+Conditional C<IF> statements can be combined with C<ELSIF> and C<ELSE> to
+create more complex branching tests.
+
+    [% IF age < 18 %]
+    You are too young.
+    [% ELSIF age > 65 %]
+    You are too old.
+    [% ELSE %]
+    Welcome!
+    [% END %]
+
+=head2 Filters and Plugins
+
+The Template Toolkit provides a number of text
+L<filters|Template::Manual::Filters> for post-processing blocks of template
+content. A simple example is the C<upper> filter which converts all text to
+upper case.
+
+    [% FILTER upper %]
+    Hello World!                     # HELLO WORLD!
+    [% END %]
+
+L<Plugins|Template::Manual::Plugins> are extension modules written in Perl that allow you to incorporate
+any kind of additional functionality into the Template Toolkit.  For example,
+the L<CGI|Template::Plugin::CGI> plugin gives you access to the L<CGI> module
+through which you can access CGI parameters, cookies, and so on.
+
+    [% USE CGI %]
+    [% name = CGI.param('name') or 'World' %]
+    Hello [% name %]!
+
+Another example is the L<DBI|Template::DBI> plugin which allows you to query
+an SQL database and incorporate the results into a template.
+
+    [% USE DBI( database = 'dbi:mysql:dbname',
+                username = 'guest',
+                password = 'topsecret' )
+    %]
+    <ul>
+    [% FOREACH customer IN DBI.query('SELECT * FROM customers') %]
+      <li>[% customer.name %]</li>
+    [% END %]
+    </ul>
+

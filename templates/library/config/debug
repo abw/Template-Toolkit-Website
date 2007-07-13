@@ -1,0 +1,27 @@
+[%  # define a debug_msg() MACRO and debug1(), debug2(), debug3(), etc.
+    # aliases based on the value of the debug flag
+    
+    IF debug;
+        # If the debug flag is set then we define a debug_msg(text)
+        # macro to print the text to stderr
+        MACRO debug_msg(text) 
+            FILTER stderr; 
+                "    # $text\n";
+            END;
+
+        # We also create aliases debug1(), debug2(), debug3(), etc.
+        # up to whatever number debug is set to.  debug1() messages
+        # are considered the most general, debug2() more verbose, and
+        # so on.  So if you set debug = 2 then you'll see debug1() and 
+        # debug2() messages, but not debug3() or those with higher numbers.
+        FOREACH n IN [1..debug];
+          debug_name = "debug$n";
+          $debug_name = \debug_msg;
+          CALL debug_msg("  - activated $debug_name") IF debug > 1; 
+        END;
+    ELSE;
+        # if debug isn't set, define debug_msg as an empty string
+        debug_msg = '';
+    END;
+
+-%]

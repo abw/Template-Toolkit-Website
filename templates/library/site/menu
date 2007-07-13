@@ -1,0 +1,45 @@
+[%  items = [ ];
+    done  = { };
+    level = 0;
+    
+    PROCESS expand_menu 
+      section_uri = '/';
+
+    BLOCK expand_menu;
+        # make sure we don't process the same menu twice
+        RETURN IF done.$section_uri;
+        done.$section_uri = 1;
+        
+        # iterate through the list of page URIs in this section menu
+        FOREACH uri IN site.sections.${section_uri}.menu;
+            p = site.pages.$uri;
+            THROW menu "Invalid page URI: $uri" UNLESS p;
+            u = p.uri or uri;
+            
+            # create a hash of data for the menu item
+            item = {
+                page  = site.pages.$uri
+                link  = "$rooturl$u"
+                warm  = page.warm.$uri     # current page has hash of pages to warm
+                level = level
+            };
+
+            # stuff it in the list
+            CALL items.push(item);
+
+            # look for any sub-menu if this item is warm;
+            INCLUDE expand_menu
+              section_uri = uri.remove('[^\\/]+$')
+              level = level + 1
+                IF item.warm;
+        END;
+    END;
+%]
+<div id="menu">
+  <ul class="menu">
+[%  FOREACH item IN items -%]
+    <li class="l[% item.level %][% ' first' IF loop.first; ' last' IF loop.last %]"><a href="[% item.link %]"[% ' class="warm"' IF item.warm %]>[% item.page.name %]</a></li>
+[%  END -%]
+  </ul>
+  <div class="foot"></div>
+</div>

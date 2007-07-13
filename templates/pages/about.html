@@ -1,0 +1,380 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='Introduction' id='Introduction' -**]
+    <p>
+      The Template Toolkit is a fast, flexible and highly extensible template
+      processing system. It is free (in both senses: beer and speech) open
+      source software and runs on virtually every modern operating system known
+      to man. It is written in the Perl programming language with certain key
+      elements coded in C for maximum speed. However you don't need to know any
+      Perl (or C) to be able to use it.
+    </p>
+    <p>
+      It is ideally suited, but not limited to, the creation of static and
+      dynamic web content and incorporates various modules and tools to
+      simplify this process. It is mature, robust, reliable and well
+      documented.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='Features' id='Features' -**]
+    <p>
+      Here's an overview of some of the Template Toolkit's key features.
+    </p>
+    <ul>
+    <li id="item_1">Fast, powerful and extensible template processing system.
+    </li>
+    <li id="item_2">Powerful presentation language supports all standard templating
+    directives, e.g. variable substitution, includes, conditionals, loops.
+    </li>
+    <li id="item_3">Additional features include output filters, exception handling, macro
+    definition, support for plugin objects and definition of template metadata.
+    </li>
+    <li id="item_4">Full support for complex data types including hashes, lists, objects and
+    subroutine references.
+    </li>
+    <li id="item_5">Provides a clear separation of concerns between content, user interface
+    elements, application code and data.
+    </li>
+    <li id="item_6">Designer-centric front end hides underlying complexity behind simple
+    variable access.
+    </li>
+    <li id="item_7">Programmer-centric back end, allowing application logic and data
+    structures to be built in Perl.
+    </li>
+    <li id="item_8">Templates are compiled to Perl code for maximum runtime efficiency and
+    performance. Compiled templates are cached and can be written to disk in
+    compiled form to achieve cache persistance.
+    </li>
+    <li id="item_9">Well suited to online dynamic web content generation (e.g.
+    Apache/mod_perl).
+    </li>
+    <li id="item_10">Also has excellent support for offline batch processing for generating
+    static pages (e.g. HTML, POD, LaTeX, PostScript, plain text) from source
+    templates.
+    </li>
+    <li id="item_11">Comprehensive documentation including tutorial and reference manuals.
+    </li>
+    <li id="item_12">Fully Open Source and Free
+    </li>
+    </ul>
+[** END -**]
+[** WRAPPER page/section title='Examples' id='Examples' -**]
+    <p>
+      Here are some example templates to give you a flavour of what the
+      Template Toolkit can do. See the <a href="[**
+      ttmodlink('Template::Manual') **]">Template::Manual</a> pages for more
+      comprehensive information about the Template Toolkit and further examples
+      of use.
+    </p>
+    [** WRAPPER page/subsection title='Templates and Variables' id='section_Templates_and_Variables' class='' -**]
+    <p>
+      Let's start with the eponymous "Hello World" template.
+    </p>
+    <pre>
+      Hello World!
+    </pre>
+    <p>
+      OK, that's not much of a template, but it does illustrates the first
+      important point that templates are regular text files. Anything that
+      isn't contained inside a template directive tag gets passed through
+      unaltered.
+    </p>
+    <p>
+      So let's add some tags now to make it a proper template. <a href="[**
+      ttmodlink('Template::Manual::Syntax') **]">Tags</a> are enclosed between
+      <code>[%</code> and <code>%]</code> and contain <a href="[**
+      ttmodlink('Template::Manual::Directives') **]">directives</a> that
+      instruct the Template Toolkit to perform some action. In the next example
+      we'll <a href="[** ttmodlink('Template::Manual::Directives')
+      **]#section_INCLUDE">INCLUDE</a> a <code class="file">header</code> at
+      the top, a <code class="file">footer</code> at the bottom, and put the
+      <code>Hello World</code> message in an HTML paragraph.
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE header title="My First Example" %]</span>
+      &lt;p&gt;
+        Hello World!
+      &lt;/p&gt;
+      <span class="tt">[% INCLUDE footer copyright="2007 Arthur Dent" %]</span>
+    </pre>
+    <p>
+      This demonstrates a second important concept: we can create reusable
+      template components like <code class="file">header</code> and <code
+      class="file">footer</code> that can be loaded into other templates as
+      required with a simple <a href="[**
+      ttmodlink('Template::Manual::Directives')
+      **]#section_INCLUDE">INCLUDE</a> directive. Here's what they might look
+      like:
+    </p>
+    <p>
+      <code class="file">header</code>
+    </p>
+    <pre>
+      &lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN"&gt;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt; 
+          &lt;div id="header"&gt;
+            &lt;a href="/index.html" class="logo" alt="Home Page"&gt;&lt;/a&gt;
+            &lt;h1 class="headline"&gt;<span class="tt">[% title %]</span>&lt;/h1&gt;
+          &lt;/div&gt;
+    </pre>
+    <p>
+      <code class="file">footer</code>
+    </p>
+    <pre>
+          &lt;div id="footer"&gt;
+            &lt;div id="copyright"&gt;
+              &amp;copy; <span class="tt">[% copyright %]</span>
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p>
+      Notice where the <code>[% title %]</code> variable appears in the <code
+      class="file">header</code> and <code>[% copyright %]</code> in the <code
+      class="file">footer</code>. In this case we're providing the values for
+      <code>title</code> and <code>copyright</code> when we <a href="[**
+      ttmodlink('Template::Manual::Directives')
+      **]#section_INCLUDE">INCLUDE</a> the <code class="file">header</code> and
+      <code class="file">footer</code> template components respectively. The
+      Template Toolkit is very flexible about where and how you define <a
+      href="[** ttmodlink('Template::Manual::Variables') **]">variables</a>.
+    </p>
+    <p>
+      The only problem with this example is that we've got two separate
+      templates implementing an overall page layout that would be easier to
+      maintain if it were in a single template. Just like this:
+    </p>
+    <p>
+      <code class="file">layout</code>
+    </p>
+    <pre>
+      &lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN"&gt;
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt; 
+          &lt;div id="header"&gt;
+            &lt;a href="/index.html" class="logo" alt="Home Page"&gt;&lt;/a&gt;
+            &lt;h1 class="headline"&gt;<span class="tt">[% title %]</span>&lt;/h1&gt;
+          &lt;/div&gt;
+            
+          <span class="tt">[% content %]</span>
+            
+          &lt;div id="footer"&gt;
+            &lt;div id="copyright"&gt;
+              &amp;copy; <span class="tt">[% copyright %]</span>
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p>
+      Now we can use the <a href="[** ttmodlink('Template::Manual::Directives')
+      **]#section_WRAPPER">WRAPPER</a> directive to apply the layout template
+      to our "Hello World" page template.
+    </p>
+    <pre>
+      <span class="tt">[% WRAPPER layout 
+           title     = "My First Example" 
+           copyright = "2007 Arthur Dent" 
+      %]</span>
+      &lt;p&gt;
+        Hello World!
+      &lt;/p&gt;
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Everything between the <code>WRAPPER</code> and <code>END</code> is
+      processed first, and then passed over to the <code
+      class="file">layout</code> template as the <code>content</code> variable,
+      along with the <code>title</code> and <code>copyright</code> variables
+      that we specify explicit values for. In fact, we could have written this
+      simple example like this:
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE layout 
+           title     = "My First Example" 
+           copyright = "2007 Arthur Dent" 
+           content   = "&lt;p&gt;\n  Hello World!\n&lt;/p&gt;"
+      %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Complex Data' id='section_Complex_Data' class='' -**]
+    <p>
+      The Template Toolkit allows you to define data in a template, to pass it
+      in from a calling Perl program, or to read it from an external source
+      (e.g. a database, XML file, etc) using a plugin module. You can define
+      complex data types that include lists, hash arrays, objects and
+      subroutines.
+    </p>
+    <p>
+      The dot operator is used to access the elements in complex data
+      structures, regardless of what underlying data type they have. For
+      example, <code>person.email</code> and <code>person.name</code> can be
+      used to fetch the <code>email</code> and <code>name</code> items from a
+      <code>person</code> hash array, or to call the <code>email</code> and
+      <code>name</code> methods on a <code>person</code> object. The Template
+      Toolkit takes cares of figuring out what needs to be done to access
+      different data types so that you don't have to worry about it.
+    </p>
+    <p>
+      Here's an example using a simple hash table defined in a template. The
+      comments in the right column following the <code>#</code> indicate the
+      output generated from each line.
+    </p>
+    <pre>
+      <span class="tt">[% person = { 
+           name    = 'Tom'
+           email   = 'tom@tt2.org'
+         }
+      %]</span>
+      <span class="tt">[% person.name  %]</span>          # Tom
+      <span class="tt">[% person.email %]</span>          # tom@tt2.org
+    </pre>
+    <p>
+      And here's an example of a list.
+    </p>
+    <pre>
+      <span class="tt">[% people = ['Tom', 'Dick', 'Larry'] %]</span>
+      <span class="tt">[% people.0 %]</span>              # Tom
+      <span class="tt">[% people.1 %]</span>              # Dick
+      <span class="tt">[% people.2 %]</span>              # Larry
+    </pre>
+    <p>
+      The Template Toolkit provides a large number of <a href="[**
+      ttmodlink('Template::Manual::VMethods') **]">Virtual Methods</a> that can
+      be called against data items to inspect or manipulate the values they
+      contain. For example, we can find out how many items are in a list using
+      <code>.size</code>, or join them into a single item using
+      <code>.join</code>.
+    </p>
+    <pre>
+      <span class="tt">[% people.size %]</span>           # 3
+      <span class="tt">[% people.join(', ') %]</span>     # Tom, Dick, Larry
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Loops and Conditions' id='section_Loops_and_Conditions' class='' -**]
+    <p>
+      The next example shows the use of the <a href="[**
+      ttmodlink('Template::Manual::Directives')
+      **]#section_FOREACH">FOREACH</a> directive to repeat a block of template
+      content for each item in a list. In this case, the items in the list are
+      hash arrays.
+    </p>
+    <pre>
+      <span class="tt">[% people = [
+           { name = 'Tom',   email = 'tom@tt2.org'   }
+           { name = 'Dick',  email = 'dick@tt2.org'  }
+           { name = 'Larry', email = 'larry@tt2.org' }
+         ]
+      %]</span>
+      &lt;ul&gt;
+      <span class="tt">[% FOREACH person IN people %]</span>
+        &lt;li&gt;&lt;a href="mailto:<span class="tt">[% person.email %]</span>"&gt;<span class="tt">[% person.name %]</span>&lt;/a&gt;&lt;/li&gt;
+      <span class="tt">[% END %]</span>
+      &lt;/ul&gt;
+    </pre>
+    <p>
+      Inside a <code>FOREACH</code> loop, the <code>loop</code> variable can be
+      used to test certain conditions. For example, <code>loop.first</code> and
+      <code>loop.last</code> indicate if we're on the first or last item in the
+      loop respectively.
+    </p>
+    <p>
+      Using the <a href="[** ttmodlink('Template::Manual::Directives')
+      **]#section_IF">IF</a> directive in conjunction with <code>loop</code>,
+      we can generate different output for the first and last items in the
+      list. We'll also use <code>loop.count</code> to print the current
+      iteration count next to each item.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH person IN people %]</span>
+      <span class="tt">[%   IF loop.first %]</span>
+      &lt;table&gt;
+        &lt;tr&gt;
+          &lt;th&gt;Rank&lt;/th&gt;
+          &lt;th&gt;Name&lt;/th&gt;
+          &lt;th&gt;Email&lt;/th&gt;
+        &lt;/tr&gt;
+      <span class="tt">[%   END %]</span>
+        &lt;tr&gt;
+          &lt;td&gt;<span class="tt">[% loop.count %]</span>&lt;/td&gt;
+          &lt;td&gt;<span class="tt">[% person.name %]</span>&lt;/td&gt;
+          &lt;td&gt;<span class="tt">[% person.email %]</span>&lt;/td&gt;
+        &lt;/tr&gt;
+      <span class="tt">[%   IF loop.last %]</span>
+      &lt;/table&gt;
+      <span class="tt">[%   END %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Conditional <code>IF</code> statements can be combined with
+      <code>ELSIF</code> and <code>ELSE</code> to create more complex branching
+      tests.
+    </p>
+    <pre>
+      <span class="tt">[% IF age &lt; 18 %]</span>
+      You are too young.
+      <span class="tt">[% ELSIF age &gt; 65 %]</span>
+      You are too old.
+      <span class="tt">[% ELSE %]</span>
+      Welcome!
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Filters and Plugins' id='section_Filters_and_Plugins' class='' -**]
+    <p>
+      The Template Toolkit provides a number of text <a href="[**
+      ttmodlink('Template::Manual::Filters') **]">filters</a> for
+      post-processing blocks of template content. A simple example is the
+      <code>upper</code> filter which converts all text to upper case.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER upper %]</span>
+      Hello World!                     # HELLO WORLD!
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      <a href="[** ttmodlink('Template::Manual::Plugins') **]">Plugins</a> are
+      extension modules written in Perl that allow you to incorporate any kind
+      of additional functionality into the Template Toolkit. For example, the
+      <a href="[** ttmodlink('Template::Plugin::CGI') **]">CGI</a> plugin gives
+      you access to the <a href="[** cpanmod('CGI') **]">CGI</a> module through
+      which you can access CGI parameters, cookies, and so on.
+    </p>
+    <pre>
+      <span class="tt">[% USE CGI %]</span>
+      <span class="tt">[% name = CGI.param('name') or 'World' %]</span>
+      Hello <span class="tt">[% name %]</span>!
+    </pre>
+    <p>
+      Another example is the <a href="[** cpanmod('Template::DBI') **]">DBI</a>
+      plugin which allows you to query an SQL database and incorporate the
+      results into a template.
+    </p>
+    <pre>
+      <span class="tt">[% USE DBI( database = 'dbi:mysql:dbname',
+                  username = 'guest',
+                  password = 'topsecret' )
+      %]</span>
+      &lt;ul&gt;
+      <span class="tt">[% FOREACH customer IN DBI.query('SELECT * FROM customers') %]</span>
+        &lt;li&gt;<span class="tt">[% customer.name %]</span>&lt;/li&gt;
+      <span class="tt">[% END %]</span>
+      &lt;/ul&gt;
+    </pre>
+    
+    [** END -**]
+[** END -**]
+
+</div>

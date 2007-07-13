@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+#
+# Perl script to generate the configuration files and build scripts
+# for the Template Toolkit web site.
+#
+# Written by Andy Wardley http://wardley.org/
+#
+# 04 June 2007
+#
+
+use strict;
+use warnings;
+use FindBin qw( $Bin );
+use Path::Class;
+use Config;
+use Template;
+use AppConfig;
+use File::Find::Rule;
+
+
+my $root = dir($Bin)->parent;
+my $skel = $root->subdir('skeleton');
+my $safe = "$root";
+if ($safe =~ s[/Users/][/home/]) {
+   warn "WARNING: Changing /Users/ to /home/ for portability\n";
+}
+
+my $tt   = Template->new({
+    INCLUDE_PATH => $skel,
+    OUTPUT_PATH  => $root,
+    VARIABLES    => { root => $safe },
+}) || die "Failed to create Template engine: ", Template->error(), "\n";
+
+# find all the files in $src
+my $rule  = File::Find::Rule->new;
+my @files = map {
+    # remove source directory to give relative path
+    s[^$skel/][];
+    $_;
+} $rule->or( 
+    # either find a .svn directory and ignore it
+    $rule->new->directory->name('.svn')->prune->discard, 
+    # or find for a regular file
+    $rule->new->file 
+)->in("$skel");
+
+# now process all files found
+print STDERR "Processing skeleton templates...\n";
+foreach my $file (@files) {
+    print STDERR " + $file\n";
+    $tt->process($file, undef, $file)
+        || die "TT error processing $file: ", $tt->error();
+
+    my $infile  = $skel->file($file);
+    my $outfile = $root->file($file);
+    chmod( (stat $infile)[2] & 07777, $outfile )
+        || warn "chmod($outfile): $!\n";
+}
+

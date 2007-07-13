@@ -1,0 +1,609 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Provider</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../../docs/index.html">Docs</a></li>
+            <li><a href="../../../docs/modules/index.html">Modules</a></li>
+            <li><a href="../../../docs/modules/Template/index.html">Template::*</a></li>
+            <li class="last"><a href="../../../docs/modules/Template/Provider.html">Provider.pm</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../../docs/modules/Template/Plugins.html" title="Template::Plugins" class="go back">Back<span class="about"><strong>Template::Plugins</strong>Plugin provider module</span></a>
+            <a href="../../../docs/modules/Template/index.html" title="Template::* Modules" class="go up">Up<span class="about"><strong>Template::* Modules</strong></span></a>
+            <a href="../../../docs/modules/Template/Service.html" title="Template::Service" class="go next">Next<span class="about"><strong>Template::Service</strong>General purpose template processing service</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Provider</h1>
+          <h2 class="subhead">Provider module for loading/compiling templates</h2>
+        
+          <a href="http://template-toolkit.org/docs/modules/Template/Provider.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Provider.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../../about.html">About</a></li>
+                <li class="l0"><a href="../../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../../docs/modules/index.html" class="warm">Modules</a></li>
+                <li class="l2"><a href="../../../docs/modules/Template.html">Template.pm</a></li>
+                <li class="l2"><a href="../../../docs/modules/Template/index.html" class="warm">Template::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Base.html">Base.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Config.html">Config.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Constants.html">Constants.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Context.html">Context.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Directive.html">Directive.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Document.html">Document.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Exception.html">Exception.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Filters.html">Filters.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Iterator.html">Iterator.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Namespace/index.html">Namespace::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Parser.html">Parser.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Plugin.html">Plugin.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Plugin/index.html">Plugin::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Plugins.html">Plugins.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Provider.html" class="warm">Provider.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Service.html">Service.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Stash.html">Stash.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Stash/index.html">Stash::*</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Test.html">Test.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/VMethods.html">VMethods.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/View.html">View.pm</a></li>
+                <li class="l1"><a href="../../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
+                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class=""><a href="#section_PUBLIC_METHODS">PUBLIC METHODS</a></li>
+                  <li class="sub"><a href="#method_new">new(\%options) </a></li>
+                  <li class="sub"><a href="#method_fetch">fetch($name)</a></li>
+                  <li class="sub"><a href="#method_store">store($name, $template)</a></li>
+                  <li class="sub"><a href="#method_include_path">include_path(\@newpath)</a></li>
+                  <li class="sub"><a href="#method_paths">paths()</a></li>
+                  <li class=""><a href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a></li>
+                  <li class="sub"><a href="#section_INCLUDE_PATH">INCLUDE_PATH</a></li>
+                  <li class="sub"><a href="#section_ABSOLUTE">ABSOLUTE</a></li>
+                  <li class="sub"><a href="#section_RELATIVE">RELATIVE</a></li>
+                  <li class="sub"><a href="#section_DEFAULT">DEFAULT</a></li>
+                  <li class="sub"><a href="#section_CACHE_SIZE">CACHE_SIZE</a></li>
+                  <li class="sub"><a href="#section_STAT_TTL">STAT_TTL</a></li>
+                  <li class="sub"><a href="#section_COMPILE_EXT">COMPILE_EXT</a></li>
+                  <li class="sub"><a href="#section_COMPILE_DIR">COMPILE_DIR</a></li>
+                  <li class="sub"><a href="#section_TOLERANT">TOLERANT</a></li>
+                  <li class="sub"><a href="#section_PARSER">PARSER</a></li>
+                  <li class="sub"><a href="#section_DEBUG">DEBUG</a></li>
+                  <li class=""><a href="#section_SUBCLASSING">SUBCLASSING</a></li>
+                  <li class="sub"><a href="#method__template_modified">_template_modified($path)</a></li>
+                  <li class="sub"><a href="#method__template_content">_template_content($path)</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+                  <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <pre>$provider = Template::Provider-&gt;new(\%options);
+
+($template, $error) = $provider-&gt;fetch($name);</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <a href="../../../docs/modules/Template/Provider.html">Template::Provider</a> is used to load, parse, compile and cache
+                      template documents. This object may be sub-classed to provide more
+                      specific facilities for loading, or otherwise providing access to
+                      templates.
+                    </p>
+                    <p>
+                      The <a href="../../../docs/modules/Template/Context.html">Template::Context</a> objects maintain a list of <a href="../../../docs/modules/Template/Provider.html">Template::Provider</a> objects which
+                      are polled in turn (via <a href="../../../docs/modules/Template/Context.html#method_fetch">fetch()</a>) to return a requested template. Each may
+                      return a compiled template, raise an error, or decline to serve the
+                      request, giving subsequent providers a chance to do so.
+                    </p>
+                    <p>
+                      The <a href="../../../docs/modules/Template/Provider.html">Template::Provider</a> can also be subclassed to provide templates
+                      from a different source, e.g. a database. See <a
+                      href="#section_SUBCLASSING">SUBCLASSING</a> below.
+                    </p>
+                    <p>
+                      This documentation needs work.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_PUBLIC_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">PUBLIC METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_new" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">new(\%options) </h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Constructor method which instantiates and returns a new
+                          <code>Template::Provider</code> object. A reference to a hash array of
+                          configuration options may be passed.
+                        </p>
+                        <p>
+                          See <a href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a>
+                          below for a summary of configuration options and <a href="../../../docs/manual/Config.html">Template::Manual::Config</a>
+                          for full details.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_fetch" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">fetch($name)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a compiled template for the name specified. If the template
+                          cannot be found then <code>(undef, STATUS_DECLINED)</code> is returned.
+                          If an error occurs (e.g. read error, parse error) then <code>($error,
+                          STATUS_ERROR)</code> is returned, where <code>$error</code> is the error
+                          message generated. If the <a href="#section_TOLERANT">TOLERANT</a> option
+                          is set the the method returns <code>(undef, STATUS_DECLINED)</code>
+                          instead of returning an error.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_store" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">store($name, $template)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Stores the compiled template, <code>$template</code>, in the cache under
+                          the name, <code>$name</code>. Susbequent calls to
+                          <code>fetch($name)</code> will return this template in preference to any
+                          disk-based file.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_include_path" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">include_path(\@newpath)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Accessor method for the <code>INCLUDE_PATH</code> setting. If called with
+                          an argument, this method will replace the existing
+                          <code>INCLUDE_PATH</code> with the new value.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_paths" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">paths()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method generates a copy of the <code>INCLUDE_PATH</code> list. Any
+                          elements in the list which are dynamic generators (e.g. references to
+                          subroutines or objects implementing a <code>paths()</code> method) will
+                          be called and the list of directories returned merged into the output
+                          list.
+                        </p>
+                        <p>
+                          It is possible to provide a generator which returns itself, thus sending
+                          this method into an infinite loop. To detect and prevent this from
+                          happening, the <code>$MAX_DIRS</code> package variable, set to
+                          <code>64</code> by default, limits the maximum number of paths that can
+                          be added to, or generated for the output list. If this number is exceeded
+                          then the method will immediately return an error reporting as much.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_CONFIGURATION_OPTIONS" onclick="switch_section(this)" title="Click title to show/hide section content.">CONFIGURATION OPTIONS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The following list summarises the configuration options that can be
+                      provided to the <code>Template::Provider</code> <a
+                      href="#method_new">new()</a> constructor. Please consult <a href="../../../docs/manual/Config.html">Template::Manual::Config</a>
+                      for further details and examples of each configuration option in use.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_INCLUDE_PATH" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">INCLUDE_PATH</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_INCLUDE_PATH">INCLUDE_PATH</a> option is used to specify one
+                          or more directories in which template files are located.
+                        </p>
+                        <pre># single path
+my $provider = Template::Provider-&gt;new({
+    INCLUDE_PATH =&gt; '/usr/local/templates',
+});</pre>
+                        <pre># multiple paths
+my $provider = Template::Provider-&gt;new({
+    INCLUDE_PATH =&gt; [ '/usr/local/templates', 
+                      '/tmp/my/templates' ],
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_ABSOLUTE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">ABSOLUTE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_ABSOLUTE">ABSOLUTE</a> flag is used to indicate if templates
+                          specified with absolute filenames (e.g. '<code>/foo/bar</code>') should
+                          be processed. It is disabled by default and any attempt to load a
+                          template by such a name will cause a '<code>file</code>' exception to be
+                          raised.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    ABSOLUTE =&gt; 1,
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_RELATIVE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">RELATIVE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_RELATIVE">RELATIVE</a> flag is used to indicate if templates
+                          specified with filenames relative to the current directory (e.g.
+                          <code>./foo/bar</code> or <code>../../some/where/else</code>) should be
+                          loaded. It is also disabled by default, and will raise a
+                          <code>file</code> error if such template names are encountered.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    RELATIVE =&gt; 1,
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_DEFAULT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">DEFAULT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_DEFAULT">DEFAULT</a> option can be used to specify a default
+                          template which should be used whenever a specified template can't be
+                          found in the <a href="#section_INCLUDE_PATH">INCLUDE_PATH</a>.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    DEFAULT =&gt; 'notfound.html',
+});</pre>
+                        <p>
+                          If a non-existant template is requested through the <a href="../../../docs/modules/Template.html">Template</a> <a href="../../../docs/modules/Template.html#method_process">process()</a> method, or by an
+                          <code>INCLUDE</code>, <code>PROCESS</code> or <code>WRAPPER</code>
+                          directive, then the <code>DEFAULT</code> template will instead be
+                          processed, if defined. Note that the <code>DEFAULT</code> template is not
+                          used when templates are specified with absolute or relative filenames, or
+                          as a reference to a input file handle or text string.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_CACHE_SIZE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">CACHE_SIZE</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_CACHE_SIZE">CACHE_SIZE</a> option can be used to limit the
+                          number of compiled templates that the module should cache. By default,
+                          the <a href="../../../docs/manual/Config.html#section_CACHE_SIZE">CACHE_SIZE</a> is undefined and all compiled
+                          templates are cached.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    CACHE_SIZE =&gt; 64,   # only cache 64 compiled templates
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_STAT_TTL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">STAT_TTL</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_STAT_TTL">STAT_TTL</a> value can be set to control how long
+                          the <code>Template::Provider</code> will keep a template cached in memory
+                          before checking to see if the source template has changed.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    STAT_TTL =&gt; 60,  # one minute
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_COMPILE_EXT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">COMPILE_EXT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_COMPILE_EXT">COMPILE_EXT</a> option can be provided to
+                          specify a filename extension for compiled template files. It is undefined
+                          by default and no attempt will be made to read or write any compiled
+                          template files.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    COMPILE_EXT =&gt; '.ttc',
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_COMPILE_DIR" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">COMPILE_DIR</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_COMPILE_DIR">COMPILE_DIR</a> option is used to specify an
+                          alternate directory root under which compiled template files should be
+                          saved.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    COMPILE_DIR =&gt; '/tmp/ttc',
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_TOLERANT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">TOLERANT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_TOLERANT">TOLERANT</a> flag can be set to indicate that the
+                          <code>Template::Provider</code> module should ignore any errors
+                          encountered while loading a template and instead return
+                          <code>STATUS_DECLINED</code>.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_PARSER" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">PARSER</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_PARSER">PARSER</a> option can be used to define a parser
+                          module other than the default of <a href="../../../docs/modules/Template/Parser.html">Template::Parser</a>.
+                        </p>
+                        <pre>my $provider = Template::Provider-&gt;new({
+    PARSER =&gt; MyOrg::Template::Parser-&gt;new({ ... }),
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_DEBUG" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">DEBUG</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../../docs/manual/Config.html#section_DEBUG">DEBUG</a> option can be used to enable debugging
+                          messages from the <a href="../../../docs/modules/Template/Provider.html">Template::Provider</a> module by setting it to include the
+                          <code>DEBUG_PROVIDER</code> value.
+                        </p>
+                        <pre>use Template::Constants qw( :debug );
+
+my $template = Template-&gt;new({
+    DEBUG =&gt; DEBUG_PROVIDER,
+});</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SUBCLASSING" onclick="switch_section(this)" title="Click title to show/hide section content.">SUBCLASSING</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>Template::Provider</code> module can be subclassed to provide
+                      templates from a different source (e.g. a database). In most cases you'll
+                      just need to provide custom implementations of the
+                      <code>_template_modified()</code> and <code>_template_content()</code>
+                      methods. If your provider requires and custom initialisation then you'll
+                      also need to implement a new <code>_init()</code> method.
+                    </p>
+                    <p>
+                      Caching in memory and on disk will still be applied (if enabled) when
+                      overriding these methods.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method__template_modified" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">_template_modified($path)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a timestamp of the <code>$path</code> passed in by calling
+                          <code>stat()</code>. This can be overridden, for example, to return a
+                          last modified value from a database. The value returned should be a
+                          timestamp value (as returned by <code>time()</code>, although a sequence
+                          number should work as well.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method__template_content" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">_template_content($path)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method returns the content of the template for all
+                          <code>INCLUDE</code>, <code>PROCESS</code>, and <code>INSERT</code>
+                          directives.
+                        </p>
+                        <p>
+                          When called in scalar context, the method returns the content of the
+                          template located at <code>$path</code>, or <code>undef</code> if
+                          <code>$path</code> is not found.
+                        </p>
+                        <p>
+                          When called in list context it returns <code>($content, $error,
+                          $mtime)</code>, where <code>$content</code> is the template content,
+                          <code>$error</code> is an error string (e.g. "<code>$path: File not
+                          found</code>"), and <code>$mtime</code> is the template modification
+                          time.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      <a href="../../../docs/modules/Template.html">Template</a>, <a href="../../../docs/modules/Template/Parser.html">Template::Parser</a>, <a href="../../../docs/modules/Template/Context.html">Template::Context</a>
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/modules/Template/Provider.html last modified 14:40:08 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../../docs/modules/Template/Plugins.html" title="Template::Plugins" class="go back">Back<span class="about"><strong>Template::Plugins</strong></span></a>
+            <a href="../../../docs/modules/Template/index.html" title="Template::* Modules" class="go up">Up<span class="about"><strong>Template::* Modules</strong></span></a>
+            <a href="../../../docs/modules/Template/Service.html" title="Template::Service" class="go next">Next<span class="about"><strong>Template::Service</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

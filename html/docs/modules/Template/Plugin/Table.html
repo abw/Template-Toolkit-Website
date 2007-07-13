@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Plugin::Table</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../../../docs/index.html">Docs</a></li>
+            <li><a href="../../../../docs/modules/index.html">Modules</a></li>
+            <li><a href="../../../../docs/modules/Template/index.html">Template::*</a></li>
+            <li><a href="../../../../docs/modules/Template/Plugin/index.html">Plugin::*</a></li>
+            <li class="last"><a href="../../../../docs/modules/Template/Plugin/Table.html">Table.pm</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../../../docs/modules/Template/Plugin/String.html" title="Template::Plugin::String" class="go back">Back<span class="about"><strong>Template::Plugin::String</strong>Object oriented interface for string manipulation</span></a>
+            <a href="../../../../docs/modules/Template/Plugin/index.html" title="Template::Plugin::* Modules" class="go up">Up<span class="about"><strong>Template::Plugin::* Modules</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/URL.html" title="Template::Plugin::URL" class="go next">Next<span class="about"><strong>Template::Plugin::URL</strong>Plugin to construct complex URLs</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Plugin::Table</h1>
+          <h2 class="subhead">Plugin to present data in a table</h2>
+        
+          <a href="http://template-toolkit.org/docs/modules/Template/Plugin/Table.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Plugin/Table.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../../../about.html">About</a></li>
+                <li class="l0"><a href="../../../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../../../docs/modules/index.html" class="warm">Modules</a></li>
+                <li class="l2"><a href="../../../../docs/modules/Template.html">Template.pm</a></li>
+                <li class="l2"><a href="../../../../docs/modules/Template/index.html" class="warm">Template::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Base.html">Base.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Config.html">Config.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Constants.html">Constants.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Context.html">Context.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Directive.html">Directive.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Document.html">Document.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Exception.html">Exception.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Filters.html">Filters.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Iterator.html">Iterator.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Namespace/index.html">Namespace::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Parser.html">Parser.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugin.html">Plugin.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugin/index.html" class="warm">Plugin::*</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Autoformat.html">Autoformat.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/CGI.html">CGI.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Datafile.html">Datafile.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Date.html">Date.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Directory.html">Directory.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Dumper.html">Dumper.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/File.html">File.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Filter.html">Filter.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Format.html">Format.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/HTML.html">HTML.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Image.html">Image.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Iterator.html">Iterator.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Math.html">Math.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Pod.html">Pod.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Procedural.html">Procedural.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/String.html">String.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Table.html" class="warm">Table.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/URL.html">URL.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/View.html">View.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Wrap.html">Wrap.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugins.html">Plugins.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Provider.html">Provider.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Service.html">Service.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Stash.html">Stash.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Stash/index.html">Stash::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Test.html">Test.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/VMethods.html">VMethods.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/View.html">View.pm</a></li>
+                <li class="l1"><a href="../../../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
+                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+                  <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <pre><span class="tt">[% USE table(list, rows=n, cols=n, overlap=n, pad=0) %]</span>
+
+<span class="tt">[% FOREACH item IN table.row(n) %]</span>
+   <span class="tt">[% item %]</span>
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% FOREACH item IN table.col(n) %]</span>
+   <span class="tt">[% item %]</span>
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% FOREACH row IN table.rows %]</span>
+   <span class="tt">[% FOREACH item IN row %]</span>
+      <span class="tt">[% item %]</span>
+   <span class="tt">[% END %]</span>
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% FOREACH col IN table.cols %]</span>
+   <span class="tt">[% col.first %]</span> - <span class="tt">[% col.last %]</span> (<span class="tt">[% col.size %]</span> entries)
+<span class="tt">[% END %]</span></pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <code>Table</code> plugin allows you to format a list of data items
+                      into a virtual table. When you create a <code>Table</code> plugin via the
+                      <code>USE</code> directive, simply pass a list reference as the first
+                      parameter and then specify a fixed number of rows or columns.
+                    </p>
+                    <pre><span class="tt">[% USE Table(list, rows=5) %]</span>
+<span class="tt">[% USE table(list, cols=5) %]</span></pre>
+                    <p>
+                      The <code>Table</code> plugin name can also be specified in lower case as
+                      shown in the second example above. You can also specify an alternative
+                      variable name for the plugin as per regular Template Toolkit syntax.
+                    </p>
+                    <pre><span class="tt">[% USE mydata = table(list, rows=5) %]</span></pre>
+                    <p>
+                      The plugin then presents a table based view on the data set. The data
+                      isn't actually reorganised in any way but is available via the
+                      <code>row()</code>, <code>col()</code>, <code>rows()</code> and
+                      <code>cols()</code> as if formatted into a simple two dimensional table
+                      of <code>n</code> rows x <code>n</code> columns.
+                    </p>
+                    <p>
+                      So if we had a sample <code>alphabet</code> list contained the letters
+                      '<code>a</code>' to '<code>z</code>', the above <code>USE</code>
+                      directives would create plugins that represented the following views of
+                      the alphabet.
+                    </p>
+                    <pre><span class="tt">[% USE table(alphabet, ... %]</span>
+
+rows=5                  cols=5
+a  f  k  p  u  z        a  g  m  s  y
+b  g  l  q  v           b  h  n  t  z
+c  h  m  r  w           c  i  o  u
+d  i  n  s  x           d  j  p  v
+e  j  o  t  y           e  k  q  w
+                        f  l  r  x</pre>
+                    <p>
+                      We can request a particular row or column using the <code>row()</code>
+                      and <code>col()</code> methods.
+                    </p>
+                    <pre><span class="tt">[% USE table(alphabet, rows=5) %]</span>
+<span class="tt">[% FOREACH item = table.row(0) %]</span>
+   # <span class="tt">[% item %]</span> set to each of [ a f k p u z ] in turn
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% FOREACH item = table.col(2) %]</span>
+   # <span class="tt">[% item %]</span> set to each of [ m n o p q r ] in turn
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Data in rows is returned from left to right, columns from top to bottom.
+                      The first row/column is 0. By default, rows or columns that contain empty
+                      values will be padded with the undefined value to fill it to the same
+                      size as all other rows or columns.
+                    </p>
+                    <p>
+                      For example, the last row (row 4) in the first example would contain the
+                      values <code>[ e j o t y undef ]</code>. The Template Toolkit will safely
+                      accept these undefined values and print a empty string. You can also use
+                      the IF directive to test if the value is set.
+                    </p>
+                    <pre> <span class="tt">[% FOREACH item = table.row(4) %]</span>
+<span class="tt">[% IF item %]</span>
+   Item: <span class="tt">[% item %]</span>
+<span class="tt">[% END %]</span>
+ <span class="tt">[% END %]</span></pre>
+                    <p>
+                      You can explicitly disable the <code>pad</code> option when creating the
+                      plugin to returned shortened rows/columns where the data is empty.
+                    </p>
+                    <pre> <span class="tt">[% USE table(alphabet, cols=5, pad=0) %]</span>
+ <span class="tt">[% FOREACH item = table.col(4) %]</span>
+# <span class="tt">[% item %]</span> set to each of 'y z'
+ <span class="tt">[% END %]</span></pre>
+                    <p>
+                      The <code>rows()</code> method returns all rows/columns in the table as a
+                      reference to a list of rows (themselves list references). The
+                      <code>row()</code> methods when called without any arguments calls
+                      <code>rows()</code> to return all rows in the table.
+                    </p>
+                    <p>
+                      Ditto for <code>cols()</code> and <code>col()</code>.
+                    </p>
+                    <pre><span class="tt">[% USE table(alphabet, cols=5) %]</span>
+<span class="tt">[% FOREACH row = table.rows %]</span>
+   <span class="tt">[% FOREACH item = row %]</span>
+      <span class="tt">[% item %]</span>
+   <span class="tt">[% END %]</span>
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      The Template Toolkit provides the <code>first</code>, <code>last</code>
+                      and <code>size</code> virtual methods that can be called on list
+                      references to return the first/last entry or the number of entries in a
+                      list. The following example shows how we might use this to provide an
+                      alphabetical index split into 3 even parts.
+                    </p>
+                    <pre><span class="tt">[% USE table(alphabet, cols=3, pad=0) %]</span>
+<span class="tt">[% FOREACH group = table.col %]</span>
+   [ <span class="tt">[% group.first %]</span> - <span class="tt">[% group.last %]</span> (<span class="tt">[% group.size %]</span> letters) ]
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      This produces the following output:
+                    </p>
+                    <pre>[ a - i (9 letters) ]
+[ j - r (9 letters) ]
+[ s - z (8 letters) ]</pre>
+                    <p>
+                      We can also use the general purpose <code>join</code> virtual method
+                      which joins the items of the list using the connecting string specified.
+                    </p>
+                    <pre><span class="tt">[% USE table(alphabet, cols=5) %]</span>
+<span class="tt">[% FOREACH row = table.rows %]</span>
+   <span class="tt">[% row.join(' - ') %]</span>
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Data in the table is ordered downwards rather than across but can easily
+                      be transformed on output. For example, to format our data in 5 columns
+                      with data ordered across rather than down, we specify <code>rows=5</code>
+                      to order the data as such:
+                    </p>
+                    <pre>a  f  .  .
+b  g  .
+c  h
+d  i
+e  j</pre>
+                    <p>
+                      and then iterate down through each column (a-e, f-j, etc.) printing the
+                      data across.
+                    </p>
+                    <pre>a  b  c  d  e
+f  g  h  i  j
+.  .
+.</pre>
+                    <p>
+                      Example code to do so would be much like the following:
+                    </p>
+                    <pre><span class="tt">[% USE table(alphabet, rows=3) %]</span>
+<span class="tt">[% FOREACH cols = table.cols %]</span>
+  <span class="tt">[% FOREACH item = cols %]</span>
+    <span class="tt">[% item %]</span>
+  <span class="tt">[% END %]</span>
+<span class="tt">[% END %]</span></pre>
+                    <p>
+                      Output:
+                    </p>
+                    <pre>a  b  c
+d  e  f
+g  h  i
+j  .  .
+.</pre>
+                    <p>
+                      In addition to a list reference, the <code>Table</code> plugin
+                      constructor may be passed a reference to a <a href="../../../../docs/modules/Template/Iterator.html">Template::Iterator</a> object or
+                      subclass thereof. The <a href="../../../../docs/modules/Template/Iterator.html">Template::Iterator</a> <a href="../../../../docs/modules/Template/Iterator.html#method_get_all">get_all()</a> method is first called on the iterator
+                      to return all remaining items. These are then available via the usual
+                      Table interface.
+                    </p>
+                    <pre><span class="tt">[% USE DBI(dsn,user,pass) -%]</span>
+
+# query() returns an iterator
+<span class="tt">[% results = DBI.query('SELECT * FROM alphabet ORDER BY letter') %]</span></pre>
+                    <pre># pass into Table plugin
+<span class="tt">[% USE table(results, rows=8 overlap=1 pad=0) -%]</span>
+
+<span class="tt">[% FOREACH row = table.cols -%]</span>
+   <span class="tt">[% row.first.letter %]</span> - <span class="tt">[% row.last.letter %]</span>:
+      <span class="tt">[% row.join(', ') %]</span>
+<span class="tt">[% END %]</span></pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      <a href="../../../../docs/modules/Template/Plugin.html">Template::Plugin</a>
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/modules/Template/Plugin/Table.html last modified 14:40:08 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../../../docs/modules/Template/Plugin/String.html" title="Template::Plugin::String" class="go back">Back<span class="about"><strong>Template::Plugin::String</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/index.html" title="Template::Plugin::* Modules" class="go up">Up<span class="about"><strong>Template::Plugin::* Modules</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/URL.html" title="Template::Plugin::URL" class="go next">Next<span class="about"><strong>Template::Plugin::URL</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

@@ -1,0 +1,354 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      $provider = Template::Provider-&gt;new(\%options);
+      
+      ($template, $error) = $provider-&gt;fetch($name);
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a> is used to load, parse, compile and cache
+      template documents. This object may be sub-classed to provide more
+      specific facilities for loading, or otherwise providing access to
+      templates.
+    </p>
+    <p>
+      The <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> objects maintain a list of <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> objects which
+      are polled in turn (via <a href="[** ttmodlink('Template::Context')
+      **]#method_fetch">fetch()</a>) to return a requested template. Each may
+      return a compiled template, raise an error, or decline to serve the
+      request, giving subsequent providers a chance to do so.
+    </p>
+    <p>
+      The <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a> can also be subclassed to provide templates
+      from a different source, e.g. a database. See <a
+      href="#section_SUBCLASSING">SUBCLASSING</a> below.
+    </p>
+    <p>
+      This documentation needs work.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%options) ' id='method_new' class='method' -**]
+    <p>
+      Constructor method which instantiates and returns a new
+      <code>Template::Provider</code> object. A reference to a hash array of
+      configuration options may be passed.
+    </p>
+    <p>
+      See <a href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a>
+      below for a summary of configuration options and <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for full details.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='fetch($name)' id='method_fetch' class='method' -**]
+    <p>
+      Returns a compiled template for the name specified. If the template
+      cannot be found then <code>(undef, STATUS_DECLINED)</code> is returned.
+      If an error occurs (e.g. read error, parse error) then <code>($error,
+      STATUS_ERROR)</code> is returned, where <code>$error</code> is the error
+      message generated. If the <a href="#section_TOLERANT">TOLERANT</a> option
+      is set the the method returns <code>(undef, STATUS_DECLINED)</code>
+      instead of returning an error.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='store($name, $template)' id='method_store' class='method' -**]
+    <p>
+      Stores the compiled template, <code>$template</code>, in the cache under
+      the name, <code>$name</code>. Susbequent calls to
+      <code>fetch($name)</code> will return this template in preference to any
+      disk-based file.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='include_path(\@newpath)' id='method_include_path' class='method' -**]
+    <p>
+      Accessor method for the <code>INCLUDE_PATH</code> setting. If called with
+      an argument, this method will replace the existing
+      <code>INCLUDE_PATH</code> with the new value.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='paths()' id='method_paths' class='method' -**]
+    <p>
+      This method generates a copy of the <code>INCLUDE_PATH</code> list. Any
+      elements in the list which are dynamic generators (e.g. references to
+      subroutines or objects implementing a <code>paths()</code> method) will
+      be called and the list of directories returned merged into the output
+      list.
+    </p>
+    <p>
+      It is possible to provide a generator which returns itself, thus sending
+      this method into an infinite loop. To detect and prevent this from
+      happening, the <code>$MAX_DIRS</code> package variable, set to
+      <code>64</code> by default, limits the maximum number of paths that can
+      be added to, or generated for the output list. If this number is exceeded
+      then the method will immediately return an error reporting as much.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='CONFIGURATION OPTIONS' id='section_CONFIGURATION_OPTIONS' -**]
+    <p>
+      The following list summarises the configuration options that can be
+      provided to the <code>Template::Provider</code> <a
+      href="#method_new">new()</a> constructor. Please consult <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for further details and examples of each configuration option in use.
+    </p>
+    [** WRAPPER page/subsection title='INCLUDE_PATH' id='section_INCLUDE_PATH' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_INCLUDE_PATH">INCLUDE_PATH</a> option is used to specify one
+      or more directories in which template files are located.
+    </p>
+    <pre>
+      # single path
+      my $provider = Template::Provider-&gt;new({
+          INCLUDE_PATH =&gt; '/usr/local/templates',
+      });
+    </pre>
+    <pre>
+      # multiple paths
+      my $provider = Template::Provider-&gt;new({
+          INCLUDE_PATH =&gt; [ '/usr/local/templates', 
+                            '/tmp/my/templates' ],
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ABSOLUTE' id='section_ABSOLUTE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_ABSOLUTE">ABSOLUTE</a> flag is used to indicate if templates
+      specified with absolute filenames (e.g. '<code>/foo/bar</code>') should
+      be processed. It is disabled by default and any attempt to load a
+      template by such a name will cause a '<code>file</code>' exception to be
+      raised.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          ABSOLUTE =&gt; 1,
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='RELATIVE' id='section_RELATIVE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_RELATIVE">RELATIVE</a> flag is used to indicate if templates
+      specified with filenames relative to the current directory (e.g.
+      <code>./foo/bar</code> or <code>../../some/where/else</code>) should be
+      loaded. It is also disabled by default, and will raise a
+      <code>file</code> error if such template names are encountered.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          RELATIVE =&gt; 1,
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEFAULT' id='section_DEFAULT' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_DEFAULT">DEFAULT</a> option can be used to specify a default
+      template which should be used whenever a specified template can't be
+      found in the <a href="#section_INCLUDE_PATH">INCLUDE_PATH</a>.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          DEFAULT =&gt; 'notfound.html',
+      });
+    </pre>
+    <p>
+      If a non-existant template is requested through the <a href="[**
+      ttmodlink('Template') **]">Template</a> <a href="[**
+      ttmodlink('Template') **]#method_process">process()</a> method, or by an
+      <code>INCLUDE</code>, <code>PROCESS</code> or <code>WRAPPER</code>
+      directive, then the <code>DEFAULT</code> template will instead be
+      processed, if defined. Note that the <code>DEFAULT</code> template is not
+      used when templates are specified with absolute or relative filenames, or
+      as a reference to a input file handle or text string.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='CACHE_SIZE' id='section_CACHE_SIZE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_CACHE_SIZE">CACHE_SIZE</a> option can be used to limit the
+      number of compiled templates that the module should cache. By default,
+      the <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_CACHE_SIZE">CACHE_SIZE</a> is undefined and all compiled
+      templates are cached.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          CACHE_SIZE =&gt; 64,   # only cache 64 compiled templates
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='STAT_TTL' id='section_STAT_TTL' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_STAT_TTL">STAT_TTL</a> value can be set to control how long
+      the <code>Template::Provider</code> will keep a template cached in memory
+      before checking to see if the source template has changed.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          STAT_TTL =&gt; 60,  # one minute
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='COMPILE_EXT' id='section_COMPILE_EXT' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_COMPILE_EXT">COMPILE_EXT</a> option can be provided to
+      specify a filename extension for compiled template files. It is undefined
+      by default and no attempt will be made to read or write any compiled
+      template files.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          COMPILE_EXT =&gt; '.ttc',
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='COMPILE_DIR' id='section_COMPILE_DIR' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_COMPILE_DIR">COMPILE_DIR</a> option is used to specify an
+      alternate directory root under which compiled template files should be
+      saved.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          COMPILE_DIR =&gt; '/tmp/ttc',
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TOLERANT' id='section_TOLERANT' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_TOLERANT">TOLERANT</a> flag can be set to indicate that the
+      <code>Template::Provider</code> module should ignore any errors
+      encountered while loading a template and instead return
+      <code>STATUS_DECLINED</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PARSER' id='section_PARSER' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_PARSER">PARSER</a> option can be used to define a parser
+      module other than the default of <a href="[**
+      ttmodlink('Template::Parser') **]">Template::Parser</a>.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          PARSER =&gt; MyOrg::Template::Parser-&gt;new({ ... }),
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEBUG' id='section_DEBUG' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_DEBUG">DEBUG</a> option can be used to enable debugging
+      messages from the <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a> module by setting it to include the
+      <code>DEBUG_PROVIDER</code> value.
+    </p>
+    <pre>
+      use Template::Constants qw( :debug );
+      
+      my $template = Template-&gt;new({
+          DEBUG =&gt; DEBUG_PROVIDER,
+      });
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='SUBCLASSING' id='section_SUBCLASSING' -**]
+    <p>
+      The <code>Template::Provider</code> module can be subclassed to provide
+      templates from a different source (e.g. a database). In most cases you'll
+      just need to provide custom implementations of the
+      <code>_template_modified()</code> and <code>_template_content()</code>
+      methods. If your provider requires and custom initialisation then you'll
+      also need to implement a new <code>_init()</code> method.
+    </p>
+    <p>
+      Caching in memory and on disk will still be applied (if enabled) when
+      overriding these methods.
+    </p>
+    [** WRAPPER page/subsection title='_template_modified($path)' id='method__template_modified' class='method' -**]
+    <p>
+      Returns a timestamp of the <code>$path</code> passed in by calling
+      <code>stat()</code>. This can be overridden, for example, to return a
+      last modified value from a database. The value returned should be a
+      timestamp value (as returned by <code>time()</code>, although a sequence
+      number should work as well.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='_template_content($path)' id='method__template_content' class='method' -**]
+    <p>
+      This method returns the content of the template for all
+      <code>INCLUDE</code>, <code>PROCESS</code>, and <code>INSERT</code>
+      directives.
+    </p>
+    <p>
+      When called in scalar context, the method returns the content of the
+      template located at <code>$path</code>, or <code>undef</code> if
+      <code>$path</code> is not found.
+    </p>
+    <p>
+      When called in list context it returns <code>($content, $error,
+      $mtime)</code>, where <code>$content</code> is the template content,
+      <code>$error</code> is an error string (e.g. "<code>$path: File not
+      found</code>"), and <code>$mtime</code> is the template modification
+      time.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>, <a href="[**
+      ttmodlink('Template::Parser') **]">Template::Parser</a>, <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a>
+    </p>
+[** END -**]
+
+</div>

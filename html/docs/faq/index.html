@@ -1,0 +1,546 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::FAQ</title>
+    <link rel="stylesheet" type="text/css" href="../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../docs/index.html">Docs</a></li>
+            <li class="last"><a href="../../docs/faq/index.html">FAQ</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../docs/tutorial/index.html" title="Template::Tutorial" class="go back">Back<span class="about"><strong>Template::Tutorial</strong>Template Toolkit Tutorials</span></a>
+            <a href="../../docs/index.html" title="Template Toolkit Documentation" class="go up">Up<span class="about"><strong>Template Toolkit Documentation</strong>Template Processing System</span></a>
+            <span class="go next">Next<span class="about">My name is <i>Meles Meles</i>, but you can call me "Badger".</span></span>
+          </div>
+          </div>
+          <h1 class="headline">Template::FAQ</h1>
+          <h2 class="subhead">Frequently Asked Questions about the Template Toolkit</h2>
+        
+          <a href="http://template-toolkit.org/docs/faq/index.html" class="permalink">http://template-toolkit.org/docs/faq/index.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../about.html">About</a></li>
+                <li class="l0"><a href="../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../docs/modules/index.html">Modules</a></li>
+                <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../docs/faq/index.html" class="warm">FAQ</a></li>
+                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_Template_Toolkit_Language">Template Toolkit Language</a></li>
+                  <li class="sub"><a href="#section_Why_doesn_t_a_b_IF_c_work_as_expected_">Why doesn't [% a = b IF c %] work as expected?</a></li>
+                  <li class="sub"><a href="#section_If_I_m_using_TT_to_write_out_a_TT_template_is_there_a_good_way_to_escape_and_">If I'm using TT to write out a TT template, is there a good way to escape [% and %]?</a></li>
+                  <li class="sub"><a href="#section_How_do_I_iterate_over_a_hash_">How do I iterate over a hash?</a></li>
+                  <li class=""><a href="#section_Plugins">Plugins</a></li>
+                  <li class="sub"><a href="#section_How_do_I_get_the_Table_plugin_to_order_data_across_rather_than_down_">How do I get the Table plugin to order data across rather than down?</a></li>
+                  <li class="sub"><a href="#section_Accessing_Cookies">Accessing Cookies</a></li>
+                  <li class=""><a href="#section_Extending_the_Template_Toolkit">Extending the Template Toolkit</a></li>
+                  <li class="sub"><a href="#section_Can_I_serve_templates_from_a_database_">Can I serve templates from a database?</a></li>
+                  <li class="sub"><a href="#section_Can_I_fetch_templates_via_http_">Can I fetch templates via http?</a></li>
+                  <li class=""><a href="#section_Miscellaneous">Miscellaneous</a></li>
+                  <li class="sub"><a href="#section_How_can_I_find_out_the_name_of_the_main_template_being_processed_">How can I find out the name of the main template being processed?</a></li>
+                  <li class="sub"><a href="#section_How_can_I_find_out_the_name_of_the_current_template_being_processed_">How can I find out the name of the current template being processed?</a></li>
+                  <li class="sub"><a href="#section_How_do_I_print_the_modification_time_of_the_template_or_component_">How do I print the modification time of the template or component?</a></li>
+                  <li class="sub"><a href="#section_How_can_I_configure_variables_on_a_per_request_basis_">How can I configure variables on a per-request basis?</a></li>
+                  <li class=""><a href="#section_Questions_About_This_FAQ">Questions About This FAQ</a></li>
+                  <li class="sub"><a href="#section_Why_is_this_FAQ_so_short_">Why is this FAQ so short?</a></li>
+                  <li class="sub"><a href="#section_Can_I_help_">Can I help?</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Template_Toolkit_Language" onclick="switch_section(this)" title="Click title to show/hide section content.">Template Toolkit Language</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Why_doesn_t_a_b_IF_c_work_as_expected_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Why doesn't [% a = b IF c %] work as expected?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          There's a limitation in the TT2 parser which means that the following
+                          code doesn't work as you might expect:
+                        </p>
+                        <pre><span class="tt">[% a = b IF c %]</span></pre>
+                        <p>
+                          The parser interprets it as an attempt to set <code>a</code> to the
+                          result of <code>b IF c</code>, like this:
+                        </p>
+                        <pre><span class="tt">[% a = (b IF c) %]</span></pre>
+                        <p>
+                          If you want to set <code>a = b</code> only if <code>c</code> is true,
+                          then do this instead:
+                        </p>
+                        <pre><span class="tt">[% SET a = b IF c %]</span></pre>
+                        <p>
+                          The explcit <code>SET</code> keyword gives the parser the clue it needs
+                          to do the right thing.
+                        </p>
+                        <p>
+                          NOTE: this will be fixed in TT3
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_If_I_m_using_TT_to_write_out_a_TT_template_is_there_a_good_way_to_escape_and_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">If I'm using TT to write out a TT template, is there a good way to escape [% and %]?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          You can do something like this: [% stag = "[\%" etag = "%\]" %] and then:
+                          [% stag; 'hello'; etag %]
+                        </p>
+                        <p>
+                          Or you can use the <code>TAGS</code> directive, like so:
+                        </p>
+                        <pre><span class="tt">[% TAGS [- -] %]</span>
+[- INCLUDE foo -]   # is a directive
+<span class="tt">[% INCLUDE foo %]</span>   # not a directive</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_How_do_I_iterate_over_a_hash_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">How do I iterate over a hash?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This is covered in the <a href="../../docs/manual/VMethods.html">Template::Manual::VMethods</a> section of the manual. A list of all
+                          the keys that are in the hash can be obtained with the <code>keys</code>
+                          virtual method. You can then iterate over that list and by looking up
+                          each key in turn get the value.
+                        </p>
+                        <pre><span class="tt">[% FOREACH key = product.keys %]</span>
+   <span class="tt">[% key %]</span> =&gt; <span class="tt">[% product.$key %]</span>
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Plugins" onclick="switch_section(this)" title="Click title to show/hide section content.">Plugins</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_How_do_I_get_the_Table_plugin_to_order_data_across_rather_than_down_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">How do I get the Table plugin to order data across rather than down?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Order the data into rows:
+                        </p>
+                        <pre>Steve     Karen     Jeff
+Brooklyn  Nantucket Fairfax
+NY        MA        VA
+
+<span class="tt">[% USE table(data, rows=3) %]</span></pre>
+                        <p>
+                          Then ask for each column
+                        </p>
+                        <pre><span class="tt">[% FOREACH column = table.cols %]</span></pre>
+                        <p>
+                          And then print each item in the column going across the output rows
+                        </p>
+                        <pre><span class="tt">[% FOREACH item = column %]</span>
+    &lt;td&gt;<span class="tt">[% item %]</span>&lt;/td&gt;
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Accessing_Cookies" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Accessing Cookies</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Jeff Boes &lt;jboes@nexcerpt.com&gt; asks:
+                        </p>
+                        <pre>Does anyone have a quick-n-dirty approach to accessing 
+cookies from templates? </pre>
+                        <p>
+                          Jonas Liljegren answers:
+                        </p>
+                        <pre><span class="tt">[% USE CGI %]</span>
+
+&lt;p&gt;The value is <span class="tt">[% CGI.cookie('cookie_name') | html %]</span></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Extending_the_Template_Toolkit" onclick="switch_section(this)" title="Click title to show/hide section content.">Extending the Template Toolkit</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Can_I_serve_templates_from_a_database_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Can I serve templates from a database?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Short answer: yes, Chris Nandor has done this for Slash. You need to
+                          subclass <a href="../../docs/modules/Template/Provider.html">Template::Provider</a>. See the mailing list archives for further
+                          info.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Can_I_fetch_templates_via_http_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Can I fetch templates via http?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          To do the job properly, you should subclass <a href="../../docs/modules/Template/Provider.html">Template::Provider</a> to
+                          <code>Template::Provider::HTTP</code> and use a <code>PREFIX_MAP</code>
+                          option to bind the <code>http</code> template prefix to that particular
+                          provider (you may want to go digging around in the <code
+                          class="file">Changes</code> file around version 2.01 for more info on
+                          <code>PREFIX_MAP</code> - it may not be properly documented anywhere
+                          else...yet!). e.g.
+                        </p>
+                        <pre>use Template::Provider::HTTP;
+
+my $file = Template::Provider( INCLUDE_PATH =&gt; [...] );
+my $http = Template::Provider::HTTP-&gt;new(...);
+my $tt2  = Template-&gt;new({
+    LOAD_TEMPLATES =&gt; [ $file, $http ],
+    PREFIX_MAP =&gt; {
+        file    =&gt; '0',     # file:foo.html
+        http    =&gt; '1',     # http:foo.html
+        default =&gt; '0',     # foo.html =&gt; file:foo.html
+    }
+});</pre>
+                        <p>
+                          Now a template specified as:
+                        </p>
+                        <pre><span class="tt">[% INCLUDE foo %]</span></pre>
+                        <p>
+                          will be served by the 'file' provider (the default). Otherwise you can
+                          explicitly add a prefix:
+                        </p>
+                        <pre><span class="tt">[% INCLUDE file:foo.html %]</span>
+<span class="tt">[% INCLUDE http:foo.html %]</span>
+<span class="tt">[% INCLUDE http://www.xyz.com/tt2/header.tt2 %]</span></pre>
+                        <p>
+                          This same principal can be used to create a DBI template provider. e.g.
+                        </p>
+                        <pre><span class="tt">[% INCLUDE dbi:foo.html %]</span></pre>
+                        <p>
+                          Alas, we don't yet have a DBI provider as part of the Template Toolkit.
+                          There has been some talk on the mailing list about efforts to develop DBI
+                          and/or HTTP providers but as yet no-one has stepped forward to take up
+                          the challenge...
+                        </p>
+                        <p>
+                          In the mean time, Craig Barrat's post from the mailing list has some
+                          useful pointers on how to acheive this using existing modules. See <a
+                          href="http://tt2.org/pipermail/templates/2001-May/000954.html">http://tt2.org/pipermail/templates/2001-May/000954.html</a>
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Miscellaneous" onclick="switch_section(this)" title="Click title to show/hide section content.">Miscellaneous</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_How_can_I_find_out_the_name_of_the_main_template_being_processed_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">How can I find out the name of the main template being processed?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>template</code> variable contains a reference to the
+                          Template::Document object for the main template you're processing (i.e.
+                          the one provided as the first argument to the Template process() method).
+                          The <code>name</code> method returns its name.
+                        </p>
+                        <pre><span class="tt">[% template.name %]</span>     # e.g. index.html</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_How_can_I_find_out_the_name_of_the_current_template_being_processed_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">How can I find out the name of the current template being processed?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>template</code> variable always references the <i>main</i>
+                          template being processed. So even if you call [% INCLUDE header %], and
+                          that calls [% INCLUDE menu %], the <code>template</code> variable will be
+                          unchanged.
+                        </p>
+                        <p>
+                          index.html:
+                        </p>
+                        <pre><span class="tt">[% template.name  %]</span>     # index.html
+<span class="tt">[% INCLUDE header %]</span></pre>
+                        <p>
+                          header:
+                        </p>
+                        <pre><span class="tt">[% template.name  %]</span>     # index.html
+<span class="tt">[% INCLUDE menu   %]</span></pre>
+                        <p>
+                          menu:
+                        </p>
+                        <pre><span class="tt">[% template.name  %]</span>     # index.html</pre>
+                        <p>
+                          In constrast, the <code>component</code> variable always references the
+                          <i>current</i> template being processed.
+                        </p>
+                        <p>
+                          index.html
+                        </p>
+                        <pre><span class="tt">[% component.name %]</span>     # index.html
+<span class="tt">[% INCLUDE header %]</span></pre>
+                        <p>
+                          header:
+                        </p>
+                        <pre><span class="tt">[% component.name %]</span>     # header
+<span class="tt">[% INCLUDE menu   %]</span></pre>
+                        <p>
+                          menu:
+                        </p>
+                        <pre><span class="tt">[% component.name  %]</span>     # menu</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_How_do_I_print_the_modification_time_of_the_template_or_component_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">How do I print the modification time of the template or component?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>template</code> and <code>component</code> variables reference
+                          the main template and the current template being processed (see previous
+                          questions). The <code>modtime</code> method returns the modification time
+                          of the corresponding template file as a number of seconds since the Unix
+                          epoch (00:00:00 GMT 1st January 1970).
+                        </p>
+                        <p>
+                          This number doesn't mean much to anyone (except perhaps serious Unix
+                          geeks) so you'll probably want to use the Date plugin to format it for
+                          human consumption.
+                        </p>
+                        <pre><span class="tt">[% USE Date %]</span>
+<span class="tt">[% template.name %]</span> last modified <span class="tt">[% Date.format(template.modtime) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_How_can_I_configure_variables_on_a_per_request_basis_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">How can I configure variables on a per-request basis?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          One easy way to acheive this is to define a single
+                          <code>PRE_PROCESS</code> template which loads in other configuration
+                          files based on variables defined or other conditions.
+                        </p>
+                        <p>
+                          For example, my setup usually looks something like this:
+                        </p>
+                        <pre>PRE_PROCESS =&gt; 'config/main'</pre>
+                        <p>
+                          config/main:
+                        </p>
+                        <pre><span class="tt">[%  DEFAULT  style   = 'text'
+             section =  template.section or 'home';
+
+    PROCESS  config/site
+          +  config/urls
+          +  config/macros
+          + "config/style/$style"
+          + "config/section/$section"
+          + ...
+%]</span></pre>
+                        <p>
+                          This allows me to set a single 'style' variable to control which config
+                          file gets pre-processed to set my various style options (colours, img
+                          paths, etc). For example:
+                        </p>
+                        <p>
+                          config/style/basic:
+                        </p>
+                        <pre>[%  style = {
+        name = style    # save existing 'style' var as 'style.name'</pre>
+                        <pre># define various other style variables....
+col = {
+    back =&gt; '#ffffff'
+    text =&gt; '#000000'
+        # ...etc...
+}</pre>
+                        <pre>logo = {
+        # ...etc...
+}</pre>
+                        <pre>        # ...etc...
+    }
+%]</pre>
+                        <p>
+                          Each source template can declare which section it's in via a META
+                          directive:
+                        </p>
+                        <pre><span class="tt">[% META
+ title   = 'General Information'
+ section = 'info'
+%]</span>
+...</pre>
+                        <p>
+                          This controls which section configuration file gets loaded to set various
+                          other variables for defining the section title, menu, etc.
+                        </p>
+                        <p>
+                          config/section/info:
+                        </p>
+                        <pre><span class="tt">[%  section = {
+        name   = section  # save 'section' var as 'section.name'
+        title  = 'Information'
+        menu   = [ ... ]
+        # ...etc...
+    }
+%]</span></pre>
+                        <p>
+                          This illustrates the basic principal but you can extend it to perform
+                          pretty much any kind of per-document initialisation that you require.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Questions_About_This_FAQ" onclick="switch_section(this)" title="Click title to show/hide section content.">Questions About This FAQ</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Why_is_this_FAQ_so_short_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Why is this FAQ so short?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Because we don't have anyone maintaining it.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Can_I_help_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Can I help?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Yes please :-)
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/faq/index.html last modified 14:40:04 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../docs/tutorial/index.html" title="Template::Tutorial" class="go back">Back<span class="about"><strong>Template::Tutorial</strong></span></a>
+            <a href="../../docs/index.html" title="Template Toolkit Documentation" class="go up">Up<span class="about"><strong>Template Toolkit Documentation</strong></span></a>
+            <span class="go next">Next<span class="about"></span></span>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

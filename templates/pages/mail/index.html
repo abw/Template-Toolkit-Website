@@ -1,0 +1,71 @@
+[% WRAPPER page/section title='Templates Mailing List' id='templates' %]
+[% mailsub = 'templates-request@template-toolkit.org';
+   websub  = 'http://template-toolkit.org/mailman/listinfo/templates'
+   archive = 'http://template-toolkit.org/pipermail/templates/'
+-%]
+<p>
+  The <i>templates</i> mailing list exists for reporting information, asking
+  questions, discussing development or any other topic relevant to the
+  Template Toolkit. 
+</p>
+<p>
+  To subscribe, send an email to <a href="mailto:[% mailsub %]">[% mailsub %]</a>
+  with the word 'subscribe' in the body or use the web form here:
+</p>
+<a href="[% websub %]" class="download">[% websub %]</a>
+<p>
+  You can read the archive of previous posts here:
+</p>
+<a href="[% archive %]" class="download">[% archive %]</a>
+
+[% END %]
+
+[% WRAPPER page/section title='Templates-Announce Mailing List' id='announce' %]
+[% mailsub = 'templates-announce-request@template-toolkit.org';
+   websub  = 'http://template-toolkit.org/mailman/listinfo/templates-announce'
+   archive = 'http://template-toolkit.org/pipermail/templates-announce/'
+-%]
+<p>
+  The <i>templates-announce</i> mailing list is a low-volume list used for announcing
+  new versions of the Template Toolkit and other related information.
+</p>
+<p>
+  To subscribe, send an email to <a href="mailto:[% mailsub %]">[% mailsub %]</a>
+  with the word 'subscribe' in the body or use the web form here:
+</p>
+<a href="[% websub %]" class="download">[% websub %]</a>
+<p>
+  You can read the archive of previous posts here:
+</p>
+<a href="[% archive %]" class="download">[% archive %]</a>
+
+[% END %]
+
+[% WRAPPER page/section title='Templates-SVN Mailing List' id='svn' %]
+[% mailsub = 'templates-svn-request@template-toolkit.org';
+   websub  = 'http://template-toolkit.org/mailman/listinfo/templates-svn'
+   archive = 'http://template-toolkit.org/pipermail/templates-svn/'
+-%]
+<p>
+  The <i>templates-svn</i> mailing list is a read-only list for developers who want to
+  keep track of updates in the Subversion source code repository for the
+  Template Toolkit. Each commit to the repository is forwarded to the list.
+</p>
+<p>
+  Subscribing is the same as for the other lists.  Either send an 
+  email to <a href="mailto:[% mailsub %]">[% mailsub %]</a>
+  with the word 'subscribe' in the body or use the web form here:
+</p>
+<a href="[% websub %]" class="download">[% websub %]</a>
+<p>
+  You can read the archive of previous posts here:
+</p>
+<a href="[% archive %]" class="download">[% archive %]</a>
+<p>
+  We switched to using Subversion early in 2007.  Before that we used CVS
+  and had a corresponding <i>templates-cvs</i> mailing list.  You can read 
+  the archive of <i>templates-cvs</i> posts here:
+</p>
+[% archive = 'http://template-toolkit.org/pipermail/templates-cvs/' %]
+<a href="[% archive %]" class="download">[% archive %]</a>
+[% END %]

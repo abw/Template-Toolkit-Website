@@ -1,0 +1,10 @@
+<div id="page">
+[% PROCESS site/sidebar
+         + site/content
+         | trim | indent(2)
+%]
+  <br class="clear" />
+  <div class="pageinfo">
+    [% site.server %]/[% template.name %] last modified [% Date.format(template.modified) %]
+  </div>
+</div>

@@ -1,0 +1,131 @@
+/*------------------------------------------------------------------------*/
+/* sections                                                               */
+/*------------------------------------------------------------------------*/
+div.section,
+div.subsection {
+    padding: 0 0 0 20px;
+    clear: right;
+}
+
+div.section div.head,
+div.subsection div.head {
+    margin: 0 0 4px 0px;
+    min-height: 20px;
+    position: relative;
+}
+
+div.section div.head {
+    border-bottom: 1px dashed [% col.line %];
+}
+
+div.subsection div.head {
+    border-bottom: 1px dashed [% col.line %];
+    margin-bottom: 2px;
+}
+
+div.section div.head h1 {
+    padding: 0 80px 4px 28px;
+    margin: 0 0 0 -28px;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: bold;
+    background: url('[% arrows %]/large/[% warm %]/dot.gif') no-repeat top left;
+}
+
+div.section div.head h2 {
+    padding: 0 80px 2px 20px;
+    margin: 0 0 0 -20px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: bold;
+    background: url('[% arrows %]/small/[% warm %]/dot.gif') no-repeat 0 3px;
+}
+
+div.section h3 {
+    margin: 0;
+    padding: 5px 0 5px 0;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+div.section.open div.head h1 {
+    background-image: url('[% arrows %]/large/[% warm %]/dotminus.gif');
+}
+
+div.section.open div.head:hover h1 {
+    color: [% col.roll %];
+    cursor: pointer;
+    background-image: url('[% arrows %]/large/[% roll %]/dotminus.gif');
+}
+
+div.section.shut div.head h1 {
+    background-image: url('[% arrows %]/large/[% warm %]/dotplus.gif');
+}
+
+div.section.shut div.head:hover h1 {
+    color: [% col.roll %];
+    cursor: pointer;
+    background-image: url('[% arrows %]/large/[% roll %]/dotplus.gif');
+}
+
+div.subsection.open div.head h2 {
+    background-image: url('[% arrows %]/small/[% warm %]/dotminus.gif');
+}
+
+div.subsection.open  div.head:hover h2 {
+    color: [% col.roll %];
+    cursor: pointer;
+    background-image: url('[% arrows %]/small/[% roll %]/dotminus.gif');
+}
+
+div.subsection.shut div.head h2 {
+    background-image: url('[% arrows %]/small/[% warm %]/dotplus.gif');
+}
+
+div.subsection.shut div.head:hover h2 {
+    color: [% col.roll %];
+    cursor: pointer;
+    background-image: url('[% arrows %]/small/[% roll %]/dotplus.gif');
+}
+
+div.section div.head a.top {
+    position: absolute;
+    bottom: 4px;
+    right: 0px;
+    padding: 0px 20px 0px 0;
+    margin: 0px;
+    width: 25px;
+    text-align: right;
+    font-size: 10px;
+    height: 16px;
+    color: [% col.link %];
+    background: url('[% arrows %]/small/[% warm %]/up.gif') no-repeat 28px 3px;
+}
+
+div.section div.head a.top:hover {
+    color: [% col.roll %];
+    background-image: url('[% arrows %]/small/[% roll %]/up.gif');
+}
+
+div.section div.head a.open, 
+div.section div.head a.shut,
+div.subsection div.head a.open, 
+div.subsection div.head a.shut {
+    display: none;
+}
+
+div.section div.body {
+    display: block;
+    padding: 10px 0 20px 0;
+}
+
+div.subsection div.body {
+    display: block;
+    padding: 5px 0 10px 0;
+}
+
+div.section.shut div.body,
+div.subsection.shut div.body {
+    display: none;
+}
+

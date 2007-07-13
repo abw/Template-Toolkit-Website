@@ -1,0 +1,15 @@
+[%  # This is the "master" configuration template which is processed
+    # immediately before each page
+
+    # load any plugins we're going to use
+    USE Date;
+    USE Undent;
+    USE Badger;
+    
+    PROCESS config/debug
+          + config/root
+          + config/site
+          + config/page
+          + config/url
+          + config/macros;
+-%]

@@ -1,0 +1,232 @@
+/*------------------------------------------------------------------------*/
+/* main body style                                                        */
+/*------------------------------------------------------------------------*/
+
+body {
+    font: [% font.size %]px [% font.text %];
+    line-height: 150%;
+    color: #333;
+    margin: 0px;
+    padding: 10px 10px 20px 10px;
+    background: [% col.back %] url('[% glass %]/top_grad.gif') repeat-x top left;
+}
+
+#layout {
+    background: white url('[% glass %]/left.gif') repeat-y top left;
+    min-width: 600px;
+}
+
+
+/*------------------------------------------------------------------------*/
+/* header                                                                 */
+/*------------------------------------------------------------------------*/
+
+#header {
+    position: relative;
+    height: 130px;
+    margin: 0px;
+    padding: 0 25px 0 220px;
+    background: url('[% glass %]/header.gif') no-repeat top right;
+}
+
+#header #logo {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 130px;
+    background: url('[% glass %]/logo_[% logo.warm %].gif') no-repeat top right;
+}
+
+#header #logo:hover {
+    background-image: url('[% glass %]/logo_[% logo.roll %].gif');
+}
+
+#header #trail {
+    height: 40px;
+    margin: 0;
+    padding: 0 0 0 10px;
+    background: url('[% glass %]/tab_pre.gif') no-repeat top left;
+}
+
+#header #trail.blank {
+    background-image: none;
+}
+
+#header #trail li {
+    display: block;
+    float: left;
+    background: url('[% glass %]/tab_cold.gif') no-repeat top left;
+    padding: 0 0 0 10px;
+}
+
+#header #trail li a {
+    display: block;
+    float: left;
+    font-size: 11px;
+    text-decoration: none;
+    color: [% col.tabs.cold %];
+    line-height: 14px;
+    height: 30px;
+    min-width: 40px;
+    padding: 10px 15px 0 0;
+    background: url('[% glass %]/tab_cold.gif') no-repeat top right;
+}
+
+#header #trail li a:hover {
+    color: [% col.tabs.roll %];
+}
+
+#header #trail li:hover,
+#header #trail li:hover a {
+    background-image: url('[% glass %]/tab_roll.gif');
+}
+
+#header #trail li.last {
+    background-image: url('[% glass %]/tab_warm.gif');
+    color: [% col.tabs.warm %];
+}
+
+#header #trail li.last a {
+    background-image: url('[% glass %]/tab_warm.gif');
+    color: [% col.tabs.warm %];
+    padding-right: 45px;
+}
+
+#header .headline {
+    font-size: 24px;
+    margin: 8px 0 8px 0;
+    padding: 0 100px 0 0;
+    color: [% col.head %];
+}
+
+#header .subhead {
+    font-size: 16px;
+    line-height: 18px;
+    padding: 0 110px 0 0;
+    margin: 0;
+    color: #444;
+}
+
+#header .controls {
+    position: absolute;
+    display: block;
+    top: 40px;
+    right: 20px;
+    width: 130px;
+    height: 70px;
+    overflow: visible;
+}
+
+#header a.permalink {
+    display: none;
+}
+
+/*------------------------------------------------------------------------*/
+/* main page content and sidebar                                          */
+/*------------------------------------------------------------------------*/
+
+#page {
+    margin-bottom: 0;
+    padding: 0;
+    padding-left: 220px;
+    background: url('[% glass %]/right.gif') repeat-y top right; 
+}
+
+#sidebar {
+    position: relative;
+    float: left;
+    padding: 0;
+    width: 220px;
+    margin: 0;
+    margin-left: -220px;
+}
+
+#content {
+    position: relative;
+    margin: 0;
+    padding: 0 40px 10px 15px;
+}
+
+#sidebar #menu {
+    width: 220px;
+    margin: 0;
+    padding: 0;
+    background: url('[% glass %]/menu_body.gif') repeat-y top left;
+}
+
+#sidebar #menu div.foot {
+    height: 20px;
+    background: url('[% glass %]/menu_foot.gif') no-repeat bottom left;
+}
+
+#page div.pageinfo {
+    text-align: center;
+    font-size: 10px;
+    color: #ccc;
+}
+
+
+/*------------------------------------------------------------------------*/
+/* footer                                                                 */
+/*------------------------------------------------------------------------*/
+
+#footer {
+    clear: both;
+    position: relative;
+    padding: 0 145px 0px 270px;
+    height: 100px;
+    background: url('[% glass %]/footer.gif') no-repeat bottom left;
+}
+
+#footer a.osi {
+    position: absolute;
+    display: block;
+    left: 200px;
+    bottom: 30px;
+    width: 70px;
+    height: 50px;
+    cursor: pointer;
+    background: url('[% glass %]/osi.gif') no-repeat top left;
+}
+
+#footer .copyright {
+    text-align: center;
+    color: #666;
+    font-size: 12px;
+    padding: 14px 0 0 0;
+}
+
+#footer .licence {
+    text-align: center;
+    padding-top: 5px;
+    color: #888;
+    font-size: 11px;
+    line-height: 15px;
+    padding: 0 20px;
+}
+
+#footer .copyright a,
+#footer .copyright a:visited, 
+#footer .licence a,
+#footer .licence a:visited {
+    color: [% col.foot.link %];
+}
+
+#footer .copyright a:hover,
+#footer .licence a:hover {
+    color: [% col.roll %];
+}
+
+#footer .controls {
+    position: absolute;
+    display: block;
+    bottom: 0;
+    right: 0;
+    width: 125px;
+    height: 100px;
+    padding: 0 25px 0 0;
+    background: url('[% glass %]/footer.gif') no-repeat bottom right;
+}
+

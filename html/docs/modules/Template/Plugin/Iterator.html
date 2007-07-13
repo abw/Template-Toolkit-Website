@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Plugin::Iterator</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../../../docs/index.html">Docs</a></li>
+            <li><a href="../../../../docs/modules/index.html">Modules</a></li>
+            <li><a href="../../../../docs/modules/Template/index.html">Template::*</a></li>
+            <li><a href="../../../../docs/modules/Template/Plugin/index.html">Plugin::*</a></li>
+            <li class="last"><a href="../../../../docs/modules/Template/Plugin/Iterator.html">Iterator.pm</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../../../docs/modules/Template/Plugin/Image.html" title="Template::Plugin::Image" class="go back">Back<span class="about"><strong>Template::Plugin::Image</strong>Plugin access to image sizes</span></a>
+            <a href="../../../../docs/modules/Template/Plugin/index.html" title="Template::Plugin::* Modules" class="go up">Up<span class="about"><strong>Template::Plugin::* Modules</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/Math.html" title="Template::Plugin::Math" class="go next">Next<span class="about"><strong>Template::Plugin::Math</strong>Plugin providing mathematical functions</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Plugin::Iterator</h1>
+          <h2 class="subhead">Plugin to create iterators (Template::Iterator)</h2>
+        
+          <a href="http://template-toolkit.org/docs/modules/Template/Plugin/Iterator.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Plugin/Iterator.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../../../about.html">About</a></li>
+                <li class="l0"><a href="../../../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../../../docs/modules/index.html" class="warm">Modules</a></li>
+                <li class="l2"><a href="../../../../docs/modules/Template.html">Template.pm</a></li>
+                <li class="l2"><a href="../../../../docs/modules/Template/index.html" class="warm">Template::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Base.html">Base.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Config.html">Config.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Constants.html">Constants.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Context.html">Context.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Directive.html">Directive.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Document.html">Document.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Exception.html">Exception.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Filters.html">Filters.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Iterator.html">Iterator.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Namespace/index.html">Namespace::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Parser.html">Parser.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugin.html">Plugin.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugin/index.html" class="warm">Plugin::*</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Autoformat.html">Autoformat.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/CGI.html">CGI.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Datafile.html">Datafile.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Date.html">Date.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Directory.html">Directory.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Dumper.html">Dumper.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/File.html">File.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Filter.html">Filter.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Format.html">Format.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/HTML.html">HTML.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Image.html">Image.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Iterator.html" class="warm">Iterator.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Math.html">Math.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Pod.html">Pod.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Procedural.html">Procedural.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/String.html">String.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Table.html">Table.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/URL.html">URL.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/View.html">View.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Wrap.html">Wrap.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugins.html">Plugins.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Provider.html">Provider.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Service.html">Service.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Stash.html">Stash.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Stash/index.html">Stash::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Test.html">Test.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/VMethods.html">VMethods.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/View.html">View.pm</a></li>
+                <li class="l1"><a href="../../../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
+                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+                  <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <pre><span class="tt">[% USE iterator(list, args) %]</span>
+
+<span class="tt">[% FOREACH item = iterator %]</span>
+   <span class="tt">[% '&lt;ul&gt;' IF iterator.first %]</span>
+   &lt;li&gt;<span class="tt">[% item %]</span>
+   <span class="tt">[% '&lt;/ul&gt;' IF iterator.last %]</span>
+<span class="tt">[% END %]</span></pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The iterator plugin provides a way to create a <a href="../../../../docs/modules/Template/Iterator.html">Template::Iterator</a> object to
+                      iterate over a data set. An iterator is implicitly automatically by the
+                      <a href="#section_FOREACH">FOREACH</a> directive. This plugin allows the
+                      iterator to be explicitly created with a given name.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      <a href="../../../../docs/modules/Template/Plugin.html">Template::Plugin</a>, <a
+                      href="../../../../docs/modules/Template/Iterator.html">Template::Iterator</a>
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/modules/Template/Plugin/Iterator.html last modified 14:40:07 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../../../docs/modules/Template/Plugin/Image.html" title="Template::Plugin::Image" class="go back">Back<span class="about"><strong>Template::Plugin::Image</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/index.html" title="Template::Plugin::* Modules" class="go up">Up<span class="about"><strong>Template::Plugin::* Modules</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/Math.html" title="Template::Plugin::Math" class="go next">Next<span class="about"><strong>Template::Plugin::Math</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

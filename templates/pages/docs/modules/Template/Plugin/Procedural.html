@@ -1,0 +1,58 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      package Template::Plugin::LWPSimple;
+      use base qw(Template::Plugin::Procedural);
+      use LWP::Simple;  # exports 'get'
+      1;
+    </pre>
+    <pre>
+      <span class="tt">[% USE LWPSimple %]</span>
+      <span class="tt">[% LWPSimple.get("http://www.tt2.org/") %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      <code>Template::Plugin::Procedural</code> is a base class for Template
+      Toolkit plugins that causes defined subroutines to be called directly
+      rather than as a method. Essentially this means that subroutines will not
+      receive the class name or object as its first argument.
+    </p>
+    <p>
+      This is most useful when creating plugins for modules that normally work
+      by exporting subroutines that do not expect such additional arguments.
+    </p>
+    <p>
+      Despite the fact that subroutines will not be called in an OO manner,
+      inheritance still function as normal. A class that uses
+      <code>Template::Plugin::Procedural</code> can be subclassed and both
+      subroutines defined in the subclass and subroutines defined in the
+      original class will be available to the Template Toolkit and will be
+      called without the class/object argument.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Mark Fowler &lt;mark@twoshortplanks.com&gt; <a
+      href="http://www.twoshortplanks.com">http://www.twoshortplanks.com</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 2002 Mark Fowler &lt;mark@twoshortplanks.com&gt;
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>, <a href="[**
+      ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+    </p>
+[** END -**]
+
+</div>

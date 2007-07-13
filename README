@@ -1,0 +1,28 @@
+Configure the web site scripts/config files
+  $ bin/configure
+
+Generate HTML from TT modules:
+  $ bin/podmods ~/tt/Template2/lib/
+
+Generate HTML from about.pod
+  $ bin/pod2html pod/about.pod > templates/pages/about.html
+
+Build the web site (only those pages changed)
+  $ bin/build   (+ any ttree options)
+e.g.
+  $ bin/build -a     # build all pages
+
+
+Directories
+-----------
+   bin         scripts
+   etc         config files
+   html        HTML output pages
+   images      images
+   logs        for apache logfiles
+   metadata    contains YAML files providing site/page metadata
+   perl        perl modules (TT plugins, etc)
+   pod         src pod file for web pages (e.g. about.pod)
+   skeleton    skeleton templates used by bin/configure
+   templates   web site page templates and template components
+

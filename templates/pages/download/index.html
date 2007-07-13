@@ -1,0 +1,412 @@
+[% WRAPPER page/section title='Introduction' %]
+<p>
+  The Template Toolkit is free in both senses of the word:
+  <i>free beer</i> and <i>free speech</i>.
+  It is <i>free</i> in the first sense because it costs 
+  absolutely nothing to download and use the Template Toolkit.
+  And it's <i>free</i> in the second sense because it's
+  distributed under an 
+  <a href="http://opensource.org" class="ext" title="Open Source: the way forward">Open Source</a> license.
+  That mean that you get the full source code to the Template
+  Toolkit <i>and</i> you're explicitly granted the right 
+  to modify and adapt the code, should you so wish.
+</p>
+[% END %]
+
+[% WRAPPER page/section title='Pre-Requisites' %]
+<p>
+
+  You'll need to have Perl version 5.6.0 or later installed on your machine.
+  Perl comes pre-installed on all modern Unix-based systems (which includes
+  Mac OSX). It's <a href="http://cpan.org/ports/index.html" title="Perl
+  Ports">freely available</a> for virtually every modern operating system
+  under the sun, so you have no excuse for not installing it if you don't
+  already have it. Don't be scared now.  You don't have to write any Perl 
+  code to use the Template Toolkit.
+</p>
+
+<p>
+  The Template Toolkit also depends on the Perl 
+  <a href="http://search.cpan.org/search?query=AppConfig" class="ext">AppConfig</a>
+  module being installed.  But if you use the <a href="#cpan">CPAN module</a> as
+  described below then it will take care of this for you.
+</p>
+[% END %]
+
+[% WRAPPER page/section id='source' title='Installing from Source Code' -%]
+    <p>
+      Stable versions of the Template Toolkit source code can be downloaded from
+      <a href="http://cpan.org/" class="ext" title="The Comprehensive Perl Archive Network, for all your Perl software needs!">CPAN</a>.
+      The latest stable version of the Template Toolkit is [% tt2.version.stable %].
+    </p>
+
+    <a href="http://cpan.org/modules/by-module/Template/Template-Toolkit-[% tt2.version.stable %].tar.gz"
+      class="download" title="Download the latest stable version ([% tt2.version.stable %]) of the Template Toolkit">Download 
+      Template Toolkit stable version [% tt2.version.stable %]</a>
+    <p>
+      The source code is distributed as a <code>.tar.gz</code> archive.
+      You'll need to unpack it and follow the instructions in the 
+[% IF 0 %]      <a href="[% site.url.docs.install %]">INSTALL</a> file.[% END %]
+      <b>INSTALL</b> file.
+    </p>
+
+    <p>
+      For those impatient types who don't have time to read the documentation,
+      it goes like this:
+    </p>
+
+    <pre class="code">
+      $ tar zxf Template-Toolkit-[% tt2.version.stable %].tar.gz
+      $ cd Template-Toolkit-[% tt2.version.stable %]
+      $ perl Makefile.PL
+      $ make
+      $ make test
+      $ sudo make install
+    </pre>
+[%  END -%]
+
+[%  WRAPPER page/section id='cpan' title='Installing with the CPAN Module' -%]
+    <p>
+      If you have the <a href="http://search.cpan.org/search?query=CPAN" class="ext" title="The CPAN module - for installing CPAN modules">CPAN module</a>
+      installed then you can install the Template Toolkit like so:
+    </p>
+
+    <pre class="code">
+      $ sudo cpan Template
+    </pre>
+
+    <p>
+      The above assumes a Unix-like system (which includes Mac OSX) and uses
+      <code>sudo</code> to run the <code>cpan Template</code> command with administrator privileges.
+    </p>
+
+    <p>
+      The CPAN module is distributed with more recent versions of Perl (5.8 and
+      later) so there's a good chance you've already got the CPAN module installed
+      if your version of Perl is up-to-date.
+    </p>
+[%  END -%]
+
+[%  WRAPPER page/section id='binaries' title='Platform-Specific Binaries' -%]
+    <p>
+      You can also get the Template Toolkit in "binary form" for 
+      installation on various platforms.  Don't be misled by the name -
+      you still get the full source code for the Template Toolkit, but
+      it's delivered in a packaged format that you can install straight
+      onto your system without having to build it from source.
+    </p>
+
+[%  WRAPPER page/subsection id='mac' title='Mac OSX' -%]
+      <p>
+        If you're running Mac OSX (you lucky thing!) then you can install the
+        Template Toolkit using the <a href="#cpan">CPAN module</a> as
+        described above. Run the <b>Terminal</b> application (located in
+        Applications/Utilities) and enter the <code>sudo cpan Template</code>
+        command at the prompt.
+      </p>
+      <p>
+        Alternately, if you have 
+        <a href="http://fink.sourceforge.net/" class="ext" title="Fink: an Open Source package manager for Mac OSX">Fink</a>
+        installed then you can use it to install the Template Toolkit.
+        Christian Schaffner maintains the Fink packages for the Template
+        Toolkit. They can be found in the <code>libs/perlmods</code>. section.
+      </p>
+[%  END -%]
+[%  WRAPPER page/subsection id='debian' title='Debian GNU/Linux' -%]
+[%    deb1 = 'http://packages.debian.org/unstable/perl/libtemplate-perl'
+      deb2 = 'http://packages.debian.org/unstable/perl/libtemplate-perl-doc'
+      deb3 = 'http://people.debian.org/~mako/outgoing/libtemplate-perl/'
+-%]
+      <p>
+        Mako Hill maintains the official Template Toolkit packages for 
+        <a href="http://debian.org/" class="ext" title="Debian: a free GNU/Linux operating system for your computer">Debian
+        GNU/Linux</a>. They are available in Debian as <code>libtemplate-perl</code>. The
+        Debian package pages for the latest versions can be found at:
+      </p>
+      <a href="[% deb1 %]" class="download">[% deb1 %]</a>
+      <a href="[% deb2 %]" class="download">[% deb2 %]</a>
+      <p>
+        You can download the packages and the source for the latest TT2 packages
+        at:
+      </p>
+      <a href="[% deb3 %]" class="download">[% deb3 %]</a>
+      <p>
+        If you use <code>stable</code> or <code>testing</code> and 
+        want to use the latest Template Toolkit packages, then 
+        simply add the following line to your <code>sources.list</code>
+        file:
+      </p>
+      <pre class="code">deb http://people.debian.org/~mako/outgoing/ ./</pre>
+      <p>
+        Of course, you can also install the Template Toolkit on any Unix-like
+        system using the <a href="#cpan">CPAN module</a>, as described above.
+[%  END -%]
+[%  WRAPPER page/subsection id='win32' title='Microsoft Windows' -%]
+      <p>
+        If you're using a Microsoft Windows machine then you 
+        have our sympathies. Nevertheless, you can install 
+        <a href="http://www.activestate.com/Products/ActivePerl/" class="ext" title="ActivePerl: Perl for Microsoft Windows">ActivePerl</a>
+        and then use the Perl Package Manager (PPM) to install the Template Toolkit.
+      </p>
+      <p>
+        Our friends over at <a href="http://www.bugzilla.org/" class="ext" title="Bugzilla: Open Source bug tracking software">Bugzilla</a>
+        have put a page together telling you where you can find the relevant PPM files.
+      </p>
+      <a href="http://www.bugzilla.org/docs/2.18/html/modules-manual-download.html" class="download">Links to ActivePerl PPM packages</a>
+[%    IF this_gets_unbroken -%]
+      <p>
+        Chris Winters maintains a repository of pre-compiled PPM packages including
+        the Template Toolkit, AppConfig and others.  However, the link that we used
+        to have on this page doesn't appear to exist any more.  Chris?
+      </p>
+[% u = 'http://openinteract.sourceforge.net/cgi-bin/twiki/view/OI/ActivePerlPackages' -%]
+      <a href="[% u %]" class="download">[% u %]</a>
+[%    END -%]
+[%  END -%]
+[% END %]
+
+[% WRAPPER page/section id="developer" title="Developer Versions" %]
+[% tt2vs = tt2.version.stable -%]
+  <p>
+    In addition to the stable releases available from CPAN, we also
+    release interim developer versions from time to time.  These contain
+    additional features, bug fixes and other updates over the latest
+    stable version.
+  </p>
+  <p>
+    Developer versions have an additional character
+    suffix (e.g. [% tt2vs %]a, [% tt2vs %]b, etc) and
+    are available to download from this web site.
+    Developer releases eventually go on to become the
+    next stable release and made available on CPAN.
+  </p>
+[% IF tt2.version.developer -%]
+  <p>
+    The current developer version is [% tt2.version.developer %]. 
+  </p>
+  <a href="[% site.url.download %]/Template-Toolkit-[% tt2.version.developer %].tar.gz"
+     class="download" title="Download the latest developer version ([% tt2.version.developer %]) of the Template Toolkit">Download 
+     Template Toolkit developer version [% tt2.version.developer %]</a>
+[% ELSE -%]
+  <p>
+    There are no developer versions released at present.
+  </p>
+[% END -%]
+[% END -%]
+
+[% svnweb = 'http://search.cpan.org/dist/SVN-Web/' -%]
+
+[% WRAPPER page/section id='svn' title='Subversion Source Code Repository' -%]
+  <p>
+    The source code for the Template Toolkit is managed using
+    <a href="http://subversion.tigris.org/" class="ext" title="Subversion: an Open Source revision control system">Subversion</a> (svn).
+    If you have subversion installed on your system then you can check out the 
+    Template Toolkit source code using a command like this:
+  </p>
+  <pre class="code">
+    $ svn co svn://svn.tt2.org/Template2/trunk Template2
+  </pre>
+  <p>
+    You can also browse the Subversion repository using the web front-end.
+    This is implemented using <a href="[% svnweb %]" class="ext">SVN::Web</a>, 
+    which in turn uses the Template Toolkit to generate the web pages.  So it's
+    a nice example of just one kind of thing you can do with TT.
+  </p>
+  <a href="[% site.url.svnweb %]/Template2" class="download">[% site.url.svnweb %]/Template2</a>
+[% END %]
+
+[% WRAPPER page/section id='related' title='Related Modules' -%]
+  <p>
+    In times gone by, the Template Toolkit was distributed with a whole
+    bunch of plugin modules for doing all sorts of things.  These included:
+    querying databases via the DBI module, processing XML documents,
+    typesetting output using LaTeX, and generating images using the GD
+    library.
+  </p>
+  <p>
+    In a fit of common sense, they were eventually removed from the core 
+    Template Toolkit distribution and made available as separate bundles.
+    You can download them from CPAN using the following links or you can
+    install them using the <a href="#cpan">CPAN module</a> as described above.
+  </p>
+  <a href="http://search.cpan.org/search?query=Template-DBI" class="download">Template-DBI</a>
+  <a href="http://search.cpan.org/search?query=Template-GD" class="download">Template-GD</a>
+  <a href="http://search.cpan.org/search?query=Template-XML" class="download">Template-XML</a>
+  <a href="http://search.cpan.org/search?query=Template-Latex" class="download">Template-Latex</a>
+  <p>
+    These modules also have corresponding projects in the Subversion repository.
+    You can check out the source code using a variation of the <code>svn</code> command 
+    shown in the previous section.  e.g.
+  </p>
+  <pre class="code">
+    $ svn co svn://svn.tt2.org/Template-DBI/trunk Template-DBI
+  </pre>
+  <p>
+    The same goes for viewing these projects via the web interface.  Simply replace
+    <code>Template2</code> with one of the other module names, e.g.
+  </p>
+  <a href="[% site.url.svnweb %]/Template-DBI" class="download">[% site.url.svnweb %]/Template-DBI</a>
+[% END %]
+
+[% RETURN %]
+
+<p>
+Please read the 
+<a href="download/stable/README">README</a> 
+file for general information, check the 
+<a href="download/stable/Changes">Changes</a>
+file for details of recent changes, and consult the 
+<a href="download/stable/TODO">TODO</a> 
+file for known bugs, limitations or planned features.  
+All these documents can be found in the distribution 
+archive in the top-level directory.
+</p>
+
+<p>
+Note that you can now also read the 
+documentation <a href="docs.html">online</a>.
+</p>
+
+<p>
+As patches come in for bug fixes, new features, and so on, we apply
+them and make developer releases.  Our trusty band of developers, beta
+testers and other hardcore TT evangelists get to work with the
+developer releases and hopefully thrash out any bugs or potential
+problems.  When we've got a few patches lined up and we're happy that
+all is well, we release a new stable version for general consumption.
+</p>
+
+<p>
+Stable versions have regular version numbers like [% latest.stable %]
+and are available from [% cpan.tt2link %].  Developer releases have a
+letter appended, like [% latest.stable %]a, [% latest.stable %]b, etc
+are are only available from this site.
+</p>
+
+[% IF latest.stable != latest.devel %]
+<p>
+The latest developer release is version [% latest.devel %].
+</p>
+[% INCLUDE download version = latest.devel has_install = 1 %]
+
+[% ELSE %]
+<p>
+There is no developer release at present.  The latest stable release
+is the most recent version available.
+</p>
+[% END %]
+
+   id = 'cvs'
+   title = "Access to the CVS Repository"
+   name = "CVS Access"
+%]
+
+<p>
+You can access the latest working version of the source code directly 
+from the CVS repository.  If you don't already have CVS you can get a 
+copy from <a href="http://www.cvshome.org/">CVSHome.org</a>.
+</p>
+
+<p>
+First you need to set the <code><b>CVSROOT</b></code> environment 
+variable to <code><b>[% cvsroot %]</b></code>.
+<pre>
+    $ CVSROOT=[% cvsroot %]
+    $ export CVSROOT
+</pre>
+or use the <code><b>-d</b></code> option with the <code></b>cvs</b></code>
+command, e.g.
+<pre>
+    $ cvs -d [% cvsroot %] <i>cvs commands...</i>
+</pre>
+</p>
+
+<p>
+Issue the <code><b>cvs login</b></code> command, responding with the password
+<code><b>cvs</b></code> when prompted.
+<pre>
+    $ cvs login
+    (Logging in to cvs@tt2.org)
+    CVS password: <b>cvs</b>
+</pre>
+</p>
+
+<p>
+You can then check out the source for the Template Toolkit using the 
+<code><b>cvs co Template2</b></code> command, adding the <code><b>-z 3</b></code>
+(or something similar) to activate compression
+<pre>
+    $ cvs -z 3 co Template2
+</pre>
+</p>
+
+<p>
+Once you've got the source code checked out, <code><b>cvs
+update</b></code> will sync your local copy with the repository.  If
+you want or need write access to the repository then please <a
+href="mailto:abw@kfs.org">contact me</a>.  You'll also need to fetch
+and compile <a href="/misc/ppw.c">this program</a> to generate an
+encrypted MD5 password.
+</p>
+   id = 'docsrc'
+   title = "Template Toolkit Documentation Source ${latest.docsrc}"
+   name = "docsrc ${latest.docsrc}"
+
+<p>
+The documentation for the [% tt.name %] is built from a set of TT2
+templates, XML files, Perl script and other bits of magic.  You don't
+need this to build and re-build the HTML documentation on your own
+machine, but if you want to hack on the documentation or just see how
+it's all put together then you should download the 'docsrc' bundle,
+unpack it in the [% tt.name %] distribution directory and read the
+README for further details on how to proceed.
+</p>
+
+    bundle  = 'Template-docsrc'
+    version = latest.docsrc
+    notodo  = 1
+    nochanges = 1
+
+
+
+   id = 'v3devel'
+   title = "Template Toolkit v3 Development Snapshot ${latest.v3}"
+   name = "v3 pre-alpha ${latest.v3}"
+
+<p>
+A very early pre-alpha snapshot of some if the modules for Template
+Toolkit version 3 is now available.  This isn't a working implementation
+and probably won't be for quite some time.  It is provided purely for
+developers who are interested in following or contributing to the 
+development of version 3.
+</p>
+
+
+<p>
+Note that you can also browse the <a href="/download/Template-Toolkit-[% latest.v3 %]/">code</a> and <a href="/v3/">documentation</a> online.
+
+   id = 'apache'
+   title = "Apache::Template version ${latest.apache}"
+   name = "Apache::Template ${latest.apache}"
+
+<p>
+Version [% latest.apache %] of the Apache::Template module is now also 
+available.  Please read the 
+<a href="download/Apache-Template-[% latest.apache %]/README">README</a> 
+file for general information, and the 
+<a href="download/Apache-Template-[% latest.apache %]/Changes">Changes</a> 
+file for details of changes in this version.
+</p>
+
+   DEFAULT bundle = 'Template-Toolkit'
+           version = latest.stable
+%]
+<ul>
+<a href="/download/[% bundle %]-[% version %].tar.gz">[% bundle %]-[% version %].tar.gz</a>
+[ <a href="download/[% bundle %]-[% version %]/README">README</a> ]
+[% UNLESS nochanges %][ <a href="download/[% bundle %]-[% version %]/Changes">Changes</a> ][% END %]
+[% UNLESS notodo %][ <a href="download/[% bundle %]-[% version %]/TODO">TODO</a> ][% END %]
+[% IF has_install %][ <a href="download/[% bundle %]-[% version %]/INSTALL">INSTALL</a> ][% END %]
+</ul>
+</p>
+

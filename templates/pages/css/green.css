@@ -1,0 +1,40 @@
+[%  # configuration template to define the layout, colour scheme and 
+    # various other style parameters for the CSS skin
+
+    PROCESS config/css;
+
+    name   = 'green';
+    glass  = "$img/glass/green";
+    arrows = "$img/arrows";
+    cold   = 'blank'
+    warm   = 'green'
+    roll   = 'purple'
+    logo = {
+        warm = 'green'
+        roll = 'purple'
+    }
+    col    = {
+        back = rgb.light_green
+        head = rgb.dark_grey
+        link = rgb.light_green
+        seen = rgb.dark_green
+        roll = rgb.light_purple
+        line = rgb.pale_green
+        code = rgb.dark_grey
+        tags = rgb.dark_green
+        menu = {
+            link = rgb.dark_green
+            roll = rgb.light_purple
+        }
+        tabs = {
+            cold = rgb.mid_grey
+            roll = rgb.light_purple
+            warm = rgb.dark_grey
+        }
+        foot = {
+            link = rgb.dull_green
+        }
+    };
+    
+    PROCESS css/tt2.css 
+-%]

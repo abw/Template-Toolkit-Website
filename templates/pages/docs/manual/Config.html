@@ -1,0 +1,2334 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='Template Style and Parsing Options' id='section_Template_Style_and_Parsing_Options' -**]
+    [** WRAPPER page/subsection title='START_TAG, END_TAG' id='section_START_TAG_END_TAG' class='' -**]
+    <p>
+      The <code>START_TAG</code> and <code>END_TAG</code> options are used to
+      specify character sequences or regular expressions that mark the start
+      and end of a template directive. The default values for
+      <code>START_TAG</code> and <code>END_TAG</code> are '<code>[%</code>' and
+      '<code>%]</code>' respectively, giving us the familiar directive style:
+    </p>
+    <pre>
+      <span class="tt">[% example %]</span>
+    </pre>
+    <p>
+      Any Perl regex characters can be used and therefore should be escaped (or
+      use the Perl <code>quotemeta</code> function) if they are intended to
+      represent literal characters.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({ 
+          START_TAG =&gt; quotemeta('&lt;+'),
+          END_TAG   =&gt; quotemeta('+&gt;'),
+      });
+    </pre>
+    <p>
+      Example:
+    </p>
+    <pre>
+      &lt;+ INCLUDE foobar +&gt;
+    </pre>
+    <p>
+      The <code>TAGS</code> directive can also be used to set the
+      <code>START_TAG</code> and <code>END_TAG</code> values on a per-template
+      file basis.
+    </p>
+    <pre>
+      <span class="tt">[% TAGS &lt;+ +&gt; %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TAG_STYLE' id='section_TAG_STYLE' class='' -**]
+    <p>
+      The <code>TAG_STYLE</code> option can be used to set both
+      <code>START_TAG</code> and <code>END_TAG</code> according to pre-defined
+      tag styles.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({ 
+          TAG_STYLE =&gt; 'star',
+      });
+    </pre>
+    <p>
+      Available styles are:
+    </p>
+    <pre>
+      template    <span class="tt">[% ... %]</span>               (default)
+      template1   <span class="tt">[% ... %]</span> or %% ... %%  (TT version 1)
+      metatext    %% ... %%               (Text::MetaText)
+      star        [* ... *]               (TT alternate)
+      php         &lt;? ... ?&gt;               (PHP)
+      asp         &lt;% ... %&gt;               (ASP)
+      mason       &lt;% ...  &gt;               (HTML::Mason)
+      html        &lt;!-- ... --&gt;            (HTML comments)
+    </pre>
+    <p>
+      Any values specified for <code>START_TAG</code> and/or
+      <code>END_TAG</code> will override those defined by a
+      <code>TAG_STYLE</code>.
+    </p>
+    <p>
+      The <code>TAGS</code> directive may also be used to set a
+      <code>TAG_STYLE</code>
+    </p>
+    <pre>
+      <span class="tt">[% TAGS html %]</span>
+      &lt;!-- INCLUDE header --&gt;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PRE_CHOMP, POST_CHOMP' id='section_PRE_CHOMP_POST_CHOMP' class='' -**]
+    <p>
+      Anything outside a directive tag is considered plain text and is
+      generally passed through unaltered (but see the <a
+      href="#section_INTERPOLATE">INTERPOLATE</a> option). This includes all
+      whitespace and newlines characters surrounding directive tags. Directives
+      that don't generate any output will leave gaps in the output document.
+    </p>
+    <p>
+      Example:
+    </p>
+    <pre>
+      Foo
+      <span class="tt">[% a = 10 %]</span>
+      Bar
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      Foo
+      
+      Bar
+    </pre>
+    <p>
+      The <code>PRE_CHOMP</code> and <code>POST_CHOMP</code> options can help
+      to clean up some of this extraneous whitespace. Both are disabled by
+      default.
+    </p>
+    <pre>
+      my $template = Template-E&lt;gt&gt;new({
+          PRE_CHOMP  =&gt; 1,
+          POST_CHOMP =&gt; 1,
+      });
+    </pre>
+    <p>
+      With <code>PRE_CHOMP</code> set to <code>1</code>, the newline and
+      whitespace preceding a directive at the start of a line will be deleted.
+      This has the effect of concatenating a line that starts with a directive
+      onto the end of the previous line.
+    </p>
+    <pre>
+          Foo &lt;----------.
+                         |
+      ,---(PRE_CHOMP)----'
+      |
+      `-- <span class="tt">[% a = 10 %]</span> --.
+                         |
+      ,---(POST_CHOMP)---'
+      |
+      `-&gt; Bar
+    </pre>
+    <p>
+      With <code>POST_CHOMP</code> set to <code>1</code>, any whitespace after
+      a directive up to and including the newline will be deleted. This has the
+      effect of joining a line that ends with a directive onto the start of the
+      next line.
+    </p>
+    <p>
+      If <code>PRE_CHOMP</code> or <code>POST_CHOMP</code> is set to
+      <code>2</code>, all whitespace including any number of newline will be
+      removed and replaced with a single space. This is useful for HTML, where
+      (usually) a contiguous block of whitespace is rendered the same as a
+      single space.
+    </p>
+    <p>
+      With <code>PRE_CHOMP</code> or <code>POST_CHOMP</code> set to
+      <code>3</code>, all adjacent whitespace (including newlines) will be
+      removed entirely.
+    </p>
+    <p>
+      These values are defined as <code>CHOMP_NONE</code>,
+      <code>CHOMP_ONE</code>, <code>CHOMP_COLLAPSE</code> and
+      <code>CHOMP_GREEDY</code> constants in the <a href="[**
+      ttmodlink('Template::Constants') **]">Template::Constants</a> module.
+      <code>CHOMP_ALL</code> is also defined as an alias for
+      <code>CHOMP_ONE</code> to provide backwards compatability with earlier
+      version of the Template Toolkit.
+    </p>
+    <p>
+      Additionally the chomp tag modifiers listed below may also be used for
+      the <code>PRE_CHOMP</code> and <code>POST_CHOMP</code> configuration.
+    </p>
+    <pre>
+       my $template = Template-&gt;new({
+          PRE_CHOMP  =&gt; '~',
+          POST_CHOMP =&gt; '-',
+       });
+    </pre>
+    <p>
+      <code>PRE_CHOMP</code> and <code>POST_CHOMP</code> can be activated for
+      individual directives by placing a '<code>-</code>' immediately at the
+      start and/or end of the directive.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span>
+         <span class="tt">[%- user -%]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      This has the same effect as <code>CHOMP_ONE</code> in removing all
+      whitespace before or after the directive up to and including the newline.
+      The template will be processed as if written:
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span><span class="tt">[% user %]</span><span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      To remove all whitespace including any number of newlines, use the
+      '<code>~</code>' character instead.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span>
+      
+         <span class="tt">[%~ user ~%]</span>
+      
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      To collapse all whitespace to a single space, use the '<code>=</code>'
+      character.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span>
+       
+         <span class="tt">[%= user =%]</span>
+      
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Here the template is processed as if written:
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span> <span class="tt">[% user %]</span> <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      If you have <code>PRE_CHOMP</code> or <code>POST_CHOMP</code> set as
+      configuration options then you can use '<code>+</code>' to disable any
+      chomping options (i.e. leave the whitespace intact) on a per-directive
+      basis.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span>
+      User: <span class="tt">[% user +%]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      With <code>POST_CHOMP</code> set to <code>CHOMP_ONE</code>, the above
+      example would be parsed as if written:
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN userlist %]</span>User: <span class="tt">[% user %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      For reference, the <code>PRE_CHOMP</code> and <code>POST_CHOMP</code>
+      configuration options may be set to any of the following:
+    </p>
+    <pre>
+       Constant      Value   Tag Modifier
+       ----------------------------------
+       CHOMP_NONE      0          +
+       CHOMP_ONE       1          -
+       CHOMP_COLLAPSE  2          =
+       CHOMP_GREEDY    3          ~
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TRIM' id='section_TRIM' class='' -**]
+    <p>
+      The <code>TRIM</code> option can be set to have any leading and trailing
+      whitespace automatically removed from the output of all template files
+      and <code>BLOCK</code>s.
+    </p>
+    <p>
+      By example, the following <code>BLOCK</code> definition
+    </p>
+    <pre>
+      <span class="tt">[% BLOCK foo %]</span>
+      Line 1 of foo
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      will be processed is as "<code>\nLine 1 of foo\n</code>". When
+      <code>INCLUDE</code>d, the surrounding newlines will also be introduced.
+    </p>
+    <pre>
+      before 
+      <span class="tt">[% INCLUDE foo %]</span>
+      after
+    </pre>
+    <p>
+      Generated output:
+    </p>
+    <pre>
+      before
+      
+      Line 1 of foo
+      
+      after
+    </pre>
+    <p>
+      With the <code>TRIM</code> option set to any true value, the leading and
+      trailing newlines (which count as whitespace) will be removed from the
+      output of the <code>BLOCK</code>.
+    </p>
+    <pre>
+      before
+      Line 1 of foo
+      after
+    </pre>
+    <p>
+      The <code>TRIM</code> option is disabled (<code>0</code>) by default.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='INTERPOLATE' id='section_INTERPOLATE' class='' -**]
+    <p>
+      The <code>INTERPOLATE</code> flag, when set to any true value will cause
+      variable references in plain text (i.e. not surrounded by
+      <code>START_TAG</code> and <code>END_TAG</code>) to be recognised and
+      interpolated accordingly.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({ 
+          INTERPOLATE =&gt; 1,
+      });
+    </pre>
+    <p>
+      Variables should be prefixed by a '<code>$</code>' to identify them.
+      Curly braces can be used in the familiar Perl/shell style to explicitly
+      scope the variable name where required.
+    </p>
+    <pre>
+      # INTERPOLATE =&gt; 0
+      &lt;a href="http://<span class="tt">[% server %]</span>/<span class="tt">[% help %]</span>"&gt;
+      &lt;img src="<span class="tt">[% images %]</span>/help.gif"&gt;&lt;/a&gt;
+      <span class="tt">[% myorg.name %]</span>
+    </pre>
+    <pre>
+      # INTERPOLATE =&gt; 1
+      &lt;a href="http://$server/$help"&gt;
+      &lt;img src="$images/help.gif"&gt;&lt;/a&gt;
+      $myorg.name
+      
+      # explicit scoping with {  }
+      &lt;img src="$images/${icon.next}.gif"&gt;
+    </pre>
+    <p>
+      Note that a limitation in Perl's regex engine restricts the maximum
+      length of an interpolated template to around 32 kilobytes or possibly
+      less. Files that exceed this limit in size will typically cause Perl to
+      dump core with a segmentation fault. If you routinely process templates
+      of this size then you should disable <code>INTERPOLATE</code> or split
+      the templates in several smaller files or blocks which can then be joined
+      backed together via <code>PROCESS</code> or <code>INCLUDE</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ANYCASE' id='section_ANYCASE' class='' -**]
+    <p>
+      By default, directive keywords should be expressed in UPPER CASE. The
+      <code>ANYCASE</code> option can be set to allow directive keywords to be
+      specified in any case.
+    </p>
+    <pre>
+      # ANYCASE =&gt; 0 (default)
+      <span class="tt">[% INCLUDE foobar %]</span>        # OK
+      <span class="tt">[% include foobar %]</span>        # ERROR
+      <span class="tt">[% include = 10   %]</span>        # OK, 'include' is a variable
+    </pre>
+    <pre>
+      # ANYCASE =&gt; 1
+      <span class="tt">[% INCLUDE foobar %]</span>        # OK
+      <span class="tt">[% include foobar %]</span>        # OK
+      <span class="tt">[% include = 10   %]</span>        # ERROR, 'include' is reserved word
+    </pre>
+    <p>
+      One side-effect of enabling <code>ANYCASE</code> is that you cannot use a
+      variable of the same name as a reserved word, regardless of case. The
+      reserved words are currently:
+    </p>
+    <pre>
+      GET CALL SET DEFAULT INSERT INCLUDE PROCESS WRAPPER 
+      IF UNLESS ELSE ELSIF FOR FOREACH WHILE SWITCH CASE
+      USE PLUGIN FILTER MACRO PERL RAWPERL BLOCK META
+      TRY THROW CATCH FINAL NEXT LAST BREAK RETURN STOP 
+      CLEAR TO STEP AND OR NOT MOD DIV END
+    </pre>
+    <p>
+      The only lower case reserved words that cannot be used for variables,
+      regardless of the <code>ANYCASE</code> option, are the operators:
+    </p>
+    <pre>
+      and or not mod div
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Template Files and Blocks' id='section_Template_Files_and_Blocks' -**]
+    [** WRAPPER page/subsection title='INCLUDE_PATH' id='section_INCLUDE_PATH' class='' -**]
+    <p>
+      The <code>INCLUDE_PATH</code> is used to specify one or more directories
+      in which template files are located. When a template is requested that
+      isn't defined locally as a <code>BLOCK</code>, each of the
+      <code>INCLUDE_PATH</code> directories is searched in turn to locate the
+      template file. Multiple directories can be specified as a reference to a
+      list or as a single string where each directory is delimited by
+      '<code>:</code>'.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; '/usr/local/templates',
+      });
+      
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; '/usr/local/templates:/tmp/my/templates',
+      });
+      
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; [ '/usr/local/templates', 
+                            '/tmp/my/templates' ],
+      });
+    </pre>
+    <p>
+      On Win32 systems, a little extra magic is invoked, ignoring delimiters
+      that have '<code>:</code>' followed by a '<code>/</code>' or
+      '<code>\</code>'. This avoids confusion when using directory names like
+      '<code>C:\Blah Blah</code>'.
+    </p>
+    <p>
+      When specified as a list, the <code>INCLUDE_PATH</code> path can contain
+      elements which dynamically generate a list of <code>INCLUDE_PATH</code>
+      directories. These generator elements can be specified as a reference to
+      a subroutine or an object which implements a <code>paths()</code> method.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; [ '/usr/local/templates', 
+                            \&amp;incpath_generator, 
+                            My::IncPath::Generator-&gt;new( ... ) ],
+      });
+    </pre>
+    <p>
+      Each time a template is requested and the <code>INCLUDE_PATH</code>
+      examined, the subroutine or object method will be called. A reference to
+      a list of directories should be returned. Generator subroutines should
+      report errors using <code>die()</code>. Generator objects should return
+      undef and make an error available via its <code>error()</code> method.
+    </p>
+    <p>
+      For example:
+    </p>
+    <pre>
+      sub incpath_generator {
+          # ...some code...
+          
+          if ($all_is_well) {
+              return \@list_of_directories;
+          }
+          else {
+              die "cannot generate INCLUDE_PATH...\n";
+          }
+      }
+    </pre>
+    <p>
+      or:
+    </p>
+    <pre>
+      package My::IncPath::Generator;
+      
+      # Template::Base (or Class::Base) provides error() method
+      use Template::Base;
+      use base qw( Template::Base );
+      
+      sub paths {
+          my $self = shift;
+          
+          # ...some code...
+          
+          if ($all_is_well) {
+              return \@list_of_directories;
+          }
+          else {
+              return $self-&gt;error("cannot generate INCLUDE_PATH...\n");
+          }
+      }
+      
+      1;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DELIMITER' id='section_DELIMITER' class='' -**]
+    <p>
+      Used to provide an alternative delimiter character sequence for
+      separating paths specified in the <code>INCLUDE_PATH</code>. The default
+      value for <code>DELIMITER</code> is '<code>:</code>'.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          DELIMITER    =&gt; '; ',
+          INCLUDE_PATH =&gt; 'C:/HERE/NOW; D:/THERE/THEN',
+      });
+    </pre>
+    <p>
+      On Win32 systems, the default delimiter is a little more intelligent,
+      splitting paths only on '<code>:</code>' characters that aren't followed
+      by a '<code>/</code>'. This means that the following should work as
+      planned, splitting the <code>INCLUDE_PATH</code> into 2 separate
+      directories, <code>C:/foo</code> and <code>C:/bar</code>.
+    </p>
+    <pre>
+      # on Win32 only
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; 'C:/Foo:C:/Bar'
+      });
+    </pre>
+    <p>
+      However, if you're using Win32 then it's recommended that you explicitly
+      set the <code>DELIMITER</code> character to something else (e.g.
+      '<code>;</code>') rather than rely on this subtle magic.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ABSOLUTE' id='section_ABSOLUTE' class='' -**]
+    <p>
+      The <code>ABSOLUTE</code> flag is used to indicate if templates specified
+      with absolute filenames (e.g. '<code>/foo/bar</code>') should be
+      processed. It is disabled by default and any attempt to load a template
+      by such a name will cause a '<code>file</code>' exception to be raised.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          ABSOLUTE =&gt; 1,
+      });
+      
+      # this is why it's disabled by default
+      <span class="tt">[% INSERT /etc/passwd %]</span>
+    </pre>
+    <p>
+      On Win32 systems, the regular expression for matching absolute pathnames
+      is tweaked slightly to also detect filenames that start with a driver
+      letter and colon, such as:
+    </p>
+    <pre>
+      C:/Foo/Bar
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='RELATIVE' id='section_RELATIVE' class='' -**]
+    <p>
+      The <code>RELATIVE</code> flag is used to indicate if templates specified
+      with filenames relative to the current directory (e.g.
+      '<code>./foo/bar</code>' or '<code>../../some/where/else</code>') should
+      be loaded. It is also disabled by default, and will raise a
+      '<code>file</code>' error if such template names are encountered.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          RELATIVE =&gt; 1,
+      });
+      
+      <span class="tt">[% INCLUDE ../logs/error.log %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEFAULT' id='section_DEFAULT' class='' -**]
+    <p>
+      The <code>DEFAULT</code> option can be used to specify a default template
+      which should be used whenever a specified template can't be found in the
+      <code>INCLUDE_PATH</code>.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          DEFAULT =&gt; 'notfound.html',
+      });
+    </pre>
+    <p>
+      If a non-existant template is requested through the Template <a href="[**
+      ttmodlink('Template') **]#method_process">process()</a> method, or by an
+      <code>INCLUDE</code>, <code>PROCESS</code> or <code>WRAPPER</code>
+      directive, then the <code>DEFAULT</code> template will instead be
+      processed, if defined. Note that the <code>DEFAULT</code> template is not
+      used when templates are specified with absolute or relative filenames, or
+      as a reference to a input file handle or text string.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='BLOCKS' id='section_BLOCKS' class='' -**]
+    <p>
+      The <code>BLOCKS</code> option can be used to pre-define a default set of
+      template blocks. These should be specified as a reference to a hash array
+      mapping template names to template text, subroutines or <a href="[**
+      ttmodlink('Template::Document') **]">Template::Document</a> objects.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          BLOCKS =&gt; {
+              header  =&gt; 'The Header.  <span class="tt">[% title %]</span>',
+              footer  =&gt; sub { return $some_output_text },
+              another =&gt; Template::Document-&gt;new({ ... }),
+          },
+      }); 
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='AUTO_RESET' id='section_AUTO_RESET' class='' -**]
+    <p>
+      The <code>AUTO_RESET</code> option is set by default and causes the local
+      <code>BLOCKS</code> cache for the <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object to be
+      reset on each call to the Template <a href="[** ttmodlink('Template')
+      **]#method_process">process()</a> method. This ensures that any
+      <code>BLOCK</code>s defined within a template will only persist until
+      that template is finished processing. This prevents <code>BLOCK</code>s
+      defined in one processing request from interfering with other independent
+      requests subsequently processed by the same context object.
+    </p>
+    <p>
+      The <code>BLOCKS</code> item may be used to specify a default set of
+      block definitions for the <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> object. Subsequent <code>BLOCK</code>
+      definitions in templates will over-ride these but they will be reinstated
+      on each reset if <code>AUTO_RESET</code> is enabled (default), or if the
+      <a href="[** ttmodlink('Template::Context') **]">Template::Context</a> <a
+      href="[** ttmodlink('Template::Context') **]#method_reset">reset()</a>
+      method is called.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='RECURSION' id='section_RECURSION' class='' -**]
+    <p>
+      The template processor will raise a file exception if it detects direct
+      or indirect recursion into a template. Setting this option to any true
+      value will allow templates to include each other recursively.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Template Variables' id='section_Template_Variables' -**]
+    [** WRAPPER page/subsection title='VARIABLES' id='section_VARIABLES' class='' -**]
+    <p>
+      The <code>VARIABLES</code> option (or <code>PRE_DEFINE</code> - they're
+      equivalent) can be used to specify a hash array of template variables
+      that should be used to pre-initialise the stash when it is created. These
+      items are ignored if the <code>STASH</code> item is defined.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          VARIABLES =&gt; {
+              title   =&gt; 'A Demo Page',
+              author  =&gt; 'Joe Random Hacker',
+              version =&gt; 3.14,
+          },
+      };
+    </pre>
+    <p>
+      or
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PRE_DEFINE =&gt; {
+              title   =&gt; 'A Demo Page',
+              author  =&gt; 'Joe Random Hacker',
+              version =&gt; 3.14,
+          },
+      };
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='CONSTANTS' id='section_CONSTANTS' class='' -**]
+    <p>
+      The <code>CONSTANTS</code> option can be used to specify a hash array of
+      template variables that are compile-time constants. These variables are
+      resolved once when the template is compiled, and thus don't require
+      further resolution at runtime. This results in significantly faster
+      processing of the compiled templates and can be used for variables that
+      don't change from one request to the next.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          CONSTANTS =&gt; {
+              title   =&gt; 'A Demo Page',
+              author  =&gt; 'Joe Random Hacker',
+              version =&gt; 3.14,
+          },
+      };
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='CONSTANT_NAMESPACE' id='section_CONSTANT_NAMESPACE' class='' -**]
+    <p>
+      Constant variables are accessed via the <code>constants</code> namespace
+      by default.
+    </p>
+    <pre>
+      <span class="tt">[% constants.title %]</span>
+    </pre>
+    <p>
+      The <code>CONSTANTS_NAMESPACE</code> option can be set to specify an
+      alternate namespace.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          CONSTANTS =&gt; {
+              title   =&gt; 'A Demo Page',
+              # ...etc...
+          },
+          CONSTANTS_NAMESPACE =&gt; 'const',
+      };
+    </pre>
+    <p>
+      In this case the constants would then be accessed as:
+    </p>
+    <pre>
+      <span class="tt">[% const.title %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='NAMESPACE' id='section_NAMESPACE' class='' -**]
+    <p>
+      The constant folding mechanism described above is an example of a
+      namespace handler. Namespace handlers can be defined to provide alternate
+      parsing mechanisms for variables in different namespaces.
+    </p>
+    <p>
+      Under the hood, the <a href="[** ttmodlink('Template') **]">Template</a>
+      module converts a constructor configuration such as:
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          CONSTANTS =&gt; {
+              title   =&gt; 'A Demo Page',
+              # ...etc...
+          },
+          CONSTANTS_NAMESPACE =&gt; 'const',
+      };
+    </pre>
+    <p>
+      into one like:
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          NAMESPACE =&gt; {
+              const =&gt; Template:::Namespace::Constants-&gt;new({
+                  title   =&gt; 'A Demo Page',
+                  # ...etc...
+              }),
+          },
+      };
+    </pre>
+    <p>
+      You can use this mechanism to define multiple constant namespaces, or to
+      install custom handlers of your own.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          NAMESPACE =&gt; {
+              site =&gt; Template:::Namespace::Constants-&gt;new({
+                  title   =&gt; "Wardley's Widgets",
+                  version =&gt; 2.718,
+              }),
+              author =&gt; Template:::Namespace::Constants-&gt;new({
+                  name  =&gt; 'Andy Wardley',
+                  email =&gt; 'abw@andywardley.com',
+              }),
+              voodoo =&gt; My::Namespace::Handler-&gt;new( ... ),
+          },
+      };
+    </pre>
+    <p>
+      Now you have two constant namespaces, for example:
+    </p>
+    <pre>
+      <span class="tt">[% site.title %]</span>
+      <span class="tt">[% author.name %]</span>
+    </pre>
+    <p>
+      as well as your own custom namespace handler installed for the 'voodoo'
+      namespace.
+    </p>
+    <pre>
+      <span class="tt">[% voodoo.magic %]</span>
+    </pre>
+    <p>
+      See <a href="[** ttmodlink('Template::Namespace::Constants')
+      **]">Template::Namespace::Constants</a> for an example of what a
+      namespace handler looks like on the inside.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Template Processing Options' id='section_Template_Processing_Options' -**]
+    <p>
+      The following options are used to specify any additional templates that
+      should be processed before, after, around or instead of the template
+      passed as the first argument to the <a href="[** ttmodlink('Template')
+      **]">Template</a> <a href="[** ttmodlink('Template')
+      **]#method_process">process()</a> method. These options can be perform
+      various useful tasks such as adding standard headers or footers to all
+      pages, wrapping page output in other templates, pre-defining variables or
+      performing initialisation or cleanup tasks, automatically generating page
+      summary information, navigation elements, and so on.
+    </p>
+    <p>
+      The task of processing the template is delegated internally to the <a
+      href="[** ttmodlink('Template::Service') **]">Template::Service</a>
+      module which, unsurprisingly, also has a <a href="[**
+      ttmodlink('Template::Service') **]#method_process">process()</a> method.
+      Any templates defined by the <code>PRE_PROCESS</code> option are
+      processed first and any output generated is added to the output buffer.
+      Then the main template is processed, or if one or more
+      <code>PROCESS</code> templates are defined then they are instead
+      processed in turn. In this case, one of the <code>PROCESS</code>
+      templates is responsible for processing the main template, by a directive
+      such as:
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS $template %]</span>
+    </pre>
+    <p>
+      The output of processing the main template or the <code>PROCESS</code>
+      template(s) is then wrapped in any <code>WRAPPER</code> templates, if
+      defined. <code>WRAPPER</code> templates don't need to worry about
+      explicitly processing the template because it will have been done for
+      them already. Instead <code>WRAPPER</code> templates access the content
+      they are wrapping via the <code>content</code> variable.
+    </p>
+    <pre>
+      wrapper before
+      <span class="tt">[% content %]</span>
+      wrapper after
+    </pre>
+    <p>
+      This output generated from processing the main template, and/or any
+      <code>PROCESS</code> or <code>WRAPPER</code> templates is added to the
+      output buffer. Finally, any <code>POST_PROCESS</code> templates are
+      processed and their output is also added to the output buffer which is
+      then returned.
+    </p>
+    <p>
+      If the main template throws an exception during processing then any
+      relevant template(s) defined via the <code>ERROR</code> option will be
+      processed instead. If defined and successfully processed, the output from
+      the error template will be added to the output buffer in place of the
+      template that generated the error and processing will continue, applying
+      any <code>WRAPPER</code> and <code>POST_PROCESS</code> templates. If no
+      relevant <code>ERROR</code> option is defined, or if the error occurs in
+      one of the <code>PRE_PROCESS</code>, <code>WRAPPER</code> or
+      <code>POST_PROCESS</code> templates, then the process will terminate
+      immediately and the error will be returned.
+    </p>
+    [** WRAPPER page/subsection title='PRE_PROCESS, POST_PROCESS' id='section_PRE_PROCESS_POST_PROCESS' class='' -**]
+    <p>
+      These values may be set to contain the name(s) of template files
+      (relative to <code>INCLUDE_PATH</code>) which should be processed
+      immediately before and/or after each template. These do not get added to
+      templates processed into a document via directives such as
+      <code>INCLUDE</code>, <code>PROCESS</code>, <code>WRAPPER</code> etc.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PRE_PROCESS  =&gt; 'header',
+          POST_PROCESS =&gt; 'footer',
+      };
+    </pre>
+    <p>
+      Multiple templates may be specified as a reference to a list. Each is
+      processed in the order defined.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PRE_PROCESS  =&gt; [ 'config', 'header' ],
+          POST_PROCESS =&gt; 'footer',
+      };
+    </pre>
+    <p>
+      Alternately, multiple template may be specified as a single string,
+      delimited by '<code>:</code>'. This delimiter string can be changed via
+      the <code>DELIMITER</code> option.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PRE_PROCESS  =&gt; 'config:header',
+          POST_PROCESS =&gt; 'footer',
+      };
+    </pre>
+    <p>
+      The <code>PRE_PROCESS</code> and <code>POST_PROCESS</code> templates are
+      evaluated in the same variable context as the main document and may
+      define or update variables for subsequent use.
+    </p>
+    <p>
+      config:
+    </p>
+    <pre>
+      <span class="tt">[% # set some site-wide variables
+         bgcolor = '#ffffff'
+         version = 2.718
+      %]</span>
+    </pre>
+    <p>
+      header:
+    </p>
+    <pre>
+      <span class="tt">[% DEFAULT title = 'My Funky Web Site' %]</span>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body bgcolor="<span class="tt">[% bgcolor %]</span>"&gt;
+    </pre>
+    <p>
+      footer:
+    </p>
+    <pre>
+          &lt;hr&gt;
+          Version <span class="tt">[% version %]</span>
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p>
+      The <a href="[** ttmodlink('Template::Document')
+      **]">Template::Document</a> object representing the main template being
+      processed is available within <code>PRE_PROCESS</code> and
+      <code>POST_PROCESS</code> templates as the <code>template</code>
+      variable. Metadata items defined via the <code>META</code> directive may
+      be accessed accordingly.
+    </p>
+    <pre>
+      $template-&gt;process('mydoc.html', $vars);
+    </pre>
+    <p>
+      mydoc.html:
+    </p>
+    <pre>
+      <span class="tt">[% META title = 'My Document Title' %]</span>
+      blah blah blah
+      ...
+    </pre>
+    <p>
+      header:
+    </p>
+    <pre>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% template.title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body bgcolor="<span class="tt">[% bgcolor %]</span>"&gt;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PROCESS' id='section_PROCESS' class='' -**]
+    <p>
+      The <code>PROCESS</code> option may be set to contain the name(s) of
+      template files (relative to <code>INCLUDE_PATH</code>) which should be
+      processed instead of the main template passed to the <a href="[**
+      ttmodlink('Template') **]">Template</a> <a href="[**
+      ttmodlink('Template') **]#method_process">process()</a> method. This can
+      be used to apply consistent wrappers around all templates, similar to the
+      use of <code>PRE_PROCESS</code> and <code>POST_PROCESS</code> templates.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PROCESS  =&gt; 'content',
+      };
+      
+      # processes 'content' instead of 'foo.html'
+      $template-&gt;process('foo.html');
+    </pre>
+    <p>
+      A reference to the original template is available in the
+      <code>template</code> variable. Metadata items can be inspected and the
+      template can be processed by specifying it as a variable reference (i.e.
+      prefixed by <code>$</code>) to an <code>INCLUDE</code>,
+      <code>PROCESS</code> or <code>WRAPPER</code> directive.
+    </p>
+    <p>
+      content:
+    </p>
+    <pre>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% template.title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+      &lt;!-- begin content --&gt;
+      <span class="tt">[% PROCESS $template %]</span>
+      &lt;!-- end content --&gt;
+          &lt;hr&gt;
+          &amp;copy; Copyright <span class="tt">[% template.copyright %]</span>
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p>
+      foo.html:
+    </p>
+    <pre>
+      <span class="tt">[% META 
+         title     = 'The Foo Page'
+         author    = 'Fred Foo'
+         copyright = '2000 Fred Foo'
+      %]</span>
+      &lt;h1&gt;<span class="tt">[% template.title %]</span>&lt;/h1&gt;
+      Welcome to the Foo Page, blah blah blah
+    </pre>
+    <p>
+      output:
+    </p>
+    <pre>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;The Foo Page&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+      &lt;!-- begin content --&gt;
+      &lt;h1&gt;The Foo Page&lt;/h1&gt;
+      Welcome to the Foo Page, blah blah blah
+      &lt;!-- end content --&gt;
+          &lt;hr&gt;
+          &amp;copy; Copyright 2000 Fred Foo
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='WRAPPER' id='section_WRAPPER' class='' -**]
+    <p>
+      The <code>WRAPPER</code> option can be used to specify one or more
+      templates which should be used to wrap around the output of the main page
+      template. The main template is processed first (or any
+      <code>PROCESS</code> template(s)) and the output generated is then passed
+      as the <code>content</code> variable to the <code>WRAPPER</code>
+      template(s) as they are processed.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          WRAPPER =&gt; 'wrapper',
+      };
+      
+      # process 'foo' then wrap in 'wrapper'
+      $template-&gt;process('foo', { message =&gt; 'Hello World!' });
+    </pre>
+    <p>
+      wrapper:
+    </p>
+    <pre>
+      &lt;wrapper&gt;
+      <span class="tt">[% content %]</span>
+      &lt;/wrapper&gt;
+    </pre>
+    <p>
+      foo:
+    </p>
+    <pre>
+      This is the foo file!
+      Message: <span class="tt">[% message %]</span>
+    </pre>
+    <p>
+      The output generated from this example is:
+    </p>
+    <pre>
+      &lt;wrapper&gt;
+      This is the foo file!
+      Message: Hello World!
+      &lt;/wrapper&gt;
+    </pre>
+    <p>
+      You can specify more than one <code>WRAPPER</code> template by setting
+      the value to be a reference to a list of templates. The
+      <code>WRAPPER</code> templates will be processed in reverse order with
+      the output of each being passed to the next (or previous, depending on
+      how you look at it) as the 'content' variable. It sounds complicated, but
+      the end result is that it just "Does The Right Thing" to make wrapper
+      templates nest in the order you specify.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          WRAPPER =&gt; [ 'outer', 'inner' ],
+      };
+      
+      # process 'foo' then wrap in 'inner', then in 'outer'
+      $template-&gt;process('foo', { message =&gt; 'Hello World!' });
+    </pre>
+    <p>
+      outer:
+    </p>
+    <pre>
+      &lt;outer&gt;
+      <span class="tt">[% content %]</span>
+      &lt;/outer&gt;
+    </pre>
+    <p>
+      inner:
+    </p>
+    <pre>
+      &lt;inner&gt;
+      <span class="tt">[% content %]</span>
+      &lt;/inner&gt;
+    </pre>
+    <p>
+      The output generated is then:
+    </p>
+    <pre>
+      &lt;outer&gt;
+      &lt;inner&gt;
+      This is the foo file!
+      Message: Hello World!
+      &lt;/inner&gt;
+      &lt;/outer&gt;
+    </pre>
+    <p>
+      One side-effect of the "inside-out" processing of the
+      <code>WRAPPER</code> configuration item (and also the
+      <code>WRAPPER</code> directive) is that any variables set in the template
+      being wrapped will be visible to the template doing the wrapping, but not
+      the other way around.
+    </p>
+    <p>
+      You can use this to good effect in allowing page templates to set
+      pre-defined values which are then used in the wrapper templates. For
+      example, our main page template 'foo' might look like this:
+    </p>
+    <p>
+      foo:
+    </p>
+    <pre>
+      <span class="tt">[% page = {
+             title    = 'Foo Page'
+             subtitle = 'Everything There is to Know About Foo'
+             author   = 'Frank Oliver Octagon'
+         }
+      %]</span>
+      
+      &lt;p&gt;
+      Welcome to the page that tells you everything about foo
+      blah blah blah...
+      &lt;/p&gt;
+    </pre>
+    <p>
+      The <code>foo</code> template is processed before the wrapper template
+      meaning that the <code>page</code> data structure will be defined for use
+      in the wrapper template.
+    </p>
+    <p>
+      wrapper:
+    </p>
+    <pre>
+      &lt;html&gt;
+        &lt;head&gt;
+          &lt;title&gt;<span class="tt">[% page.title %]</span>&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+          &lt;h1&gt;<span class="tt">[% page.title %]</span>&lt;/h1&gt;
+          &lt;h2&gt;<span class="tt">[% page.subtitle %]</span>&lt;/h1&gt;
+          &lt;h3&gt;by <span class="tt">[% page.author %]</span>&lt;/h3&gt;
+          <span class="tt">[% content %]</span>
+        &lt;/body&gt;
+      &lt;/html&gt;
+    </pre>
+    <p>
+      It achieves the same effect as defining <code>META</code> items which are
+      then accessed via the <code>template</code> variable (which you are still
+      free to use within <code>WRAPPER</code> templates), but gives you more
+      flexibility in the type and complexity of data that you can define.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ERROR' id='section_ERROR' class='' -**]
+    <p>
+      The <code>ERROR</code> (or <code>ERRORS</code> if you prefer)
+      configuration item can be used to name a single template or specify a
+      hash array mapping exception types to templates which should be used for
+      error handling. If an uncaught exception is raised from within a template
+      then the appropriate error template will instead be processed.
+    </p>
+    <p>
+      If specified as a single value then that template will be processed for
+      all uncaught exceptions.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          ERROR =&gt; 'error.html'
+      });
+    </pre>
+    <p>
+      If the <code>ERROR</code> item is a hash reference the keys are assumed
+      to be exception types and the relevant template for a given exception
+      will be selected. A <code>default</code> template may be provided for the
+      general case. Note that <code>ERROR</code> can be pluralised to
+      <code>ERRORS</code> if you find it more appropriate in this case.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          ERRORS =&gt; {
+              user     =&gt; 'user/index.html',
+              dbi      =&gt; 'error/database',
+              default  =&gt; 'error/default',
+          },
+      });
+    </pre>
+    <p>
+      In this example, any <code>user</code> exceptions thrown will cause the
+      <code class="file">user/index.html</code> template to be processed,
+      <code>dbi</code> errors are handled by <code
+      class="file">error/database</code> and all others by the <code
+      class="file">error/default</code> template. Any <code>PRE_PROCESS</code>
+      and/or <code>POST_PROCESS</code> templates will also be applied to these
+      error templates.
+    </p>
+    <p>
+      Note that exception types are hierarchical and a <code>foo</code> handler
+      will catch all <code>foo.*</code> errors (e.g. <code>foo.bar</code>,
+      <code>foo.bar.baz</code>) if a more specific handler isn't defined. Be
+      sure to quote any exception types that contain periods to prevent Perl
+      concatenating them into a single string (i.e. <code>user.passwd</code> is
+      parsed as <code>'user'.'passwd'</code>).
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          ERROR =&gt; {
+              'user.login'  =&gt; 'user/login.html',
+              'user.passwd' =&gt; 'user/badpasswd.html',
+              'user'        =&gt; 'user/index.html',
+              'default'     =&gt; 'error/default',
+          },
+      });
+    </pre>
+    <p>
+      In this example, any template processed by the <code>$template</code>
+      object, or other templates or code called from within, can raise a
+      <code>user.login</code> exception and have the service redirect to the
+      <code class="file">user/login.html</code> template. Similarly, a
+      <code>user.passwd</code> exception has a specific handling template,
+      <code class="file">user/badpasswd.html</code>, while all other
+      <code>user</code> or <code>user.*</code> exceptions cause a redirection
+      to the <code class="file">user/index.html</code> page. All other
+      exception types are handled by <code class="file">error/default</code>.
+    </p>
+    <p>
+      Exceptions can be raised in a template using the <code>THROW</code>
+      directive,
+    </p>
+    <pre>
+      <span class="tt">[% THROW user.login 'no user id: please login' %]</span>
+    </pre>
+    <p>
+      or by calling the <a href="[** ttmodlink('Template::Context')
+      **]#method_throw">throw()</a> method on the current <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object,
+    </p>
+    <pre>
+      $context-&gt;throw('user.passwd', 'Incorrect Password');
+      $context-&gt;throw('Incorrect Password');    # type 'undef'
+    </pre>
+    <p>
+      or from Perl code by calling <code>die()</code> with a <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> object,
+    </p>
+    <pre>
+      die (Template::Exception-&gt;new('user.denied', 'Invalid User ID'));
+    </pre>
+    <p>
+      or by simply calling <a href="#method_die">die()</a> with an error
+      string. This is automagically caught and converted to an exception of
+      '<code>undef</code>' type which can then be handled in the usual way.
+    </p>
+    <pre>
+      die "I'm sorry Dave, I can't do that";
+    </pre>
+    <p>
+      Note that the '<code>undef</code>' we're talking about here is a literal
+      string rather than Perl's <code>undef</code> used to represent undefined
+      values.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Template Runtime Options' id='section_Template_Runtime_Options' -**]
+    [** WRAPPER page/subsection title='EVAL_PERL' id='section_EVAL_PERL' class='' -**]
+    <p>
+      This flag is used to indicate if <code>PERL</code> and/or
+      <code>RAWPERL</code> blocks should be evaluated. It is disabled by
+      default and any <code>PERL</code> or <code>RAWPERL</code> blocks
+      encountered will raise exceptions of type '<code>perl</code>' with the
+      message '<code>EVAL_PERL not set</code>'. Note however that any
+      <code>RAWPERL</code> blocks should always contain valid Perl code,
+      regardless of the <code>EVAL_PERL</code> flag. The parser will fail to
+      compile templates that contain invalid Perl code in <code>RAWPERL</code>
+      blocks and will throw a '<code>file</code>' exception.
+    </p>
+    <p>
+      When using compiled templates (see <a
+      href="#section_Caching_and_Compiling_Options">Caching and Compiling
+      Options</a>), the <code>EVAL_PERL</code> has an affect when the template
+      is compiled, and again when the templates is subsequently processed,
+      possibly in a different context to the one that compiled it.
+    </p>
+    <p>
+      If the <code>EVAL_PERL</code> is set when a template is compiled, then
+      all <code>PERL</code> and <code>RAWPERL</code> blocks will be included in
+      the compiled template. If the <code>EVAL_PERL</code> option isn't set,
+      then Perl code will be generated which <b>always</b> throws a
+      '<code>perl</code>' exception with the message '<code>EVAL_PERL not
+      set</code>' <b>whenever</b> the compiled template code is run.
+    </p>
+    <p>
+      Thus, you must have <code>EVAL_PERL</code> set if you want your compiled
+      templates to include <code>PERL</code> and <code>RAWPERL</code> blocks.
+    </p>
+    <p>
+      At some point in the future, using a different invocation of the Template
+      Toolkit, you may come to process such a pre-compiled template. Assuming
+      the <code>EVAL_PERL</code> option was set at the time the template was
+      compiled, then the output of any <code>RAWPERL</code> blocks will be
+      included in the compiled template and will get executed when the template
+      is processed. This will happen regardless of the runtime
+      <code>EVAL_PERL</code> status.
+    </p>
+    <p>
+      Regular <code>PERL</code> blocks are a little more cautious, however. If
+      the <code>EVAL_PERL</code> flag isn't set for the <i>current</i> context,
+      that is, the one which is trying to process it, then it will throw the
+      familiar '<code>perl</code>' exception with the message, '<code>EVAL_PERL
+      not set</code>'.
+    </p>
+    <p>
+      Thus you can compile templates to include <code>PERL</code> blocks, but
+      optionally disable them when you process them later. Note however that it
+      is possible for a <code>PERL</code> block to contain a Perl "<code>BEGIN
+      { # some code }</code>" block which will always get run regardless of the
+      runtime <code>EVAL_PERL</code> status. Thus, if you set
+      <code>EVAL_PERL</code> when compiling templates, it is assumed that you
+      trust the templates to Do The Right Thing. Otherwise you must accept the
+      fact that there's no bulletproof way to prevent any included code from
+      trampling around in the living room of the runtime environment, making a
+      real nuisance of itself if it really wants to. If you don't like the idea
+      of such uninvited guests causing a bother, then you can accept the
+      default and keep <code>EVAL_PERL</code> disabled.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='OUTPUT' id='section_OUTPUT' class='' -**]
+    <p>
+      Default output location or handler. This may be specified as one of: a
+      file name (relative to <code>OUTPUT_PATH</code>, if defined, or the
+      current working directory if not specified absolutely); a file handle
+      (e.g. <code>GLOB</code> or <a href="[** cpanmod('IO::Handle')
+      **]">IO::Handle</a>) opened for writing; a reference to a text string to
+      which the output is appended (the string isn't cleared); a reference to a
+      subroutine which is called, passing the output text as an argument; as a
+      reference to an array, onto which the content will be
+      <code>push()</code>ed; or as a reference to any object that supports the
+      <code>print()</code> method. This latter option includes the
+      <code>Apache::Request</code> object which is passed as the argument to
+      Apache/mod_perl handlers.
+    </p>
+    <p>
+      example 1 (file name):
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          OUTPUT =&gt; "/tmp/foo",
+      });
+    </pre>
+    <p>
+      example 2 (text string):
+    </p>
+    <pre>
+      my $output   = '';
+      my $template = Template-&gt;new({
+          OUTPUT =&gt; \$output,
+      });
+    </pre>
+    <p>
+      example 3 (file handle):
+    </p>
+    <pre>
+      open (TOUT, "&gt; $file") || die "$file: $!\n";
+      my $template = Template-&gt;new({
+          OUTPUT =&gt; \*TOUT,
+      });
+    </pre>
+    <p>
+      example 4 (subroutine):
+    </p>
+    <pre>
+      sub output { my $out = shift; print "OUTPUT: $out" }
+      my $template = Template-&gt;new({
+          OUTPUT =&gt; \&amp;output,
+      });
+    </pre>
+    <p>
+      example 5 (array reference):
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          OUTPUT =&gt; \@output,
+      })
+    </pre>
+    <p>
+      example 6 (Apache/mod_perl handler):
+    </p>
+    <pre>
+      sub handler {
+          my $r = shift;
+          my $t = Template-&gt;new({
+              OUTPUT =&gt; $r,
+          });
+          ...
+      }
+    </pre>
+    <p>
+      The default <code>OUTPUT</code> location be overridden by passing a third
+      parameter to the <a href="[** ttmodlink('Template') **]">Template</a> <a
+      href="[** ttmodlink('Template') **]#method_process">process()</a> method.
+      This can be specified as any of the above argument types.
+    </p>
+    <pre>
+      $t-&gt;process($file, $vars, "/tmp/foo");
+      $t-&gt;process($file, $vars, \$output);
+      $t-&gt;process($file, $vars, \*MYGLOB);
+      $t-&gt;process($file, $vars, \@output); 
+      $t-&gt;process($file, $vars, $r);  # Apache::Request
+      ...
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='OUTPUT_PATH' id='section_OUTPUT_PATH' class='' -**]
+    <p>
+      The <code>OUTPUT_PATH</code> allows a directory to be specified into
+      which output files should be written. An output file can be specified by
+      the <code>OUTPUT</code> option, or passed by name as the third parameter
+      to the <a href="[** ttmodlink('Template') **]">Template</a> <a href="[**
+      ttmodlink('Template') **]#method_process">process()</a> method.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; "/tmp/src",
+          OUTPUT_PATH  =&gt; "/tmp/dest",
+      });
+      
+      my $vars = {
+          ...
+      };
+      
+      foreach my $file ('foo.html', 'bar.html') {
+          $template-&gt;process($file, $vars, $file)
+              || die $template-&gt;error();  
+      }
+    </pre>
+    <p>
+      This example will read the input files <code
+      class="file">/tmp/src/foo.html</code> and <code
+      class="file">/tmp/src/bar.html</code> and write the processed output to
+      <code class="file">/tmp/dest/foo.html</code> and <code
+      class="file">/tmp/dest/bar.html</code>, respectively.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEBUG' id='section_DEBUG' class='' -**]
+    <p>
+      The <code>DEBUG</code> option can be used to enable debugging within the
+      various different modules that comprise the Template Toolkit. The <a
+      href="[** ttmodlink('Template::Constants') **]">Template::Constants</a>
+      module defines a set of <code>DEBUG_XXXX</code> constants which can be
+      combined using the logical OR operator, '<code>|</code>'.
+    </p>
+    <pre>
+      use Template::Constants qw( :debug );
+      
+      my $template = Template-&gt;new({
+          DEBUG =&gt; DEBUG_PARSER | DEBUG_PROVIDER,
+      });
+    </pre>
+    <p>
+      For convenience, you can also provide a string containing a list of lower
+      case debug options, separated by any non-word characters.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          DEBUG =&gt; 'parser, provider',
+      });
+    </pre>
+    <p>
+      The following <code>DEBUG_XXXX</code> flags can be used:
+    </p>
+    <ul>
+    <li id="item_DEBUG_SERVICE"><b>DEBUG_SERVICE</b>
+    <p>
+      Enables general debugging messages for the <a href="[**
+      ttmodlink('Template::Service') **]">Template::Service</a> module.
+    </p>
+    </li>
+    <li id="item_DEBUG_CONTEXT"><b>DEBUG_CONTEXT</b>
+    <p>
+      Enables general debugging messages for the <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> module.
+    </p>
+    </li>
+    <li id="item_DEBUG_PROVIDER"><b>DEBUG_PROVIDER</b>
+    <p>
+      Enables general debugging messages for the <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> module.
+    </p>
+    </li>
+    <li id="item_DEBUG_PLUGINS"><b>DEBUG_PLUGINS</b>
+    <p>
+      Enables general debugging messages for the <a href="[**
+      ttmodlink('Template::Plugins') **]">Template::Plugins</a> module.
+    </p>
+    </li>
+    <li id="item_DEBUG_FILTERS"><b>DEBUG_FILTERS</b>
+    <p>
+      Enables general debugging messages for the <a href="[**
+      ttmodlink('Template::Filters') **]">Template::Filters</a> module.
+    </p>
+    </li>
+    <li id="item_DEBUG_PARSER"><b>DEBUG_PARSER</b>
+    <p>
+      This flag causes the <a href="[** ttmodlink('Template::Parser')
+      **]">Template::Parser</a> to generate debugging messages that show the
+      Perl code generated by parsing and compiling each template.
+    </p>
+    </li>
+    <li id="item_DEBUG_UNDEF"><b>DEBUG_UNDEF</b>
+    <p>
+      This option causes the Template Toolkit to throw an '<code>undef</code>'
+      error whenever it encounters an undefined variable value.
+    </p>
+    </li>
+    <li id="item_DEBUG_DIRS"><b>DEBUG_DIRS</b>
+    <p>
+      This option causes the Template Toolkit to generate comments indicating
+      the source file, line and original text of each directive in the
+      template. These comments are embedded in the template output using the
+      format defined in the <code>DEBUG_FORMAT</code> configuration item, or a
+      simple default format if unspecified.
+    </p>
+    <p>
+      For example, the following template fragment: Hello World
+    </p>
+    <p>
+      would generate this output:
+    </p>
+    <pre>
+      ## input text line 1 :  ##
+      Hello 
+      ## input text line 2 : World ##
+      World
+    </pre>
+    </li>
+    <li id="item_DEBUG_ALL"><b>DEBUG_ALL</b>
+    <p>
+      Enables all debugging messages.
+    </p>
+    </li>
+    <li id="item_DEBUG_CALLER"><b>DEBUG_CALLER</b>
+    <p>
+      This option causes all debug messages that aren't newline terminated to
+      have the file name and line number of the caller appended to them.
+    </p>
+    </li>
+    </ul>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEBUG_FORMAT' id='section_DEBUG_FORMAT' class='' -**]
+    <p>
+      The <code>DEBUG_FORMAT</code> option can be used to specify a format
+      string for the debugging messages generated via the
+      <code>DEBUG_DIRS</code> option described above. Any occurances of
+      <code>$file</code>, <code>$line</code> or <code>$text</code> will be
+      replaced with the current file name, line or directive text,
+      respectively. Notice how the format is single quoted to prevent Perl from
+      interpolating those tokens as variables.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          DEBUG =&gt; 'dirs',
+          DEBUG_FORMAT =&gt; '&lt;!-- $file line $line : <span class="tt">[% $text %]</span> --&gt;',
+      });
+    </pre>
+    <p>
+      The following template fragment:
+    </p>
+    <pre>
+      <span class="tt">[% foo = 'World' %]</span>
+      Hello <span class="tt">[% foo %]</span>
+    </pre>
+    <p>
+      would then generate this output:
+    </p>
+    <pre>
+      &lt;!-- input text line 2 : <span class="tt">[% foo = 'World' %]</span> --&gt;
+      Hello &lt;!-- input text line 3 : <span class="tt">[% foo %]</span> --&gt;World
+    </pre>
+    <p>
+      The DEBUG directive can also be used to set a debug format within a
+      template.
+    </p>
+    <pre>
+      <span class="tt">[% DEBUG format '&lt;!-- $file line $line : [% $text %]</span> --&gt;' %]
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Caching and Compiling Options' id='section_Caching_and_Compiling_Options' -**]
+    [** WRAPPER page/subsection title='CACHE_SIZE' id='section_CACHE_SIZE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a> module caches compiled templates to avoid the
+      need to re-parse template files or blocks each time they are used. The
+      <code>CACHE_SIZE</code> option is used to limit the number of compiled
+      templates that the module should cache.
+    </p>
+    <p>
+      By default, the <code>CACHE_SIZE</code> is undefined and all compiled
+      templates are cached. When set to any positive value, the cache will be
+      limited to storing no more than that number of compiled templates. When a
+      new template is loaded and compiled and the cache is full (i.e. the
+      number of entries == <code>CACHE_SIZE</code>), the least recently used
+      compiled template is discarded to make room for the new one.
+    </p>
+    <p>
+      The <code>CACHE_SIZE</code> can be set to <code>0</code> to disable
+      caching altogether.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          CACHE_SIZE =&gt; 64,   # only cache 64 compiled templates
+      });
+    </pre>
+    <pre>
+      my $template = Template-&gt;new({
+          CACHE_SIZE =&gt; 0,   # don't cache any compiled templates
+      });
+    </pre>
+    <p>
+      As well as caching templates as they are found, the <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> also
+      implements negative caching to keep track of templates that are
+      <i>not</i> found. This allows the provider to quickly decline a request
+      for a template that it has previously failed to locate, saving the effort
+      of going to look for it again. This is useful when an
+      <code>INCLUDE_PATH</code> includes multiple providers, ensuring that the
+      request is passed down through the providers as quickly as possible.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='STAT_TTL' id='section_STAT_TTL' class='' -**]
+    <p>
+      This value can be set to control how long the <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> will keep a
+      template cached in memory before checking to see if the source template
+      has changed.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          STAT_TTL =&gt; 60,  # one minute
+      });
+    </pre>
+    <p>
+      The default value is 1 (second). You'll probably want to set this to a
+      higher value if you're running the Template Toolkit inside a persistent
+      web server application (e.g. mod_perl). For example, set it to 60 and the
+      provider will only look for changes to templates once a minute at most.
+      However, during development (or any time you're making frequent changes
+      to templates) you'll probably want to keep it set to a low value so that
+      you don't have to wait for the provider to notice that your templates
+      have changed.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='COMPILE_EXT' id='section_COMPILE_EXT' class='' -**]
+    <p>
+      From version 2 onwards, the Template Toolkit has the ability to compile
+      templates to Perl code and save them to disk for subsequent use (i.e.
+      cache persistence). The <code>COMPILE_EXT</code> option may be provided
+      to specify a filename extension for compiled template files. It is
+      undefined by default and no attempt will be made to read or write any
+      compiled template files.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          COMPILE_EXT =&gt; '.ttc',
+      });
+    </pre>
+    <p>
+      If <code>COMPILE_EXT</code> is defined (and <code>COMPILE_DIR</code>
+      isn't, see below) then compiled template files with the
+      <code>COMPILE_EXT</code> extension will be written to the same directory
+      from which the source template files were loaded.
+    </p>
+    <p>
+      Compiling and subsequent reuse of templates happens automatically
+      whenever the <code>COMPILE_EXT</code> or <code>COMPILE_DIR</code> options
+      are set. The Template Toolkit will automatically reload and reuse
+      compiled files when it finds them on disk. If the corresponding source
+      file has been modified since the compiled version as written, then it
+      will load and re-compile the source and write a new compiled version to
+      disk.
+    </p>
+    <p>
+      This form of cache persistence offers significant benefits in terms of
+      time and resources required to reload templates. Compiled templates can
+      be reloaded by a simple call to Perl's <code>require()</code>, leaving
+      Perl to handle all the parsing and compilation. This is a Good Thing.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='COMPILE_DIR' id='section_COMPILE_DIR' class='' -**]
+    <p>
+      The <code>COMPILE_DIR</code> option is used to specify an alternate
+      directory root under which compiled template files should be saved.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          COMPILE_DIR =&gt; '/tmp/ttc',
+      });
+    </pre>
+    <p>
+      The <code>COMPILE_EXT</code> option may also be specified to have a
+      consistent file extension added to these files.
+    </p>
+    <pre>
+      my $template1 = Template-&gt;new({
+          COMPILE_DIR =&gt; '/tmp/ttc',
+          COMPILE_EXT =&gt; '.ttc1',
+      });
+    </pre>
+    <pre>
+      my $template2 = Template-&gt;new({
+          COMPILE_DIR =&gt; '/tmp/ttc',
+          COMPILE_EXT =&gt; '.ttc2',
+      });
+    </pre>
+    <p>
+      When <code>COMPILE_EXT</code> is undefined, the compiled template files
+      have the same name as the original template files, but reside in a
+      different directory tree.
+    </p>
+    <p>
+      Each directory in the <code>INCLUDE_PATH</code> is replicated in full
+      beneath the <code>COMPILE_DIR</code> directory. This example:
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          COMPILE_DIR  =&gt; '/tmp/ttc',
+          INCLUDE_PATH =&gt; '/home/abw/templates:/usr/share/templates',
+      });
+    </pre>
+    <p>
+      would create the following directory structure:
+    </p>
+    <pre>
+      /tmp/ttc/home/abw/templates/
+      /tmp/ttc/usr/share/templates/
+    </pre>
+    <p>
+      Files loaded from different <code>INCLUDE_PATH</code> directories will
+      have their compiled forms save in the relevant <code>COMPILE_DIR</code>
+      directory.
+    </p>
+    <p>
+      On Win32 platforms a filename may by prefixed by a drive letter and
+      colon. e.g.
+    </p>
+    <pre>
+      C:/My Templates/header
+    </pre>
+    <p>
+      The colon will be silently stripped from the filename when it is added to
+      the <code>COMPILE_DIR</code> value(s) to prevent illegal filename being
+      generated. Any colon in <code>COMPILE_DIR</code> elements will be left
+      intact. For example:
+    </p>
+    <pre>
+      # Win32 only
+      my $template = Template-&gt;new({
+          DELIMITER    =&gt; ';',
+          COMPILE_DIR  =&gt; 'C:/TT2/Cache',
+          INCLUDE_PATH =&gt; 'C:/TT2/Templates;D:/My Templates',
+      });
+    </pre>
+    <p>
+      This would create the following cache directories:
+    </p>
+    <pre>
+      C:/TT2/Cache/C/TT2/Templates
+      C:/TT2/Cache/D/My Templates
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Plugins and Filters' id='section_Plugins_and_Filters' -**]
+    [** WRAPPER page/subsection title='PLUGINS' id='section_PLUGINS' class='' -**]
+    <p>
+      The <code>PLUGINS</code> options can be used to provide a reference to a
+      hash array that maps plugin names to Perl module names. A number of
+      standard plugins are defined (e.g. <code>table</code>,
+      <code>format</code>, <code>cgi</code>, etc.) which map to their
+      corresponding <code>Template::Plugin::*</code> counterparts. These can be
+      redefined by values in the <code>PLUGINS</code> hash.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PLUGINS =&gt; {
+              cgi =&gt; 'MyOrg::Template::Plugin::CGI',
+              foo =&gt; 'MyOrg::Template::Plugin::Foo',
+              bar =&gt; 'MyOrg::Template::Plugin::Bar',
+          },  
+      }); 
+    </pre>
+    <p>
+      The recommended convention is to specify these plugin names in lower
+      case. The Template Toolkit first looks for an exact case-sensitive match
+      and then tries the lower case conversion of the name specified.
+    </p>
+    <pre>
+      <span class="tt">[% USE Foo %]</span>      # look for 'Foo' then 'foo'
+    </pre>
+    <p>
+      If you define all your <code>PLUGINS</code> with lower case names then
+      they will be located regardless of how the user specifies the name in the
+      USE directive. If, on the other hand, you define your
+      <code>PLUGINS</code> with upper or mixed case names then the name
+      specified in the <code>USE</code> directive must match the case exactly.
+    </p>
+    <p>
+      The <code>USE</code> directive is used to create plugin objects and does
+      so by calling the <a href="[** ttmodlink('Template::Context')
+      **]#method_plugin">plugin()</a> method on the current <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object. If the
+      plugin name is defined in the <code>PLUGINS</code> hash then the
+      corresponding Perl module is loaded via <code>require()</code>. The
+      context then calls the <a href="[** ttmodlink('Template::Plugin')
+      **]#method_load">load()</a> class method which should return the class
+      name (default and general case) or a prototype object against which the
+      <a href="[** ttmodlink('Template::Plugin') **]#method_new">new()</a>
+      method can be called to instantiate individual plugin objects.
+    </p>
+    <p>
+      If the plugin name is not defined in the <code>PLUGINS</code> hash then
+      the <code>PLUGIN_BASE</code> and/or <code>LOAD_PERL</code> options come
+      into effect.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PLUGIN_BASE' id='section_PLUGIN_BASE' class='' -**]
+    <p>
+      If a plugin is not defined in the <code>PLUGINS</code> hash then the
+      <code>PLUGIN_BASE</code> is used to attempt to construct a correct Perl
+      module name which can be successfully loaded.
+    </p>
+    <p>
+      The <code>PLUGIN_BASE</code> can be specified as a reference to an array
+      of module namespaces, or as a single value which is automatically
+      converted to a list. The default <code>PLUGIN_BASE</code> value
+      (<code>Template::Plugin</code>) is then added to the end of this list.
+    </p>
+    <p>
+      example 1:
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PLUGIN_BASE =&gt; 'MyOrg::Template::Plugin',
+      });
+      
+      <span class="tt">[% USE Foo %]</span>    # =&gt; MyOrg::Template::Plugin::Foo
+                         or        Template::Plugin::Foo 
+    </pre>
+    <p>
+      example 2:
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PLUGIN_BASE =&gt; [   'MyOrg::Template::Plugin',
+                             'YourOrg::Template::Plugin'  ],
+      });
+    </pre>
+    <p>
+      template:
+    </p>
+    <pre>
+      <span class="tt">[% USE Foo %]</span>    # =&gt;   MyOrg::Template::Plugin::Foo
+                         or YourOrg::Template::Plugin::Foo 
+                         or          Template::Plugin::Foo 
+    </pre>
+    <p>
+      If you don't want the default <code>Template::Plugin</code> namespace
+      added to the end of the <code>PLUGIN_BASE</code>, then set the
+      <code>$Template::Plugins::PLUGIN_BASE</code> variable to a false value
+      before calling the <a href="[** ttmodlink('Template') **]">new()</a> <a
+      href="[** ttmodlink('Template') **]#method_new">Template#new()</a>
+      constructor method. This is shown in the example below where the
+      <code>Foo</code> plugin is located as <code>My::Plugin::Foo</code> or
+      <code>Your::Plugin::Foo</code> but not as
+      <code>Template::Plugin::Foo</code>.
+    </p>
+    <p>
+      example 3:
+    </p>
+    <pre>
+      use Template::Plugins;
+      $Template::Plugins::PLUGIN_BASE = '';
+      
+      my $template = Template-&gt;new({
+          PLUGIN_BASE =&gt; [   'My::Plugin',
+                             'Your::Plugin'  ],
+      });
+    </pre>
+    <p>
+      template:
+    </p>
+    <pre>
+      <span class="tt">[% USE Foo %]</span>    # =&gt;   My::Plugin::Foo
+                         or Your::Plugin::Foo 
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='LOAD_PERL' id='section_LOAD_PERL' class='' -**]
+    <p>
+      If a plugin cannot be loaded using the <code>PLUGINS</code> or
+      <code>PLUGIN_BASE</code> approaches then the provider can make a final
+      attempt to load the module without prepending any prefix to the module
+      path. This allows regular Perl modules (i.e. those that don't reside in
+      the <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+      or some other such namespace) to be loaded and used as plugins.
+    </p>
+    <p>
+      By default, the <code>LOAD_PERL</code> option is set to <code>0</code>
+      and no attempt will be made to load any Perl modules that aren't named
+      explicitly in the <code>PLUGINS</code> hash or reside in a package as
+      named by one of the <code>PLUGIN_BASE</code> components.
+    </p>
+    <p>
+      Plugins loaded using the <code>PLUGINS</code> or <code>PLUGIN_BASE</code>
+      receive a reference to the current context object as the first argument
+      to the <a href="[** ttmodlink('Template::Plugin')
+      **]#method_new">new()</a> constructor. Modules loaded using
+      <code>LOAD_PERL</code> are assumed to not conform to the plugin
+      interface. They must provide a <code>new()</code> class method for
+      instantiating objects but it will not receive a reference to the context
+      as the first argument.
+    </p>
+    <p>
+      Plugin modules should provide a <a href="[**
+      ttmodlink('Template::Plugin') **]#method_load">load()</a> class method
+      (or inherit the default one from the <a href="[**
+      ttmodlink('Template::Plugin') **]">Template::Plugin</a> base class) which
+      is called the first time the plugin is loaded. Regular Perl modules need
+      not. In all other respects, regular Perl objects and Template Toolkit
+      plugins are identical.
+    </p>
+    <p>
+      If a particular Perl module does not conform to the common, but not
+      unilateral, <code>new()</code> constructor convention then a simple
+      plugin wrapper can be written to interface to it.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='FILTERS' id='section_FILTERS' class='' -**]
+    <p>
+      The <code>FILTERS</code> option can be used to specify custom filters
+      which can then be used with the <code>FILTER</code> directive like any
+      other. These are added to the standard filters which are available by
+      default. Filters specified via this option will mask any standard filters
+      of the same name.
+    </p>
+    <p>
+      The <code>FILTERS</code> option should be specified as a reference to a
+      hash array in which each key represents the name of a filter. The
+      corresponding value should contain a reference to an array containing a
+      subroutine reference and a flag which indicates if the filter is static
+      (<code>0</code>) or dynamic (<code>1</code>). A filter may also be
+      specified as a solitary subroutine reference and is assumed to be static.
+    </p>
+    <pre>
+      $template = Template-&gt;new({
+          FILTERS =&gt; {
+              'sfilt1' =&gt;   \&amp;static_filter,      # static
+              'sfilt2' =&gt; [ \&amp;static_filter, 0 ], # same as above
+              'dfilt1' =&gt; [ \&amp;dyanamic_filter_factory, 1 ],
+          },
+      });
+    </pre>
+    <p>
+      Additional filters can be specified at any time by calling the <a
+      href="[** ttmodlink('Template::Context')
+      **]#method_define_filter">define_filter()</a> method on the current <a
+      href="[** ttmodlink('Template::Context') **]">Template::Context</a>
+      object. The method accepts a filter name, a reference to a filter
+      subroutine and an optional flag to indicate if the filter is dynamic.
+    </p>
+    <pre>
+      my $context = $template-&gt;context();
+      $context-&gt;define_filter('new_html', \&amp;new_html);
+      $context-&gt;define_filter('new_repeat', \&amp;new_repeat, 1);
+    </pre>
+    <p>
+      Static filters are those where a single subroutine reference is used for
+      all invocations of a particular filter. Filters that don't accept any
+      configuration parameters (e.g. <code>html</code>) can be implemented
+      statically. The subroutine reference is simply returned when that
+      particular filter is requested. The subroutine is called to filter the
+      output of a template block which is passed as the only argument. The
+      subroutine should return the modified text.
+    </p>
+    <pre>
+      sub static_filter {
+          my $text = shift;
+          # do something to modify $text...
+          return $text;
+      }
+    </pre>
+    <p>
+      The following template fragment:
+    </p>
+    <pre>
+      <span class="tt">[% FILTER sfilt1 %]</span>
+      Blah blah blah.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      is approximately equivalent to:
+    </p>
+    <pre>
+      &amp;static_filter("\nBlah blah blah.\n");
+    </pre>
+    <p>
+      Filters that can accept parameters (e.g. <code>truncate</code>) should be
+      implemented dynamically. In this case, the subroutine is taken to be a
+      filter 'factory' that is called to create a unique filter subroutine each
+      time one is requested. A reference to the current <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object is
+      passed as the first parameter, followed by any additional parameters
+      specified. The subroutine should return another subroutine reference
+      (usually a closure) which implements the filter.
+    </p>
+    <pre>
+      sub dynamic_filter_factory {
+          my ($context, @args) = @_;
+          
+          return sub {
+              my $text = shift;
+              # do something to modify $text...
+              return $text;           
+          }
+      }
+    </pre>
+    <p>
+      The following template fragment:
+    </p>
+    <pre>
+      <span class="tt">[% FILTER dfilt1(123, 456) %]</span> 
+      Blah blah blah
+      <span class="tt">[% END %]</span>              
+    </pre>
+    <p>
+      is approximately equivalent to:
+    </p>
+    <pre>
+      my $filter = &amp;dynamic_filter_factory($context, 123, 456);
+      &amp;$filter("\nBlah blah blah.\n");
+    </pre>
+    <p>
+      See the <code>FILTER</code> directive for further examples.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='Customisation and Extension' id='section_Customisation_and_Extension' -**]
+    [** WRAPPER page/subsection title='LOAD_TEMPLATES' id='section_LOAD_TEMPLATES' class='' -**]
+    <p>
+      The <code>LOAD_TEMPLATES</code> option can be used to provide a reference
+      to a list of <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a> objects or sub-classes thereof which will
+      take responsibility for loading and compiling templates.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          LOAD_TEMPLATES =&gt; [
+              MyOrg::Template::Provider-&gt;new({ ... }),
+              Template::Provider-&gt;new({ ... }),
+          ],
+      });
+    </pre>
+    <p>
+      When a <code>PROCESS</code>, <code>INCLUDE</code> or <code>WRAPPER</code>
+      directive is encountered, the named template may refer to a locally
+      defined <code>BLOCK</code> or a file relative to the
+      <code>INCLUDE_PATH</code> (or an absolute or relative path if the
+      appropriate <code>ABSOLUTE</code> or <code>RELATIVE</code> options are
+      set). If a <code>BLOCK</code> definition can't be found (see the <a
+      href="[** ttmodlink('Template::Context') **]">Template::Context</a> <a
+      href="[** ttmodlink('Template::Context')
+      **]#method_template">template()</a> method for a discussion of
+      <code>BLOCK</code> locality) then each of the <code>LOAD_TEMPLATES</code>
+      provider objects is queried in turn via the <a href="[**
+      ttmodlink('Template::Provider') **]#method_fetch">fetch()</a> method to
+      see if it can supply the required template.
+    </p>
+    <p>
+      Each provider can return a compiled template, an error, or decline to
+      service the request in which case the responsibility is passed to the
+      next provider. If none of the providers can service the request then a
+      'not found' error is returned. The same basic provider mechanism is also
+      used for the <code>INSERT</code> directive but it bypasses any
+      <code>BLOCK</code> definitions and doesn't attempt is to parse or process
+      the contents of the template file.
+    </p>
+    <p>
+      If <code>LOAD_TEMPLATES</code> is undefined, a single default provider
+      will be instantiated using the current configuration parameters. For
+      example, the <a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a> <code>INCLUDE_PATH</code> option can be
+      specified in the <a href="[** ttmodlink('Template') **]">Template</a>
+      configuration and will be correctly passed to the provider's constructor
+      method.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          INCLUDE_PATH =&gt; '/here:/there',
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='LOAD_PLUGINS' id='section_LOAD_PLUGINS' class='' -**]
+    <p>
+      The <code>LOAD_PLUGINS</code> options can be used to specify a list of
+      provider objects (i.e. they implement the <a href="[**
+      ttmodlink('Template::Plugins') **]#method_fetch">fetch()</a> method)
+      which are responsible for loading and instantiating template plugin
+      objects. The <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> <a href="[** ttmodlink('Template::Context')
+      **]#method_plugin">plugin()</a> method queries each provider in turn in a
+      "Chain of Responsibility" as per the <a href="[**
+      ttmodlink('Template::Context') **]#method_template">template()</a> and <a
+      href="[** ttmodlink('Template::Context') **]#method_filter">filter()</a>
+      methods.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          LOAD_PLUGINS =&gt; [
+              MyOrg::Template::Plugins-&gt;new({ ... }),
+              Template::Plugins-&gt;new({ ... }),
+          ],
+      });
+    </pre>
+    <p>
+      By default, a single <a href="[** ttmodlink('Template::Plugins')
+      **]">Template::Plugins</a> object is created using the current
+      configuration hash. Configuration items destined for the <a href="[**
+      ttmodlink('Template::Plugins') **]">Template::Plugins</a> constructor may
+      be added to the Template constructor.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PLUGIN_BASE =&gt; 'MyOrg::Template::Plugins',
+          LOAD_PERL   =&gt; 1,
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='LOAD_FILTERS' id='section_LOAD_FILTERS' class='' -**]
+    <p>
+      The <code>LOAD_FILTERS</code> option can be used to specify a list of
+      provider objects (i.e. they implement the <a href="[**
+      ttmodlink('Template::Filters') **]#method_fetch">fetch()</a> method)
+      which are responsible for returning and/or creating filter subroutines.
+      The <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> <a href="[** ttmodlink('Template::Context')
+      **]#method_filter">filter()</a> method queries each provider in turn in a
+      "Chain of Responsibility" as per the <a href="[**
+      ttmodlink('Template::Context') **]#method_template">template()</a> and <a
+      href="[** ttmodlink('Template::Context') **]#method_plugin">plugin()</a>
+      methods.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          LOAD_FILTERS =&gt; [
+              MyTemplate::Filters-&gt;new(),
+              Template::Filters-&gt;new(),
+          ],
+      });
+    </pre>
+    <p>
+      By default, a single <a href="[** ttmodlink('Template::Filters')
+      **]">Template::Filters</a> object is created for the
+      <code>LOAD_FILTERS</code> list.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TOLERANT' id='section_TOLERANT' class='' -**]
+    <p>
+      The <code>TOLERANT</code> flag is used by the various Template Toolkit
+      provider modules (<a href="[** ttmodlink('Template::Provider')
+      **]">Template::Provider</a>, <a href="[** ttmodlink('Template::Plugins')
+      **]">Template::Plugins</a>, <a href="[** ttmodlink('Template::Filters')
+      **]">Template::Filters</a>) to control their behaviour when errors are
+      encountered. By default, any errors are reported as such, with the
+      request for the particular resource (<code>template</code>,
+      <code>plugin</code>, <code>filter</code>) being denied and an exception
+      raised.
+    </p>
+    <p>
+      When the <code>TOLERANT</code> flag is set to any true values, errors
+      will be silently ignored and the provider will instead return
+      <code>STATUS_DECLINED</code>. This allows a subsequent provider to take
+      responsibility for providing the resource, rather than failing the
+      request outright. If all providers decline to service the request, either
+      through tolerated failure or a genuine disinclination to comply, then a
+      '<code>&lt;resource&gt; not found</code>' exception is raised.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='SERVICE' id='section_SERVICE' class='' -**]
+    <p>
+      A reference to a <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> object, or sub-class thereof, to which the <a
+      href="[** ttmodlink('Template') **]">Template</a> module should delegate.
+      If unspecified, a <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> object is automatically created using the
+      current configuration hash.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          SERVICE =&gt; MyOrg::Template::Service-&gt;new({ ... }),
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='CONTEXT' id='section_CONTEXT' class='' -**]
+    <p>
+      A reference to a <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> object which is used to define a specific
+      environment in which template are processed. A <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object is
+      passed as the only parameter to the Perl subroutines that represent
+      "compiled" template documents. Template subroutines make callbacks into
+      the context object to access Template Toolkit functionality, for example,
+      to to <code>INCLUDE</code> or <code>PROCESS</code> another template (<a
+      href="[** ttmodlink('Template::Context')
+      **]#method_include">include()</a> and <a href="[**
+      ttmodlink('Template::Context') **]#method_process">process()</a> methods,
+      respectively), to <code>USE</code> a plugin (<a href="[**
+      ttmodlink('Template::Context') **]#method_plugin">plugin()</a>) or
+      instantiate a filter (<a href="[** ttmodlink('Template::Context')
+      **]#method_filter">filter()</a>) or to access the stash (<a href="[**
+      ttmodlink('Template::Context') **]#method_stash">stash()</a>) which
+      manages variable definitions via the <a href="[**
+      ttmodlink('Template::Stash') **]#method_get">get()</a> and <a href="[**
+      ttmodlink('Template::Stash') **]#method_set">set()</a> methods.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          CONTEXT =&gt; MyOrg::Template::Context-&gt;new({ ... }),
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='STASH' id='section_STASH' class='' -**]
+    <p>
+      A reference to a <a href="[** ttmodlink('Template::Stash')
+      **]">Template::Stash</a> object or sub-class which will take
+      responsibility for managing template variables.
+    </p>
+    <pre>
+      my $stash = MyOrg::Template::Stash-&gt;new({ ... });
+      my $template = Template-&gt;new({
+          STASH =&gt; $stash,
+      });
+    </pre>
+    <p>
+      If unspecified, a default stash object is created using the
+      <code>VARIABLES</code> configuration item to initialise the stash
+      variables.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          VARIABLES =&gt; {
+              id    =&gt; 'abw',
+              name  =&gt; 'Andy Wardley',
+          },
+      };
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PARSER' id='section_PARSER' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Parser') **]">Template::Parser</a>
+      module implements a parser object for compiling templates into Perl code
+      which can then be executed. A default object of this class is created
+      automatically and then used by the <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> whenever a
+      template is loaded and requires compilation. The <code>PARSER</code>
+      option can be used to provide a reference to an alternate parser object.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          PARSER =&gt; MyOrg::Template::Parser-&gt;new({ ... }),
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='GRAMMAR' id='section_GRAMMAR' class='' -**]
+    <p>
+      The <code>GRAMMAR</code> configuration item can be used to specify an
+      alternate grammar for the parser. This allows a modified or entirely new
+      template language to be constructed and used by the Template Toolkit.
+    </p>
+    <p>
+      Source templates are compiled to Perl code by the <a href="[**
+      ttmodlink('Template::Parser') **]">Template::Parser</a> using the <a
+      href="[** ttmodlink('Template::Grammar') **]">Template::Grammar</a> (by
+      default) to define the language structure and semantics. Compiled
+      templates are thus inherently "compatible" with each other and there is
+      nothing to prevent any number of different template languages being
+      compiled and used within the same Template Toolkit processing environment
+      (other than the usual time and memory constraints).
+    </p>
+    <p>
+      The <a href="[** ttmodlink('Template::Grammar')
+      **]">Template::Grammar</a> file is constructed from a YACC like grammar
+      (using <code>Parse::YAPP</code>) and a skeleton module template. These
+      files are provided, along with a small script to rebuild the grammar, in
+      the <code class="file">parser</code> sub-directory of the distribution.
+    </p>
+    <p>
+      You don't have to know or worry about these unless you want to hack on
+      the template language or define your own variant. There is a <code
+      class="file">README</code> file in the same directory which provides some
+      small guidance but it is assumed that you know what you're doing if you
+      venture herein. If you grok LALR parsers, then you should find it
+      comfortably familiar.
+    </p>
+    <p>
+      By default, an instance of the default <a href="[**
+      ttmodlink('Template::Grammar') **]">Template::Grammar</a> will be created
+      and used automatically if a <code>GRAMMAR</code> item isn't specified.
+    </p>
+    <pre>
+      use MyOrg::Template::Grammar;
+      
+      my $template = Template-&gt;new({ 
+          GRAMMAR = MyOrg::Template::Grammar-&gt;new();
+      });
+    </pre>
+    
+    [** END -**]
+[** END -**]
+
+</div>

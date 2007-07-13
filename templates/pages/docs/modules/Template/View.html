@@ -1,0 +1,335 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      # define a view
+      [% VIEW view
+              # some standard args
+              prefix        =&gt; 'my_', 
+              suffix        =&gt; '.tt2',
+              notfound      =&gt; 'no_such_file'
+              ...
+    </pre>
+    <pre>
+              # any other data
+              title         =&gt; 'My View title'
+              other_item    =&gt; 'Joe Random Data'
+              ...
+      %]
+         # add new data definitions, via 'my' self reference
+         <span class="tt">[% my.author = "$abw.name &lt;$abw.email&gt;" %]</span>
+         <span class="tt">[% my.copy   = "&amp;copy; Copyright 2000 $my.author" %]</span>
+    </pre>
+    <pre>
+         # define a local block
+         <span class="tt">[% BLOCK header %]</span>
+         This is the header block, title: <span class="tt">[% title or my.title %]</span>
+         <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # access data items for view
+      <span class="tt">[% view.title %]</span>
+      <span class="tt">[% view.other_item %]</span>
+    </pre>
+    <pre>
+      # access blocks directly ('include_naked' option, set by default)
+      <span class="tt">[% view.header %]</span>
+      <span class="tt">[% view.header(title =&gt; 'New Title') %]</span>
+    </pre>
+    <pre>
+      # non-local templates have prefix/suffix attached
+      <span class="tt">[% view.footer %]</span>           # =&gt; <span class="tt">[% INCLUDE my_footer.tt2 %]</span>
+    </pre>
+    <pre>
+      # more verbose form of block access
+      <span class="tt">[% view.include( 'header', title =&gt; 'The Header Title' ) %]</span>
+      <span class="tt">[% view.include_header( title =&gt; 'The Header Title' ) %]</span>
+    </pre>
+    <pre>
+      # very short form of above ('include_naked' option, set by default)
+      <span class="tt">[% view.header( title =&gt; 'The Header Title' ) %]</span>
+    </pre>
+    <pre>
+      # non-local templates have prefix/suffix attached
+      <span class="tt">[% view.footer %]</span>           # =&gt; <span class="tt">[% INCLUDE my_footer.tt2 %]</span>
+    </pre>
+    <pre>
+      # fallback on the 'notfound' template ('my_no_such_file.tt2')
+      # if template not found 
+      <span class="tt">[% view.include('missing') %]</span>
+      <span class="tt">[% view.include_missing %]</span>
+      <span class="tt">[% view.missing %]</span>
+    </pre>
+    <pre>
+      # print() includes a template relevant to argument type
+      <span class="tt">[% view.print("some text") %]</span>     # type=TEXT, template='text'
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK my_text.tt2 %]</span>           # 'text' with prefix/suffix
+         Text: <span class="tt">[% item %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # now print() a hash ref, mapped to 'hash' template
+      <span class="tt">[% view.print(some_hash_ref) %]</span>   # type=HASH, template='hash'
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK my_hash.tt2 %]</span>           # 'hash' with prefix/suffix
+         hash keys: <span class="tt">[% item.keys.sort.join(', ')
+      [% END %]</span>
+    </pre>
+    <pre>
+      # now print() a list ref, mapped to 'list' template
+      <span class="tt">[% view.print(my_list_ref) %]</span>     # type=ARRAY, template='list'
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK my_list.tt2 %]</span>           # 'list' with prefix/suffix
+         list: <span class="tt">[% item.join(', ') %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # print() maps 'My::Object' to 'My_Object'
+      <span class="tt">[% view.print(myobj) %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK my_My_Object.tt2 %]</span>
+         <span class="tt">[% item.this %]</span>, <span class="tt">[% item.that %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      # update mapping table
+      <span class="tt">[% view.map.ARRAY = 'my_list_template' %]</span>
+      <span class="tt">[% view.map.TEXT  = 'my_text_block'    %]</span>
+    </pre>
+    <pre>
+      # change prefix, suffix, item name, etc.
+      <span class="tt">[% view.prefix = 'your_' %]</span>
+      <span class="tt">[% view.default = 'anyobj' %]</span>
+      ...
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      TODO
+    </p>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    [** WRAPPER page/subsection title='new($context, \%config)' id='method_new' class='method' -**]
+    <p>
+      Creates a new Template::View presenting a custom view of the specified
+      $context object.
+    </p>
+    <p>
+      A reference to a hash array of configuration options may be passed as the
+      second argument.
+    </p>
+    <ul>
+    <li id="item_prefix"><b>prefix</b>
+    <p>
+      Prefix added to all template names.
+    </p>
+    <pre>
+      <span class="tt">[% USE view(prefix =&gt; 'my_') %]</span>
+      <span class="tt">[% view.view('foo', a =&gt; 20) %]</span>     # =&gt; my_foo
+    </pre>
+    </li>
+    <li id="item_suffix"><b>suffix</b>
+    <p>
+      Suffix added to all template names.
+    </p>
+    <pre>
+      <span class="tt">[% USE view(suffix =&gt; '.tt2') %]</span>
+      <span class="tt">[% view.view('foo', a =&gt; 20) %]</span>     # =&gt; foo.tt2
+    </pre>
+    </li>
+    <li id="item_map"><b>map </b>
+    <p>
+      Hash array mapping reference types to template names. The print() method
+      uses this to determine which template to use to present any particular
+      item. The TEXT, HASH and ARRAY items default to 'test', 'hash' and 'list'
+      appropriately.
+    </p>
+    <pre>
+      <span class="tt">[% USE view(map =&gt; { ARRAY   =&gt; 'my_list', 
+                           HASH    =&gt; 'your_hash',
+                           My::Foo =&gt; 'my_foo', } ) %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% view.print(some_text) %]</span>         # =&gt; text
+      <span class="tt">[% view.print(a_list) %]</span>            # =&gt; my_list
+      <span class="tt">[% view.print(a_hash) %]</span>            # =&gt; your_hash
+      <span class="tt">[% view.print(a_foo) %]</span>             # =&gt; my_foo
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK text %]</span>
+         Text: <span class="tt">[% item %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK my_list %]</span>
+         list: <span class="tt">[% item.join(', ') %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK your_hash %]</span>
+         hash keys: <span class="tt">[% item.keys.sort.join(', ')
+      [% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% BLOCK my_foo %]</span> 
+         Foo: <span class="tt">[% item.this %]</span>, <span class="tt">[% item.that %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    </li>
+    <li id="item_method"><b>method</b>
+    <p>
+      Name of a method which objects passed to print() may provide for
+      presenting themselves to the view. If a specific map entry can't be found
+      for an object reference and it supports the method (default: 'present')
+      then the method will be called, passing the view as an argument. The
+      object can then make callbacks against the view to present itself.
+    </p>
+    <pre>
+      package Foo;
+    </pre>
+    <pre>
+      sub present {
+          my ($self, $view) = @_;
+          return "a regular view of a Foo\n";
+      }
+    </pre>
+    <pre>
+      sub debug {
+          my ($self, $view) = @_;
+          return "a debug view of a Foo\n";
+      }
+    </pre>
+    <p>
+      In a template:
+    </p>
+    <pre>
+      <span class="tt">[% USE view %]</span>
+      <span class="tt">[% view.print(my_foo_object) %]</span>     # a regular view of a Foo
+    </pre>
+    <pre>
+      <span class="tt">[% USE view(method =&gt; 'debug') %]</span>
+      <span class="tt">[% view.print(my_foo_object) %]</span>     # a debug view of a Foo
+    </pre>
+    </li>
+    <li id="item_default"><b>default</b>
+    <p>
+      Default template to use if no specific map entry is found for an item.
+    </p>
+    <pre>
+      <span class="tt">[% USE view(default =&gt; 'my_object') %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% view.print(objref) %]</span>            # =&gt; my_object
+    </pre>
+    <p>
+      If no map entry or default is provided then the view will attempt to
+      construct a template name from the object class, substituting any
+      sequence of non-word characters to single underscores, e.g.
+    </p>
+    <pre>
+      # 'fubar' is an object of class Foo::Bar
+      <span class="tt">[% view.print(fubar) %]</span>             # =&gt; Foo_Bar
+    </pre>
+    <p>
+      Any current prefix and suffix will be added to both the default template
+      name and any name constructed from the object class.
+    </p>
+    </li>
+    <li id="item_notfound"><b>notfound</b>
+    <p>
+      Fallback template to use if any other isn't found.
+    </p>
+    </li>
+    <li id="item_item"><b>item</b>
+    <p>
+      Name of the template variable to which the print() method assigns the
+      current item. Defaults to 'item'.
+    </p>
+    <pre>
+      <span class="tt">[% USE view %]</span>
+      <span class="tt">[% BLOCK list %]</span> 
+         <span class="tt">[% item.join(', ') %]</span> 
+      <span class="tt">[% END %]</span>
+      <span class="tt">[% view.print(a_list) %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% USE view(item =&gt; 'thing') %]</span>
+      <span class="tt">[% BLOCK list %]</span> 
+         <span class="tt">[% thing.join(', ') %]</span> 
+      <span class="tt">[% END %]</span>
+      <span class="tt">[% view.print(a_list) %]</span>
+    </pre>
+    </li>
+    <li id="item_view_prefix"><b>view_prefix</b>
+    <p>
+      Prefix of methods which should be mapped to view() by AUTOLOAD. Defaults
+      to 'view_'.
+    </p>
+    <pre>
+      <span class="tt">[% USE view %]</span>
+      <span class="tt">[% view.view_header() %]</span>                    # =&gt; view('header')
+    </pre>
+    <pre>
+      <span class="tt">[% USE view(view_prefix =&gt; 'show_me_the_' %]</span>
+      <span class="tt">[% view.show_me_the_header() %]</span>             # =&gt; view('header')
+    </pre>
+    </li>
+    <li id="item_view_naked"><b>view_naked</b>
+    <p>
+      Flag to indcate if any attempt should be made to map method names to
+      template names where they don't match the view_prefix. Defaults to 0.
+    </p>
+    <pre>
+      <span class="tt">[% USE view(view_naked =&gt; 1) %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% view.header() %]</span>                 # =&gt; view('header')
+    </pre>
+    </li>
+    </ul>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='print( $obj1, $obj2, ... \%config)' id='method_print' class='method' -**]
+    <p>
+      TODO
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='view( $template, \%vars, \%config );' id='method_view' class='method' -**]
+    <p>
+      TODO
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 2000-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+    </p>
+[** END -**]
+
+</div>

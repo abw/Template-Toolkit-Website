@@ -1,0 +1,182 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE date %]</span>
+      
+      # use current time and default format
+      <span class="tt">[% date.format %]</span>
+      
+      # specify time as seconds since epoch or 'h:m:s d-m-y' string
+      <span class="tt">[% date.format(960973980) %]</span>
+      <span class="tt">[% date.format('4:20:36 21/12/2000') %]</span>
+      
+      # specify format
+      <span class="tt">[% date.format(mytime, '%H:%M:%S') %]</span>
+      
+      # specify locale
+      <span class="tt">[% date.format(date.now, '%a %d %b %y', 'en_GB') %]</span>
+      
+      # named parameters 
+      <span class="tt">[% date.format(mytime, format = '%H:%M:%S') %]</span>
+      <span class="tt">[% date.format(locale = 'en_GB') %]</span>
+      <span class="tt">[% date.format(time   = date.now, 
+                     format = '%H:%M:%S', 
+                     locale = 'en_GB) %]</span>
+      
+      # specify default format to plugin
+      <span class="tt">[% USE date(format = '%H:%M:%S', locale = 'de_DE') %]</span>
+      
+      <span class="tt">[% date.format %]</span>
+      ...
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Date</code> plugin provides an easy way to generate formatted
+      time and date strings by delegating to the <code>POSIX</code>
+      <code>strftime()</code> routine.
+    </p>
+    <p>
+      The plugin can be loaded via the familiar USE directive.
+    </p>
+    <pre>
+      <span class="tt">[% USE date %]</span>
+    </pre>
+    <p>
+      This creates a plugin object with the default name of
+      '<code>date</code>'. An alternate name can be specified as such:
+    </p>
+    <pre>
+      <span class="tt">[% USE myname = date %]</span>
+    </pre>
+    <p>
+      The plugin provides the <code>format()</code> method which accepts a time
+      value, a format string and a locale name. All of these parameters are
+      optional with the current system time, default format ('<code>%H:%M:%S
+      %d-%b-%Y</code>') and current locale being used respectively, if
+      undefined. Default values for the time, format and/or locale may be
+      specified as named parameters in the <code>USE</code> directive.
+    </p>
+    <pre>
+      <span class="tt">[% USE date(format = '%a %d-%b-%Y', locale = 'fr_FR') %]</span>
+    </pre>
+    <p>
+      When called without any parameters, the <code>format()</code> method
+      returns a string representing the current system time, formatted by
+      <code>strftime()</code> according to the default format and for the
+      default locale (which may not be the current one, if locale is set in the
+      <code>USE</code> directive).
+    </p>
+    <pre>
+      <span class="tt">[% date.format %]</span>
+    </pre>
+    <p>
+      The plugin allows a time/date to be specified as seconds since the epoch,
+      as is returned by <code>time()</code>.
+    </p>
+    <pre>
+      File last modified: <span class="tt">[% date.format(filemod_time) %]</span>
+    </pre>
+    <p>
+      The time/date can also be specified as a string of the form '<code>h:m:s
+      d/m/y</code>'. Any of the characters <code>: / -</code> or space may be
+      used to delimit fields.
+    </p>
+    <pre>
+      <span class="tt">[% USE day = date(format =&gt; '%A', locale =&gt; 'en_GB') %]</span>
+      <span class="tt">[% day.format('4:20:00 9-13-2000') %]</span>  
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      Tuesday
+    </pre>
+    <p>
+      A format string can also be passed to the <code>format()</code> method,
+      and a locale specification may follow that.
+    </p>
+    <pre>
+      <span class="tt">[% date.format(filemod, '%d-%b-%Y') %]</span>
+      <span class="tt">[% date.format(filemod, '%d-%b-%Y', 'en_GB') %]</span>
+    </pre>
+    <p>
+      A fourth parameter allows you to force output in GMT, in the case of
+      seconds-since-the-epoch input:
+    </p>
+    <pre>
+      <span class="tt">[% date.format(filemod, '%d-%b-%Y', 'en_GB', 1) %]</span>
+    </pre>
+    <p>
+      Note that in this case, if the local time is not GMT, then also
+      specifying '<code>%Z</code>' (time zone) in the format parameter will
+      lead to an extremely misleading result.
+    </p>
+    <p>
+      Any or all of these parameters may be named. Positional parameters should
+      always be in the order <code>($time, $format, $locale)</code>.
+    </p>
+    <pre>
+      <span class="tt">[% date.format(format =&gt; '%H:%M:%S') %]</span>
+      <span class="tt">[% date.format(time =&gt; filemod, format =&gt; '%H:%M:%S') %]</span>
+      <span class="tt">[% date.format(mytime, format =&gt; '%H:%M:%S') %]</span>
+      <span class="tt">[% date.format(mytime, format =&gt; '%H:%M:%S', locale =&gt; 'fr_FR') %]</span>
+      <span class="tt">[% date.format(mytime, format =&gt; '%H:%M:%S', gmt =&gt; 1) %]</span>
+      ...etc...
+    </pre>
+    <p>
+      The <code>now()</code> method returns the current system time in seconds
+      since the epoch.
+    </p>
+    <pre>
+      <span class="tt">[% date.format(date.now, '%A') %]</span>
+    </pre>
+    <p>
+      The <code>calc()</code> method can be used to create an interface to the
+      <code>Date::Calc</code> module (if installed on your system).
+    </p>
+    <pre>
+      <span class="tt">[% calc = date.calc %]</span>
+      <span class="tt">[% calc.Monday_of_Week(22, 2001).join('/') %]</span>
+    </pre>
+    <p>
+      The <code>manip()</code> method can be used to create an interface to the
+      <code>Date::Manip</code> module (if installed on your system).
+    </p>
+    <pre>
+      <span class="tt">[% manip = date.manip %]</span>
+      <span class="tt">[% manip.UnixDate("Noon Yesterday","%Y %b %d %H:%M") %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='AUTHORS' id='section_AUTHORS' -**]
+    <p>
+      Thierry-Michel Barral wrote the original plugin.
+    </p>
+    <p>
+      Andy Wardley provided some minor fixups/enhancements, a test script and
+      documentation.
+    </p>
+    <p>
+      Mark D. Mills cloned <code>Date::Manip</code> from the
+      <code>Date::Calc</code> sub-plugin.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 2000-2007 Thierry-Michel Barral, Andy Wardley.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>, <a
+      href="[** cpanmod('POSIX') **]">POSIX</a>
+    </p>
+[** END -**]
+
+</div>

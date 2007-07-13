@@ -1,0 +1,9 @@
+<div class="controls">
+  <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+    <span class="about">Click to view the menu.  It's very nice.</span>
+  </a>
+  <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+    <span class="about">Click to hide the menu and go all widescreen!</span>
+  </a>
+[% PROCESS site/pager show_about=1 -%]
+</div>

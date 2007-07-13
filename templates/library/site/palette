@@ -1,0 +1,7 @@
+<div id="palette">
+  <ul>
+[% FOREACH scheme IN site.schemes -%]
+    <li[% ' class="first"' IF loop.first %]><a href="#" class="[% scheme %]" onclick="set_style('[% scheme_title(scheme) %]')"></a></li>
+[% END -%]
+  </ul>
+</div>

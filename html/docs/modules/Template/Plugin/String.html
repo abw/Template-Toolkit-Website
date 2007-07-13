@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Plugin::String</title>
+    <link rel="stylesheet" type="text/css" href="../../../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../../../docs/index.html">Docs</a></li>
+            <li><a href="../../../../docs/modules/index.html">Modules</a></li>
+            <li><a href="../../../../docs/modules/Template/index.html">Template::*</a></li>
+            <li><a href="../../../../docs/modules/Template/Plugin/index.html">Plugin::*</a></li>
+            <li class="last"><a href="../../../../docs/modules/Template/Plugin/String.html">String.pm</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../../../docs/modules/Template/Plugin/Procedural.html" title="Template::Plugin::Procedural" class="go back">Back<span class="about"><strong>Template::Plugin::Procedural</strong>Base class for procedural plugins</span></a>
+            <a href="../../../../docs/modules/Template/Plugin/index.html" title="Template::Plugin::* Modules" class="go up">Up<span class="about"><strong>Template::Plugin::* Modules</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/Table.html" title="Template::Plugin::Table" class="go next">Next<span class="about"><strong>Template::Plugin::Table</strong>Plugin to present data in a table</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Plugin::String</h1>
+          <h2 class="subhead">Object oriented interface for string manipulation</h2>
+        
+          <a href="http://template-toolkit.org/docs/modules/Template/Plugin/String.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Plugin/String.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../../../about.html">About</a></li>
+                <li class="l0"><a href="../../../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../../../docs/modules/index.html" class="warm">Modules</a></li>
+                <li class="l2"><a href="../../../../docs/modules/Template.html">Template.pm</a></li>
+                <li class="l2"><a href="../../../../docs/modules/Template/index.html" class="warm">Template::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Base.html">Base.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Config.html">Config.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Constants.html">Constants.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Context.html">Context.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Directive.html">Directive.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Document.html">Document.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Exception.html">Exception.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Filters.html">Filters.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Iterator.html">Iterator.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Namespace/index.html">Namespace::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Parser.html">Parser.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugin.html">Plugin.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugin/index.html" class="warm">Plugin::*</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Autoformat.html">Autoformat.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/CGI.html">CGI.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Datafile.html">Datafile.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Date.html">Date.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Directory.html">Directory.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Dumper.html">Dumper.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/File.html">File.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Filter.html">Filter.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Format.html">Format.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/HTML.html">HTML.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Image.html">Image.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Iterator.html">Iterator.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Math.html">Math.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Pod.html">Pod.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Procedural.html">Procedural.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/String.html" class="warm">String.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Table.html">Table.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/URL.html">URL.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/View.html">View.pm</a></li>
+                <li class="l4"><a href="../../../../docs/modules/Template/Plugin/Wrap.html">Wrap.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Plugins.html">Plugins.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Provider.html">Provider.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Service.html">Service.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Stash.html">Stash.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Stash/index.html">Stash::*</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/Test.html">Test.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/VMethods.html">VMethods.pm</a></li>
+                <li class="l3"><a href="../../../../docs/modules/Template/View.html">View.pm</a></li>
+                <li class="l1"><a href="../../../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
+                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class=""><a href="#section_CONSTRUCTOR_METHODS">CONSTRUCTOR METHODS</a></li>
+                  <li class="sub"><a href="#method_new">new()</a></li>
+                  <li class="sub"><a href="#method_copy">copy()</a></li>
+                  <li class=""><a href="#section_INSPECTOR_METHODS">INSPECTOR METHODS</a></li>
+                  <li class="sub"><a href="#method_text">text()</a></li>
+                  <li class="sub"><a href="#method_length">length()</a></li>
+                  <li class="sub"><a href="#method_search">search($pattern)</a></li>
+                  <li class="sub"><a href="#method_split">split($pattern, $limit)</a></li>
+                  <li class=""><a href="#section_MUTATOR_METHODS">MUTATOR METHODS</a></li>
+                  <li class="sub"><a href="#method_push_suffix_append">push($suffix, ...) / append($suffix, ...)</a></li>
+                  <li class="sub"><a href="#method_pop">pop($suffix)</a></li>
+                  <li class="sub"><a href="#method_unshift_prefix_prepend">unshift($prefix, ...) / prepend($prefix, ...)</a></li>
+                  <li class="sub"><a href="#method_shift">shift($prefix)</a></li>
+                  <li class="sub"><a href="#method_left">left($pad)</a></li>
+                  <li class="sub"><a href="#method_right">right($pad)</a></li>
+                  <li class="sub"><a href="#method_center_pad_centre">center($pad) / centre($pad)</a></li>
+                  <li class="sub"><a href="#method_format">format($format)</a></li>
+                  <li class="sub"><a href="#method_upper">upper()</a></li>
+                  <li class="sub"><a href="#method_lower">lower()</a></li>
+                  <li class="sub"><a href="#method_capital">capital()</a></li>
+                  <li class="sub"><a href="#method_chop">chop()</a></li>
+                  <li class="sub"><a href="#method_chomp">chomp()</a></li>
+                  <li class="sub"><a href="#method_trim">trim()</a></li>
+                  <li class="sub"><a href="#method_collapse">collapse()</a></li>
+                  <li class="sub"><a href="#method_truncate">truncate($length, $suffix)</a></li>
+                  <li class="sub"><a href="#method_replace">replace($search, $replace)</a></li>
+                  <li class="sub"><a href="#method_remove">remove($search)</a></li>
+                  <li class="sub"><a href="#method_repeat">repeat($count)</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+                  <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <pre># create String objects via USE directive
+<span class="tt">[% USE String %]</span>
+<span class="tt">[% USE String 'initial text' %]</span>
+<span class="tt">[% USE String text =&gt; 'initial text' %]</span></pre>
+                    <pre># or from an existing String via new()
+<span class="tt">[% newstring = String.new %]</span>
+<span class="tt">[% newstring = String.new('newstring text') %]</span>
+<span class="tt">[% newstring = String.new( text =&gt; 'newstring text' ) %]</span></pre>
+                    <pre># or from an existing String via copy()
+<span class="tt">[% newstring = String.copy %]</span></pre>
+                    <pre># append text to string
+<span class="tt">[% String.append('text to append') %]</span></pre>
+                    <pre># format left, right or center/centre padded
+<span class="tt">[% String.left(20) %]</span>
+<span class="tt">[% String.right(20) %]</span>
+<span class="tt">[% String.center(20) %]</span>   # American spelling
+<span class="tt">[% String.centre(20) %]</span>   # European spelling</pre>
+                    <pre># and various other methods...</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      This module implements a <code>String</code> class for doing stringy
+                      things to text in an object-oriented way.
+                    </p>
+                    <p>
+                      You can create a <code>String</code> object via the <code>USE</code>
+                      directive, adding any initial text value as an argument or as the named
+                      parameter <code>text</code>.
+                    </p>
+                    <pre><span class="tt">[% USE String %]</span>
+<span class="tt">[% USE String 'initial text' %]</span>
+<span class="tt">[% USE String text='initial text' %]</span></pre>
+                    <p>
+                      The object created will be referenced as <code>String</code> by default,
+                      but you can provide a different variable name for the object to be
+                      assigned to:
+                    </p>
+                    <pre><span class="tt">[% USE greeting = String 'Hello World' %]</span></pre>
+                    <p>
+                      Once you've got a <code>String</code> object, you can use it as a
+                      prototype to create other <code>String</code> objects with the
+                      <code>new()</code> method.
+                    </p>
+                    <pre><span class="tt">[% USE String %]</span>
+<span class="tt">[% greeting = String.new('Hello World') %]</span></pre>
+                    <p>
+                      The <code>new()</code> method also accepts an initial text string as an
+                      argument or the named parameter <code>text</code>.
+                    </p>
+                    <pre><span class="tt">[% greeting = String.new( text =&gt; 'Hello World' ) %]</span></pre>
+                    <p>
+                      You can also call <code>copy()</code> to create a new <code>String</code>
+                      as a copy of the original.
+                    </p>
+                    <pre><span class="tt">[% greet2 = greeting.copy %]</span></pre>
+                    <p>
+                      The <code>String</code> object has a <code>text()</code> method to return
+                      the content of the string.
+                    </p>
+                    <pre><span class="tt">[% greeting.text %]</span></pre>
+                    <p>
+                      However, it is sufficient to simply print the string and let the
+                      overloaded stringification operator call the <code>text()</code> method
+                      automatically for you.
+                    </p>
+                    <pre><span class="tt">[% greeting %]</span></pre>
+                    <p>
+                      Thus, you can treat <code>String</code> objects pretty much like any
+                      regular piece of text, interpolating it into other strings, for example:
+                    </p>
+                    <pre><span class="tt">[% msg = "It printed '$greeting' and then dumped core\n" %]</span></pre>
+                    <p>
+                      You also have the benefit of numerous other methods for manipulating the
+                      string.
+                    </p>
+                    <pre><span class="tt">[% msg.append("PS  Don't eat the yellow snow") %]</span></pre>
+                    <p>
+                      Note that all methods operate on and mutate the contents of the string
+                      itself. If you want to operate on a copy of the string then simply take a
+                      copy first:
+                    </p>
+                    <pre><span class="tt">[% msg.copy.append("PS  Don't eat the yellow snow") %]</span></pre>
+                    <p>
+                      These methods return a reference to the <code>String</code> object
+                      itself. This allows you to chain multiple methods together.
+                    </p>
+                    <pre><span class="tt">[% msg.copy.append('foo').right(72) %]</span></pre>
+                    <p>
+                      It also means that in the above examples, the <code>String</code> is
+                      returned which causes the <code>text()</code> method to be called, which
+                      results in the new value of the string being printed. To suppress
+                      printing of the string, you can use the <code>CALL</code> directive.
+                    </p>
+                    <pre><span class="tt">[% foo = String.new('foo') %]</span>
+
+<span class="tt">[% foo.append('bar') %]</span>         # prints "foobar"
+
+<span class="tt">[% CALL foo.append('bar') %]</span>    # nothing</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_CONSTRUCTOR_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">CONSTRUCTOR METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      These methods are used to create new <code>String</code> objects.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_new" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">new()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Creates a new string using an initial value passed as a positional
+                          argument or the named parameter <code>text</code>.
+                        </p>
+                        <pre><span class="tt">[% USE String %]</span>
+<span class="tt">[% msg = String.new('Hello World') %]</span>
+<span class="tt">[% msg = String.new( text =&gt; 'Hello World' ) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_copy" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">copy()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Creates a new <code>String</code> object which contains a copy of the
+                          original string.
+                        </p>
+                        <pre><span class="tt">[% msg2 = msg.copy %]</span></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_INSPECTOR_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">INSPECTOR METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      These methods are used to examine the string.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_text" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">text()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the internal text value of the string. The stringification
+                          operator is overloaded to call this method. Thus the following are
+                          equivalent:
+                        </p>
+                        <pre><span class="tt">[% msg.text %]</span>
+<span class="tt">[% msg %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_length" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">length()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the length of the string.
+                        </p>
+                        <pre><span class="tt">[% USE String("foo") %]</span>
+<span class="tt">[% String.length %]</span>   # =&gt; 3</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_search" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">search($pattern)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Searches the string for the regular expression specified in
+                          <code>$pattern</code> returning true if found or false otherwise.
+                        </p>
+                        <pre><span class="tt">[% item = String.new('foo bar baz wiz waz woz') %]</span>
+<span class="tt">[% item.search('wiz') ? 'WIZZY! :-)' : 'not wizzy :-(' %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_split" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">split($pattern, $limit)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Splits the string based on the delimiter <code>$pattern</code> and
+                          optional <code>$limit</code>. Delegates to Perl's internal
+                          <code>split()</code> so the parameters are exactly the same.
+                        </p>
+                        <pre><span class="tt">[% FOREACH item.split %]</span>
+     ...
+<span class="tt">[% END %]</span></pre>
+                        <pre><span class="tt">[% FOREACH item.split('baz|waz') %]</span>
+     ...
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_MUTATOR_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">MUTATOR METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      These methods modify the internal value of the string. For example:
+                    </p>
+                    <pre><span class="tt">[% USE str=String('foobar') %]</span>
+<span class="tt">[% str.append('.html') %]</span>   # str =&gt; 'foobar.html'</pre>
+                    <p>
+                      The value of <code>str</code> is now '<code>foobar.html</code>'. If you
+                      don't want to modify the string then simply take a copy first.
+                    </p>
+                    <pre><span class="tt">[% str.copy.append('.html') %]</span></pre>
+                    <p>
+                      These methods all return a reference to the <code>String</code> object
+                      itself. This has two important benefits. The first is that when used as
+                      above, the <code>String</code> object '<code>str</code>' returned by the
+                      <code>append()</code> method will be stringified with a call to its
+                      <code>text()</code> method. This will return the newly modified string
+                      content. In other words, a directive like:
+                    </p>
+                    <pre><span class="tt">[% str.append('.html') %]</span></pre>
+                    <p>
+                      will update the string and also print the new value. If you just want to
+                      update the string but not print the new value then use <code>CALL</code>.
+                    </p>
+                    <pre><span class="tt">[% CALL str.append('.html') %]</span></pre>
+                    <p>
+                      The other benefit of these methods returning a reference to the
+                      <code>String</code> is that you can chain as many different method calls
+                      together as you like. For example:
+                    </p>
+                    <pre><span class="tt">[% String.append('.html').trim.format(href) %]</span></pre>
+                    <p>
+                      Here are the methods:
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_push_suffix_append" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">push($suffix, ...) / append($suffix, ...)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Appends all arguments to the end of the string. The <code>append()</code>
+                          method is provided as an alias for <code>push()</code>.
+                        </p>
+                        <pre><span class="tt">[% msg.push('foo', 'bar') %]</span>
+<span class="tt">[% msg.append('foo', 'bar') %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_pop" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">pop($suffix)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes the suffix passed as an argument from the end of the String.
+                        </p>
+                        <pre><span class="tt">[% USE String 'foo bar' %]</span>
+<span class="tt">[% String.pop(' bar')   %]</span>   # =&gt; 'foo'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_unshift_prefix_prepend" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">unshift($prefix, ...) / prepend($prefix, ...)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Prepends all arguments to the beginning of the string. The
+                          <code>prepend()</code> method is provided as an alias for
+                          <code>unshift()</code>.
+                        </p>
+                        <pre><span class="tt">[% msg.unshift('foo ', 'bar ') %]</span>
+<span class="tt">[% msg.prepend('foo ', 'bar ') %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_shift" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">shift($prefix)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes the prefix passed as an argument from the start of the String.
+                        </p>
+                        <pre><span class="tt">[% USE String 'foo bar' %]</span>
+<span class="tt">[% String.shift('foo ') %]</span>   # =&gt; 'bar'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_left" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">left($pad)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          If the length of the string is less than <code>$pad</code> then the
+                          string is left formatted and padded with spaces to <code>$pad</code>
+                          length.
+                        </p>
+                        <pre><span class="tt">[% msg.left(20) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_right" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">right($pad)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          As per <a href="#method_left">left()</a> but right padding the
+                          <code>String</code> to a length of <code>$pad</code>.
+                        </p>
+                        <pre><span class="tt">[% msg.right(20) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_center_pad_centre" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">center($pad) / centre($pad)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          As per <a href="#method_left">left()</a> and <a
+                          href="#method_right">right()</a> but formatting the <code>String</code>
+                          to be centered within a space padded string of length <code>$pad</code>.
+                          The <code>centre()</code> method is provided as an alias for
+                          <code>center()</code>.
+                        </p>
+                        <pre><span class="tt">[% msg.center(20) %]</span>    # American spelling
+<span class="tt">[% msg.centre(20) %]</span>    # European spelling</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_format" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">format($format)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Apply a format in the style of <code>sprintf()</code> to the string.
+                        </p>
+                        <pre><span class="tt">[% USE String("world") %]</span>
+<span class="tt">[% String.format("Hello %s\n") %]</span>  # =&gt; "Hello World\n"</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_upper" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">upper()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Converts the string to upper case.
+                        </p>
+                        <pre><span class="tt">[% USE String("foo") %]</span>
+<span class="tt">[% String.upper %]</span>  # =&gt; 'FOO'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_lower" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">lower()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Converts the string to lower case
+                        </p>
+                        <pre><span class="tt">[% USE String("FOO") %]</span>
+<span class="tt">[% String.lower %]</span>  # =&gt; 'foo'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_capital" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">capital()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Converts the first character of the string to upper case.
+                        </p>
+                        <pre><span class="tt">[% USE String("foo") %]</span>
+<span class="tt">[% String.capital %]</span>  # =&gt; 'Foo'</pre>
+                        <p>
+                          The remainder of the string is left untouched. To force the string to be
+                          all lower case with only the first letter capitalised, you can do
+                          something like this:
+                        </p>
+                        <pre><span class="tt">[% USE String("FOO") %]</span>
+<span class="tt">[% String.lower.capital %]</span>  # =&gt; 'Foo'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_chop" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">chop()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes the last character from the string.
+                        </p>
+                        <pre><span class="tt">[% USE String("foop") %]</span>
+<span class="tt">[% String.chop %]</span>   # =&gt; 'foo'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_chomp" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">chomp()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes the trailing newline from the string.
+                        </p>
+                        <pre><span class="tt">[% USE String("foo\n") %]</span>
+<span class="tt">[% String.chomp %]</span>  # =&gt; 'foo'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_trim" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">trim()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes all leading and trailing whitespace from the string
+                        </p>
+                        <pre><span class="tt">[% USE String("   foo   \n\n ") %]</span>
+<span class="tt">[% String.trim %]</span>   # =&gt; 'foo'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_collapse" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">collapse()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Removes all leading and trailing whitespace and collapses any sequences
+                          of multiple whitespace to a single space.
+                        </p>
+                        <pre><span class="tt">[% USE String(" \n\r  \t  foo   \n \n bar  \n") %]</span>
+<span class="tt">[% String.collapse %]</span>   # =&gt; "foo bar"</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_truncate" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">truncate($length, $suffix)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Truncates the string to <code>$length</code> characters.
+                        </p>
+                        <pre><span class="tt">[% USE String('long string') %]</span>
+<span class="tt">[% String.truncate(4) %]</span>  # =&gt; 'long'</pre>
+                        <p>
+                          If <code>$suffix</code> is specified then it will be appended to the
+                          truncated string. In this case, the string will be further shortened by
+                          the length of the suffix to ensure that the newly constructed string
+                          complete with suffix is exactly <code>$length</code> characters long.
+                        </p>
+                        <pre><span class="tt">[% USE msg = String('Hello World') %]</span>
+<span class="tt">[% msg.truncate(8, '...') %]</span>   # =&gt; 'Hello...'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_replace" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">replace($search, $replace)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Replaces all occurences of <code>$search</code> in the string with
+                          <code>$replace</code>.
+                        </p>
+                        <pre><span class="tt">[% USE String('foo bar foo baz') %]</span>
+<span class="tt">[% String.replace('foo', 'wiz')  %]</span>  # =&gt; 'wiz bar wiz baz'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_remove" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">remove($search)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Remove all occurences of <code>$search</code> in the string.
+                        </p>
+                        <pre><span class="tt">[% USE String('foo bar foo baz') %]</span>
+<span class="tt">[% String.remove('foo ')  %]</span>  # =&gt; 'bar baz'</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_repeat" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">repeat($count)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Repeats the string <code>$count</code> times.
+                        </p>
+                        <pre><span class="tt">[% USE String('foo ') %]</span>
+<span class="tt">[% String.repeat(3)  %]</span>  # =&gt; 'foo foo foo '</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      <a href="../../../../docs/modules/Template/Plugin.html">Template::Plugin</a>
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/modules/Template/Plugin/String.html last modified 14:40:08 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../../../docs/modules/Template/Plugin/Procedural.html" title="Template::Plugin::Procedural" class="go back">Back<span class="about"><strong>Template::Plugin::Procedural</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/index.html" title="Template::Plugin::* Modules" class="go up">Up<span class="about"><strong>Template::Plugin::* Modules</strong></span></a>
+            <a href="../../../../docs/modules/Template/Plugin/Table.html" title="Template::Plugin::Table" class="go next">Next<span class="about"><strong>Template::Plugin::Table</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

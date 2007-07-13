@@ -1,0 +1,96 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE Dumper %]</span>
+      
+      <span class="tt">[% Dumper.dump(variable) %]</span>
+      <span class="tt">[% Dumper.dump_html(variable) %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This is a very simple Template Toolkit Plugin Interface to the <a
+      href="[** cpanmod('Data::Dumper') **]">Data::Dumper</a> module. A
+      <code>Dumper</code> object will be instantiated via the following
+      directive:
+    </p>
+    <pre>
+      <span class="tt">[% USE Dumper %]</span>
+    </pre>
+    <p>
+      As a standard plugin, you can also specify its name in lower case:
+    </p>
+    <pre>
+      <span class="tt">[% USE dumper %]</span>
+    </pre>
+    <p>
+      The <code>Data::Dumper</code> <code>Pad</code>, <code>Indent</code> and
+      <code>Varname</code> options are supported as constructor arguments to
+      affect the output generated. See <a href="[** cpanmod('Data::Dumper')
+      **]">Data::Dumper</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE dumper(Indent=0, Pad="&lt;br&gt;") %]</span>
+    </pre>
+    <p>
+      These options can also be specified in lower case.
+    </p>
+    <pre>
+      <span class="tt">[% USE dumper(indent=0, pad="&lt;br&gt;") %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    <p>
+      There are two methods supported by the <code>Dumper</code> object. Each
+      will output into the template the contents of the variables passed to the
+      object method.
+    </p>
+    [** WRAPPER page/subsection title='dump()' id='method_dump' class='method' -**]
+    <p>
+      Generates a raw text dump of the data structure(s) passed
+    </p>
+    <pre>
+      <span class="tt">[% USE Dumper %]</span>
+      <span class="tt">[% Dumper.dump(myvar) %]</span>
+      <span class="tt">[% Dumper.dump(myvar, yourvar) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='dump_html()' id='method_dump_html' class='method' -**]
+    <p>
+      Generates a dump of the data structures, as per <a
+      href="#method_dump">dump()</a>, but with the characters &lt;, &gt; and
+      &amp; converted to their equivalent HTML entities and newlines converted
+      to &lt;br&gt;.
+    </p>
+    <pre>
+      <span class="tt">[% USE Dumper %]</span>
+      <span class="tt">[% Dumper.dump_html(myvar) %]</span>
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Simon Matthews &lt;sam@tt2.org&gt;
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 2000 Simon Matthews. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>, <a
+      href="[** cpanmod('Data::Dumper') **]">Data::Dumper</a>
+    </p>
+[** END -**]
+
+</div>

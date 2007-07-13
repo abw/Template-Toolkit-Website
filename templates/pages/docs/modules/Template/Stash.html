@@ -1,0 +1,187 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Stash;
+      
+      my $stash = Template::Stash-&gt;new(\%vars);
+      
+      # get variable values
+      $value = $stash-&gt;get($variable);
+      $value = $stash-&gt;get(\@compound);
+      
+      # set variable value
+      $stash-&gt;set($variable, $value);
+      $stash-&gt;set(\@compound, $value);
+      
+      # default variable value
+      $stash-&gt;set($variable, $value, 1);
+      $stash-&gt;set(\@compound, $value, 1);
+      
+      # set variable values en masse
+      $stash-&gt;update(\%new_vars)
+      
+      # methods for (de-)localising variables
+      $stash = $stash-&gt;clone(\%new_vars);
+      $stash = $stash-&gt;declone();
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Stash</code> module defines an object class which is
+      used to store variable values for the runtime use of the template
+      processor. Variable values are stored internally in a hash reference
+      (which itself is blessed to create the object) and are accessible via the
+      <a href="#method_get">get()</a> and <a href="#method_set">set()</a>
+      methods.
+    </p>
+    <p>
+      Variables may reference hash arrays, lists, subroutines and objects as
+      well as simple values. The stash automatically performs the right magic
+      when dealing with variables, calling code or object methods, indexing
+      into lists, hashes, etc.
+    </p>
+    <p>
+      The stash has <a href="#method_clone">clone()</a> and <a
+      href="#method_declone">declone()</a> methods which are used by the
+      template processor to make temporary copies of the stash for localising
+      changes made to variables.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%params)' id='method_new' class='method' -**]
+    <p>
+      The <code>new()</code> constructor method creates and returns a reference
+      to a new <code>Template::Stash</code> object.
+    </p>
+    <pre>
+      my $stash = Template::Stash-&gt;new();
+    </pre>
+    <p>
+      A hash reference may be passed to provide variables and values which
+      should be used to initialise the stash.
+    </p>
+    <pre>
+      my $stash = Template::Stash-&gt;new({ var1 =&gt; 'value1', 
+                                         var2 =&gt; 'value2' });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='get($variable)' id='method_get' class='method' -**]
+    <p>
+      The <code>get()</code> method retrieves the variable named by the first
+      parameter.
+    </p>
+    <pre>
+      $value = $stash-&gt;get('var1');
+    </pre>
+    <p>
+      Dotted compound variables can be retrieved by specifying the variable
+      elements by reference to a list. Each node in the variable occupies two
+      entries in the list. The first gives the name of the variable element,
+      the second is a reference to a list of arguments for that element, or
+      <code>0</code> if none.
+    </p>
+    <pre>
+      <span class="tt">[% foo.bar(10).baz(20) %]</span>
+      
+      $stash-&gt;get([ 'foo', 0, 'bar', [ 10 ], 'baz', [ 20 ] ]);
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='set($variable, $value, $default)' id='method_set' class='method' -**]
+    <p>
+      The <code>set()</code> method sets the variable name in the first
+      parameter to the value specified in the second.
+    </p>
+    <pre>
+      $stash-&gt;set('var1', 'value1');
+    </pre>
+    <p>
+      If the third parameter evaluates to a true value, the variable is set
+      only if it did not have a true value before.
+    </p>
+    <pre>
+      $stash-&gt;set('var2', 'default_value', 1);
+    </pre>
+    <p>
+      Dotted compound variables may be specified as per <a
+      href="#method_get">get()</a> above.
+    </p>
+    <pre>
+      <span class="tt">[% foo.bar = 30 %]</span>
+      
+      $stash-&gt;set([ 'foo', 0, 'bar', 0 ], 30);
+    </pre>
+    <p>
+      The magical variable '<code>IMPORT</code>' can be specified whose
+      corresponding value should be a hash reference. The contents of the hash
+      array are copied (i.e. imported) into the current namespace.
+    </p>
+    <pre>
+      # foo.bar = baz, foo.wiz = waz
+      $stash-&gt;set('foo', { 'bar' =&gt; 'baz', 'wiz' =&gt; 'waz' });
+      
+      # import 'foo' into main namespace: bar = baz, wiz = waz
+      $stash-&gt;set('IMPORT', $stash-&gt;get('foo'));
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='clone(\%params)' id='method_clone' class='method' -**]
+    <p>
+      The <code>clone()</code> method creates and returns a new
+      <code>Template::Stash</code> object which represents a localised copy of
+      the parent stash. Variables can be freely updated in the cloned stash and
+      when <a href="#method_declone">declone()</a> is called, the original
+      stash is returned with all its members intact and in the same state as
+      they were before <code>clone()</code> was called.
+    </p>
+    <p>
+      For convenience, a hash of parameters may be passed into
+      <code>clone()</code> which is used to update any simple variable (i.e.
+      those that don't contain any namespace elements like <code>foo</code> and
+      <code>bar</code> but not <code>foo.bar</code>) variables while cloning
+      the stash. For adding and updating complex variables, the <a
+      href="#method_set">set()</a> method should be used after calling
+      <code>clone().</code> This will correctly resolve and/or create any
+      necessary namespace hashes.
+    </p>
+    <p>
+      A cloned stash maintains a reference to the stash that it was copied from
+      in its <code>_PARENT</code> member.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='declone()' id='method_declone' class='method' -**]
+    <p>
+      The <code>declone()</code> method returns the <code>_PARENT</code>
+      reference and can be used to restore the state of a stash as described
+      above.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>, <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a>
+    </p>
+[** END -**]
+
+</div>

@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template Toolkit Documentation</title>
+    <link rel="stylesheet" type="text/css" href="../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li class="last"><a href="../docs/index.html">Docs</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../download/index.html" title="Template Toolkit Downloads" class="go back">Back<span class="about"><strong>Template Toolkit Downloads</strong></span></a>
+            <a href="../index.html" title="Template Toolkit Home Page" class="go up">Up<span class="about"><strong>Template Toolkit Home Page</strong></span></a>
+            <a href="../mail/index.html" title="Template Toolkit Mailing Lists" class="go next">Next<span class="about"><strong>Template Toolkit Mailing Lists</strong></span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template Toolkit Documentation</h1>
+          <h2 class="subhead">Template Processing System</h2>
+        
+          <a href="http://template-toolkit.org/docs/index.html" class="permalink">http://template-toolkit.org/docs/index.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../about.html">About</a></li>
+                <li class="l0"><a href="../download/index.html">Download</a></li>
+                <li class="l0"><a href="../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../docs/modules/index.html">Modules</a></li>
+                <li class="l1"><a href="../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+              <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_Introduction">Introduction</a></li>
+                  <li class=""><a href="#section_Documentation">Documentation</a></li>
+                  <li class=""><a href="#section_Author">Author</a></li>
+                  <li class=""><a href="#section_Copyright">Copyright</a></li>
+                  <li class=""><a href="#section_See_Also">See Also</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Introduction" onclick="switch_section(this)" title="Click title to show/hide section content.">Introduction</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      The Template Toolkit is a collection of Perl modules which implement a
+                      fast, flexible, powerful and extensible template processing system.
+                    </p>
+                    <p>
+                      It is "input-agnostic" and can be used equally well for processing any
+                      kind of text documents: HTML, XML, CSS, Javascript, Perl code, plain
+                      text, and so on. However, it is most often used for generating static and
+                      dynamic web content, so that's what we'll focus on here.
+                    </p>
+                    <p>
+                      Although the Template Toolkit is written in Perl, you don't need to be a
+                      Perl programmer to use it. It was designed to allow non-programmers to
+                      easily create and maintain template-based web sites without having to
+                      mess around writing Perl code or going crazy with cut-n-paste.
+                    </p>
+                    <p>
+                      However, the Template Toolkit is also designed to be extremely flexible
+                      and extensible. If you are a Perl programmer, or know someone who is,
+                      then you can easily hook the Template Toolkit into your existing code,
+                      data, databases and web applications. Furthermore, you can easily extend
+                      the Template Toolkit through the use of its plugin mechanism and other
+                      developer APIs.
+                    </p>
+                    <p>
+                      Whatever context you use it in, the primary purpose of the Template
+                      Toolkit is to allow you to create a clear separation between the
+                      presentation elements of your web site and everything else.
+                    </p>
+                    <p>
+                      If you're generating static web pages, then you can use it to separate
+                      the commonly repeated user interface elements on each page (headers,
+                      menus, footers, etc.) from the core content. If you're generating dynamic
+                      web pages for the front end of a web application, then you'll also be
+                      using it to keep the back-end Perl code entirely separate from the
+                      front-end HTML templates. Either way, a <i>clear separation of
+                      concerns</i> is what allow you to concentrate on one thing at a time
+                      without the other things getting in your way. And that's what the
+                      Template Toolkit is all about.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Documentation" onclick="switch_section(this)" title="Click title to show/hide section content.">Documentation</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      The documentation for the Template Toolkit is organised into five
+                      sections.
+                    </p>
+                    <p>
+                      The <a href="../docs/manual/index.html">Template::Manual</a>
+                      contains detailed information about using the Template Toolkit. It gives
+                      examples of its use and includes a full reference of the template
+                      language, configuration options, filters, plugins and other component
+                      parts.
+                    </p>
+                    <p>
+                      The <a href="../docs/modules/index.html">Template::Modules</a> page lists the Perl modules that comprise the
+                      Template Toolkit. It gives a brief explanation of what each of them does,
+                      and provides a link to the complete documentation for each module for
+                      further information. If you're a Perl programmer looking to use the
+                      Template Toolkit from your Perl programs then this section is likely to
+                      be of interest.
+                    </p>
+                    <p>
+                      Most, if not all of the information you need to call the Template Toolkit
+                      from Perl is in the documentation for the <a href="../docs/modules/Template.html">Template</a> module. You only really need to
+                      start thinking about the other modules if you want to extend or modify
+                      the Template Toolkit in some way, or if you're interested in looking
+                      under the hood to see how it all works.
+                    </p>
+                    <p>
+                      The documentation for each module is embedded as POD in each module, so
+                      you can always use <code>perldoc</code> from the command line to read a
+                      module's documentation. e.g.
+                    </p>
+                    <pre>$ perldoc Template
+$ perldoc Template::Context
+  ...etc...</pre>
+                    <p>
+                      It's worth noting that all the other documentation, including the user
+                      manual is available as POD. e.g.
+                    </p>
+                    <pre>$ perldoc Template::Manual
+$ perldoc Template::Manual::Config
+  ...etc...</pre>
+                    <p>
+                      The <a href="../docs/tools/index.html">Template::Tools</a>
+                      section contains the documentation for <a
+                      href="#section_tpage">Template::Tools::tpage</a> and <a
+                      href="#section_ttree">Template::Tools::ttree</a>. These are two command
+                      line programs that are distributed with the Template Toolkit. <a
+                      href="../docs/tools/tpage.html">tpage</a> is used to
+                      process a single template file, <a href="../docs/tools/ttree.html">ttree</a> for processing entire
+                      directories of template files.
+                    </p>
+                    <p>
+                      The <a href="../docs/tutorial/index.html">Template::Tutorial</a> section contains two introductory tutorials
+                      on using the Template Toolkit. The first is <a href="../docs/tutorial/Web.html">Template::Tutorial::Web</a> on
+                      generating web content. The second is <a href="../docs/tutorial/Datafile.html">Template::Tutorial::Datafile</a> on using the Template Toolkit to
+                      generate other data formats including XML.
+                    </p>
+                    <p>
+                      The final section of the manual is <a href="../docs/faq/index.html">Template::FAQ</a> which contains answers
+                      to some of the Frequently Asked Questions about the Template Toolkit.
+                    </p>
+                    <p>
+                      All of the documentation is also provided in HTML format in the <code
+                      class="file">docs</code> sub-directory of the Template Toolkit
+                      distribution. You can also read it online at the Template Toolkit web
+                      site: <a
+                      href="http://template-toolkit.org/">http://template-toolkit.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Author" onclick="switch_section(this)" title="Click title to show/hide section content.">Author</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      The Template Toolkit was written by <a href="http://wardley.org/">Andy
+                      Wardley</a> &lt;abw@wardley.org&gt; with assistance and contributions
+                      from a great number of people. Please see <a href="../docs/manual/Credits.html">Template::Manual::Credits</a>
+                      for a full list.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Copyright" onclick="switch_section(this)" title="Click title to show/hide section content.">Copyright</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_See_Also" onclick="switch_section(this)" title="Click title to show/hide section content.">See Also</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      <a href="../docs/modules/Template.html">Template</a>, <a href="../docs/manual/index.html">Template::Manual</a>, <a href="../docs/modules/index.html">Template::Modules</a>, <a href="../docs/tools/index.html">Template::Tools</a>, <a href="../docs/tutorial/index.html">Template::Tutorial</a>
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/index.html last modified 15:44:50 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../download/index.html" title="Template Toolkit Downloads" class="go back">Back<span class="about"><strong>Template Toolkit Downloads</strong></span></a>
+            <a href="../index.html" title="Template Toolkit Home Page" class="go up">Up<span class="about"><strong>Template Toolkit Home Page</strong></span></a>
+            <a href="../mail/index.html" title="Template Toolkit Mailing Lists" class="go next">Next<span class="about"><strong>Template Toolkit Mailing Lists</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

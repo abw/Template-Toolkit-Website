@@ -1,0 +1,156 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Config;
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This module implements various methods for loading and instantiating
+      other modules that comprise the Template Toolkit. It provides a
+      consistent way to create toolkit components and allows custom modules to
+      be used in place of the regular ones.
+    </p>
+    <p>
+      Package variables such as <code>$STASH</code>, <code>$SERVICE</code>,
+      <code>$CONTEXT</code>, etc., contain the default module/package name for
+      each component (<a href="[** ttmodlink('Template::Stash')
+      **]">Template::Stash</a>, <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> and <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a>, respectively)
+      and are used by the various factory methods (<a
+      href="#method_stash">stash()</a>, <a href="#method_service">service()</a>
+      and <a href="#method_context">context()</a>) to load the appropriate
+      module. Changing these package variables will cause subsequent calls to
+      the relevant factory method to load and instantiate an object from the
+      new class.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
+    [** WRAPPER page/subsection title='load($module)' id='method_load' class='method' -**]
+    <p>
+      Load a module using Perl's <a href="#method_require">require()</a>. Any
+      occurences of '<code>::</code>' in the module name are be converted to
+      '<code>/</code>', and '<code>.pm</code>' is appended. Returns 1 on
+      success or undef on error. Use <code>$class-&gt;error()</code> to examine
+      the error string.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='preload()' id='method_preload' class='method' -**]
+    <p>
+      This method preloads all the other <code>Template::*</code> modules that
+      are likely to be used. It is called automatically by the <a href="[**
+      ttmodlink('Template') **]">Template</a> module when running under
+      mod_perl (<code>$ENV{MOD_PERL}</code> is set).
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='parser(\%config)' id='method_parser' class='method' -**]
+    <p>
+      Instantiate a new parser object of the class whose name is denoted by the
+      package variable <code>$PARSER</code> (default: <a href="[**
+      ttmodlink('Template::Parser') **]">Template::Parser</a>). Returns a
+      reference to a newly instantiated parser object or undef on error.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='provider(\%config)' id='method_provider' class='method' -**]
+    <p>
+      Instantiate a new template provider object (default: <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a>). Returns an
+      object reference or undef on error, as above.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='plugins(\%config)' id='method_plugins' class='method' -**]
+    <p>
+      Instantiate a new plugins provider object (default: <a href="[**
+      ttmodlink('Template::Plugins') **]">Template::Plugins</a>). Returns an
+      object reference or undef on error, as above.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='filters(\%config)' id='method_filters' class='method' -**]
+    <p>
+      Instantiate a new filter provider object (default: <a href="[**
+      ttmodlink('Template::Filters') **]">Template::Filters</a>). Returns an
+      object reference or undef on error, as above.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='stash(\%vars)' id='method_stash' class='method' -**]
+    <p>
+      Instantiate a new stash object (<a href="[** ttmodlink('Template::Stash')
+      **]">Template::Stash</a> or <a href="[** ttmodlink('Template::Stash::XS')
+      **]">Template::Stash::XS</a> depending on the default set at installation
+      time) using the contents of the optional hash array passed by parameter
+      as initial variable definitions. Returns an object reference or undef on
+      error, as above.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='context(\%config)' id='method_context' class='method' -**]
+    <p>
+      Instantiate a new template context object (default: <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a>). Returns an
+      object reference or undef on error, as above.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='service(\%config)' id='method_service' class='method' -**]
+    <p>
+      Instantiate a new template service object (default: <a href="[**
+      ttmodlink('Template::Service') **]">Template::Service</a>). Returns an
+      object reference or undef on error, as above.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='instdir($dir)' id='method_instdir' class='method' -**]
+    <p>
+      Returns the root directory of the Template Toolkit installation under
+      which optional components are installed. Any relative directory specified
+      as an argument will be appended to the returned directory.
+    </p>
+    <pre>
+      # e.g. returns '/usr/local/tt2'
+      my $ttroot = Template::Config-&gt;instdir()
+          || die "$Template::Config::ERROR\n";
+    </pre>
+    <pre>
+      # e.g. returns '/usr/local/tt2/templates'
+      my $template = Template::Config-&gt;instdir('templates')
+          || die "$Template::Config::ERROR\n";
+    </pre>
+    <p>
+      Returns <code>undef</code> and sets <code>$Template::Config::ERROR</code>
+      appropriately if the optional components of the Template Toolkit have not
+      been installed.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>
+    </p>
+[** END -**]
+
+</div>

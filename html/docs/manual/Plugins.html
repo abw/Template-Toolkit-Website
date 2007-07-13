@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Manual::Plugins</title>
+    <link rel="stylesheet" type="text/css" href="../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/manual/index.html">Manual</a></li>
+            <li class="last"><a href="../../docs/manual/Plugins.html">Plugins</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../../docs/manual/Filters.html" title="Template::Manual::Filters" class="go back">Back<span class="about"><strong>Template::Manual::Filters</strong>Standard filters</span></a>
+            <a href="../../docs/manual/index.html" title="Template::Manual" class="go up">Up<span class="about"><strong>Template::Manual</strong>Template Toolkit User Manual</span></a>
+            <a href="../../docs/manual/Internals.html" title="Template::Manual::Internals" class="go next">Next<span class="about"><strong>Template::Manual::Internals</strong>Template Toolkit internals</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Manual::Plugins</h1>
+          <h2 class="subhead">Standard plugins</h2>
+        
+          <a href="http://template-toolkit.org/docs/manual/Plugins.html" class="permalink">http://template-toolkit.org/docs/manual/Plugins.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../about.html">About</a></li>
+                <li class="l0"><a href="../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../docs/manual/index.html" class="warm">Manual</a></li>
+                <li class="l2"><a href="../../docs/manual/Intro.html">Intro</a></li>
+                <li class="l2"><a href="../../docs/manual/Syntax.html">Syntax</a></li>
+                <li class="l2"><a href="../../docs/manual/Directives.html">Directives</a></li>
+                <li class="l2"><a href="../../docs/manual/Variables.html">Variables</a></li>
+                <li class="l2"><a href="../../docs/manual/VMethods.html">VMethods</a></li>
+                <li class="l2"><a href="../../docs/manual/Config.html">Config</a></li>
+                <li class="l2"><a href="../../docs/manual/Filters.html">Filters</a></li>
+                <li class="l2"><a href="../../docs/manual/Plugins.html" class="warm">Plugins</a></li>
+                <li class="l2"><a href="../../docs/manual/Internals.html">Internals</a></li>
+                <li class="l2"><a href="../../docs/manual/Views.html">Views</a></li>
+                <li class="l2"><a href="../../docs/manual/Credits.html">Credits</a></li>
+                <li class="l1"><a href="../../docs/modules/index.html">Modules</a></li>
+                <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
+                <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_TEMPLATE_TOOLKIT_PLUGINS">TEMPLATE TOOLKIT PLUGINS</a></li>
+                  <li class="sub"><a href="#section_Autoformat">Autoformat</a></li>
+                  <li class="sub"><a href="#section_CGI">CGI</a></li>
+                  <li class="sub"><a href="#section_Datafile">Datafile</a></li>
+                  <li class="sub"><a href="#section_Date">Date</a></li>
+                  <li class="sub"><a href="#section_Directory">Directory</a></li>
+                  <li class="sub"><a href="#section_DBI">DBI</a></li>
+                  <li class="sub"><a href="#section_Dumper">Dumper</a></li>
+                  <li class="sub"><a href="#section_File">File</a></li>
+                  <li class="sub"><a href="#section_Filter">Filter</a></li>
+                  <li class="sub"><a href="#section_Format">Format</a></li>
+                  <li class="sub"><a href="#section_GD">GD</a></li>
+                  <li class="sub"><a href="#section_HTML">HTML</a></li>
+                  <li class="sub"><a href="#section_Iterator">Iterator</a></li>
+                  <li class="sub"><a href="#section_Pod">Pod</a></li>
+                  <li class="sub"><a href="#section_String">String</a></li>
+                  <li class="sub"><a href="#section_Table">Table</a></li>
+                  <li class="sub"><a href="#section_URL">URL</a></li>
+                  <li class="sub"><a href="#section_Wrap">Wrap</a></li>
+                  <li class="sub"><a href="#section_XML">XML</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_TEMPLATE_TOOLKIT_PLUGINS" onclick="switch_section(this)" title="Click title to show/hide section content.">TEMPLATE TOOLKIT PLUGINS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The following plugin modules are distributed with the Template Toolkit.
+                      Some of the plugins interface to external modules (detailed below) which
+                      should be downloaded from any CPAN site and installed before using the
+                      plugin.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Autoformat" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Autoformat</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Autoformat.html">Autoformat</a> plugin is an interface to Damian Conway's <a
+                          href="http://search.cpan.org/search?mode=module&amp;query=Text%3A%3AAutoformat">Text::Autoformat</a> Perl
+                          module which provides advanced text wrapping and formatting. See <a
+                          href="../../docs/modules/Template/Plugin/Autoformat.html">Template::Plugin::Autoformat</a> and <a href="http://search.cpan.org/search?mode=module&amp;query=Text%3A%3AAutoformat">Text::Autoformat</a> for further
+                          details.
+                        </p>
+                        <pre><span class="tt">[% USE autoformat(left=10, right=20) %]</span>
+<span class="tt">[% autoformat(mytext) %]</span>        # call autoformat sub
+<span class="tt">[% mytext FILTER autoformat %]</span>  # or use autoformat filter</pre>
+                        <p>
+                          The <a href="http://search.cpan.org/search?mode=module&amp;query=Text%3A%3AAutoformat">Text::Autoformat</a>
+                          module is available from CPAN:
+                        </p>
+                        <pre>L&lt;http://www.cpan.org/modules/by-module/Text/&gt;</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_CGI" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">CGI</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/CGI.html">CGI</a> plugin
+                          is a wrapper around Lincoln Stein's CGI.pm module. The plugin is
+                          distributed with the Template Toolkit (see <a href="../../docs/modules/Template/Plugin/CGI.html">Template::Plugin::CGI</a>) and
+                          the <a href="http://search.cpan.org/search?mode=module&amp;query=CGI">CGI</a> module itself is distributed
+                          with recent versions Perl, or is available from CPAN.
+                        </p>
+                        <pre><span class="tt">[% USE CGI %]</span>
+<span class="tt">[% CGI.param('param_name') %]</span>
+<span class="tt">[% CGI.start_form %]</span>
+<span class="tt">[% CGI.popup_menu( Name   =&gt; 'color', 
+                   Values =&gt; [ 'Green', 'Brown' ] ) %]</span>
+<span class="tt">[% CGI.end_form %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Datafile" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Datafile</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Provides an interface to data stored in a plain text file in a simple
+                          delimited format. The first line in the file specifies field names which
+                          should be delimiter by any non-word character sequence. Subsequent lines
+                          define data using the same delimiter as in the first line. Blank lines
+                          and comments (lines starting '#') are ignored. See <a href="../../docs/modules/Template/Plugin/Datafile.html">Template::Plugin::Datafile</a> for further details.
+                        </p>
+                        <p>
+                          /tmp/mydata:
+                        </p>
+                        <pre># define names for each field
+id : email : name : tel
+# here's the data
+fred : fred@here.com : Fred Smith : 555-1234
+bill : bill@here.com : Bill White : 555-5678</pre>
+                        <p>
+                          example:
+                        </p>
+                        <pre><span class="tt">[% USE userlist = datafile('/tmp/mydata') %]</span>
+
+<span class="tt">[% FOREACH user = userlist %]</span>
+   <span class="tt">[% user.name %]</span> (<span class="tt">[% user.id %]</span>)
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Date" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Date</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Date.html">Date</a> plugin
+                          provides an easy way to generate formatted time and date strings by
+                          delegating to the <a href="http://search.cpan.org/search?mode=module&amp;query=POSIX">POSIX</a>
+                          <code>strftime()</code> routine. See <a href="../../docs/modules/Template/Plugin/Date.html">Template::Plugin::Date</a> and
+                          <a href="http://search.cpan.org/search?mode=module&amp;query=POSIX">POSIX</a> for further details.
+                        </p>
+                        <pre><span class="tt">[% USE date %]</span>
+<span class="tt">[% date.format %]</span>        # current time/date
+
+File last modified: <span class="tt">[% date.format(template.modtime) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Directory" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Directory</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Directory.html">Directory</a> plugin provides a simple interface to a directory and
+                          the files within it. See <a href="../../docs/modules/Template/Plugin/Directory.html">Template::Plugin::Directory</a> for further details.
+                        </p>
+                        <pre><span class="tt">[% USE dir = Directory('/tmp') %]</span>
+<span class="tt">[% FOREACH file = dir.files %]</span>
+    # all the plain files in the directory
+<span class="tt">[% END %]</span>
+<span class="tt">[% FOREACH file = dir.dirs %]</span>
+    # all the sub-directories
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_DBI" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">DBI</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>DBI</code> plugin is no longer distributed as part of the
+                          Template Toolkit (as of version 2.15). It is now available as a separate
+                          <a href="http://search.cpan.org/search?mode=module&amp;query=Template%3A%3ADBI">Template::DBI</a> distribution
+                          from CPAN.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Dumper" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Dumper</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Dumper.html">Dumper</a>
+                          plugin provides an interface to the Data::Dumper module. See <a href="../../docs/modules/Template/Plugin/Dumper.html">Template::Plugin::Dumper</a>
+                          and <a href="http://search.cpan.org/search?mode=module&amp;query=Data%3A%3ADumper">Data::Dumper</a> for futher
+                          details.
+                        </p>
+                        <pre><span class="tt">[% USE dumper(indent=0, pad="&lt;br&gt;") %]</span>
+<span class="tt">[% dumper.dump(myvar, yourvar) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_File" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">File</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/File.html">File</a> plugin
+                          provides a general abstraction for files and can be used to fetch
+                          information about specific files within a filesystem. See <a href="../../docs/modules/Template/Plugin/File.html">Template::Plugin::File</a> for
+                          further details.
+                        </p>
+                        <pre><span class="tt">[% USE File('/tmp/foo.html') %]</span>
+<span class="tt">[% File.name %]</span>     # foo.html
+<span class="tt">[% File.dir %]</span>      # /tmp
+<span class="tt">[% File.mtime %]</span>    # modification time</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Filter" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Filter</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This module implements a base class plugin which can be subclassed to
+                          easily create your own modules that define and install new filters.
+                        </p>
+                        <pre>package MyOrg::Template::Plugin::MyFilter;
+
+use Template::Plugin::Filter;
+use base qw( Template::Plugin::Filter );
+
+sub filter {
+    my ($self, $text) = @_;
+    # ...mungify $text...
+    return $text;
+}</pre>
+                        <p>
+                          Example of use:
+                        </p>
+                        <pre># now load it...
+<span class="tt">[% USE MyFilter %]</span>
+
+# ...and use the returned object as a filter
+<span class="tt">[% FILTER $MyFilter %]</span>
+  ...
+<span class="tt">[% END %]</span></pre>
+                        <p>
+                          See <a href="../../docs/modules/Template/Plugin/Filter.html">Template::Plugin::Filter</a> for further details.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Format" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Format</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Format.html">Format</a>
+                          plugin provides a simple way to format text according to a
+                          <code>printf()</code>-like format. See <a href="../../docs/modules/Template/Plugin/Format.html">Template::Plugin::Format</a>
+                          for further details.
+                        </p>
+                        <pre><span class="tt">[% USE bold = format('&lt;b&gt;%s&lt;/b&gt;') %]</span>
+<span class="tt">[% bold('Hello') %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_GD" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">GD</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>GD</code> plugins are no longer part of the core Template
+                          Toolkit distribution. They are now available from CPAN in a separate <a
+                          href="http://search.cpan.org/search?mode=module&amp;query=Template%3A%3AGD">Template::GD</a> distribution.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_HTML" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">HTML</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/HTML.html">HTML</a> plugin
+                          is very basic, implementing a few useful methods for generating HTML. It
+                          is likely to be extended in the future or integrated with a larger
+                          project to generate HTML elements in a generic way.
+                        </p>
+                        <pre><span class="tt">[% USE HTML %]</span>
+<span class="tt">[% HTML.escape("if (a &lt; b &amp;&amp; c &gt; d) ..." %]</span>
+<span class="tt">[% HTML.attributes(border =&gt; 1, cellpadding =&gt; 2) %]</span>
+<span class="tt">[% HTML.element(table =&gt; { border =&gt; 1, cellpadding =&gt; 2 }) %]</span></pre>
+                        <p>
+                          See <a href="../../docs/modules/Template/Plugin/HTML.html">Template::Plugin::HTML</a> for further details.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Iterator" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Iterator</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Iterator.html">Iterator</a> plugin provides a way to create a <a href="../../docs/modules/Template/Iterator.html">Template::Iterator</a> object to
+                          iterate over a data set. An iterator is created automatically by the
+                          <code>FOREACH</code> directive and is aliased to the <code>loop</code>
+                          variable. This plugin allows an iterator to be explicitly created with a
+                          given name, or the default plugin name, <code>iterator</code>. See <a
+                          href="../../docs/modules/Template/Plugin/Iterator.html">Template::Plugin::Iterator</a> for further details.
+                        </p>
+                        <pre><span class="tt">[% USE iterator(list, args) %]</span>
+
+<span class="tt">[% FOREACH item = iterator %]</span>
+   <span class="tt">[% '&lt;ul&gt;' IF iterator.first %]</span>
+   &lt;li&gt;<span class="tt">[% item %]</span>
+   <span class="tt">[% '&lt;/ul&gt;' IF iterator.last %]</span>
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Pod" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Pod</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This plugin provides an interface to the <a href="http://search.cpan.org/search?mode=module&amp;query=Pod%3A%3APOM">Pod::POM</a> module which parses POD documents into an internal
+                          object model which can then be traversed and presented through the
+                          Template Toolkit.
+                        </p>
+                        <pre><span class="tt">[% USE Pod(podfile) %]</span>
+
+<span class="tt">[% FOREACH head1 = Pod.head1;
+     FOREACH head2 = head1/head2;
+       ...
+     END;
+   END
+%]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_String" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">String</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/String.html">String</a>
+                          plugin implements an object-oriented interface for manipulating strings.
+                          See <a href="../../docs/modules/Template/Plugin/String.html">Template::Plugin::String</a> for further details.
+                        </p>
+                        <pre><span class="tt">[% USE String 'Hello' %]</span>
+<span class="tt">[% String.append(' World') %]</span>
+
+<span class="tt">[% msg = String.new('Another string') %]</span>
+<span class="tt">[% msg.replace('string', 'text') %]</span>
+
+The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length %]</span> characters long.</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Table" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Table</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Table.html">Table</a>
+                          plugin allows you to format a list of data items into a virtual table by
+                          specifying a fixed number of rows or columns, with an optional overlap.
+                          See <a href="../../docs/modules/Template/Plugin/Table.html">Template::Plugin::Table</a> for further details.
+                        </p>
+                        <pre><span class="tt">[% USE table(list, rows=10, overlap=1) %]</span>
+
+<span class="tt">[% FOREACH item = table.col(3) %]</span>
+   <span class="tt">[% item %]</span>
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_URL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">URL</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/URL.html">URL</a> plugin
+                          provides a simple way of contructing URLs from a base part and a variable
+                          set of parameters. See <a href="../../docs/modules/Template/Plugin/URL.html">Template::Plugin::URL</a> for further details.
+                        </p>
+                        <pre><span class="tt">[% USE mycgi = url('/cgi-bin/bar.pl', debug=1) %]</span>
+
+<span class="tt">[% mycgi %]</span>
+   # ==&gt; /cgi/bin/bar.pl?debug=1
+
+<span class="tt">[% mycgi(mode='submit') %]</span>
+   # ==&gt; /cgi/bin/bar.pl?mode=submit&amp;debug=1</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Wrap" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Wrap</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/modules/Template/Plugin/Wrap.html">Wrap</a> plugin
+                          uses the <a href="http://search.cpan.org/search?mode=module&amp;query=Text%3A%3AWrap">Text::Wrap</a> module to
+                          provide simple paragraph formatting. See <a href="../../docs/modules/Template/Plugin/Wrap.html">Template::Plugin::Wrap</a> and
+                          <a href="http://search.cpan.org/search?mode=module&amp;query=Text%3A%3AWrap">Text::Wrap</a> for further
+                          details.
+                        </p>
+                        <pre><span class="tt">[% USE wrap %]</span>
+<span class="tt">[% wrap(mytext, 40, '* ', '  ') %]</span>    # use wrap sub
+<span class="tt">[% mytext FILTER wrap(40) -%]</span>    # or wrap FILTER</pre>
+                        <p>
+                          The <code>Text::Wrap</code> module is available from CPAN:
+                        </p>
+                        <pre>http://www.cpan.org/modules/by-module/Text/</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_XML" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">XML</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>XML::DOM</code>, <code>XML::RSS</code>,
+                          <code>XML::Simple</code> and <code>XML::XPath</code> plugins are no
+                          longer distributed with the Template Toolkit as of version 2.15
+                        </p>
+                        <p>
+                          They are now available in a separate <a href="http://search.cpan.org/search?mode=module&amp;query=Template%3A%3AXML">Template::XML</a> distribution.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/manual/Plugins.html last modified 14:40:05 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../../docs/manual/Filters.html" title="Template::Manual::Filters" class="go back">Back<span class="about"><strong>Template::Manual::Filters</strong></span></a>
+            <a href="../../docs/manual/index.html" title="Template::Manual" class="go up">Up<span class="about"><strong>Template::Manual</strong></span></a>
+            <a href="../../docs/manual/Internals.html" title="Template::Manual::Internals" class="go next">Next<span class="about"><strong>Template::Manual::Internals</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

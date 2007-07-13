@@ -1,0 +1,67 @@
+/*------------------------------------------------------------------------*/
+/* Styles for table of contents                                           */
+/*------------------------------------------------------------------------*/
+
+ul.toc {
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+ul.toc li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    line-height: 18px;
+    background-image: none;
+}
+
+ul.toc li a {
+    font-size: 14px;
+    line-height: 16px;
+    min-height: 14px;
+    text-decoration: none;
+    margin: 0;
+    padding: 4px 0 1px 18px;
+    background: url('[% arrows %]/small/[% warm %]/dot.gif') 0px 4px no-repeat;
+    color: [% col.link %];
+}
+
+* html ul.toc li a {
+    height: 16px;
+}
+
+ul.toc li.sub {
+    margin: 0;
+    line-height: 14px;
+}
+
+ul.toc li.sub a {
+    display: block;
+    margin: 0;
+    padding: 2px 0 1px 34px;
+    font-size: 12px;
+    line-height: 13px;
+    background: url('[% arrows %]/small/[% warm %]/minidot.gif') 20px 3px no-repeat;
+}
+
+ul.toc li.subsub a {
+    display: block;
+    margin: 0;
+    padding: 0 0 0 60px;
+    font-size: [% font.size - 2 %]px;
+    background: url('[% arrows %]/small/[% warm %]/minidot.gif') 40px 2px no-repeat;
+}
+
+ul.toc li a:hover {
+    background-image: url('[% arrows %]/small/[% roll %]/dot.gif');
+    color: [% col.roll %];
+}
+
+ul.toc li.sub a:hover,
+ul.toc li.subsub a:hover {
+    background-image: url('[% arrows %]/small/[% roll %]/minidot.gif');
+    color: [% col.roll %];
+}
+
+

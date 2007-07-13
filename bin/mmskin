@@ -1,0 +1,9 @@
+# Script to copy templates from tt2.org dir to mailman templates directory.
+# Run on tt2.org 
+
+SRCDIR=/home/abw/web/tt2k7/html/mail
+DESTDIR=/usr/local/mailman/lists
+
+sudo cp $SRCDIR/templates/index.html $DESTDIR/templates/listinfo.html
+sudo cp $SRCDIR/templates-announce/index.html $DESTDIR/templates-announce/listinfo.html
+sudo cp $SRCDIR/templates-svn/index.html $DESTDIR/templates-svn/listinfo.html

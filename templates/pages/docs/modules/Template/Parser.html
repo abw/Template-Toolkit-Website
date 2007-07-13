@@ -1,0 +1,231 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      use Template::Parser;
+      
+      $parser   = Template::Parser-&gt;new(\%config);
+      $template = $parser-&gt;parse($text)
+          || die $parser-&gt;error(), "\n";
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Parser</code> module implements a LALR(1) parser and
+      associated methods for parsing template documents into Perl code.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%params)' id='method_new' class='method' -**]
+    <p>
+      The <code>new()</code> constructor creates and returns a reference to a
+      new <code>Template::Parser</code> object.
+    </p>
+    <p>
+      A reference to a hash may be supplied as a parameter to provide
+      configuration values. See <a
+      href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a> below for
+      a summary of these options and <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for full details.
+    </p>
+    <pre>
+      my $parser = Template::Parser-&gt;new({
+          START_TAG =&gt; quotemeta('&lt;+'),
+          END_TAG   =&gt; quotemeta('+&gt;'),
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='parse($text)' id='method_parse' class='method' -**]
+    <p>
+      The <code>parse()</code> method parses the text passed in the first
+      parameter and returns a reference to a hash array of data defining the
+      compiled representation of the template text, suitable for passing to the
+      <a href="[** ttmodlink('Template::Document') **]">Template::Document</a>
+      <a href="[** ttmodlink('Template::Document') **]#method_new">new()</a>
+      constructor method. On error, undef is returned.
+    </p>
+    <pre>
+      $data = $parser-&gt;parse($text)
+          || die $parser-&gt;error();
+    </pre>
+    <p>
+      The <code>$data</code> hash reference returned contains a
+      <code>BLOCK</code> item containing the compiled Perl code for the
+      template, a <code>DEFBLOCKS</code> item containing a reference to a hash
+      array of sub-template <code>BLOCK</code>s defined within in the template,
+      and a <code>METADATA</code> item containing a reference to a hash array
+      of metadata values defined in <code>META</code> tags.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='CONFIGURATION OPTIONS' id='section_CONFIGURATION_OPTIONS' -**]
+    <p>
+      The <code>Template::Parser</code> module accepts the following
+      configuration options. Please see <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for futher details on each option.
+    </p>
+    [** WRAPPER page/subsection title='START_TAG, END_TAG' id='section_START_TAG_END_TAG' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_START_TAG_END_TAG">START_TAG</a> and <a href="[**
+      ttmodlink('Template::Manual::Config')
+      **]#section_START_TAG_END_TAG">END_TAG</a> options are used to specify
+      character sequences or regular expressions that mark the start and end of
+      a template directive.
+    </p>
+    <pre>
+      my $parser = Template::Parser-&gt;new({ 
+          START_TAG =&gt; quotemeta('&lt;+'),
+          END_TAG   =&gt; quotemeta('+&gt;'),
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TAG_STYLE' id='section_TAG_STYLE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_TAG_STYLE">TAG_STYLE</a> option can be used to set both <a
+      href="#section_START_TAG">START_TAG</a> and <a
+      href="#section_END_TAG">END_TAG</a> according to pre-defined tag styles.
+    </p>
+    <pre>
+      my $parser = Template::Parser-&gt;new({ 
+          TAG_STYLE =&gt; 'star',     # [* ... *]
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PRE_CHOMP, POST_CHOMP' id='section_PRE_CHOMP_POST_CHOMP' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_PRE_CHOMP_POST_CHOMP">PRE_CHOMP</a> and <a href="[**
+      ttmodlink('Template::Manual::Config')
+      **]#section_PRE_CHOMP_POST_CHOMP">POST_CHOMP</a> can be set to remove any
+      whitespace before or after a directive tag, respectively.
+    </p>
+    <pre>
+      my $parser = Template::Parser-E&lt;gt&gt;new({
+          PRE_CHOMP  =&gt; 1,
+          POST_CHOMP =&gt; 1,
+      });
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='INTERPOLATE' id='section_INTERPOLATE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_INTERPOLATE">INTERPOLATE</a> flag can be set to allow
+      variables to be embedded in plain text blocks.
+    </p>
+    <pre>
+      my $parser = Template::Parser-&gt;new({ 
+          INTERPOLATE =&gt; 1,
+      });
+    </pre>
+    <p>
+      Variables should be prefixed by a <code>$</code> to identify them, using
+      curly braces to explicitly scope the variable name where necessary.
+    </p>
+    <pre>
+      Hello ${name},
+      
+      The day today is ${day.today}.
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ANYCASE' id='section_ANYCASE' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_ANYCASE">ANYCASE</a> option can be set to allow directive
+      keywords to be specified in any case.
+    </p>
+    <pre>
+      # with ANYCASE set to 1
+      <span class="tt">[% INCLUDE foobar %]</span>    # OK
+      <span class="tt">[% include foobar %]</span>    # OK
+      <span class="tt">[% include = 10   %]</span>    # ERROR, 'include' is a reserved word
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='GRAMMAR' id='section_GRAMMAR' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_GRAMMAR">GRAMMAR</a> configuration item can be used to
+      specify an alternate grammar for the parser. This allows a modified or
+      entirely new template language to be constructed and used by the Template
+      Toolkit.
+    </p>
+    <pre>
+      use MyOrg::Template::Grammar;
+      
+      my $parser = Template::Parser-&gt;new({ 
+          GRAMMAR = MyOrg::Template::Grammar-&gt;new();
+      });
+    </pre>
+    <p>
+      By default, an instance of the default <a href="[**
+      ttmodlink('Template::Grammar') **]">Template::Grammar</a> will be created
+      and used automatically if a <code>GRAMMAR</code> item isn't specified.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEBUG' id='section_DEBUG' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_DEBUG">DEBUG</a> option can be used to enable various
+      debugging features of the <code>Template::Parser</code> module.
+    </p>
+    <pre>
+      use Template::Constants qw( :debug );
+      
+      my $template = Template-&gt;new({
+          DEBUG =&gt; DEBUG_PARSER | DEBUG_DIRS,
+      });
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+    <p>
+      The main parsing loop of the <code>Template::Parser</code> module was
+      derived from a standalone parser generated by version 0.16 of the
+      <code>Parse::Yapp</code> module. The following copyright notice appears
+      in the <code>Parse::Yapp</code> documentation.
+    </p>
+    <pre>
+      The Parse::Yapp module and its related modules and shell
+      scripts are copyright (c) 1998 Francois Desarmenien,
+      France. All rights reserved.
+      
+      You may use and distribute them under the terms of either
+      the GNU General Public License or the Artistic License, as
+      specified in the Perl README file.
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>, <a href="[**
+      ttmodlink('Template::Grammar') **]">Template::Grammar</a>, <a href="[**
+      ttmodlink('Template::Directive') **]">Template::Directive</a>
+    </p>
+[** END -**]
+
+</div>

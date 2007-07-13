@@ -1,0 +1,17 @@
+[% subs = ['', 'sub', 'subsub'];
+#   CALL ht.toc.shift;     # junk first title
+-%]
+[% WRAPPER page/section title="Contents" id="contents" -%]
+<ul class="toc">
+[% INCLUDE toc/list toc=ht.toc %]
+</ul>
+[% END %]
+    
+[%- BLOCK toc/list; DEFAULT level=0 -%]
+[% INCLUDE toc/item FOREACH item IN toc -%]
+[%- END -%]
+
+[%- BLOCK toc/item -%]
+    <li class="[% subs.$level %]"><a href="#[% item.link %]">[% item.text %]</a></li>
+[% INCLUDE toc/list level=level+1 toc=item.kids IF item.kids.size -%]
+[%- END -%]

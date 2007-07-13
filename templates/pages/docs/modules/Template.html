@@ -1,0 +1,899 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS ' id='section_SYNOPSIS_' -**]
+    <pre>
+      use Template;
+      
+      # some useful options (see below for full list)
+      my $config = {
+          INCLUDE_PATH =&gt; '/search/path',  # or list ref
+          INTERPOLATE  =&gt; 1,               # expand "$var" in plain text
+          POST_CHOMP   =&gt; 1,               # cleanup whitespace 
+          PRE_PROCESS  =&gt; 'header',        # prefix each template
+          EVAL_PERL    =&gt; 1,               # evaluate Perl code blocks
+      };
+      
+      # create Template object
+      my $template = Template-&gt;new($config);
+      
+      # define template variables for replacement
+      my $vars = {
+          var1  =&gt; $value,
+          var2  =&gt; \%hash,
+          var3  =&gt; \@list,
+          var4  =&gt; \&amp;code,
+          var5  =&gt; $object,
+      };
+      
+      # specify input filename, or file handle, text reference, etc.
+      my $input = 'myfile.html';
+      
+      # process input template, substituting variables
+      $template-&gt;process($input, $vars)
+          || die $template-&gt;error();
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This documentation describes the Template module which is the direct Perl
+      interface into the Template Toolkit. It covers the use of the module and
+      gives a brief summary of configuration options and template directives.
+      Please see <a href="[** ttmodlink('Template::Manual')
+      **]">Template::Manual</a> for the complete reference manual which goes
+      into much greater depth about the features and use of the Template
+      Toolkit. The <a href="[** ttmodlink('Template::Tutorial')
+      **]">Template::Tutorial</a> is also available as an introductory guide to
+      using the Template Toolkit.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    [** WRAPPER page/subsection title='new(\%config)' id='method_new' class='method' -**]
+    <p>
+      The <code>new()</code> constructor method (implemented by the <a
+      href="[** ttmodlink('Template::Base') **]#method_new">Template::Base</a>
+      base class) instantiates a new <code>Template</code> object. A reference
+      to a hash array of configuration items may be passed as a parameter.
+    </p>
+    <pre>
+      my $tt = Template-&gt;new({
+          INCLUDE_PATH =&gt; '/usr/local/templates',
+          EVAL_PERL    =&gt; 1,
+      }) || die $Template::ERROR, "\n";
+    </pre>
+    <p>
+      A reference to a new <code>Template</code> object is returned, or undef
+      on error. In the latter case, the error message can be retrieved by
+      calling <a href="#method_error">error()</a> as a class method or by
+      examining the <code>$Template::ERROR</code> package variable directly.
+    </p>
+    <pre>
+      my $tt = Template-&gt;new(\%config)
+          || die Template-&gt;error(), "\n";
+    </pre>
+    <pre>
+      my $tt = Template-&gt;new(\%config)
+          || die $Template::ERROR, "\n";
+    </pre>
+    <p>
+      For convenience, configuration items may also be specified as a list of
+      items instead of a hash array reference. These are automatically folded
+      into a hash array by the constructor.
+    </p>
+    <pre>
+      my $tt = Template-&gt;new(INCLUDE_PATH =&gt; '/tmp', POST_CHOMP =&gt; 1)
+          || die $Template::ERROR, "\n";
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='process($template, \%vars, $output, %options)' id='method_process' class='method' -**]
+    <p>
+      The <code>process()</code> method is called to process a template. The
+      first parameter indicates the input template as one of: a filename
+      relative to <code>INCLUDE_PATH</code>, if defined; a reference to a text
+      string containing the template text; or a file handle reference (e.g.
+      <code>IO::Handle</code> or sub-class) or <code>GLOB</code> (e.g.
+      <code>\*STDIN</code>), from which the template can be read. A reference
+      to a hash array may be passed as the second parameter, containing
+      definitions of template variables.
+    </p>
+    <pre>
+      # filename
+      $tt-&gt;process('welcome.tt2')
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <pre>
+      # text reference
+      $text = "<span class="tt">[% INCLUDE header %]</span>\nHello world!\n<span class="tt">[% INCLUDE footer %]</span>";
+      $tt-&gt;process(\$text)
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <pre>
+      # file handle (GLOB)
+      $tt-&gt;process(\*DATA)
+          || die $tt-&gt;error(), "\n";
+      
+      __END__
+      <span class="tt">[% INCLUDE header %]</span>
+      This is a template defined in the __END__ section which is 
+      accessible via the DATA "file handle".
+      <span class="tt">[% INCLUDE footer %]</span>
+    </pre>
+    <p>
+      By default, the processed template output is printed to
+      <code>STDOUT</code>. The <code>process()</code> method then returns
+      <code>1</code> to indicate success. A third parameter may be passed to
+      the <code>process()</code> method to specify a different output location.
+      This value may be one of: a plain string indicating a filename which will
+      be opened (relative to <code>OUTPUT_PATH</code>, if defined) and the
+      output written to; a file GLOB opened ready for output; a reference to a
+      scalar (e.g. a text string) to which output/error is appended; a
+      reference to a subroutine which is called, passing the output as a
+      parameter; or any object reference which implements a
+      <code>print()</code> method (e.g. <code>IO::Handle</code>,
+      <code>Apache::Request</code>, etc.) which will be called, passing the
+      generated output as a parameter.
+    </p>
+    <p>
+      Examples:
+    </p>
+    <pre>
+      # output filename
+      $tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <pre>
+      # reference to output subroutine
+      sub myout {
+          my $output = shift;
+          ...
+      }
+      $tt-&gt;process('welcome.tt2', $vars, \&amp;myout)
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <pre>
+      # reference to output text string
+      my $output = '';
+      $tt-&gt;process('welcome.tt2', $vars, \$output)
+          || die $tt-&gt;error(), "\n";
+      
+      print "output: $output\n";
+    </pre>
+    <p>
+      In an Apache/mod_perl handler:
+    </p>
+    <pre>
+      sub handler {
+          my $req = shift;
+          
+          # ...your code here...
+          
+          # direct output to Apache::Request via $req-&gt;print($output)
+          $tt-&gt;process($file, $vars, $req) || do {
+              $req-&gt;log_reason($tt-&gt;error());
+              return SERVER_ERROR;
+          };
+          return OK;
+      }
+    </pre>
+    <p>
+      After the optional third output argument can come an optional reference
+      to a hash or a list of <code>(name, value)</code> pairs providing further
+      options for the output. The only option currently supported is
+      <code>binmode</code> which, when set to any true value will ensure that
+      files created (but not any existing file handles passed) will be set to
+      binary mode.
+    </p>
+    <pre>
+      # either: hash reference of options
+      $tt-&gt;process($infile, $vars, $outfile, { binmode =&gt; 1 })
+          || die $tt-&gt;error(), "\n";
+      
+      # or: list of name, value pairs
+      $tt-&gt;process($infile, $vars, $outfile, binmode =&gt; 1)
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <p>
+      Alternately, the <code>binmode</code> argument can specify a particular
+      IO layer such as <code>:utf8</code>.
+    </p>
+    <pre>
+      $tt-&gt;process($infile, $vars, $outfile, binmode =&gt; ':utf8')
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <p>
+      The <code>OUTPUT</code> configuration item can be used to specify a
+      default output location other than <code>\*STDOUT</code>. The
+      <code>OUTPUT_PATH</code> specifies a directory which should be prefixed
+      to all output locations specified as filenames.
+    </p>
+    <pre>
+      my $tt = Template-&gt;new({
+          OUTPUT      =&gt; sub { ... },       # default
+          OUTPUT_PATH =&gt; '/tmp',
+      ...
+      }) || die Template-&gt;error(), "\n";
+      
+      # use default OUTPUT (sub is called)
+      $tt-&gt;process('welcome.tt2', $vars)
+          || die $tt-&gt;error(), "\n";
+          
+      # write file to '/tmp/welcome.html'
+      $tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <p>
+      The <code>process()</code> method returns <code>1</code> on success or
+      <code>undef</code> on error. The error message generated in the latter
+      case can be retrieved by calling the <a href="#method_error">error()</a>
+      method. See also <a href="#section_CONFIGURATION_SUMMARY">CONFIGURATION
+      SUMMARY</a> which describes how error handling may be further customised.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='error()' id='method_error' class='method' -**]
+    <p>
+      When called as a class method, it returns the value of the
+      <code>$ERROR</code> package variable. Thus, the following are equivalent.
+    </p>
+    <pre>
+      my $tt = Template-&gt;new()
+          || die Template-&gt;error(), "\n";
+    </pre>
+    <pre>
+      my $tt = Template-&gt;new()
+          || die $Template::ERROR, "\n";
+    </pre>
+    <p>
+      When called as an object method, it returns the value of the internal
+      <code>_ERROR</code> variable, as set by an error condition in a previous
+      call to process().
+    </p>
+    <pre>
+      $tt-&gt;process('welcome.tt2')
+          || die $tt-&gt;error(), "\n";
+    </pre>
+    <p>
+      Errors are represented in the Template Toolkit by objects of the <a
+      href="[** ttmodlink('Template::Exception') **]">Template::Exception</a>
+      class. If the <a href="#method_process">process()</a> method returns a
+      false value then the <code>error()</code> method can be called to return
+      an object of this class. The <a href="[**
+      ttmodlink('Template::Exception') **]#method_type">type()</a> and <a
+      href="[** ttmodlink('Template::Exception') **]#method_info">info()</a>
+      methods can called on the object to retrieve the error type and
+      information string, respectively. The <a href="[**
+      ttmodlink('Template::Exception') **]#method_as_string">as_string()</a>
+      method can be called to return a string of the form <code>$type -
+      $info</code>. This method is also overloaded onto the stringification
+      operator allowing the object reference itself to be printed to return the
+      formatted error string.
+    </p>
+    <pre>
+      $tt-&gt;process('somefile') || do {
+          my $error = $tt-&gt;error();
+          print "error type: ", $error-&gt;type(), "\n";
+          print "error info: ", $error-&gt;info(), "\n";
+          print $error, "\n";
+      };
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='service()' id='method_service' class='method' -**]
+    <p>
+      The <code>Template</code> module delegates most of the effort of
+      processing templates to an underlying <a href="[**
+      ttmodlink('Template::Service') **]">Template::Service</a> object. This
+      method returns a reference to that object.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='context()' id='method_context' class='method' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> module uses a core <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object for
+      runtime processing of templates. This method returns a reference to that
+      object and is equivalent to
+      <code>$template-&gt;service-&gt;context()</code>.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='CONFIGURATION SUMMARY' id='section_CONFIGURATION_SUMMARY' -**]
+    <p>
+      The following list gives a short summary of each Template Toolkit
+      configuration option. See <a href="[**
+      ttmodlink('Template::Manual::Config') **]">Template::Manual::Config</a>
+      for full details.
+    </p>
+    [** WRAPPER page/subsection title='Template Style and Parsing Options' id='section_Template_Style_and_Parsing_Options' class='' -**]
+    <h3 class="method" id="section_START_TAG_END_TAG">START_TAG, END_TAG</h3>
+    <p>
+      Define tokens that indicate start and end of directives (default:
+      '<code>[%</code>' and '<code>%]</code>').
+    </p>
+    
+    <h3 class="method" id="section_TAG_STYLE">TAG_STYLE</h3>
+    <p>
+      Set <code>START_TAG</code> and <code>END_TAG</code> according to a
+      pre-defined style (default: '<code>template</code>', as above).
+    </p>
+    
+    <h3 class="method" id="section_PRE_CHOMP_POST_CHOMP">PRE_CHOMP, POST_CHOMP</h3>
+    <p>
+      Removes whitespace before/after directives (default: 0/0).
+    </p>
+    
+    <h3 class="method" id="section_TRIM">TRIM</h3>
+    <p>
+      Remove leading and trailing whitespace from template output (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_INTERPOLATE">INTERPOLATE</h3>
+    <p>
+      Interpolate variables embedded like <code>$this</code> or
+      <code>${this}</code> (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_ANYCASE">ANYCASE</h3>
+    <p>
+      Allow directive keywords in lower case (default: 0 - UPPER only).
+    </p>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Template Files and Blocks' id='section_Template_Files_and_Blocks' class='' -**]
+    <h3 class="method" id="section_INCLUDE_PATH">INCLUDE_PATH</h3>
+    <p>
+      One or more directories to search for templates.
+    </p>
+    
+    <h3 class="method" id="section_DELIMITER">DELIMITER</h3>
+    <p>
+      Delimiter for separating paths in <code>INCLUDE_PATH</code> (default:
+      '<code>:</code>').
+    </p>
+    
+    <h3 class="method" id="section_ABSOLUTE">ABSOLUTE</h3>
+    <p>
+      Allow absolute file names, e.g. <code>/foo/bar.html</code> (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_RELATIVE">RELATIVE</h3>
+    <p>
+      Allow relative filenames, e.g. <code>../foo/bar.html</code> (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_DEFAULT">DEFAULT</h3>
+    <p>
+      Default template to use when another not found.
+    </p>
+    
+    <h3 class="method" id="section_BLOCKS">BLOCKS</h3>
+    <p>
+      Hash array pre-defining template blocks.
+    </p>
+    
+    <h3 class="method" id="section_AUTO_RESET">AUTO_RESET</h3>
+    <p>
+      Enabled by default causing <code>BLOCK</code> definitions to be reset
+      each time a template is processed. Disable to allow <code>BLOCK</code>
+      definitions to persist.
+    </p>
+    
+    <h3 class="method" id="section_RECURSION">RECURSION</h3>
+    <p>
+      Flag to permit recursion into templates (default: 0).
+    </p>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Template Variables' id='section_Template_Variables' class='' -**]
+    <h3 class="method" id="section_VARIABLES">VARIABLES</h3>
+    <p>
+      Hash array of variables and values to pre-define in the stash.
+    </p>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Runtime Processing Options' id='section_Runtime_Processing_Options' class='' -**]
+    <h3 class="method" id="section_EVAL_PERL">EVAL_PERL</h3>
+    <p>
+      Flag to indicate if <code>PERL</code>/<code>RAWPERL</code> blocks should
+      be processed (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_PRE_PROCESS_POST_PROCESS">PRE_PROCESS, POST_PROCESS</h3>
+    <p>
+      Name of template(s) to process before/after main template.
+    </p>
+    
+    <h3 class="method" id="section_PROCESS">PROCESS</h3>
+    <p>
+      Name of template(s) to process instead of main template.
+    </p>
+    
+    <h3 class="method" id="section_ERROR">ERROR</h3>
+    <p>
+      Name of error template or reference to hash array mapping error types to
+      templates.
+    </p>
+    
+    <h3 class="method" id="section_OUTPUT">OUTPUT</h3>
+    <p>
+      Default output location or handler.
+    </p>
+    
+    <h3 class="method" id="section_OUTPUT_PATH">OUTPUT_PATH</h3>
+    <p>
+      Directory into which output files can be written.
+    </p>
+    
+    <h3 class="method" id="section_DEBUG">DEBUG</h3>
+    <p>
+      Enable debugging messages.
+    </p>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Caching and Compiling Options' id='section_Caching_and_Compiling_Options' class='' -**]
+    <h3 class="method" id="section_CACHE_SIZE">CACHE_SIZE</h3>
+    <p>
+      Maximum number of compiled templates to cache in memory (default: undef -
+      cache all)
+    </p>
+    
+    <h3 class="method" id="section_COMPILE_EXT">COMPILE_EXT</h3>
+    <p>
+      Filename extension for compiled template files (default: undef - don't
+      compile).
+    </p>
+    
+    <h3 class="method" id="section_COMPILE_DIR">COMPILE_DIR</h3>
+    <p>
+      Root of directory in which compiled template files should be written
+      (default: undef - don't compile).
+    </p>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Plugins and Filters' id='section_Plugins_and_Filters' class='' -**]
+    <h3 class="method" id="section_PLUGINS">PLUGINS</h3>
+    <p>
+      Reference to a hash array mapping plugin names to Perl packages.
+    </p>
+    
+    <h3 class="method" id="section_PLUGIN_BASE">PLUGIN_BASE</h3>
+    <p>
+      One or more base classes under which plugins may be found.
+    </p>
+    
+    <h3 class="method" id="section_LOAD_PERL">LOAD_PERL</h3>
+    <p>
+      Flag to indicate regular Perl modules should be loaded if a named plugin
+      can't be found (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_FILTERS">FILTERS</h3>
+    <p>
+      Hash array mapping filter names to filter subroutines or factories.
+    </p>
+    
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Customisation and Extension' id='section_Customisation_and_Extension' class='' -**]
+    <h3 class="method" id="section_LOAD_TEMPLATES">LOAD_TEMPLATES</h3>
+    <p>
+      List of template providers.
+    </p>
+    
+    <h3 class="method" id="section_LOAD_PLUGINS">LOAD_PLUGINS</h3>
+    <p>
+      List of plugin providers.
+    </p>
+    
+    <h3 class="method" id="section_LOAD_FILTERS">LOAD_FILTERS</h3>
+    <p>
+      List of filter providers.
+    </p>
+    
+    <h3 class="method" id="section_TOLERANT">TOLERANT</h3>
+    <p>
+      Set providers to tolerate errors as declinations (default: 0).
+    </p>
+    
+    <h3 class="method" id="section_SERVICE">SERVICE</h3>
+    <p>
+      Reference to a custom service object (default: <a href="[**
+      ttmodlink('Template::Service') **]">Template::Service</a>).
+    </p>
+    
+    <h3 class="method" id="section_CONTEXT">CONTEXT</h3>
+    <p>
+      Reference to a custom context object (default: <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a>).
+    </p>
+    
+    <h3 class="method" id="section_STASH">STASH</h3>
+    <p>
+      Reference to a custom stash object (default: <a href="[**
+      ttmodlink('Template::Stash') **]">Template::Stash</a>).
+    </p>
+    
+    <h3 class="method" id="section_PARSER">PARSER</h3>
+    <p>
+      Reference to a custom parser object (default: <a href="[**
+      ttmodlink('Template::Parser') **]">Template::Parser</a>).
+    </p>
+    
+    <h3 class="method" id="section_GRAMMAR">GRAMMAR</h3>
+    <p>
+      Reference to a custom grammar object (default: <a href="[**
+      ttmodlink('Template::Grammar') **]">Template::Grammar</a>).
+    </p>
+    
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='DIRECTIVE SUMMARY' id='section_DIRECTIVE_SUMMARY' -**]
+    <p>
+      The following list gives a short summary of each Template Toolkit
+      directive. See <a href="[** ttmodlink('Template::Manual::Directives')
+      **]">Template::Manual::Directives</a> for full details.
+    </p>
+    [** WRAPPER page/subsection title='GET' id='section_GET' class='' -**]
+    <p>
+      Evaluate and print a variable or value.
+    </p>
+    <pre>
+      <span class="tt">[%   GET variable %]</span>    # 'GET' keyword is optional
+      <span class="tt">[%       variable %]</span>
+      <span class="tt">[%       hash.key %]</span>
+      <span class="tt">[%         list.n %]</span>
+      <span class="tt">[%     code(args) %]</span>
+      <span class="tt">[% obj.meth(args) %]</span>
+      <span class="tt">[%  "value: $var" %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='CALL' id='section_CALL' class='' -**]
+    <p>
+      As per <a href="#section_GET">GET</a> but without printing result (e.g.
+      call code)
+    </p>
+    <pre>
+      <span class="tt">[%  CALL variable %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='SET' id='section_SET' class='' -**]
+    <p>
+      Assign a values to variables.
+    </p>
+    <pre>
+      <span class="tt">[% SET variable = value %]</span>    # 'SET' also optional
+      <span class="tt">[%     variable = other_variable
+             variable = 'literal text @ $100'
+             variable = "interpolated text: $var"
+             list     = [ val, val, val, val, ... ]
+             list     = [ val..val ]
+             hash     = { var =&gt; val, var =&gt; val, ... }
+      %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DEFAULT' id='section_DEFAULT' class='' -**]
+    <p>
+      Like <a href="#section_SET">SET</a>, but variables are only set if
+      currently unset (i.e. have no true value).
+    </p>
+    <pre>
+      <span class="tt">[% DEFAULT variable = value %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='INSERT' id='section_INSERT' class='' -**]
+    <p>
+      Insert a file without any processing performed on the contents.
+    </p>
+    <pre>
+      <span class="tt">[% INSERT legalese.txt %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PROCESS' id='section_PROCESS' class='' -**]
+    <p>
+      Process another template file or block and insert the generated output.
+      Any template <a href="#section_BLOCK">BLOCK</a>s or variables defined or
+      updated in the <code>PROCESS</code>ed template will thereafter be defined
+      in the calling template.
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS template %]</span>
+      <span class="tt">[% PROCESS template  var = val, ... %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='INCLUDE' id='section_INCLUDE' class='' -**]
+    <p>
+      Similar to <code>PROCESS</code>, but using a local copy of the current
+      variables. Any template <code>BLOCK</code>s or variables defined in the
+      <code>INCLUDE</code>d template remain local to it.
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE template %]</span>
+      <span class="tt">[% INCLUDE template  var = val, ... %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='WRAPPER' id='section_WRAPPER' class='' -**]
+    <p>
+      The content between the <code>WRAPPER</code> and correspondng
+      <code>END</code> directives is first evaluated, with the output generated
+      being stored in the <code>content</code> variable. The named template is
+      then process as per <code>INCLUDE</code>.
+    </p>
+    <pre>
+      <span class="tt">[% WRAPPER layout %]</span>
+         Some template markup <span class="tt">[% blah %]</span>...
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      A simple <code class="file">layout</code> template might look something
+      like this:
+    </p>
+    <pre>
+      Your header here...
+      <span class="tt">[% content %]</span>
+      Your footer here...
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='BLOCK' id='section_BLOCK' class='' -**]
+    <p>
+      Define a named template block for <a href="#section_INCLUDE">INCLUDE</a>,
+      <a href="#section_PROCESS">PROCESS</a> and <a
+      href="#section_WRAPPER">WRAPPER</a> to use.
+    </p>
+    <pre>
+      <span class="tt">[% BLOCK hello %]</span>
+         Hello World
+      <span class="tt">[% END %]</span>
+      
+      <span class="tt">[% INCLUDE hello %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='FOREACH' id='section_FOREACH' class='' -**]
+    <p>
+      Repeat the enclosed <code>FOREACH</code> ... <code>END</code> block for
+      each value in the list.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH variable IN [ val, val, val ] %]</span>    # either
+      <span class="tt">[% FOREACH variable IN list %]</span>                 # or
+         The variable is set to <span class="tt">[% variable %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='WHILE' id='section_WHILE' class='' -**]
+    <p>
+      The block enclosed between <code>WHILE</code> and <code>END</code> block
+      is processed while the specified condition is true.
+    </p>
+    <pre>
+      <span class="tt">[% WHILE condition %]</span>
+         content
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='IF / UNLESS / ELSIF / ELSE' id='section_IF_UNLESS_ELSIF_ELSE' class='' -**]
+    <p>
+      The enclosed block is processed if the condition is true / false.
+    </p>
+    <pre>
+      <span class="tt">[% IF condition %]</span>
+         content
+      <span class="tt">[% ELSIF condition %]</span>
+       content
+      <span class="tt">[% ELSE %]</span>
+       content
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% UNLESS condition %]</span>
+         content
+      <span class="tt">[% # ELSIF/ELSE as per IF, above %]</span>
+         content
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='SWITCH / CASE' id='section_SWITCH_CASE' class='' -**]
+    <p>
+      Multi-way switch/case statement.
+    </p>
+    <pre>
+      <span class="tt">[% SWITCH variable %]</span>
+      <span class="tt">[%   CASE val1 %]</span>
+             content
+      <span class="tt">[%   CASE [ val2, val3 ] %]</span>
+             content
+      <span class="tt">[%   CASE %]</span>         # or <span class="tt">[% CASE DEFAULT %]</span>
+             content
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='MACRO' id='section_MACRO' class='' -**]
+    <p>
+      Define a named macro.
+    </p>
+    <pre>
+      <span class="tt">[% MACRO name &lt;directive&gt; %]</span>
+      <span class="tt">[% MACRO name(arg1, arg2) &lt;directive&gt; %]</span>
+      ...
+      <span class="tt">[% name %]</span>
+      <span class="tt">[% name(val1, val2) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='FILTER' id='section_FILTER' class='' -**]
+    <p>
+      Process enclosed <code>FILTER</code> ... <code>END</code> block then pipe
+      through a filter.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER name %]</span>                       # either
+      <span class="tt">[% FILTER name( params ) %]</span>             # or
+      <span class="tt">[% FILTER alias = name( params ) %]</span>     # or
+         content
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='USE' id='section_USE' class='' -**]
+    <p>
+      Load a plugin module (see <code>Template::&lt;Manual::Plugins</code>), or
+      any regular Perl module when the <code>LOAD_PERL</code> option is set.
+    </p>
+    <pre>
+      <span class="tt">[% USE name %]</span>                      # either
+      <span class="tt">[% USE name( params ) %]</span>            # or
+      <span class="tt">[% USE var = name( params ) %]</span>      # or
+      ...
+      <span class="tt">[% name.method %]</span>
+      <span class="tt">[% var.method %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='PERL / RAWPERL' id='section_PERL_RAWPERL' class='' -**]
+    <p>
+      Evaluate enclosed blocks as Perl code (requires the
+      <code>EVAL_PERL</code> option to be set).
+    </p>
+    <pre>
+      <span class="tt">[% PERL %]</span>
+       # perl code goes here
+       $stash-&gt;set('foo', 10);
+       print "set 'foo' to ", $stash-&gt;get('foo'), "\n";
+       print $context-&gt;include('footer', { var =&gt; $val });
+      <span class="tt">[% END %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[% RAWPERL %]</span>
+         # raw perl code goes here, no magic but fast.
+         $output .= 'some output';
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TRY / THROW / CATCH / FINAL' id='section_TRY_THROW_CATCH_FINAL' class='' -**]
+    <p>
+      Exception handling.
+    </p>
+    <pre>
+      <span class="tt">[% TRY %]</span>
+       content
+         <span class="tt">[% THROW type info %]</span>
+      <span class="tt">[% CATCH type %]</span>
+       catch content
+         <span class="tt">[% error.type %]</span> <span class="tt">[% error.info %]</span>
+      <span class="tt">[% CATCH %]</span> # or <span class="tt">[% CATCH DEFAULT %]</span>
+       content
+      <span class="tt">[% FINAL %]</span>
+         this block is always processed
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='NEXT' id='section_NEXT' class='' -**]
+    <p>
+      Jump straight to the next item in a <code>FOREACH</code> or
+      <code>WHILE</code> loop.
+    </p>
+    <pre>
+      <span class="tt">[% NEXT %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='LAST' id='section_LAST' class='' -**]
+    <p>
+      Break out of <code>FOREACH</code> or <code>WHILE</code> loop.
+    </p>
+    <pre>
+      <span class="tt">[% LAST %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='RETURN' id='section_RETURN' class='' -**]
+    <p>
+      Stop processing current template and return to including templates.
+    </p>
+    <pre>
+      <span class="tt">[% RETURN %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='STOP' id='section_STOP' class='' -**]
+    <p>
+      Stop processing all templates and return to caller.
+    </p>
+    <pre>
+      <span class="tt">[% STOP %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='TAGS' id='section_TAGS' class='' -**]
+    <p>
+      Define new tag style or characters (default: <code>[%</code>
+      <code>%]</code>).
+    </p>
+    <pre>
+      <span class="tt">[% TAGS html %]</span>
+      <span class="tt">[% TAGS &lt;!-- --&gt; %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='COMMENTS' id='section_COMMENTS' class='' -**]
+    <p>
+      Ignored and deleted.
+    </p>
+    <pre>
+      <span class="tt">[% # this is a comment to the end of line
+         foo = 'bar'
+      %]</span>
+    </pre>
+    <pre>
+      <span class="tt">[%# placing the '#' immediately inside the directive
+          tag comments out the entire directive
+      %]</span>
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='VERSION' id='section_VERSION' -**]
+    <p>
+      Template Toolkit version 2.20, released June 2007.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+
+</div>

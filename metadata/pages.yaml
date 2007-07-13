@@ -1,0 +1,73 @@
+---
+/index.html:
+  name: Home
+  title: Template Toolkit Home Page
+  next: /about.html
+  uri: /index.html
+/about.html:
+  name: About
+  title: About the Template Toolkit
+  next: /download/index.html
+  back: /index.html
+  up: /index.html
+  uri: /about.html
+/download/index.html:
+  name: Download
+  title: Template Toolkit Downloads
+  next: /docs/index.html
+  back: /about.html
+  up: /index.html
+  uri: /download/index.html
+/mail/index.html:
+  name: Mailing Lists
+  title: Template Toolkit Mailing Lists
+  back: /docs/index.html
+  next: /book.html
+  up: /index.html
+  uri: /mail/index.html
+/mail/templates/index.html:
+  name: Templates
+  title: Templates Mailing List
+  about: Information about the Templates mailing list
+  next: /mail/templates-announce/index.html
+  up: /index.html
+  uri: /mailman/listinfo/templates
+/mail/templates/archive.html:
+  name: Archive
+  title: Templates Mailing List Archive
+  about: Archive for the Templates mailing list.
+  up: /mail/templates/index.html
+  uri: /pipermail/templates
+/mail/templates-announce/index.html:
+  name: Templates-Announce
+  title: Templates-Announce Mailing List
+  about: Low-volume mailing list for Template Toolkit announcements
+  back: /mail/templates/index.html
+  next: /mail/templates-svn/index.html
+  up: /index.html
+  uri: /mailman/listinfo/templates-announce
+/mail/templates-announce/archive.html:
+  name: Archive
+  title: Templates-Announce Mailing List Archive
+  about: Archive for the Templates-Announce mailing list.
+  up: /mail/templates-announce/index.html
+  uri: /pipermail/templates-announce
+/mail/templates-svn/index.html:
+  name: Templates-SVN
+  title: Templates-SVN Mailing List
+  about: Commit messages from the Template Toolkit subversion repository
+  up: /index.html
+  back: /mail/templates-announce/index.html
+  uri: /mailman/listinfo/templates-svn
+/mail/templates-svn/archive.html:
+  name: Archive
+  title: Templates-SVN Mailing List Archive
+  about: Archive for the Templates-SVN mailing list.
+  up: /mail/templates-svn/index.html
+  uri: /pipermail/templates-svn
+/book.html:
+  name: Badger Book
+  title: Perl Template Toolkit
+  about: The Badger Book
+  back: /mail/index.html
+  up: /index.html

@@ -1,0 +1,29 @@
+/*------------------------------------------------------------------------
+ * functions to handle multiple handler for onload and onunload events.
+ *------------------------------------------------------------------------*/
+
+var onload_functions   = new Array();
+var onunload_functions = new Array();
+
+function page_onload(func) {
+    onload_functions.push(func);
+}
+
+function page_onunload(func) {
+    onunload_functions.push(func);
+}
+
+function page_load() {
+    for(var i = 0; i < onload_functions.length; i++) {
+        try { eval(onload_functions[i]); }
+        catch(err) { alert(err) }
+    }
+}
+
+function page_unload() {
+    for(var i = 0; i < onunload_functions.length; i++)
+        eval(onunload_functions[i]);
+}
+
+window.onload   = page_load;
+window.onunload = page_unload;

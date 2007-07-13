@@ -1,0 +1,23 @@
+[%  MACRO link(where) 
+      IF (go = page.$where);
+        PROCESS link;
+      ELSE;
+        PROCESS blank;
+      END;
+-%]
+
+[%- BLOCK link -%]
+  <a href="[% rooturl %][% go.uri %]" title="[% go.title or go.name %]" class="go [% where %]">
+[%- where | ucfirst %]<span class="about"><strong>[%- go.title or go.name %]</strong>[% go.about IF show_about %]</span></a>
+[%  END -%]
+
+[%- BLOCK blank -%]
+  <span class="go [% where %]">[% where | ucfirst %]<span class="about">[% Badger.quote(where) IF show_about %]</span></span>
+[%  END -%]
+
+<div class="pager">
+[%  link('back');
+    link('up');
+    link('next');
+-%]
+</div>

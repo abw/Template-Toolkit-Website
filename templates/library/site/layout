@@ -1,0 +1,9 @@
+<div id="layout">
+[% PROCESS site/header
+         + site/body
+         + site/footer 
+         + site/palette
+         | trim | indent(4)
+%]
+</div>
+[% PROCESS site/preload %]

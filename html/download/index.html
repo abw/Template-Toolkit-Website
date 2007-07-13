@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template Toolkit Downloads</title>
+    <link rel="stylesheet" type="text/css" href="../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li class="last"><a href="../download/index.html">Download</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <a href="../about.html" title="About the Template Toolkit" class="go back">Back<span class="about"><strong>About the Template Toolkit</strong></span></a>
+            <a href="../index.html" title="Template Toolkit Home Page" class="go up">Up<span class="about"><strong>Template Toolkit Home Page</strong></span></a>
+            <a href="../docs/index.html" title="Template Toolkit Documentation" class="go next">Next<span class="about"><strong>Template Toolkit Documentation</strong>Template Processing System</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template Toolkit Downloads</h1>
+        
+          <a href="http://template-toolkit.org/download/index.html" class="permalink">http://template-toolkit.org/download/index.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../about.html">About</a></li>
+                <li class="l0"><a href="../download/index.html" class="warm">Download</a></li>
+                <li class="l0"><a href="../docs/index.html">Documentation</a></li>
+                <li class="l0"><a href="../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_0">Introduction</a></li>
+                  <li class=""><a href="#section_1">Pre-Requisites</a></li>
+                  <li class=""><a href="#source">Installing from Source Code</a></li>
+                  <li class=""><a href="#cpan">Installing with the CPAN Module</a></li>
+                  <li class=""><a href="#binaries">Platform-Specific Binaries</a></li>
+                  <li class="sub"><a href="#mac">Mac OSX</a></li>
+                  <li class="sub"><a href="#debian">Debian GNU/Linux</a></li>
+                  <li class="sub"><a href="#win32">Microsoft Windows</a></li>
+                  <li class=""><a href="#developer">Developer Versions</a></li>
+                  <li class=""><a href="#svn">Subversion Source Code Repository</a></li>
+                  <li class=""><a href="#related">Related Modules</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="section">
+              <div class="head">
+                <h1 onclick="switch_section(this)" title="Click title to show/hide section content." id="section_0">Introduction</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                  The Template Toolkit is free in both senses of the word:
+                  <i>free beer</i> and <i>free speech</i>.
+                  It is <i>free</i> in the first sense because it costs 
+                  absolutely nothing to download and use the Template Toolkit.
+                  And it's <i>free</i> in the second sense because it's
+                  distributed under an 
+                  <a href="http://opensource.org" class="ext" title="Open Source: the way forward">Open Source</a> license.
+                  That mean that you get the full source code to the Template
+                  Toolkit <i>and</i> you're explicitly granted the right 
+                  to modify and adapt the code, should you so wish.
+                </p>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="head">
+                <h1 onclick="switch_section(this)" title="Click title to show/hide section content." id="section_1">Pre-Requisites</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                
+                  You'll need to have Perl version 5.6.0 or later installed on your machine.
+                  Perl comes pre-installed on all modern Unix-based systems (which includes
+                  Mac OSX). It's <a href="http://cpan.org/ports/index.html" title="Perl
+                  Ports">freely available</a> for virtually every modern operating system
+                  under the sun, so you have no excuse for not installing it if you don't
+                  already have it. Don't be scared now.  You don't have to write any Perl 
+                  code to use the Template Toolkit.
+                </p>
+                
+                <p>
+                  The Template Toolkit also depends on the Perl 
+                  <a href="http://search.cpan.org/search?query=AppConfig" class="ext">AppConfig</a>
+                  module being installed.  But if you use the <a href="#cpan">CPAN module</a> as
+                  described below then it will take care of this for you.
+                </p>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="source" onclick="switch_section(this)" title="Click title to show/hide section content.">Installing from Source Code</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Stable versions of the Template Toolkit source code can be downloaded from
+                      <a href="http://cpan.org/" class="ext" title="The Comprehensive Perl Archive Network, for all your Perl software needs!">CPAN</a>.
+                      The latest stable version of the Template Toolkit is 2.19.
+                    </p>
+                
+                    <a href="http://cpan.org/modules/by-module/Template/Template-Toolkit-2.19.tar.gz"
+                      class="download" title="Download the latest stable version (2.19) of the Template Toolkit">Download 
+                      Template Toolkit stable version 2.19</a>
+                    <p>
+                      The source code is distributed as a <code>.tar.gz</code> archive.
+                      You'll need to unpack it and follow the instructions in the 
+                
+                      <b>INSTALL</b> file.
+                    </p>
+                
+                    <p>
+                      For those impatient types who don't have time to read the documentation,
+                      it goes like this:
+                    </p>
+                
+                    <pre class="code">$ tar zxf Template-Toolkit-2.19.tar.gz
+$ cd Template-Toolkit-2.19
+$ perl Makefile.PL
+$ make
+$ make test
+$ sudo make install</pre>
+              </div>
+            </div>
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="cpan" onclick="switch_section(this)" title="Click title to show/hide section content.">Installing with the CPAN Module</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      If you have the <a href="http://search.cpan.org/search?query=CPAN" class="ext" title="The CPAN module - for installing CPAN modules">CPAN module</a>
+                      installed then you can install the Template Toolkit like so:
+                    </p>
+                
+                    <pre class="code">$ sudo cpan Template</pre>
+                
+                    <p>
+                      The above assumes a Unix-like system (which includes Mac OSX) and uses
+                      <code>sudo</code> to run the <code>cpan Template</code> command with administrator privileges.
+                    </p>
+                
+                    <p>
+                      The CPAN module is distributed with more recent versions of Perl (5.8 and
+                      later) so there's a good chance you've already got the CPAN module installed
+                      if your version of Perl is up-to-date.
+                    </p>
+              </div>
+            </div>
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="binaries" onclick="switch_section(this)" title="Click title to show/hide section content.">Platform-Specific Binaries</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      You can also get the Template Toolkit in "binary form" for 
+                      installation on various platforms.  Don't be misled by the name -
+                      you still get the full source code for the Template Toolkit, but
+                      it's delivered in a packaged format that you can install straight
+                      onto your system without having to build it from source.
+                    </p>
+                
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="mac" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Mac OSX</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                            If you're running Mac OSX (you lucky thing!) then you can install the
+                            Template Toolkit using the <a href="#cpan">CPAN module</a> as
+                            described above. Run the <b>Terminal</b> application (located in
+                            Applications/Utilities) and enter the <code>sudo cpan Template</code>
+                            command at the prompt.
+                          </p>
+                          <p>
+                            Alternately, if you have 
+                            <a href="http://fink.sourceforge.net/" class="ext" title="Fink: an Open Source package manager for Mac OSX">Fink</a>
+                            installed then you can use it to install the Template Toolkit.
+                            Christian Schaffner maintains the Fink packages for the Template
+                            Toolkit. They can be found in the <code>libs/perlmods</code>. section.
+                          </p>
+                  </div>
+                </div><div class="subsection">
+                  <div class="head">
+                    <h2 id="debian" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Debian GNU/Linux</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                            Mako Hill maintains the official Template Toolkit packages for 
+                            <a href="http://debian.org/" class="ext" title="Debian: a free GNU/Linux operating system for your computer">Debian
+                            GNU/Linux</a>. They are available in Debian as <code>libtemplate-perl</code>. The
+                            Debian package pages for the latest versions can be found at:
+                          </p>
+                          <a href="http://packages.debian.org/unstable/perl/libtemplate-perl" class="download">http://packages.debian.org/unstable/perl/libtemplate-perl</a>
+                          <a href="http://packages.debian.org/unstable/perl/libtemplate-perl-doc" class="download">http://packages.debian.org/unstable/perl/libtemplate-perl-doc</a>
+                          <p>
+                            You can download the packages and the source for the latest TT2 packages
+                            at:
+                          </p>
+                          <a href="http://people.debian.org/~mako/outgoing/libtemplate-perl/" class="download">http://people.debian.org/~mako/outgoing/libtemplate-perl/</a>
+                          <p>
+                            If you use <code>stable</code> or <code>testing</code> and 
+                            want to use the latest Template Toolkit packages, then 
+                            simply add the following line to your <code>sources.list</code>
+                            file:
+                          </p>
+                          <pre class="code">deb http://people.debian.org/~mako/outgoing/ ./</pre>
+                          <p>
+                            Of course, you can also install the Template Toolkit on any Unix-like
+                            system using the <a href="#cpan">CPAN module</a>, as described above.
+                  </div>
+                </div><div class="subsection">
+                  <div class="head">
+                    <h2 id="win32" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Microsoft Windows</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                            If you're using a Microsoft Windows machine then you 
+                            have our sympathies. Nevertheless, you can install 
+                            <a href="http://www.activestate.com/Products/ActivePerl/" class="ext" title="ActivePerl: Perl for Microsoft Windows">ActivePerl</a>
+                            and then use the Perl Package Manager (PPM) to install the Template Toolkit.
+                          </p>
+                          <p>
+                            Our friends over at <a href="http://www.bugzilla.org/" class="ext" title="Bugzilla: Open Source bug tracking software">Bugzilla</a>
+                            have put a page together telling you where you can find the relevant PPM files.
+                          </p>
+                          <a href="http://www.bugzilla.org/docs/2.18/html/modules-manual-download.html" class="download">Links to ActivePerl PPM packages</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="developer" onclick="switch_section(this)" title="Click title to show/hide section content.">Developer Versions</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                    In addition to the stable releases available from CPAN, we also
+                    release interim developer versions from time to time.  These contain
+                    additional features, bug fixes and other updates over the latest
+                    stable version.
+                  </p>
+                  <p>
+                    Developer versions have an additional character
+                    suffix (e.g. 2.19a, 2.19b, etc) and
+                    are available to download from this web site.
+                    Developer releases eventually go on to become the
+                    next stable release and made available on CPAN.
+                  </p>
+                  <p>
+                    There are no developer versions released at present.
+                  </p>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="svn" onclick="switch_section(this)" title="Click title to show/hide section content.">Subversion Source Code Repository</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                    The source code for the Template Toolkit is managed using
+                    <a href="http://subversion.tigris.org/" class="ext" title="Subversion: an Open Source revision control system">Subversion</a> (svn).
+                    If you have subversion installed on your system then you can check out the 
+                    Template Toolkit source code using a command like this:
+                  </p>
+                  <pre class="code">$ svn co svn://svn.tt2.org/Template2/trunk Template2</pre>
+                  <p>
+                    You can also browse the Subversion repository using the web front-end.
+                    This is implemented using <a href="http://search.cpan.org/dist/SVN-Web/" class="ext">SVN::Web</a>, 
+                    which in turn uses the Template Toolkit to generate the web pages.  So it's
+                    a nice example of just one kind of thing you can do with TT.
+                  </p>
+                  <a href="http://template-toolkit.org/svnweb/Template2" class="download">http://template-toolkit.org/svnweb/Template2</a>
+              </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="related" onclick="switch_section(this)" title="Click title to show/hide section content.">Related Modules</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                    In times gone by, the Template Toolkit was distributed with a whole
+                    bunch of plugin modules for doing all sorts of things.  These included:
+                    querying databases via the DBI module, processing XML documents,
+                    typesetting output using LaTeX, and generating images using the GD
+                    library.
+                  </p>
+                  <p>
+                    In a fit of common sense, they were eventually removed from the core 
+                    Template Toolkit distribution and made available as separate bundles.
+                    You can download them from CPAN using the following links or you can
+                    install them using the <a href="#cpan">CPAN module</a> as described above.
+                  </p>
+                  <a href="http://search.cpan.org/search?query=Template-DBI" class="download">Template-DBI</a>
+                  <a href="http://search.cpan.org/search?query=Template-GD" class="download">Template-GD</a>
+                  <a href="http://search.cpan.org/search?query=Template-XML" class="download">Template-XML</a>
+                  <a href="http://search.cpan.org/search?query=Template-Latex" class="download">Template-Latex</a>
+                  <p>
+                    These modules also have corresponding projects in the Subversion repository.
+                    You can check out the source code using a variation of the <code>svn</code> command 
+                    shown in the previous section.  e.g.
+                  </p>
+                  <pre class="code">$ svn co svn://svn.tt2.org/Template-DBI/trunk Template-DBI</pre>
+                  <p>
+                    The same goes for viewing these projects via the web interface.  Simply replace
+                    <code>Template2</code> with one of the other module names, e.g.
+                  </p>
+                  <a href="http://template-toolkit.org/svnweb/Template-DBI" class="download">http://template-toolkit.org/svnweb/Template-DBI</a>
+              </div>
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/download/index.html last modified 14:40:09 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <a href="../about.html" title="About the Template Toolkit" class="go back">Back<span class="about"><strong>About the Template Toolkit</strong></span></a>
+            <a href="../index.html" title="Template Toolkit Home Page" class="go up">Up<span class="about"><strong>Template Toolkit Home Page</strong></span></a>
+            <a href="../docs/index.html" title="Template Toolkit Documentation" class="go next">Next<span class="about"><strong>Template Toolkit Documentation</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

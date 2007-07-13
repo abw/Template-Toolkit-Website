@@ -1,0 +1,590 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='format(format)' id='section_format_format_' -**]
+    <p>
+      The <code>format</code> filter takes a format string as a parameter (as
+      per <code>printf()</code>) and formats each line of text accordingly.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER format('&lt;!-- %-40s --&gt;') %]</span>
+      This is a block of text filtered 
+      through the above format.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      &lt;!-- This is a block of text filtered        --&gt;
+      &lt;!-- through the above format.               --&gt;
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='upper' id='section_upper' -**]
+    <p>
+      Folds the input to UPPER CASE.
+    </p>
+    <pre>
+      <span class="tt">[% "hello world" FILTER upper %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      HELLO WORLD
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='lower' id='section_lower' -**]
+    <p>
+      Folds the input to lower case.
+    </p>
+    <pre>
+      <span class="tt">[% "Hello World" FILTER lower %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      hello world
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='ucfirst' id='section_ucfirst' -**]
+    <p>
+      Folds the first character of the input to UPPER CASE.
+    </p>
+    <pre>
+      <span class="tt">[% "hello" FILTER ucfirst %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      Hello
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='lcfirst' id='section_lcfirst' -**]
+    <p>
+      Folds the first character of the input to lower case.
+    </p>
+    <pre>
+      <span class="tt">[% "HELLO" FILTER lcfirst %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      hELLO
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='trim' id='section_trim' -**]
+    <p>
+      Trims any leading or trailing whitespace from the input text.
+      Particularly useful in conjunction with <code>INCLUDE</code>,
+      <code>PROCESS</code>, etc., having the same effect as the
+      <code>TRIM</code> configuration option.
+    </p>
+    <pre>
+      <span class="tt">[% INCLUDE myfile | trim %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='collapse' id='section_collapse' -**]
+    <p>
+      Collapse any whitespace sequences in the input text into a single space.
+      Leading and trailing whitespace (which would be reduced to a single
+      space) is removed, as per trim.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER collapse %]</span>
+      
+         The   cat
+         
+         sat    on
+         
+         the   mat
+         
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      The cat sat on the mat
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='html' id='section_html' -**]
+    <p>
+      Converts the characters <code>&lt;</code>, <code>&gt;</code>,
+      <code>&amp;</code> and <code>"</code> to <code>&amp;lt;</code>,
+      <code>&amp;gt;</code>, <code>&amp;amp;</code>, and
+      <code>&amp;quot;</code> respectively, protecting them from being
+      interpreted as representing HTML tags or entities.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER html %]</span>
+      Binary "&lt;=&gt;" returns -1, 0, or 1 depending on...
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      Binary "&amp;lt;=&amp;gt;" returns -1, 0, or 1 depending on...
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='html_entity' id='section_html_entity' -**]
+    <p>
+      The <code>html</code> filter is fast and simple but it doesn't encode the
+      full range of HTML entities that your text may contain. The
+      <code>html_entity</code> filter uses either the <code>Apache::Util</code>
+      module (which is written in C and is therefore faster) or the
+      <code>HTML::Entities</code> module (written in Perl but equally as
+      comprehensive) to perform the encoding. If one or other of these modules
+      are installed on your system then the text will be encoded (via the
+      <code>escape_html()</code> or <code>encode_entities()</code> subroutines
+      respectively) to convert all extended characters into their appropriate
+      HTML entities (e.g. converting '<code>é</code>' to
+      '<code>&amp;eacute;</code>'). If neither module is available on your
+      system then an '<code>html_entity</code>' exception will be thrown
+      reporting an appropriate message.
+    </p>
+    <p>
+      For further information on HTML entity encoding, see <a
+      href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='html_para' id='section_html_para' -**]
+    <p>
+      This filter formats a block of text into HTML paragraphs. A sequence of
+      two or more newlines is used as the delimiter for paragraphs which are
+      then wrapped in HTML <code>&lt;p&gt;</code>...<code>&lt;/p&gt;</code>
+      tags.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER html_para %]</span>
+      The cat sat on the mat.
+      
+      Mary had a little lamb.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      &lt;p&gt;
+      The cat sat on the mat.
+      &lt;/p&gt;
+      
+      &lt;p&gt;
+      Mary had a little lamb.
+      &lt;/p&gt;
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='html_break / html_para_break' id='section_html_break_html_para_break' -**]
+    <p>
+      Similar to the html_para filter described above, but uses the HTML tag
+      sequence <code>&lt;br&gt;&lt;br&gt;</code> to join paragraphs.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER html_break %]</span>
+      The cat sat on the mat.
+      
+      Mary had a little lamb.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      The cat sat on the mat.
+      &lt;br&gt;
+      &lt;br&gt;
+      Mary had a little lamb.
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='html_line_break' id='section_html_line_break' -**]
+    <p>
+      This filter replaces any newlines with <code>&lt;br&gt;</code> HTML tags,
+      thus preserving the line breaks of the original text in the HTML output.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER html_line_break %]</span>
+      The cat sat on the mat.
+      Mary had a little lamb.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      The cat sat on the mat.&lt;br&gt;
+      Mary had a little lamb.&lt;br&gt;
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='uri' id='section_uri' -**]
+    <p>
+      This filter URI escapes the input text, converting any characters outside
+      of the permitted URI character set (as defined by RFC 2396) into a
+      <code>%nn</code> hex escape.
+    </p>
+    <pre>
+      <span class="tt">[% 'my file.html' | uri %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      my%20file.html
+    </pre>
+    <p>
+      The uri filter correctly encodes all reserved characters, including
+      <code>&amp;</code>, <code>@</code>, <code>/</code>, <code>;</code>,
+      <code>:</code>, <code>=</code>, <code>+</code>, <code>?</code> and
+      <code>$</code>. This filter is typically used to encode parameters in a
+      URL that could otherwise be interpreted as part of the URL. Here's an
+      example:
+    </p>
+    <pre>
+      <span class="tt">[% path  = 'http://tt2.org/example'
+         back  = '/other?foo=bar&amp;baz=bam' 
+         title = 'Earth: "Mostly Harmless"'
+      %]</span>
+      &lt;a href="<span class="tt">[% path %]</span>?back=<span class="tt">[% back | uri %]</span>&amp;title=<span class="tt">[% title | uri %]</span>"&gt;
+    </pre>
+    <p>
+      The output generated is rather long so we'll show it split across two
+      lines:
+    </p>
+    <pre>
+      &lt;a href="http://tt2.org/example?back=%2Fother%3Ffoo%3Dbar%26
+      baz%3Dbam&amp;title=Earth%3A%20%22Mostly%20Harmless%22"&gt;
+    </pre>
+    <p>
+      Without the uri filter the output would look like this (also split across
+      two lines).
+    </p>
+    <pre>
+      &lt;a href="http://tt2.org/example?back=/other?foo=bar
+      &amp;baz=bam&amp;title=Earth: "Mostly Harmless""&gt;
+    </pre>
+    <p>
+      In this rather contrived example we've manage to generate both a broken
+      URL (the repeated <code>?</code> is not allowed) and a broken HTML
+      element (the href attribute is terminated by the first <code>"</code>
+      after <code>Earth: </code> leaving <code>Mostly Harmless"</code> dangling
+      on the end of the tag in precisely the way that harmless things shouldn't
+      dangle). So don't do that. Always use the uri filter to encode your URL
+      parameters.
+    </p>
+    <p>
+      However, you should <b>not</b> use the uri filter to encode an entire
+      URL.
+    </p>
+    <pre>
+         &lt;a href="<span class="tt">[% page_url | uri %]</span>"&gt;   # WRONG!
+    </pre>
+    <p>
+      This will incorrectly encode any reserved characters like <code>:</code>
+      and <code>/</code> and that's almost certainly not what you want in this
+      case. Instead you should use the <b>url</b> (note spelling) filter for
+      this purpose.
+    </p>
+    <pre>
+         &lt;a href="<span class="tt">[% page_url | url %]</span>"&gt;   # CORRECT
+    </pre>
+    <p>
+      Please note that this behaviour was changed in version 2.16 of the
+      Template Toolkit. Prior to that, the uri filter did not encode the
+      reserved characters, making it technically incorrect according to the RFC
+      2396 specification. So we fixed it in 2.16 and provided the url filter to
+      implement the old behaviour of not encoding reserved characters.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='url' id='section_url' -**]
+    <p>
+      The url filter is a less aggressive version of the uri filter. It encodes
+      any characters outside of the permitted URI character set (as defined by
+      RFC 2396) into <code>%nn</code> hex escapes. However, unlike the uri
+      filter, the url filter does <b>not</b> encode the reserved characters
+      <code>&amp;</code>, <code>@</code>, <code>/</code>, <code>;</code>,
+      <code>:</code>, <code>=</code>, <code>+</code>, <code>?</code> and
+      <code>$</code>.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='indent(pad)' id='section_indent_pad_' -**]
+    <p>
+      Indents the text block by a fixed pad string or width. The
+      '<code>pad</code>' argument can be specified as a string, or as a
+      numerical value to indicate a pad width (spaces). Defaults to 4 spaces if
+      unspecified.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER indent('ME&gt; ') %]</span>
+      blah blah blah
+      cabbages, rhubard, onions 
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      ME&gt; blah blah blah
+      ME&gt; cabbages, rhubard, onions
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='truncate(length,dots)' id='section_truncate_length_dots_' -**]
+    <p>
+      Truncates the text block to the length specified, or a default length of
+      32. Truncated text will be terminated with '<code>...</code>' (i.e. the
+      '<code>...</code>' falls inside the required length, rather than
+      appending to it).
+    </p>
+    <pre>
+      <span class="tt">[% FILTER truncate(21) %]</span>
+      I have much to say on this matter that has previously 
+      been said on more than one occasion.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      I have much to say...
+    </pre>
+    <p>
+      If you want to use something other than '<code>...</code>' you can pass
+      that as a second argument.
+    </p>
+    <pre>
+      <span class="tt">[% FILTER truncate(26, '&amp;hellip;') %]</span>
+      I have much to say on this matter that has previously 
+      been said on more than one occasion.
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      I have much to say&amp;hellip;
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='repeat(iterations)' id='section_repeat_iterations_' -**]
+    <p>
+      Repeats the text block for as many iterations as are specified (default:
+      1).
+    </p>
+    <pre>
+      <span class="tt">[% FILTER repeat(3) %]</span>
+      We want more beer and we want more beer,
+      <span class="tt">[% END %]</span>
+      We are the more beer wanters!
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      We want more beer and we want more beer,
+      We want more beer and we want more beer,
+      We want more beer and we want more beer,
+      We are the more beer wanters!
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='remove(string) ' id='section_remove_string_' -**]
+    <p>
+      Searches the input text for any occurrences of the specified string and
+      removes them. A Perl regular expression may be specified as the search
+      string.
+    </p>
+    <pre>
+      <span class="tt">[% "The  cat  sat  on  the  mat" FILTER remove('\s+') %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      Thecatsatonthemat
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='replace(search, replace) ' id='section_replace_search_replace_' -**]
+    <p>
+      Similar to the remove filter described above, but taking a second
+      parameter which is used as a replacement string for instances of the
+      search string.
+    </p>
+    <pre>
+      <span class="tt">[% "The  cat  sat  on  the  mat" | replace('\s+', '_') %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      The_cat_sat_on_the_mat
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='redirect(file, options)' id='section_redirect_file_options_' -**]
+    <p>
+      The <code>redirect</code> filter redirects the output of the block into a
+      separate file, specified relative to the <code>OUTPUT_PATH</code>
+      configuration item.
+    </p>
+    <pre>
+      <span class="tt">[% FOREACH user IN myorg.userlist %]</span>
+         <span class="tt">[% FILTER redirect("users/${user.id}.html") %]</span>
+            <span class="tt">[% INCLUDE userinfo %]</span>
+         <span class="tt">[% END %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      or more succinctly, using side-effect notation:
+    </p>
+    <pre>
+      <span class="tt">[%  FOREACH user IN myorg.userlist;
+            INCLUDE userinfo 
+              FILTER redirect("users/${user.id}.html");
+          END
+      %]</span>
+    </pre>
+    <p>
+      A <code>file</code> exception will be thrown if the
+      <code>OUTPUT_PATH</code> option is undefined.
+    </p>
+    <p>
+      An optional <code>binmode</code> argument can follow the filename to
+      explicitly set the output file to binary mode.
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS my/png/generator 
+           FILTER redirect("images/logo.png", binmode=1) %]</span>
+    </pre>
+    <p>
+      For backwards compatibility with earlier versions, a single true/false
+      value can be used to set binary mode.
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS my/png/generator 
+           FILTER redirect("images/logo.png", 1) %]</span>
+    </pre>
+    <p>
+      For the sake of future compatibility and clarity, if nothing else, we
+      would strongly recommend you explicitly use the named
+      <code>binmode</code> option as shown in the first example.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='eval / evaltt' id='section_eval_evaltt' -**]
+    <p>
+      The <code>eval</code> filter evaluates the block as template text,
+      processing any directives embedded within it. This allows template
+      variables to contain template fragments, or for some method to be
+      provided for returning template fragments from an external source such as
+      a database, which can then be processed in the template as required.
+    </p>
+    <pre>
+      my $vars  = {
+          fragment =&gt; "The cat sat on the <span class="tt">[% place %]</span>",
+      };
+      $template-&gt;process($file, $vars);
+    </pre>
+    <p>
+      The following example:
+    </p>
+    <pre>
+      <span class="tt">[% fragment | eval %]</span>
+    </pre>
+    <p>
+      is therefore equivalent to
+    </p>
+    <pre>
+      The cat sat on the <span class="tt">[% place %]</span>
+    </pre>
+    <p>
+      The <code>evaltt</code> filter is provided as an alias for
+      <code>eval</code>.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='perl / evalperl' id='section_perl_evalperl' -**]
+    <p>
+      The <code>perl</code> filter evaluates the block as Perl code. The
+      <code>EVAL_PERL</code> option must be set to a true value or a
+      <code>perl</code> exception will be thrown.
+    </p>
+    <pre>
+      <span class="tt">[% my_perl_code | perl %]</span>
+    </pre>
+    <p>
+      In most cases, the <code>[% PERL %]</code> ... <code>[% END %]</code>
+      block should suffice for evaluating Perl code, given that template
+      directives are processed before being evaluate as Perl. Thus, the
+      previous example could have been written in the more verbose form:
+    </p>
+    <pre>
+      <span class="tt">[% PERL %]</span>
+      <span class="tt">[% my_perl_code %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      as well as
+    </p>
+    <pre>
+      <span class="tt">[% FILTER perl %]</span>
+      <span class="tt">[% my_perl_code %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      The <code>evalperl</code> filter is provided as an alias for
+      <code>perl</code> for backwards compatibility.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='stdout(options)' id='section_stdout_options_' -**]
+    <p>
+      The stdout filter prints the output generated by the enclosing block to
+      <code>STDOUT</code>. The <code>binmode</code> option can be passed as
+      either a named parameter or a single argument to set <code>STDOUT</code>
+      to binary mode (see the binmode perl function).
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS something/cool
+             FILTER stdout(binmode=1) # recommended %]</span>
+      
+      <span class="tt">[% PROCESS something/cool
+             FILTER stdout(1)         # alternate %]</span>
+    </pre>
+    <p>
+      The <code>stdout</code> filter can be used to force <code>binmode</code>
+      on <code>STDOUT</code>, or also inside <code>redirect</code>,
+      <code>null</code> or <code>stderr</code> blocks to make sure that
+      particular output goes to <code>STDOUT</code>. See the <code>null</code>
+      filter below for an example.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='stderr' id='section_stderr' -**]
+    <p>
+      The stderr filter prints the output generated by the enclosing block to
+      <code>STDERR</code>.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='null' id='section_null' -**]
+    <p>
+      The <code>null</code> filter prints nothing. This is useful for plugins
+      whose methods return values that you don't want to appear in the output.
+      Rather than assigning every plugin method call to a dummy variable to
+      silence it, you can wrap the block in a null filter:
+    </p>
+    <pre>
+      <span class="tt">[% FILTER null;
+          USE im = GD.Image(100,100);
+          black = im.colorAllocate(0,   0, 0);
+          red   = im.colorAllocate(255,0,  0);
+          blue  = im.colorAllocate(0,  0,  255);
+          im.arc(50,50,95,75,0,360,blue);
+          im.fill(50,50,red);
+          im.png | stdout(1);
+         END;
+      -%]</span>
+    </pre>
+    <p>
+      Notice the use of the <code>stdout</code> filter to ensure that a
+      particular expression generates output to <code>STDOUT</code> (in this
+      case in binary mode).
+    </p>
+[** END -**]
+
+</div>

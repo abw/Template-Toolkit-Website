@@ -1,0 +1,13 @@
+[% page.notoc = 1 -%]
+[% WRAPPER page/section title="Section Index" id="contents" -%]
+<p class="tight">
+  This section contains the documentation for the <b>[% name %]</b> modules.
+</p>
+<ul class="toc">
+[% FOREACH uri IN page.section.menu;
+     item = site.pages.$uri;
+-%]
+  <li><a href="[% rooturl %][% item.uri %]">[% item.title %]</a>&nbsp;- [% item.about %]</li>
+[% END %]
+</ul>
+[% END %]

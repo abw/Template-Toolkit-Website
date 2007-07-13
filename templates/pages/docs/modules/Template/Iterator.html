@@ -1,0 +1,240 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      my $iter = Template::Iterator-&gt;new(\@data, \%options);
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      The <code>Template::Iterator</code> module defines a generic data
+      iterator for use by the <code>FOREACH</code> directive.
+    </p>
+    <p>
+      It may be used as the base class for custom iterators.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
+    [** WRAPPER page/subsection title='new($data) ' id='method_new' class='method' -**]
+    <p>
+      Constructor method. A reference to a list of values is passed as the
+      first parameter. Subsequent calls to <a
+      href="#method_get_first">get_first()</a> and <a
+      href="#method_get_next">get_next()</a> calls will return each element
+      from the list.
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new([ 'foo', 'bar', 'baz' ]);
+    </pre>
+    <p>
+      The constructor will also accept a reference to a hash array and will
+      expand it into a list in which each entry is a hash array containing a
+      '<code>key</code>' and '<code>value</code>' item, sorted according to the
+      hash keys.
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new({ 
+          foo =&gt; 'Foo Item',
+          bar =&gt; 'Bar Item',
+      });
+    </pre>
+    <p>
+      This is equivalent to:
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new([
+          { key =&gt; 'bar', value =&gt; 'Bar Item' },
+          { key =&gt; 'foo', value =&gt; 'Foo Item' },
+      ]);
+    </pre>
+    <p>
+      When passed a single item which is not an array reference, the
+      constructor will automatically create a list containing that single item.
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new('foo');
+    </pre>
+    <p>
+      This is equivalent to:
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new([ 'foo' ]);
+    </pre>
+    <p>
+      Note that a single item which is an object based on a blessed ARRAY
+      references will NOT be treated as an array and will be folded into a list
+      containing that one object reference.
+    </p>
+    <pre>
+      my $list = bless [ 'foo', 'bar' ], 'MyListClass';
+      my $iter = Template::Iterator-&gt;new($list);
+    </pre>
+    <p>
+      equivalent to:
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new([ $list ]);
+    </pre>
+    <p>
+      If the object provides an <code>as_list()</code> method then the <a
+      href="[** ttmodlink('Template::Iterator') **]">Template::Iterator</a>
+      constructor will call that method to return the list of data. For
+      example:
+    </p>
+    <pre>
+      package MyListObject;
+      
+      sub new {
+          my $class = shift;
+          bless [ @_ ], $class;
+      }
+    </pre>
+    <pre>
+      package main;
+      
+      my $list = MyListObject-&gt;new('foo', 'bar');
+      my $iter = Template::Iterator-&gt;new($list);
+    </pre>
+    <p>
+      This is then functionally equivalent to:
+    </p>
+    <pre>
+      my $iter = Template::Iterator-&gt;new([ $list ]);
+    </pre>
+    <p>
+      The iterator will return only one item, a reference to the
+      <code>MyListObject</code> object, <code>$list</code>.
+    </p>
+    <p>
+      By adding an <code>as_list()</code> method to the
+      <code>MyListObject</code> class, we can force the
+      <code>Template::Iterator</code> constructor to treat the object as a list
+      and use the data contained within.
+    </p>
+    <pre>
+      package MyListObject;
+      
+      ...
+      
+      sub as_list {
+          my $self = shift;
+          return $self;
+      }
+      
+      package main;
+      
+      my $list = MyListObject-&gt;new('foo', 'bar');
+      my $iter = Template::Iterator-&gt;new($list);
+    </pre>
+    <p>
+      The iterator will now return the two items, '<code>foo</code>' and
+      '<code>bar</code>', which the <code>MyObjectList</code> encapsulates.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='get_first()' id='method_get_first' class='method' -**]
+    <p>
+      Returns a <code>($value, $error)</code> pair for the first item in the
+      iterator set. The <code>$error</code> returned may be zero or undefined
+      to indicate a valid datum was successfully returned. Returns an error of
+      <code>STATUS_DONE</code> if the list is empty.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='get_next()' id='method_get_next' class='method' -**]
+    <p>
+      Returns a <code>($value, $error)</code> pair for the next item in the
+      iterator set. Returns an error of <code>STATUS_DONE</code> if all items
+      in the list have been visited.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='get_all()' id='method_get_all' class='method' -**]
+    <p>
+      Returns a <code>(\@values, $error)</code> pair for all remaining items in
+      the iterator set. Returns an error of <code>STATUS_DONE</code> if all
+      items in the list have been visited.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='size()' id='method_size' class='method' -**]
+    <p>
+      Returns the size of the data set or undef if unknown.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='max()' id='method_max' class='method' -**]
+    <p>
+      Returns the maximum index number (i.e. the index of the last element)
+      which is equivalent to <a href="#method_size">size()</a> -
+      <code>1</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='index()' id='method_index' class='method' -**]
+    <p>
+      Returns the current index number which is in the range <code>0</code> to
+      <a href="#method_max">max()</a>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='count()' id='method_count' class='method' -**]
+    <p>
+      Returns the current iteration count in the range <code>1</code> to <a
+      href="#method_size">size()</a>. This is equivalent to <a
+      href="#method_index">index()</a> + <code>1</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='first()' id='method_first' class='method' -**]
+    <p>
+      Returns a boolean value to indicate if the iterator is currently on the
+      first iteration of the set.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='last()' id='method_last' class='method' -**]
+    <p>
+      Returns a boolean value to indicate if the iterator is currently on the
+      last iteration of the set.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='prev()' id='method_prev' class='method' -**]
+    <p>
+      Returns the previous item in the data set, or <code>undef</code> if the
+      iterator is on the first item.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='next()' id='method_next' class='method' -**]
+    <p>
+      Returns the next item in the data set or <code>undef</code> if the
+      iterator is on the last item.
+    </p>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template') **]">Template</a>
+    </p>
+[** END -**]
+
+</div>

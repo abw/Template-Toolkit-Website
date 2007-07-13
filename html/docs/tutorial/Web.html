@@ -1,0 +1,1003 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Template::Tutorial::Web</title>
+    <link rel="stylesheet" type="text/css" href="../../css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="../../css/grey.css" title="Clear Grey">
+    <!--[if IE 6]>
+    <link rel="stylesheet" type="text/css" href="../../css/ie6.css" />
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
+    <script type="text/javascript" src="../../js/tt2.js"></script>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="author" content="Andy Wardley">
+  </head>
+  <body id="body"> 
+    <div id="layout">
+        <div id="header">
+          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <ul id="trail">
+            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/tutorial/index.html">Tutorial</a></li>
+            <li class="last"><a href="../../docs/tutorial/Web.html">Web</a></li>
+          </ul>
+          <div class="controls">
+            <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
+              <span class="about">Click to view the menu.  It's very nice.</span>
+            </a>
+            <a href="#" class="menu hide" onclick="widescreen_on();  return false" title="Hide Menu">
+              <span class="about">Click to hide the menu and go all widescreen!</span>
+            </a>
+          
+          <div class="pager">
+            <span class="go back">Back<span class="about">I'm sorry Dave, I can't do that.</span></span>
+            <a href="../../docs/tutorial/index.html" title="Template::Tutorial" class="go up">Up<span class="about"><strong>Template::Tutorial</strong>Template Toolkit Tutorials</span></a>
+            <a href="../../docs/tutorial/Datafile.html" title="Template::Tutorial::Datafile" class="go next">Next<span class="about"><strong>Template::Tutorial::Datafile</strong>Creating Data Output Files Using the Template Toolkit</span></a>
+          </div>
+          </div>
+          <h1 class="headline">Template::Tutorial::Web</h1>
+          <h2 class="subhead">Generating Web Content Using the Template Toolkit</h2>
+        
+          <a href="http://template-toolkit.org/docs/tutorial/Web.html" class="permalink">http://template-toolkit.org/docs/tutorial/Web.html</a>
+        </div>
+        <div id="page">
+          <div id="sidebar">
+            <div id="menu">
+              <ul class="menu">
+                <li class="l0 first"><a href="../../about.html">About</a></li>
+                <li class="l0"><a href="../../download/index.html">Download</a></li>
+                <li class="l0"><a href="../../docs/index.html" class="warm">Documentation</a></li>
+                <li class="l1"><a href="../../docs/manual/index.html">Manual</a></li>
+                <li class="l1"><a href="../../docs/modules/index.html">Modules</a></li>
+                <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
+                <li class="l1"><a href="../../docs/tutorial/index.html" class="warm">Tutorial</a></li>
+                <li class="l2"><a href="../../docs/tutorial/Web.html" class="warm">Web</a></li>
+                <li class="l2"><a href="../../docs/tutorial/Datafile.html">Datafile</a></li>
+                <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
+                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+              </ul>
+              <div class="foot"></div>
+            </div>
+            <div class="badges">
+              <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
+              <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
+              <a href="http://wardley.org" class="abw badge"></a>
+            </div>
+          </div>
+          <div id="content">
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#section_Overview">Overview</a></li>
+                  <li class=""><a href="#section_Introduction">Introduction</a></li>
+                  <li class=""><a href="#section_Generating_Static_Web_Content">Generating Static Web Content</a></li>
+                  <li class="sub"><a href="#section_Using_tpage">Using tpage</a></li>
+                  <li class="sub"><a href="#section_Using_ttree">Using ttree</a></li>
+                  <li class=""><a href="#section_Dynamic_Content_Generation_Via_CGI_Script">Dynamic Content Generation Via CGI Script</a></li>
+                  <li class=""><a href="#section_Dynamic_Content_Generation_Via_Apache_Mod_Perl_Handler">Dynamic Content Generation Via Apache/Mod_Perl Handler</a></li>
+                  <li class=""><a href="#section_Using_Plugins_to_Extend_Functionality">Using Plugins to Extend Functionality</a></li>
+                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
+                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="pod">
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Overview" onclick="switch_section(this)" title="Click title to show/hide section content.">Overview</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      This tutorial document provides a introduction to the Template Toolkit
+                      and demonstrates some of the typical ways it may be used for generating
+                      web content. It covers the generation of static pages from templates
+                      using the <a href="../../docs/tools/tpage.html">tpage</a>
+                      and <a href="../../docs/tools/ttree.html">ttree</a>
+                      scripts and then goes on to show dynamic content generation using CGI
+                      scripts and Apache/mod_perl handlers.
+                    </p>
+                    <p>
+                      Various features of the Template Toolkit are introduced and described
+                      briefly and explained by use of example. For further information, see <a
+                      href="../../docs/modules/Template.html">Template</a>, <a href="../../docs/manual/index.html">Template::Manual</a> and the various
+                      sections within it. e.g
+                    </p>
+                    <pre>perldoc Template                    # Template.pm module usage
+perldoc Template::Manual            # index to manual
+perldoc Template::Manual::Config    # e.g. configuration options</pre>
+                    <p>
+                      The documentation is now also distributed in HTML format in the <code
+                      class="file">docs</code> sub-directory of the Template Toolkit
+                      distribution.
+                    </p>
+                    <p>
+                      You can also read it online at the Template Toolkit web site:
+                    </p>
+                    <pre>http://template-toolkit.org/docs/tutorial/Web.html</pre>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Introduction" onclick="switch_section(this)" title="Click title to show/hide section content.">Introduction</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The Template Toolkit is a set of Perl modules which collectively
+                      implement a template processing system.
+                    </p>
+                    <p>
+                      A template is a text document with special markup tags embedded in it. By
+                      default, the Template Toolkit uses '<code>[%</code>' and
+                      '<code>%]</code>' to denote the start and end of a tag. Here's an
+                      example:
+                    </p>
+                    <pre><span class="tt">[% INCLUDE header %]</span>
+
+People of <span class="tt">[% planet %]</span>, your attention please.
+
+This is <span class="tt">[% captain %]</span> of the
+Galactic Hyperspace Planning Council.
+
+As you will no doubt be aware, the plans
+for development of the outlying regions
+of the Galaxy require the building of a
+hyperspatial express route through your
+star system, and regrettably your planet
+is one of those scheduled for destruction.
+
+The process will take slightly less than
+<span class="tt">[% time %]</span>.
+
+Thank you.
+
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                    <p>
+                      Tags can contain simple <i>variables</i> (like <code>planet</code> and
+                      <code>captain</code>) and more complex <i>directives</i> that start with
+                      an upper case keyword (like <code>INCLUDE</code>). A directive is an
+                      instruction that tells the template processor to perform some action,
+                      like processing another template (<code>header</code> and
+                      <code>footer</code> in this example) and inserting the output into the
+                      current template. In fact, the simple variables we mentioned are actually
+                      <code>GET</code> directives, but the <code>GET</code> keyword is
+                      optional.
+                    </p>
+                    <pre>People of <span class="tt">[% planet %]</span>, your attention please.      # short form
+People of <span class="tt">[% GET planet %]</span>, your attention please.  # long form</pre>
+                    <p>
+                      Other directives include <code>SET</code> to set a variable value (the
+                      <code>SET</code> keyword is also optional), <code>FOREACH</code> to
+                      iterate through a list of values, and <code>IF</code>,
+                      <code>UNLESS</code>, <code>ELSIF</code> and <code>ELSE</code> to declare
+                      conditional blocks.
+                    </p>
+                    <p>
+                      The Template Toolkit processes all <i>text</i> files equally, regardless
+                      of what kind of content they contain. So you can use TT to generate HTML,
+                      XML, CSS, Javascript, Perl, RTF, LaTeX, or any other text-based format.
+                      In this tutorial, however, we'll be concentrating on generating HTML for
+                      web pages.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Generating_Static_Web_Content" onclick="switch_section(this)" title="Click title to show/hide section content.">Generating Static Web Content</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Here's an example of a template used to generate an HTML document.
+                    </p>
+                    <pre><span class="tt">[%  INCLUDE header
+      title = 'This is an HTML example';
+
+    pages = [
+      { url   = 'http://foo.org'
+        title = 'The Foo Organisation' 
+      }
+      { url   = 'http://bar.org'
+        title = 'The Bar Organisation' 
+      }
+    ]
+%]</span>
+   &lt;h1&gt;Some Interesting Links&lt;/h1&gt;
+   &lt;ul&gt;
+<span class="tt">[%  FOREACH page IN pages %]</span>
+     &lt;li&gt;&lt;a href="<span class="tt">[% page.url %]</span>"&gt;<span class="tt">[% page.title %]</span>&lt;/a&gt;
+<span class="tt">[%  END %]</span>
+   &lt;/ul&gt;
+
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                    <p>
+                      This example shows how the <code>INCLUDE</code> directive is used to load
+                      and process separate '<code>header</code>' and '<code>footer</code>'
+                      template files, including the output in the current document. These files
+                      might look something like this:
+                    </p>
+                    <p>
+                      header:
+                    </p>
+                    <pre>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;<span class="tt">[% title %]</span>&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;</pre>
+                    <p>
+                      footer:
+                    </p>
+                    <pre>    &lt;div class="copyright"&gt;
+      &amp;copy; Copyright 2007 Arthur Dent
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+                    <p>
+                      The example also uses the <code>FOREACH</code> directive to iterate
+                      through the '<code>pages</code>' list to build a table of links. In this
+                      example, we have defined this list within the template to contain a
+                      number of hash references, each containing a '<code>url</code>' and
+                      '<code>title</code>' member. The <code>FOREACH</code> directive iterates
+                      through the list, aliasing '<code>page</code>' to each item (in this
+                      case, hash array references). The <code>[% page.url %]</code> and
+                      <code>[% page.title %]</code> directives then access the individual
+                      values in the hash ararys and insert them into the document.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Using_tpage" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Using tpage</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Having created a template file we can now process it to generate some
+                          real output. The quickest and easiest way to do this is to use the <a
+                          href="../../docs/tools/tpage.html">tpage</a> script. This
+                          is provided as part of the Template Toolkit and should be installed in
+                          your usual Perl bin directory.
+                        </p>
+                        <p>
+                          Assuming you saved your template file as <code
+                          class="file">example.html</code>, you would run the command:
+                        </p>
+                        <pre>$ tpage example.html</pre>
+                        <p>
+                          This will process the template file, sending the output to
+                          <code>STDOUT</code> (i.e. whizzing past you on the screen). You may want
+                          to redirect the output to a file but be careful not to specify the same
+                          name as the template file, or you'll overwrite it. You may want to use
+                          one prefix for your templates (e.g. '<code>.tt</code>') and another (e.g.
+                          '<code>.html</code>') for the output files.
+                        </p>
+                        <pre>$ tpage example.tt &gt; example.html</pre>
+                        <p>
+                          Or you can redirect the output to another directory. e.g.
+                        </p>
+                        <pre>$ tpage templates/example.tt &gt; html/example.html</pre>
+                        <p>
+                          The output generated would look like this:
+                        </p>
+                        <pre>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;This is an HTML example&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Some Interesting Links&lt;/h1&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="http://foo.org"&gt;The Foo Organsiation&lt;/a&gt;
+      &lt;li&gt;&lt;a href="http://bar.org"&gt;The Bar Organsiation&lt;/a&gt;
+    &lt;/ul&gt;
+    &lt;div class="copyright"&gt;
+      &amp;copy; Copyright 2007 Arthur Dent
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+                        <p>
+                          The <code class="file">header</code> and <code class="file">footer</code>
+                          template files have been included (assuming you created them and they're
+                          in the current directory) and the link data has been built into an HTML
+                          list.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Using_ttree" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Using ttree</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <a href="../../docs/tools/tpage.html">tpage</a>
+                          script gives you a simple and easy way to process a single template
+                          without having to write any Perl code. The <a href="http://search.cpan.org/search?mode=module&amp;query=ttree%3ATemplate%3A%3ATools%3A%3Attree">ttree:Template::Tools::ttree</a> script, also distributed as part of
+                          the Template Toolkit, provides a more flexible way to process a number of
+                          template documents in one go.
+                        </p>
+                        <p>
+                          The first time you run the script, it will ask you if it should create a
+                          configuration file (<code class="file">.ttreerc</code>) in your home
+                          directory. Answer <code>y</code> to have it create the file.
+                        </p>
+                        <p>
+                          The <a href="http://search.cpan.org/search?mode=module&amp;query=ttree%3ATemplate%3A%3ATools%3A%3Attree">ttree:Template::Tools::ttree</a> documentation describes how you can
+                          change the location of this file and also explains the syntax and meaning
+                          of the various options in the file. Comments are written to the sample
+                          configuration file which should also help.
+                        </p>
+                        <p>
+                          In brief, the configuration file describes the directories in which
+                          template files are to be found (<code>src</code>), where the
+                          corresponding output should be written to (<code>dest</code>), and any
+                          other directories (<code>lib</code>) that may contain template files that
+                          you plan to <code>INCLUDE</code> into your source documents. You can also
+                          specify processing options (such as <code>verbose</code> and
+                          <code>recurse</code>) and provide regular expression to match files that
+                          you don't want to process (<code>ignore</code>, <code>accept</code>)&gt;
+                          or should be copied instead of being processed as templates
+                          (<code>copy</code>).
+                        </p>
+                        <p>
+                          An example <code class="file">.ttreerc</code> file is shown here:
+                        </p>
+                        <p>
+                          $HOME/.ttreerc:
+                        </p>
+                        <pre>verbose 
+recurse
+
+# this is where I keep other ttree config files
+cfg = ~/.ttree
+
+src  = ~/websrc/src
+lib  = ~/websrc/lib
+dest = ~/public_html/test
+
+ignore = \b(CVS|RCS)\b
+ignore = ^#</pre>
+                        <p>
+                          You can create many different configuration files and store them in the
+                          directory specified in the <code>cfg</code> option, shown above. You then
+                          add the <code>-f filename</code> option to <code>ttree</code> to have it
+                          read that file.
+                        </p>
+                        <p>
+                          When you run the script, it compares all the files in the
+                          <code>src</code> directory (including those in sub-directories if the
+                          <code>recurse</code> option is set), with those in the <code>dest</code>
+                          directory. If the destination file doesn't exist or has an earlier
+                          modification time than the corresponding source file, then the source
+                          will be processed with the output written to the destination file. The
+                          <code>-a</code> option forces all files to be processed, regardless of
+                          modification times.
+                        </p>
+                        <p>
+                          The script <i>doesn't</i> process any of the files in the
+                          <code>lib</code> directory, but it does add it to the
+                          <code>INCLUDE_PATH</code> for the template processor so that it can
+                          locate these files via an <code>INCLUDE</code>, <code>PROCESS</code> or
+                          <code>WRAPPER</code> directive. Thus, the <code>lib</code> directory is
+                          an excellent place to keep template elements such as header, footers,
+                          etc., that aren't complete documents in their own right.
+                        </p>
+                        <p>
+                          You can also specify various Template Toolkit options from the
+                          configuration file. Consult the <a href="../../docs/tools/ttree.html">ttree</a> documentation and help
+                          summary (<code>ttree -h</code>) for full details. e.g.
+                        </p>
+                        <p>
+                          $HOME/.ttreerc:
+                        </p>
+                        <pre>pre_process = config
+interpolate
+post_chomp</pre>
+                        <p>
+                          The <code>pre_process</code> option allows you to specify a template file
+                          which should be processed before each file. Unsurprisingly, there's also
+                          a <code>post_process</code> option to add a template after each file. In
+                          the fragment above, we have specified that the <code>config</code>
+                          template should be used as a prefix template. We can create this file in
+                          the <code>lib</code> directory and use it to define some common
+                          variables, including those web page links we defined earlier and might
+                          want to re-use in other templates. We could also include an HTML header,
+                          title, or menu bar in this file which would then be prepended to each and
+                          every template file, but for now we'll keep all that in a separate
+                          <code>header</code> file.
+                        </p>
+                        <p>
+                          $lib/config:
+                        </p>
+                        <pre><span class="tt">[% root     = '~/abw'
+   home     = "$root/index.html"
+   images   = "$root/images"
+   email    = 'abw@wardley.org'
+   graphics = 1
+   webpages = [
+     { url =&gt; 'http://foo.org', title =&gt; 'The Foo Organsiation' }
+     { url =&gt; 'http://bar.org', title =&gt; 'The Bar Organsiation' }
+   ]
+%]</span></pre>
+                        <p>
+                          Assuming you've created or copied the <code>header</code> and
+                          <code>footer</code> files from the earlier example into your
+                          <code>lib</code> directory, you can now start to create web pages like
+                          the following in your <code>src</code> directory and process them with
+                          <code>ttree</code>.
+                        </p>
+                        <p>
+                          $src/newpage.html:
+                        </p>
+                        <pre><span class="tt">[% INCLUDE header
+   title = 'Another Template Toolkit Test Page'
+%]</span>
+
+    &lt;a href="<span class="tt">[% home %]</span>"&gt;Home&lt;/a&gt;
+    &lt;a href="mailto:<span class="tt">[% email %]</span>"&gt;Email&lt;/a&gt;
+
+<span class="tt">[% IF graphics %]</span>
+    &lt;img src="<span class="tt">[% images %]</span>/logo.gif" align=right width=60 height=40&gt;
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                        <p>
+                          Here we've shown how pre-defined variables can be used as flags to enable
+                          certain feature (e.g. <code>graphics</code>) and to specify common items
+                          such as an email address and URL's for the home page, images directory
+                          and so on. This approach allows you to define these values once so that
+                          they're consistent across all pages and can easily be changed to new
+                          values.
+                        </p>
+                        <p>
+                          When you run <code class="file">ttree</code>, you should see output
+                          similar to the following (assuming you have the verbose flag set).
+                        </p>
+                        <pre>ttree 2.9 (Template Toolkit version 2.20)
+
+     Source: /home/abw/websrc/src
+Destination: /home/abw/public_html/test
+   Include Path: [ /home/abw/websrc/lib ]
+     Ignore: [ \b(CVS|RCS)\b, ^# ]
+       Copy: [  ]
+     Accept: [ * ]
+
++ newpage.html</pre>
+                        <p>
+                          The <code>+</code> in front of the <code>newpage.html</code> filename
+                          shows that the file was processed, with the output being written to the
+                          destination directory. If you run the same command again, you'll see the
+                          following line displayed instead showing a <code>-</code> and giving a
+                          reason why the file wasn't processed.
+                        </p>
+                        <pre>- newpage.html                     (not modified)</pre>
+                        <p>
+                          It has detected a <code>newpage.html</code> in the destination directory
+                          which is more recent than that in the source directory and so hasn't
+                          bothered to waste time re-processing it. To force all files to be
+                          processed, use the <code>-a</code> option. You can also specify one or
+                          more filenames as command line arguments to <code>ttree</code>:
+                        </p>
+                        <pre>tpage newpage.html</pre>
+                        <p>
+                          This is what the destination page looks like.
+                        </p>
+                        <p>
+                          $dest/newpage.html:
+                        </p>
+                        <pre>&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Another Template Toolkit Test Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+
+    &lt;a href="~/abw/index.html"&gt;Home&lt;/a&gt;
+    &lt;a href="mailto:abw@wardley.org"&gt;Email me&lt;/a&gt;
+    &lt;img src="~/abw/images/logo.gif" align=right width=60 height=40&gt;
+
+    &lt;div class="copyright"&gt;
+      &amp;copy; Copyright 2007 Arthur Dent
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre>
+                        <p>
+                          You can add as many documents as you like to the <code>src</code>
+                          directory and <code>ttree</code> will apply the same process to them all.
+                          In this way, it is possible to build an entire tree of static content for
+                          a web site with a single command. The added benefit is that you can be
+                          assured of consistency in links, header style, or whatever else you
+                          choose to implement in terms of common templates elements or variables.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Dynamic_Content_Generation_Via_CGI_Script" onclick="switch_section(this)" title="Click title to show/hide section content.">Dynamic Content Generation Via CGI Script</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      The <a href="../../docs/modules/Template.html">Template</a> module provides
+                      a simple front-end to the Template Toolkit for use in CGI scripts and
+                      Apache/mod_perl handlers. Simply <code>use</code> the <a href="../../docs/modules/Template.html">Template</a> module, create an object instance
+                      with the <a href="#method_new">new()</a> method and then call the <a
+                      href="#method_process">process()</a> method on the object, passing the
+                      name of the template file as a parameter. The second parameter passed is
+                      a reference to a hash array of variables that we want made available to
+                      the template:
+                    </p>
+                    <pre>#!/usr/bin/perl
+use strict;
+use warnings;
+use Template;
+
+my $file = 'src/greeting.html';
+my $vars = {
+   message  =&gt; "Hello World\n"
+};
+
+my $template = Template-&gt;new();
+
+$template-&gt;process($file, $vars)
+    || die "Template process failed: ", $template-&gt;error(), "\n";</pre>
+                    <p>
+                      So that our scripts will work with the same template files as our earlier
+                      examples, we'll can add some configuration options to the constructor to
+                      tell it about our environment:
+                    </p>
+                    <pre>my $template-&gt;new({
+    # where to find template files
+    INCLUDE_PATH =&gt; ['/home/abw/websrc/src', '/home/abw/websrc/lib'],
+    # pre-process lib/config to define any extra values
+    PRE_PROCESS  =&gt; 'config',
+});</pre>
+                    <p>
+                      Note that here we specify the <code>config</code> file as a
+                      <code>PRE_PROCESS</code> option. This means that the templates we process
+                      can use the same global variables defined earlier for our static pages.
+                      We don't have to replicate their definitions in this script. However, we
+                      can supply additional data and functionality specific to this script via
+                      the hash of variables that we pass to the <code>process()</code> method.
+                    </p>
+                    <p>
+                      These entries in this hash may contain simple text or other values,
+                      references to lists, others hashes, sub-routines or objects. The Template
+                      Toolkit will automatically apply the correct procedure to access these
+                      different types when you use the variables in a template.
+                    </p>
+                    <p>
+                      Here's a more detailed example to look over. Amongst the different
+                      template variables we define in <code>$vars</code>, we create a reference
+                      to a <a href="http://search.cpan.org/search?mode=module&amp;query=CGI">CGI</a> object and a
+                      <code>get_user_projects()</code> sub-routine.
+                    </p>
+                    <pre>#!/usr/bin/perl
+use strict;
+use warnings;
+use Template;
+use CGI;
+
+$| = 1;
+print "Content-type: text/html\n\n";
+
+my $file = 'userinfo.html';
+my $vars = {
+    'version'  =&gt; 3.14,
+    'days'     =&gt; [ qw( mon tue wed thu fri sat sun ) ],
+    'worklist' =&gt; \&amp;get_user_projects,
+    'cgi'      =&gt; CGI-&gt;new(),
+    'me'       =&gt; {
+        'id'     =&gt; 'abw',
+        'name'   =&gt; 'Andy Wardley',
+    },
+};
+
+sub get_user_projects {
+    my $user = shift;
+    my @projects = ...   # do something to retrieve data
+    return \@projects;
+}
+
+my $template = Template-&gt;new({
+    INCLUDE_PATH =&gt; '/home/abw/websrc/src:/home/abw/websrc/lib',
+    PRE_PROCESS  =&gt; 'config',
+});
+
+$template-&gt;process($file, $vars)
+    || die $template-&gt;error();</pre>
+                    <p>
+                      Here's a sample template file that we might create to build the output
+                      for this script.
+                    </p>
+                    <p>
+                      $src/userinfo.html:
+                    </p>
+                    <pre><span class="tt">[% INCLUDE header
+   title = 'Template Toolkit CGI Test'
+%]</span>
+
+&lt;a href="mailto:<span class="tt">[% email %]</span>"&gt;Email <span class="tt">[% me.name %]</span>&lt;/a&gt;
+
+&lt;p&gt;This is version <span class="tt">[% version %]</span>&lt;/p&gt;
+
+&lt;h3&gt;Projects&lt;/h3&gt;
+&lt;ul&gt;
+<span class="tt">[% FOREACH project IN worklist(me.id) %]</span>
+   &lt;li&gt; &lt;a href="<span class="tt">[% project.url %]</span>"&gt;<span class="tt">[% project.name %]</span>&lt;/a&gt;
+<span class="tt">[% END %]</span>
+&lt;/ul&gt;
+
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                    <p>
+                      This example shows how we've separated the Perl implementation (code)
+                      from the presentation (HTML). This not only makes them easier to maintain
+                      in isolation, but also allows the re-use of existing template elements
+                      such as headers and footers, etc. By using template to create the output
+                      of your CGI scripts, you can give them the same consistency as your
+                      static pages built via <a href="../../docs/tools/ttree.html">ttree</a> or other means.
+                    </p>
+                    <p>
+                      Furthermore, we can modify our script so that it processes any one of a
+                      number of different templates based on some condition. A CGI script to
+                      maintain a user database, for example, might process one template to
+                      provide an empty form for new users, the same form with some default
+                      values set for updating an existing user record, a third template for
+                      listing all users in the system, and so on. You can use any Perl
+                      functionality you care to write to implement the logic of your
+                      application and then choose one or other template to generate the desired
+                      output for the application state.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Dynamic_Content_Generation_Via_Apache_Mod_Perl_Handler" onclick="switch_section(this)" title="Click title to show/hide section content.">Dynamic Content Generation Via Apache/Mod_Perl Handler</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      <b>NOTE:</b> the <a href="http://search.cpan.org/search?mode=module&amp;query=Apache%3A%3ATemplate">Apache::Template</a> module is available from CPAN and provides a
+                      simple and easy to use Apache/mod_perl interface to the Template Toolkit.
+                      Although basic, it implements most, if not all of what is described
+                      below, and it avoids the need to write your own handler. However, in many
+                      cases, you'll want to write your own handler to customise processing for
+                      your own need, and this section will show you how to get started.
+                    </p>
+                    <p>
+                      The <a href="../../docs/modules/Template.html">Template</a> module can be
+                      used from an Apache/mod_perl handler. Here's an example of a typical
+                      Apache <code class="file">httpd.conf</code> file:
+                    </p>
+                    <pre>PerlModule CGI;
+PerlModule Template
+PerlModule MyOrg::Apache::User
+
+PerlSetVar websrc_root   /home/abw/websrc
+
+&lt;Location /user/bin&gt;
+    SetHandler     perl-script
+    PerlHandler    MyOrg::Apache::User
+&lt;/Location&gt;</pre>
+                    <p>
+                      This defines a location called <code>/user/bin</code> to which all
+                      requests will be forwarded to the <code>handler()</code> method of the
+                      <code>MyOrg::Apache::User</code> module. That module might look something
+                      like this:
+                    </p>
+                    <pre>package MyOrg::Apache::User;
+
+use strict;
+use vars qw( $VERSION );
+use Apache::Constants qw( :common );
+use Template qw( :template );
+use CGI;
+
+$VERSION = 1.59;
+
+sub handler {
+    my $r = shift;
+
+    my $websrc = $r-&gt;dir_config('websrc_root')
+        or return fail($r, SERVER_ERROR,
+                       "'websrc_root' not specified");
+
+    my $template = Template-&gt;new({ 
+        INCLUDE_PATH  =&gt; "$websrc/src/user:$websrc/lib",
+        PRE_PROCESS   =&gt; 'config',
+        OUTPUT        =&gt; $r,     # direct output to Apache request
+    });
+
+    my $params = {
+        uri     =&gt; $r-&gt;uri,
+        cgi     =&gt; CGI-&gt;new,
+    };
+
+    # use the path_info to determine which template file to process
+    my $file = $r-&gt;path_info;
+    $file =~ s[^/][];
+
+    $r-&gt;content_type('text/html');
+    $r-&gt;send_http_header;
+
+    $template-&gt;process($file, $params) 
+        || return fail($r, SERVER_ERROR, $template-&gt;error());
+
+    return OK;
+}
+
+sub fail {
+    my ($r, $status, $message) = @_;
+    $r-&gt;log_reason($message, $r-&gt;filename);
+    return $status;
+}</pre>
+                    <p>
+                      The handler accepts the request and uses it to determine the
+                      <code>websrc_root</code> value from the config file. This is then used to
+                      define an <code>INCLUDE_PATH</code> for a new <a href="../../docs/modules/Template.html">Template</a> object. The URI is extracted from
+                      the request and a <a href="http://search.cpan.org/search?mode=module&amp;query=CGI">CGI</a> object is
+                      created. These are both defined as template variables.
+                    </p>
+                    <p>
+                      The name of the template file itself is taken from the
+                      <code>PATH_INFO</code> element of the request. In this case, it would
+                      comprise the part of the URL coming after <code>/user/bin</code>, e.g for
+                      <code>/user/bin/edit</code>, the template file would be <code>edit</code>
+                      located in <code>$websrc/src/user</code>. The headers are sent and the
+                      template file is processed. All output is sent directly to the
+                      <code>print()</code> method of the Apache request object.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Using_Plugins_to_Extend_Functionality" onclick="switch_section(this)" title="Click title to show/hide section content.">Using Plugins to Extend Functionality</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      As we've already shown, it is possible to bind Perl data and functions to
+                      template variables when creating dynamic content via a CGI script or
+                      Apache/mod_perl process. The Template Toolkit also supports a plugin
+                      interface which allows you define such additional data and/or
+                      functionality in a separate module and then load and use it as required
+                      with the <code>USE</code> directive.
+                    </p>
+                    <p>
+                      The main benefit to this approach is that you can load the extension into
+                      any template document, even those that are processed "statically" by
+                      <code>tpage</code> or <code>ttree</code>. You <i>don't</i> need to write
+                      a Perl wrapper to explicitly load the module and make it available via
+                      the stash.
+                    </p>
+                    <p>
+                      Let's demonstrate this principle using the <code>DBI</code> plugin
+                      written by Simon Matthews (available from CPAN). You can create this
+                      template in your <code>src</code> directory and process it using
+                      <code>ttree</code> to see the results. Of course, this example relies on
+                      the existence of the appropriate SQL database but you should be able to
+                      adapt it to your own resources, or at least use it as a demonstrative
+                      example of what's possible.
+                    </p>
+                    <pre><span class="tt">[% INCLUDE header
+     title = 'User Info'
+%]</span>
+
+<span class="tt">[% USE DBI('dbi:mSQL:mydbname') %]</span>
+
+&lt;table border=0 width="100%"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;User ID&lt;/th&gt; 
+    &lt;th&gt;Name&lt;/th&gt;  
+    &lt;th&gt;Email&lt;/th&gt;
+  &lt;/tr&gt;
+<span class="tt">[% FOREACH user IN DBI.query('SELECT * FROM user ORDER BY id') %]</span>
+  &lt;tr&gt;
+    &lt;td&gt;<span class="tt">[% user.id %]</span>&lt;/td&gt; 
+    &lt;td&gt;<span class="tt">[% user.name %]</span>&lt;/td&gt; 
+    &lt;td&gt;<span class="tt">[% user.email %]</span>&lt;/td&gt;
+  &lt;/tr&gt;
+<span class="tt">[% END %]</span>
+&lt;/table&gt;
+
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                    <p>
+                      A plugin is simply a Perl module in a known location and conforming to a
+                      known standard such that the Template Toolkit can find and load it
+                      automatically. You can create your own plugin by inheriting from the <a
+                      href="../../docs/modules/Template/Plugin.html">Template::Plugin</a> module.
+                    </p>
+                    <p>
+                      Here's an example which defines some data items (<code>foo</code> and
+                      <code>people</code>) and also an object method (<code>bar</code>). We'll
+                      call the plugin <code>FooBar</code> for want of a better name and create
+                      it in the <code>MyOrg::Template::Plugin::FooBar</code> package. We've
+                      added a <code>MyOrg</code> to the regular
+                      <code>Template::Plugin::*</code> package to avoid any conflict with
+                      existing plugins.
+                    </p>
+                    <pre>package MyOrg::Template::Plugin::FooBar;
+use base 'Template::Plugin'
+our $VERSION = 1.23;
+
+sub new {
+    my ($class, $context, @params) = @_;
+
+    bless {
+        _CONTEXT =&gt; $context,
+        foo      =&gt; 25,
+        people   =&gt; [ 'tom', 'dick', 'harry' ],
+    }, $class;
+}
+
+sub bar {
+    my ($self, @params) = @_;
+    # ...do something...    
+    return $some_value;
+}</pre>
+                    <p>
+                      The plugin constructor <code>new()</code> receives the class name as the
+                      first parameter, as is usual in Perl, followed by a reference to
+                      something called a <a href="../../docs/modules/Template/Context.html">Template::Context</a> object. You don't need to worry too much about
+                      this at the moment, other than to know that it's the main processing
+                      object for the Template Toolkit. It provides access to the functionality
+                      of the processor and some plugins may need to communicate with it. We
+                      don't at this stage, but we'll save the reference anyway in the
+                      <code>_CONTEXT</code> member. The leading underscore is a convention
+                      which indicates that this item is private and the Template Toolkit won't
+                      attempt to access this member. The other members defined,
+                      <code>foo</code> and <code>people</code> are regular data items which
+                      will be made available to templates using this plugin. Following the
+                      context reference are passed any additional parameters specified with the
+                      USE directive, such as the data source parameter,
+                      <code>dbi:mSQL:mydbname</code>, that we used in the earlier DBI example.
+                    </p>
+                    <p>
+                      If you don't or can't install it to the regular place for your Perl
+                      modules (perhaps because you don't have the required privileges) then you
+                      can set the PERL5LIB environment variable to specify another location. If
+                      you're using <code>ttree</code> then you can add the following line to
+                      your configuration file instead.
+                    </p>
+                    <p>
+                      $HOME/.ttreerc:
+                    </p>
+                    <pre>perl5lib = /path/to/modules</pre>
+                    <p>
+                      One further configuration item must be added to inform the toolkit of the
+                      new package name we have adopted for our plugins:
+                    </p>
+                    <p>
+                      $HOME/.ttreerc:
+                    </p>
+                    <pre>plugin_base = 'MyOrg::Template::Plugin'</pre>
+                    <p>
+                      If you're writing Perl code to control the <a href="../../docs/modules/Template.html">Template</a> modules directly, then this value
+                      can be passed as a configuration parameter when you create the module.
+                    </p>
+                    <pre>use Template;
+
+my $template = Template-&gt;new({ 
+    PLUGIN_BASE =&gt; 'MyOrg::Template::Plugin' 
+});</pre>
+                    <p>
+                      Now we can create a template which uses this plugin:
+                    </p>
+                    <pre><span class="tt">[% INCLUDE header
+   title = 'FooBar Plugin Test'
+%]</span>
+
+<span class="tt">[% USE FooBar %]</span>
+
+Some values available from this plugin:
+  <span class="tt">[% FooBar.foo %]</span> <span class="tt">[% FooBar.bar %]</span>
+
+The users defined in the 'people' list:
+<span class="tt">[% FOREACH uid = FooBar.people %]</span>
+  * <span class="tt">[% uid %]</span>
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% INCLUDE footer %]</span></pre>
+                    <p>
+                      The <code>foo</code>, <code>bar</code>, and <code>people</code> items of
+                      the FooBar plugin are automatically resolved to the appropriate data
+                      items or method calls on the underlying object.
+                    </p>
+                    <p>
+                      Using this approach, it is possible to create application functionality
+                      in a single module which can then be loaded and used on demand in any
+                      template. The simple interface between template directives and plugin
+                      objects allows complex, dynamic content to be built from a few simple
+                      template documents without knowing anything about the underlying
+                      implementation.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Andy Wardley &lt;abw@wardley.org&gt; <a
+                      href="http://wardley.org/">http://wardley.org/</a>
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                    </p>
+                    <p>
+                      This module is free software; you can redistribute it and/or modify it
+                      under the same terms as Perl itself.
+                    </p>
+              </div>
+            </div>
+            
+            </div></div>
+          <br class="clear" />
+          <div class="pageinfo">
+            http://template-toolkit.org/docs/tutorial/Web.html last modified 14:40:09 13-Jul-2007
+          </div>
+        </div>
+        
+        <div id="footer">
+          <a href="http://opensource.org/" class="osi"></a>
+          <div class="controls">
+          <div class="pager">
+            <span class="go back">Back<span class="about"></span></span>
+            <a href="../../docs/tutorial/index.html" title="Template::Tutorial" class="go up">Up<span class="about"><strong>Template::Tutorial</strong></span></a>
+            <a href="../../docs/tutorial/Datafile.html" title="Template::Tutorial::Datafile" class="go next">Next<span class="about"><strong>Template::Tutorial::Datafile</strong></span></a>
+          </div>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+          </div>
+          <div class="licence">
+            The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
+            You can redistribute and/or modify it under the terms of the <a href="http://www.opensource.org/licenses/gpl-license.php">GNU Public Licence</a>
+            or the <a href="http://www.opensource.org/licenses/artistic-license.php">Perl Artistic Licence</a>.
+          </div>
+        </div>
+        <div id="palette">
+          <ul>
+            <li class="first"><a href="#" class="blue" onclick="set_style('Clear Blue')"></a></li>
+            <li><a href="#" class="orange" onclick="set_style('Clear Orange')"></a></li>
+            <li><a href="#" class="green" onclick="set_style('Clear Green')"></a></li>
+            <li><a href="#" class="purple" onclick="set_style('Clear Purple')"></a></li>
+            <li><a href="#" class="grey" onclick="set_style('Clear Grey')"></a></li>
+          </ul>
+        </div>
+    </div>
+    <div id="preload">  <span class="logo"></span>
+      <span class="tab"></span>
+      <span class="hide"></span>
+      <span class="show"></span>
+      <span class="arrow1"></span>
+      <span class="arrow2"></span>
+      <span class="ext"></span>
+      <span class="talk"></span>
+      <span class="menu"></span>
+      <span class="menu_head"></span>
+      <span class="menu_foot"></span>
+      <span class="top"></span>
+      <span class="dotminus1"></span>
+      <span class="dotminus2"></span>
+      <span class="dotplus1"></span>
+    </div>  </body>
+</html>

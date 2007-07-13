@@ -1,0 +1,311 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE File(filepath) %]</span>
+      <span class="tt">[% File.path %]</span>         # full path
+      <span class="tt">[% File.name %]</span>         # filename
+      <span class="tt">[% File.dir %]</span>          # directory
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This plugin provides an abstraction of a file. It can be used to fetch
+      details about files from the file system, or to represent abstract files
+      (e.g. when creating an index page) that may or may not exist on a file
+      system.
+    </p>
+    <p>
+      A file name or path should be specified as a constructor argument. e.g.
+    </p>
+    <pre>
+      <span class="tt">[% USE File('foo.html') %]</span>
+      <span class="tt">[% USE File('foo/bar/baz.html') %]</span>
+      <span class="tt">[% USE File('/foo/bar/baz.html') %]</span>
+    </pre>
+    <p>
+      The file should exist on the current file system (unless
+      <code>nostat</code> option set, see below) as an absolute file when
+      specified with as leading '<code>/</code>' as per
+      '<code>/foo/bar/baz.html</code>', or otherwise as one relative to the
+      current working directory. The constructor performs a <code>stat()</code>
+      on the file and makes the 13 elements returned available as the plugin
+      items:
+    </p>
+    <pre>
+      dev ino mode nlink uid gid rdev size 
+      atime mtime ctime blksize blocks
+    </pre>
+    <p>
+      e.g.
+    </p>
+    <pre>
+      <span class="tt">[% USE File('/foo/bar/baz.html') %]</span>
+      
+      <span class="tt">[% File.mtime %]</span>
+      <span class="tt">[% File.mode %]</span>
+      ...
+    </pre>
+    <p>
+      In addition, the <code>user</code> and <code>group</code> items are set
+      to contain the user and group names as returned by calls to
+      <code>getpwuid()</code> and <code>getgrgid()</code> for the file
+      <code>uid</code> and <code>gid</code> elements, respectively. On Win32
+      platforms on which <code>getpwuid()</code> and <code>getgrid()</code> are
+      not available, these values are undefined.
+    </p>
+    <pre>
+      <span class="tt">[% USE File('/tmp/foo.html') %]</span>
+      <span class="tt">[% File.uid %]</span>      # e.g. 500
+      <span class="tt">[% File.user %]</span>     # e.g. abw
+    </pre>
+    <p>
+      This user/group lookup can be disabled by setting the <code>noid</code>
+      option.
+    </p>
+    <pre>
+      <span class="tt">[% USE File('/tmp/foo.html', noid=1) %]</span>
+      <span class="tt">[% File.uid %]</span>      # e.g. 500
+      <span class="tt">[% File.user %]</span>     # nothing
+    </pre>
+    <p>
+      The <code>isdir</code> flag will be set if the file is a directory.
+    </p>
+    <pre>
+      <span class="tt">[% USE File('/tmp') %]</span>
+      <span class="tt">[% File.isdir %]</span>    # 1
+    </pre>
+    <p>
+      If the <code>stat()</code> on the file fails (e.g. file doesn't exists,
+      bad permission, etc) then the constructor will throw a <code>File</code>
+      exception. This can be caught within a <code>TRY...CATCH</code> block.
+    </p>
+    <pre>
+      <span class="tt">[% TRY %]</span>
+         <span class="tt">[% USE File('/tmp/myfile') %]</span>
+         File exists!
+      <span class="tt">[% CATCH File %]</span>
+         File error: <span class="tt">[% error.info %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Note the capitalisation of the exception type, '<code>File</code>', to
+      indicate an error thrown by the <code>File</code> plugin, to distinguish
+      it from a regular <code>file</code> exception thrown by the Template
+      Toolkit.
+    </p>
+    <p>
+      Note that the <code>File</code> plugin can also be referenced by the
+      lower case name '<code>file</code>'. However, exceptions are always
+      thrown of the <code>File</code> type, regardless of the capitalisation of
+      the plugin named used.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('foo.html') %]</span>
+      <span class="tt">[% file.mtime %]</span>
+    </pre>
+    <p>
+      As with any other Template Toolkit plugin, an alternate name can be
+      specified for the object created.
+    </p>
+    <pre>
+      <span class="tt">[% USE foo = file('foo.html') %]</span>
+      <span class="tt">[% foo.mtime %]</span>
+    </pre>
+    <p>
+      The <code>nostat</code> option can be specified to prevent the plugin
+      constructor from performing a <code>stat()</code> on the file specified.
+      In this case, the file does not have to exist in the file system, no
+      attempt will be made to verify that it does, and no error will be thrown
+      if it doesn't. The entries for the items usually returned by
+      <code>stat()</code> will be set empty.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('/some/where/over/the/rainbow.html', nostat=1) 
+      [% file.mtime %]</span>     # nothing
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
+    <p>
+      All <code>File</code> plugins, regardless of the <code>nostat</code>
+      option, have set a number of items relating to the original path
+      specified.
+    </p>
+    [** WRAPPER page/subsection title='path' id='section_path' class='' -**]
+    <p>
+      The full, original file path specified to the constructor.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('/foo/bar.html') %]</span>
+      <span class="tt">[% file.path %]</span>     # /foo/bar.html
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='name' id='section_name' class='' -**]
+    <p>
+      The name of the file without any leading directories.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('/foo/bar.html') %]</span>
+      <span class="tt">[% file.name %]</span>     # bar.html
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='dir' id='section_dir' class='' -**]
+    <p>
+      The directory element of the path with the filename removed.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('/foo/bar.html') %]</span>
+      <span class="tt">[% file.name %]</span>     # /foo
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ext' id='section_ext' class='' -**]
+    <p>
+      The file extension, if any, appearing at the end of the path following a
+      '<code>.</code>' (not included in the extension).
+    </p>
+    <pre>
+      <span class="tt">[% USE file('/foo/bar.html') %]</span>
+      <span class="tt">[% file.ext %]</span>      # html
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='home' id='section_home' class='' -**]
+    <p>
+      This contains a string of the form '<code>../..</code>' to represent the
+      upward path from a file to its root directory.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('bar.html') %]</span>
+      <span class="tt">[% file.home %]</span>     # nothing
+      
+      <span class="tt">[% USE file('foo/bar.html') %]</span>
+      <span class="tt">[% file.home %]</span>     # ..
+      
+      <span class="tt">[% USE file('foo/bar/baz.html') %]</span>
+      <span class="tt">[% file.home %]</span>     # ../..
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='root' id='section_root' class='' -**]
+    <p>
+      The <code>root</code> item can be specified as a constructor argument,
+      indicating a root directory in which the named file resides. This is
+      otherwise set empty.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('foo/bar.html', root='/tmp') %]</span>
+      <span class="tt">[% file.root %]</span>     # /tmp
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='abs' id='section_abs' class='' -**]
+    <p>
+      This returns the absolute file path by constructing a path from the
+      <code>root</code> and <code>path</code> options.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('foo/bar.html', root='/tmp') %]</span>
+      <span class="tt">[% file.path %]</span>     # foo/bar.html
+      <span class="tt">[% file.root %]</span>     # /tmp
+      <span class="tt">[% file.abs %]</span>      # /tmp/foo/bar.html
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='rel(path)' id='method_rel' class='method' -**]
+    <p>
+      This returns a relative path from the current file to another path
+      specified as an argument. It is constructed by appending the path to the
+      '<code>home</code>' item.
+    </p>
+    <pre>
+      <span class="tt">[% USE file('foo/bar/baz.html') %]</span>
+      <span class="tt">[% file.rel('wiz/waz.html') %]</span>      # ../../wiz/waz.html
+    </pre>
+    
+    [** END -**]
+[** END -**]
+[** WRAPPER page/section title='EXAMPLES' id='section_EXAMPLES' -**]
+    <pre>
+      <span class="tt">[% USE file('/foo/bar/baz.html') %]</span>
+      
+      <span class="tt">[% file.path  %]</span>      # /foo/bar/baz.html
+      <span class="tt">[% file.dir   %]</span>      # /foo/bar
+      <span class="tt">[% file.name  %]</span>      # baz.html
+      <span class="tt">[% file.home  %]</span>      # ../..
+      <span class="tt">[% file.root  %]</span>      # ''
+      <span class="tt">[% file.abs   %]</span>      # /foo/bar/baz.html
+      <span class="tt">[% file.ext   %]</span>      # html
+      <span class="tt">[% file.mtime %]</span>      # 987654321
+      <span class="tt">[% file.atime %]</span>      # 987654321
+      <span class="tt">[% file.uid   %]</span>      # 500
+      <span class="tt">[% file.user  %]</span>      # abw
+    </pre>
+    <pre>
+      <span class="tt">[% USE file('foo.html') %]</span>
+      
+      <span class="tt">[% file.path %]</span>           # foo.html
+      <span class="tt">[% file.dir  %]</span>       # ''
+      <span class="tt">[% file.name %]</span>           # foo.html
+      <span class="tt">[% file.root %]</span>       # ''
+      <span class="tt">[% file.home %]</span>       # ''
+      <span class="tt">[% file.abs  %]</span>       # foo.html
+    </pre>
+    <pre>
+      <span class="tt">[% USE file('foo/bar/baz.html') %]</span>
+      
+      <span class="tt">[% file.path %]</span>           # foo/bar/baz.html
+      <span class="tt">[% file.dir  %]</span>       # foo/bar
+      <span class="tt">[% file.name %]</span>           # baz.html
+      <span class="tt">[% file.root %]</span>       # ''
+      <span class="tt">[% file.home %]</span>       # ../..
+      <span class="tt">[% file.abs  %]</span>       # foo/bar/baz.html
+    </pre>
+    <pre>
+      <span class="tt">[% USE file('foo/bar/baz.html', root='/tmp') %]</span>
+      
+      <span class="tt">[% file.path %]</span>           # foo/bar/baz.html
+      <span class="tt">[% file.dir  %]</span>       # foo/bar
+      <span class="tt">[% file.name %]</span>           # baz.html
+      <span class="tt">[% file.root %]</span>       # /tmp
+      <span class="tt">[% file.home %]</span>       # ../..
+      <span class="tt">[% file.abs  %]</span>       # /tmp/foo/bar/baz.html
+    </pre>
+    <pre>
+      # calculate other file paths relative to this file and its root
+      <span class="tt">[% USE file('foo/bar/baz.html', root =&gt; '/tmp/tt2') %]</span>
+      
+      <span class="tt">[% file.path('baz/qux.html') %]</span>         # ../../baz/qux.html
+      <span class="tt">[% file.dir('wiz/woz.html')  %]</span>     # ../../wiz/woz.html
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='AUTHORS' id='section_AUTHORS' -**]
+    <p>
+      Michael Stevens wrote the original <code>Directory</code> plugin on which
+      this is based. Andy Wardley split it into separate <code>File</code> and
+      <code>Directory</code> plugins, added some extra code and documentation
+      for <code>VIEW</code> support, and made a few other minor tweaks.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright 2000-2007 Michael Stevens, Andy Wardley.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>, <a
+      href="[** ttmodlink('Template::Plugin::Directory')
+      **]">Template::Plugin::Directory</a>, <a href="[**
+      ttmodlink('Template::View') **]">Template::View</a>
+    </p>
+[** END -**]
+
+</div>

@@ -1,0 +1,94 @@
+/*------------------------------------------------------------------------*/
+/* How is IE broken?  Let me count the ways...                            */
+/*------------------------------------------------------------------------*/
+
+#sidebar {
+  left: 220px;
+}
+
+ul.menu li a {
+    height: 20px;
+    margin: 0;
+}
+
+div.controls a.menu {
+    margin-right: 3px;
+}
+
+div.ieblowsgoats {
+    display: block;
+}
+
+/*------------------------------------------------------------------------*/
+/* IE's negative margins are broken.  As soon as you declare a height on  */
+/* an element (div.head in this case), it no longer displays any content  */
+/* pushed out via negative margins.  And without the height, IE won't     */
+/* correctly position any absolutely positioned elements inside it (e.g   */
+/* the 'Top' link.  So yet again, we have to jump through some hoops to   */
+/* make up for Microsoft's downright shoddy approach to writing software. */
+/* In this case, we shift the header left again and remove the negative   */
+/* margin.  But that also shifts the right hand side over, so we need to  */
+/* shift the 'Top' link rightwards to put it back into place.  The only   */
+/* downside is that the lines under the titles are also shifted left,     */
+/* but we can live with that.  Or rather, IE6 users will have to live     */
+/* with it.  Or download Firefox.
+/*------------------------------------------------------------------------*/
+
+div.section div.head,
+div.subsection div.head {
+    height: 20px;
+    left: -28px;
+    padding-left: 28px;
+}
+
+div.subsection div.head {
+    left: -20px;
+    padding-left: 20px;
+}
+
+div.section div.head a.top {
+    right: -28px;
+}
+
+div.subsection div.head a.top {
+    right: -20px;
+}
+
+div.section div.head a.open, 
+div.section div.head a.shut,
+div.subsection div.head a.open, 
+div.subsection div.head a.shut {
+    position: absolute;
+    bottom: 4px;
+    right: 45px;
+    margin: 0px;
+    padding: 0px 5px;
+    font-size: 11px;
+    height: 16px;
+    width: 3em;
+    text-align: right;
+    border-right: 1px solid #ddd;
+    display: none;
+}
+
+div.section.shut div.head a.open,
+div.subsection.shut div.head a.open {
+    display: block;
+}
+
+div.section.shut div.head a.shut,
+div.subsection.shut div.head a.shut {
+    display: none;
+}
+
+div.section.open div.head a.open,
+div.subsection.open div.head a.open {
+    display: none;
+}
+
+div.section.open div.head a.shut,
+div.subsection.open div.head a.shut {
+    display: block;
+}
+
+

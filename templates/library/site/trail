@@ -1,0 +1,15 @@
+[% # Hack to suppress the breadcrumb trail on the home page.
+   # However, we must keep a dummy trail element in place 
+   # because we're relying on it to push the title and sub-title
+   # down 40 pixels into place.  There are possibly better ways to do it.
+   IF page.uri == '/index.html' -%]
+<div id="trail" class="blank"></div>
+[% ELSE %]
+<ul id="trail">
+[%  FOREACH uri IN page.trail;
+      item = site.pages.$uri;
+-%]
+  <li[% ' class="last"' IF loop.last %]><a href="[% rooturl %][% item.uri %]">[% item.short or item.name %]</a></li>
+[%  END -%]
+</ul>
+[% END %]

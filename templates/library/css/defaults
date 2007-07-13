@@ -1,0 +1,191 @@
+/*------------------------------------------------------------------------*/
+/* default styles                                                         */
+/*------------------------------------------------------------------------*/
+
+h1, h2, h3, h4, h5, h6 {
+    color: [% col.head %];
+}
+
+h1,h2,h3 {
+    margin: 0px 0 5px 0;
+}
+
+h2.title {
+    margin-bottom: 12px;
+}
+
+p {
+    margin: 0px 0px 10px 0px;
+}
+
+p.tight {
+    padding: 4px 0;
+    margin: 0;
+}
+
+p.intro {
+    font-size: [% font.size + 1 %]px;
+    padding: 10px 0px;
+}
+
+pre {
+    line-height: 120%;
+}
+
+code {
+    color: #224;
+    font-weight: bold;
+}
+
+code.file {
+    color: #666;
+    font-weight: normal;
+}
+
+a {
+    text-decoration: none;
+    color: [% col.link %];
+}
+
+a:visited {
+    color: [% col.seen %];
+}
+
+a:hover {
+    color: [% col.roll %];
+}
+
+a:focus {
+    outline: none;
+}
+
+div.smallbook {
+    padding-right: 100px;
+}
+
+div.largebook {
+    padding-right: 200px;
+}
+
+div.smallbook a.badger {
+    position: relative;
+    display: block;
+    float: right;
+    width: 96px;
+    height: 40px;
+    padding-top: 125px;
+    margin-right: -100px;
+    font-size: 11px;
+    line-height: 13px;
+    text-align: center;
+    background: url('[% img %]/misc/ttbook_small.gif') no-repeat top right;
+}
+
+div.largebook a.badger {
+    position: relative;
+    display: block;
+    float: right;
+    width: 180px;
+    height: 40px;
+    padding-top: 240px;
+    margin-right: -200px;
+    font-size: 11px;
+    text-align: center;
+    background: url('[% img %]/misc/ttbook_large.gif') no-repeat top right;
+}
+
+.alt {
+    display: none;
+}
+
+.sample {
+    display: block;
+    width: 100px;
+    height: 30px;
+}
+
+br.clear {
+    clear: both;
+}
+
+a.download {
+    display: block;
+    min-height: 16px;
+    margin: 10px;
+    padding: 0 0 0 20px;
+    background: url('[% arrows %]/small/[% warm %]/right.gif') 0px 4px no-repeat;
+}
+
+a.download:hover {
+    background-image: url('[% arrows %]/small/[% roll %]/right.gif');
+}
+
+a.ext {
+    padding: 0 14px 0 0;
+    background: url('[% glass %]/extlink.gif') top right no-repeat;
+}
+
+a.ext:visited {
+    background-image: url('[% glass %]/extlinkvis.gif');
+}
+
+a.ext:hover {
+    background-image: url('[% glass %]/extlinkroll.gif');
+}
+
+pre.code {
+  margin: 0 20px 15px 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f6f6f6;
+  font-size: 13px;
+  color: [% col.code %];
+}
+
+ul {
+    padding-left: 10px;
+}
+
+li {
+    list-style: none;
+    margin: 0;
+    padding: 2px 0 1px 18px;
+    font-size: [% font.size - 1 %]px;
+    background: url('[% arrows %]/small/[% warm %]/minidot.gif') 0px 6px no-repeat;
+}
+
+blockquote {
+   margin: 0;
+   position: relative;
+   font-style: italic;
+   font-size: [% font.size - 1 %]px;
+   padding: 8px 50px;
+   text-align: justify;
+}
+
+blockquote .attrib {
+    text-align: right;
+    font-style: normal;
+    font-size: [% font.size - 2 %]px;
+    color: #666;
+    padding: 0;
+}
+
+blockquote .left,
+blockquote .right {
+    position: absolute;
+    top: 0px;
+    width: 40px;
+    height: 40px;
+}
+
+blockquote .left {
+    left: 0px;
+    background: url('[% img %]/misc/quoteleft.gif') no-repeat top left;
+}
+
+blockquote .right {
+    right: 0px;
+    background: url('[% img %]/misc/quoteright.gif') no-repeat top left;
+}
+

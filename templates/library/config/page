@@ -1,0 +1,47 @@
+[%  # Define a page data structure containing the metadata relevant
+    # to the page template we're currently processing
+
+    # Add '/' prefix to template path to generate a URI matching 
+    # (hopefully) an entry in the pages sitemap
+    uri  = "/$template.name";
+    page = site.pages.$uri or { };
+
+    # Add the full uri back into the page data in case we need it
+    DEFAULT page.uri = uri;
+    
+    # Also expand back/up/next links
+    SET page.back = site.pages.${page.back} IF page.back;
+    SET page.next = site.pages.${page.next} IF page.next;
+    SET page.up   = site.pages.${page.up}   IF page.up;
+
+    # Examine template path to generate breadcrumb trail and
+    # hash of "warm" pages that are parents of the current page
+    # and should be should highlighted and expanded in the menu.
+    page.trail = [ uri ];
+    page.warm  = { $uri = 1 }; 
+    
+    # First we split the path into its component parts
+    path = template.name.split('\\/');
+
+    # The last item is the file name, leaving the section path
+    file = path.pop;
+    secpath = path.join('/');
+    page.section = site.sections.${"/$secpath/"};
+    
+    # Now generate a path to the index.html page in each section by
+    # walking up a directory at a time from the current page location
+    # to the root
+    WHILE path.size;
+        uri = path.join('/');
+        uri = "/$uri/index.html";
+        
+        # don't add duplicate pages (e.g. when current page is a index page)
+        UNLESS page.warm.$uri;
+            SET  page.warm.$uri = 1;
+            CALL page.trail.unshift(uri);
+        END;
+        
+        CALL path.pop;
+    END;
+    
+-%]

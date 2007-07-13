@@ -1,0 +1,369 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='TEMPLATE TOOLKIT PLUGINS' id='section_TEMPLATE_TOOLKIT_PLUGINS' -**]
+    <p>
+      The following plugin modules are distributed with the Template Toolkit.
+      Some of the plugins interface to external modules (detailed below) which
+      should be downloaded from any CPAN site and installed before using the
+      plugin.
+    </p>
+    [** WRAPPER page/subsection title='Autoformat' id='section_Autoformat' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Autoformat')
+      **]">Autoformat</a> plugin is an interface to Damian Conway's <a
+      href="[** cpanmod('Text::Autoformat') **]">Text::Autoformat</a> Perl
+      module which provides advanced text wrapping and formatting. See <a
+      href="[** ttmodlink('Template::Plugin::Autoformat')
+      **]">Template::Plugin::Autoformat</a> and <a href="[**
+      cpanmod('Text::Autoformat') **]">Text::Autoformat</a> for further
+      details.
+    </p>
+    <pre>
+      <span class="tt">[% USE autoformat(left=10, right=20) %]</span>
+      <span class="tt">[% autoformat(mytext) %]</span>	    # call autoformat sub
+      <span class="tt">[% mytext FILTER autoformat %]</span>  # or use autoformat filter
+    </pre>
+    <p>
+      The <a href="[** cpanmod('Text::Autoformat') **]">Text::Autoformat</a>
+      module is available from CPAN:
+    </p>
+    <pre>
+      L&lt;http://www.cpan.org/modules/by-module/Text/&gt;
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='CGI' id='section_CGI' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::CGI') **]">CGI</a> plugin
+      is a wrapper around Lincoln Stein's CGI.pm module. The plugin is
+      distributed with the Template Toolkit (see <a href="[**
+      ttmodlink('Template::Plugin::CGI') **]">Template::Plugin::CGI</a>) and
+      the <a href="[** cpanmod('CGI') **]">CGI</a> module itself is distributed
+      with recent versions Perl, or is available from CPAN.
+    </p>
+    <pre>
+      <span class="tt">[% USE CGI %]</span>
+      <span class="tt">[% CGI.param('param_name') %]</span>
+      <span class="tt">[% CGI.start_form %]</span>
+      <span class="tt">[% CGI.popup_menu( Name   =&gt; 'color', 
+                         Values =&gt; [ 'Green', 'Brown' ] ) %]</span>
+      <span class="tt">[% CGI.end_form %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Datafile' id='section_Datafile' class='' -**]
+    <p>
+      Provides an interface to data stored in a plain text file in a simple
+      delimited format. The first line in the file specifies field names which
+      should be delimiter by any non-word character sequence. Subsequent lines
+      define data using the same delimiter as in the first line. Blank lines
+      and comments (lines starting '#') are ignored. See <a href="[**
+      ttmodlink('Template::Plugin::Datafile')
+      **]">Template::Plugin::Datafile</a> for further details.
+    </p>
+    <p>
+      /tmp/mydata:
+    </p>
+    <pre>
+      # define names for each field
+      id : email : name : tel
+      # here's the data
+      fred : fred@here.com : Fred Smith : 555-1234
+      bill : bill@here.com : Bill White : 555-5678
+    </pre>
+    <p>
+      example:
+    </p>
+    <pre>
+      <span class="tt">[% USE userlist = datafile('/tmp/mydata') %]</span>
+      
+      <span class="tt">[% FOREACH user = userlist %]</span>
+         <span class="tt">[% user.name %]</span> (<span class="tt">[% user.id %]</span>)
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Date' id='section_Date' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Date') **]">Date</a> plugin
+      provides an easy way to generate formatted time and date strings by
+      delegating to the <a href="[** cpanmod('POSIX') **]">POSIX</a>
+      <code>strftime()</code> routine. See <a href="[**
+      ttmodlink('Template::Plugin::Date') **]">Template::Plugin::Date</a> and
+      <a href="[** cpanmod('POSIX') **]">POSIX</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE date %]</span>
+      <span class="tt">[% date.format %]</span>		# current time/date
+      
+      File last modified: <span class="tt">[% date.format(template.modtime) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Directory' id='section_Directory' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Directory')
+      **]">Directory</a> plugin provides a simple interface to a directory and
+      the files within it. See <a href="[**
+      ttmodlink('Template::Plugin::Directory')
+      **]">Template::Plugin::Directory</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE dir = Directory('/tmp') %]</span>
+      <span class="tt">[% FOREACH file = dir.files %]</span>
+          # all the plain files in the directory
+      <span class="tt">[% END %]</span>
+      <span class="tt">[% FOREACH file = dir.dirs %]</span>
+          # all the sub-directories
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='DBI' id='section_DBI' class='' -**]
+    <p>
+      The <code>DBI</code> plugin is no longer distributed as part of the
+      Template Toolkit (as of version 2.15). It is now available as a separate
+      <a href="[** cpanmod('Template::DBI') **]">Template::DBI</a> distribution
+      from CPAN.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Dumper' id='section_Dumper' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Dumper') **]">Dumper</a>
+      plugin provides an interface to the Data::Dumper module. See <a href="[**
+      ttmodlink('Template::Plugin::Dumper') **]">Template::Plugin::Dumper</a>
+      and <a href="[** cpanmod('Data::Dumper') **]">Data::Dumper</a> for futher
+      details.
+    </p>
+    <pre>
+      <span class="tt">[% USE dumper(indent=0, pad="&lt;br&gt;") %]</span>
+      <span class="tt">[% dumper.dump(myvar, yourvar) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='File' id='section_File' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::File') **]">File</a> plugin
+      provides a general abstraction for files and can be used to fetch
+      information about specific files within a filesystem. See <a href="[**
+      ttmodlink('Template::Plugin::File') **]">Template::Plugin::File</a> for
+      further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE File('/tmp/foo.html') %]</span>
+      <span class="tt">[% File.name %]</span>     # foo.html
+      <span class="tt">[% File.dir %]</span>      # /tmp
+      <span class="tt">[% File.mtime %]</span>    # modification time
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Filter' id='section_Filter' class='' -**]
+    <p>
+      This module implements a base class plugin which can be subclassed to
+      easily create your own modules that define and install new filters.
+    </p>
+    <pre>
+      package MyOrg::Template::Plugin::MyFilter;
+      
+      use Template::Plugin::Filter;
+      use base qw( Template::Plugin::Filter );
+      
+      sub filter {
+          my ($self, $text) = @_;
+          # ...mungify $text...
+          return $text;
+      }
+    </pre>
+    <p>
+      Example of use:
+    </p>
+    <pre>
+      # now load it...
+      <span class="tt">[% USE MyFilter %]</span>
+      
+      # ...and use the returned object as a filter
+      <span class="tt">[% FILTER $MyFilter %]</span>
+        ...
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      See <a href="[** ttmodlink('Template::Plugin::Filter')
+      **]">Template::Plugin::Filter</a> for further details.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Format' id='section_Format' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Format') **]">Format</a>
+      plugin provides a simple way to format text according to a
+      <code>printf()</code>-like format. See <a href="[**
+      ttmodlink('Template::Plugin::Format') **]">Template::Plugin::Format</a>
+      for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE bold = format('&lt;b&gt;%s&lt;/b&gt;') %]</span>
+      <span class="tt">[% bold('Hello') %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='GD' id='section_GD' class='' -**]
+    <p>
+      The <code>GD</code> plugins are no longer part of the core Template
+      Toolkit distribution. They are now available from CPAN in a separate <a
+      href="[** cpanmod('Template::GD') **]">Template::GD</a> distribution.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='HTML' id='section_HTML' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::HTML') **]">HTML</a> plugin
+      is very basic, implementing a few useful methods for generating HTML. It
+      is likely to be extended in the future or integrated with a larger
+      project to generate HTML elements in a generic way.
+    </p>
+    <pre>
+      <span class="tt">[% USE HTML %]</span>
+      <span class="tt">[% HTML.escape("if (a &lt; b &amp;&amp; c &gt; d) ..." %]</span>
+      <span class="tt">[% HTML.attributes(border =&gt; 1, cellpadding =&gt; 2) %]</span>
+      <span class="tt">[% HTML.element(table =&gt; { border =&gt; 1, cellpadding =&gt; 2 }) %]</span>
+    </pre>
+    <p>
+      See <a href="[** ttmodlink('Template::Plugin::HTML')
+      **]">Template::Plugin::HTML</a> for further details.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Iterator' id='section_Iterator' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Iterator')
+      **]">Iterator</a> plugin provides a way to create a <a href="[**
+      ttmodlink('Template::Iterator') **]">Template::Iterator</a> object to
+      iterate over a data set. An iterator is created automatically by the
+      <code>FOREACH</code> directive and is aliased to the <code>loop</code>
+      variable. This plugin allows an iterator to be explicitly created with a
+      given name, or the default plugin name, <code>iterator</code>. See <a
+      href="[** ttmodlink('Template::Plugin::Iterator')
+      **]">Template::Plugin::Iterator</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE iterator(list, args) %]</span>
+      
+      <span class="tt">[% FOREACH item = iterator %]</span>
+         <span class="tt">[% '&lt;ul&gt;' IF iterator.first %]</span>
+         &lt;li&gt;<span class="tt">[% item %]</span>
+         <span class="tt">[% '&lt;/ul&gt;' IF iterator.last %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Pod' id='section_Pod' class='' -**]
+    <p>
+      This plugin provides an interface to the <a href="[** cpanmod('Pod::POM')
+      **]">Pod::POM</a> module which parses POD documents into an internal
+      object model which can then be traversed and presented through the
+      Template Toolkit.
+    </p>
+    <pre>
+      <span class="tt">[% USE Pod(podfile) %]</span>
+      
+      <span class="tt">[% FOREACH head1 = Pod.head1;
+           FOREACH head2 = head1/head2;
+             ...
+           END;
+         END
+      %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='String' id='section_String' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::String') **]">String</a>
+      plugin implements an object-oriented interface for manipulating strings.
+      See <a href="[** ttmodlink('Template::Plugin::String')
+      **]">Template::Plugin::String</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE String 'Hello' %]</span>
+      <span class="tt">[% String.append(' World') %]</span>
+      
+      <span class="tt">[% msg = String.new('Another string') %]</span>
+      <span class="tt">[% msg.replace('string', 'text') %]</span>
+      
+      The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length %]</span> characters long.
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Table' id='section_Table' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Table') **]">Table</a>
+      plugin allows you to format a list of data items into a virtual table by
+      specifying a fixed number of rows or columns, with an optional overlap.
+      See <a href="[** ttmodlink('Template::Plugin::Table')
+      **]">Template::Plugin::Table</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE table(list, rows=10, overlap=1) %]</span>
+      
+      <span class="tt">[% FOREACH item = table.col(3) %]</span>
+         <span class="tt">[% item %]</span>
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='URL' id='section_URL' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::URL') **]">URL</a> plugin
+      provides a simple way of contructing URLs from a base part and a variable
+      set of parameters. See <a href="[** ttmodlink('Template::Plugin::URL')
+      **]">Template::Plugin::URL</a> for further details.
+    </p>
+    <pre>
+      <span class="tt">[% USE mycgi = url('/cgi-bin/bar.pl', debug=1) %]</span>
+      
+      <span class="tt">[% mycgi %]</span>
+         # ==&gt; /cgi/bin/bar.pl?debug=1
+         
+      <span class="tt">[% mycgi(mode='submit') %]</span>
+         # ==&gt; /cgi/bin/bar.pl?mode=submit&amp;debug=1
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Wrap' id='section_Wrap' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Plugin::Wrap') **]">Wrap</a> plugin
+      uses the <a href="[** cpanmod('Text::Wrap') **]">Text::Wrap</a> module to
+      provide simple paragraph formatting. See <a href="[**
+      ttmodlink('Template::Plugin::Wrap') **]">Template::Plugin::Wrap</a> and
+      <a href="[** cpanmod('Text::Wrap') **]">Text::Wrap</a> for further
+      details.
+    </p>
+    <pre>
+      <span class="tt">[% USE wrap %]</span>
+      <span class="tt">[% wrap(mytext, 40, '* ', '  ') %]</span>	# use wrap sub
+      <span class="tt">[% mytext FILTER wrap(40) -%]</span>	# or wrap FILTER
+    </pre>
+    <p>
+      The <code>Text::Wrap</code> module is available from CPAN:
+    </p>
+    <pre>
+      http://www.cpan.org/modules/by-module/Text/
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='XML' id='section_XML' class='' -**]
+    <p>
+      The <code>XML::DOM</code>, <code>XML::RSS</code>,
+      <code>XML::Simple</code> and <code>XML::XPath</code> plugins are no
+      longer distributed with the Template Toolkit as of version 2.15
+    </p>
+    <p>
+      They are now available in a separate <a href="[**
+      cpanmod('Template::XML') **]">Template::XML</a> distribution.
+    </p>
+    
+    [** END -**]
+[** END -**]
+
+</div>

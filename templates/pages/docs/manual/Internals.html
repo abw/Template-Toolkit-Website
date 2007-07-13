@@ -1,0 +1,607 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='Introduction' id='section_Introduction' -**]
+    <p>
+      This section of the documentation is aimed at developers wishing to know
+      more about how the Template Toolkit works on the inside in order to
+      extend or adapt it to their own needs.
+    </p>
+    <p>
+      If that doesn't sound like you then you probably don't need to read this.
+      There is no test afterwards.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='Outside Looking In' id='section_Outside_Looking_In' -**]
+    <p>
+      The <a href="[** ttmodlink('Template') **]">Template</a> module is simply
+      a front end module which creates and uses a <a href="[**
+      ttmodlink('Template::Service') **]">Template::Service</a> and pipes the
+      output wherever you want it to go (<code>STDOUT</code> by default, or
+      maybe a file, scalar, etc). The <code>Apache::Template</code> module
+      (available separately from CPAN) is another front end. That creates a
+      <code>Template::Service::Apache</code> object, calls on it as required
+      and sends the output back to the relevant <code>Apache::Request</code>
+      object.
+    </p>
+    <p>
+      These front-end modules are really only there to handle any specifics of
+      the environment in which they're being used. The
+      <code>Apache::Template</code> front end, for example, handles
+      <code>Apache::Request</code> specifics and configuration via the <code
+      class="file">httpd.conf</code>. The regular <a href="[**
+      ttmodlink('Template') **]">Template</a> front-end deals with
+      <code>STDOUT</code>, variable refs, etc. Otherwise it is <a href="[**
+      ttmodlink('Template::Service') **]">Template::Service</a> (or subclass)
+      which does all the work.
+    </p>
+    <p>
+      The <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> module provides a high-quality template
+      delivery service, with bells, whistles, signed up service level agreement
+      and a 30-day no quibble money back guarantee. "Have a good time, all the
+      time", that's our motto.
+    </p>
+    <p>
+      Within the lower levels of the Template Toolkit, there are lots of messy
+      details that we generally don't want to have to worry about most of the
+      time. Things like templates not being found, or failing to parse
+      correctly, uncaught exceptions being thrown, missing plugin modules or
+      dependencies, and so on. <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> hides that all away and makes everything look
+      simple to the outsider. It provides extra features, like
+      <code>PRE_PROCESS</code>, <code>PROCESS</code> and
+      <code>POST_PROCESS</code>, and also provides the error recovery mechanism
+      via <code>ERROR</code>. You ask it to process a template and it takes
+      care of everything for you. The <code>Template::Service::Apache</code>
+      module goes a little bit further, adding some extra headers to the <a
+      href="[** cpanmod('Apache::Request') **]">Apache::Request</a>, setting a
+      few extra template variables, and so on.
+    </p>
+    <p>
+      For the most part, the job of a service is really just one of scheduling
+      and dispatching. It receives a request in the form of a call to its <a
+      href="[** ttmodlink('Template::Service')
+      **]#method_process">process()</a> method and schedules the named template
+      specified as an argument, and possibly several other templates
+      (<code>PRE_PROCESS</code>, etc) to be processed in order. It doesn't
+      actually process the templates itself, but instead makes a <a href="[**
+      ttmodlink('Template::Context') **]#method_process">process()</a> call
+      against a <a href="[** ttmodlink('Template::Context')
+      **]">Template::Context</a> object.
+    </p>
+    <p>
+      <a href="[** ttmodlink('Template::Context') **]">Template::Context</a> is
+      the runtime engine for the Template Toolkit - the module that hangs
+      everything together in the lower levels of the Template Toolkit and that
+      one that does most of the real work, albeit by crafty delegation to
+      various other friendly helper modules.
+    </p>
+    <p>
+      Given a template name (or perhaps a reference to a scalar or file handle)
+      the context process() method must load and compile, or fetch a cached
+      copy of a previously compiled template, corresponding to that name. It
+      does this by calling on a list of one or more <a href="[**
+      ttmodlink('Template::Provider') **]">Template::Provider</a> objects (the
+      <code>LOAD_TEMPLATES</code> posse) who themselves might get involved with
+      a <a href="[** ttmodlink('Template::Parser') **]">Template::Parser</a> to
+      help turn source templates into executable Perl code (but more on that
+      later).
+    </p>
+    <p>
+      Thankfully, all of this complexity is hidden away behind a simple <a
+      href="[** ttmodlink('Template::Context')
+      **]#method_template">template()</a> method. You call it passing a
+      template name as an argument, and it returns a compiled template in the
+      form of a <a href="[** ttmodlink('Template::Document')
+      **]">Template::Document</a> object, or otherwise raises an exception.
+    </p>
+    <p>
+      A <a href="[** ttmodlink('Template::Document')
+      **]">Template::Document</a> is a thin object wrapper around a compiled
+      template subroutine. The object implements a <a href="[**
+      ttmodlink('Template::Document') **]#method_process">process()</a> method
+      which performs a little bit of housekeeping and then calls the template
+      subroutine. The object also defines template metadata (defined in
+      <code>[% META ... %]</code> directives) and has a <a href="[**
+      ttmodlink('Template::Document') **]#method_block">block()</a> method
+      which returns a hash of any additional <code>[% BLOCK xxxx %]</code>
+      definitions found in the template source.
+    </p>
+    <p>
+      So the context fetches a compiled document via its own <a href="[**
+      ttmodlink('Template::Context') **]#method_template">template()</a> method
+      and then gets ready to process it. It first updates the stash (the place
+      where template variables get defined - more on that shortly) to set any
+      template variable definitions specified as the second argument by
+      reference to hash array. Then, it calls the document <a href="[**
+      ttmodlink('Template::Document') **]#method_process">process()</a> method,
+      passing a reference to itself, the context object, as an argument. In
+      doing this, it provides itself as an object against which template code
+      can make callbacks to access runtime resources and Template Toolkit
+      functionality.
+    </p>
+    <p>
+      What we're trying to say here is this: not only does the <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> object receive
+      calls from the <i>outside</i>, i.e. those originating in user code
+      calling the process() method on a Template object, but it also receives
+      calls from the <i>inside</i>, i.e. those originating in template
+      directives of the form <code>[% PROCESS template %]</code>.
+    </p>
+    <p>
+      Before we move on to that, here's a simple structure diagram showing the
+      outer layers of the Template Toolkit heading inwards, with pseudo code
+      annotations showing a typical invocation sequence.
+    </p>
+    <pre>
+       ,--------.
+       | Caller |     use Template;
+       `--------'     my $tt = Template-&gt;new( ... );
+            |         $tt-&gt;process($template, \%vars);
+            |                                                     Outside
+      - - - | - - - - - - - - - - - - - - - - - - - - - - - - - - - - T T 
+            |         package Template;                            Inside
+            V
+      +----------+    sub process($template, \%vars) {
+      | Template |        $out = $self-&gt;SERVICE-&gt;process($template, $vars);
+      +----------+        print $out or send it to $self-&gt;OUTPUT;
+            |         }
+            |
+            |         package Template::Service;
+            |
+            |         sub process($template, \%vars) {
+            |             try {
+      +----------+            foreach $p in @self-&gt;PRE_PROCESS
+      | Service  |                $self-&gt;CONTEXT-&gt;process($p, $vars);
+      +----------+
+            |                 $self-&gt;CONTEXT-&gt;process($template, $vars);
+            |
+            |                 foreach $p @self-&gt;POST_PROCESS
+            |                     $self-&gt;CONTEXT-&gt;process($p, $vars);
+            |             }
+            |             catch {
+            |                 $self-&gt;CONTEXT-&gt;process($self-&gt;ERROR);
+            |             }
+            |         }
+            |
+            V         package Template::Context;
+      +----------+    
+      | Context  |    sub process($template, \%vars) {
+      +----------+        # fetch compiled template
+            |             $template = $self-&gt;template($template)
+            |             # update stash
+            |             $self-&gt;STASH-&gt;update($vars);
+            |             # process template
+            |             $template-&gt;process($self)
+            |         }
+            V     
+      +----------+    package Template::Document;
+      | Document |    
+      +----------+    sub process($context) {
+                          $output = &amp;{ $self-&gt;BLOCK }($context);
+                      }
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Inside Looking Out' id='section_Inside_Looking_Out' -**]
+    <p>
+      To understand more about what's going on in these lower levels, we need
+      to look at what a compiled template looks like. In fact, a compiled
+      template is just a regular Perl sub-routine. Here's a very simple one.
+    </p>
+    <pre>
+      sub my_compiled_template {
+          return "This is a compiled template.\n";
+      }
+    </pre>
+    <p>
+      You're unlikely to see a compiled template this simple unless you wrote
+      it yourself but it is entirely valid. All a template subroutine is
+      obliged to do is return some output (which may be an empty of course). If
+      it can't for some reason, then it should raise an error via
+      <code>die()</code>.
+    </p>
+    <pre>
+      sub my_todo_template {
+          die "This template not yet implemented\n";
+      }
+    </pre>
+    <p>
+      If it wants to get fancy, it can raise an error as a <a href="[**
+      ttmodlink('Template::Exception') **]">Template::Exception</a> object. An
+      exception object is really just a convenient wrapper for the
+      '<code>type</code>' and '<code>info</code>' fields.
+    </p>
+    <pre>
+      sub my_solilique_template {
+          die (Template::Exception-&gt;new('yorrick', 'Fellow of infinite jest'));
+      }
+    </pre>
+    <p>
+      Templates generally need to do a lot more than just generate static
+      output or raise errors. They may want to inspect variable values, process
+      another template, load a plugin, run a filter, and so on. Whenever a
+      template subroutine is called, it gets passed a reference to a <a
+      href="[** ttmodlink('Template::Context') **]">Template::Context</a>
+      object. It is through this context object that template code can access
+      the features of the Template Toolkit.
+    </p>
+    <p>
+      We described earlier how the <a href="[** ttmodlink('Template::Service')
+      **]">Template::Service</a> object calls on <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> to handle a <a
+      href="[** ttmodlink('Template::Context')
+      **]#method_process">process()</a> request from the <i>outside</i>. We can
+      make a similar request on a context to process a template, but from
+      within the code of another template. This is a call from the
+      <i>inside</i>.
+    </p>
+    <pre>
+      sub my_process_template {
+          my $context = shift;
+          my $output = $context-&gt;process('header', { title =&gt; 'Hello World' })
+                     . "\nsome content\n"
+                     . $context-&gt;process('footer');
+      }
+    </pre>
+    <p>
+      This is then roughly equivalent to a source template something like this:
+    </p>
+    <pre>
+      <span class="tt">[% PROCESS header
+          title = 'Hello World'
+      %]</span>
+      some content
+      <span class="tt">[% PROCESS footer %]</span>
+    </pre>
+    <p>
+      Template variables are stored in, and managed by a <a href="[**
+      ttmodlink('Template::Stash') **]">Template::Stash</a> object. This is a
+      blessed hash array in which template variables are defined. The object
+      wrapper provides <a href="[** ttmodlink('Template::Stash')
+      **]#method_get">get()</a> and <a href="[** ttmodlink('Template::Stash')
+      **]#method_set">set()</a> method which implement all the
+      <i>magical.variable.features</i> of the Template Toolkit.
+    </p>
+    <p>
+      Each context object has its own stash, a reference to which can be
+      returned by the appropriately named <a href="[**
+      ttmodlink('Template::Context') **]#method_stash">stash()</a> method. So
+      to print the value of some template variable, or for example, to
+      represent the following source template:
+    </p>
+    <pre>
+      &lt;title&gt;<span class="tt">[% title %]</span>&lt;/title&gt;
+    </pre>
+    <p>
+      we might have a subroutine definition something like this:
+    </p>
+    <pre>
+      sub {
+          my $context = shift;
+          my $stash = $context-&gt;stash();
+          return '&lt;title&gt;' . $stash-&gt;get('title') . '&lt;/title&gt;';
+      }
+    </pre>
+    <p>
+      The stash <a href="[** ttmodlink('Template::Stash')
+      **]#method_get">get()</a> method hides the details of the underlying
+      variable types, automatically calling code references, checking return
+      values, and performing other such tricks. If '<code>title</code>' happens
+      to be bound to a subroutine then we can specify additional parameters as
+      a list reference passed as the second argument to get().
+    </p>
+    <pre>
+      <span class="tt">[% title('The Cat Sat on the Mat') %]</span>
+    </pre>
+    <p>
+      This translates to the stash call:
+    </p>
+    <pre>
+      $stash-&gt;get([ 'title', ['The Cat Sat on the Mat'] ]);
+    </pre>
+    <p>
+      Dotted compound variables can be requested by passing a single list
+      reference to the <code>get()</code> method in place of the variable name.
+      Each pair of elements in the list should correspond to the variable name
+      and reference to a list of arguments for each dot-delimited element of
+      the variable.
+    </p>
+    <pre>
+      <span class="tt">[% foo(1, 2).bar(3, 4).baz(5) %]</span>
+    </pre>
+    <p>
+      is thus equivalent to
+    </p>
+    <pre>
+      $stash-&gt;get([ foo =&gt; [1,2], bar =&gt; [3,4], baz =&gt; [5] ]);
+    </pre>
+    <p>
+      If there aren't any arguments for an element, you can specify an empty,
+      zero or null argument list.
+    </p>
+    <pre>
+      <span class="tt">[% foo.bar %]</span>
+      $stash-&gt;get([ 'foo', 0, 'bar', 0 ]);
+    </pre>
+    <p>
+      The <a href="[** ttmodlink('Template::Stash') **]#method_set">set()</a>
+      method works in a similar way. It takes a variable name and a variable
+      value which should be assigned to it.
+    </p>
+    <pre>
+      <span class="tt">[% x = 10 %]</span>         
+      $stash-&gt;set('x', 10);
+      
+      <span class="tt">[% x.y = 10 %]</span>
+      $stash-&gt;set([ 'x', 0, 'y', 0 ], 10);
+    </pre>
+    <p>
+      So the stash gives us access to template variables and the context
+      provides the higher level functionality.
+    </p>
+    <p>
+      Alongside the <a href="[** ttmodlink('Template::Context')
+      **]#method_process">process()</a> method lies the <a href="[**
+      ttmodlink('Template::Context') **]#method_include">include()</a> method.
+      Just as with the <code>PROCESS</code> / <code>INCLUDE</code> directives,
+      the key difference is in variable localisation. Before processing a
+      template, the <code>process()</code> method simply updates the stash to
+      set any new variable definitions, overwriting any existing values. In
+      contrast, the <code>include()</code> method creates a copy of the
+      existing stash, in a process known as <i>cloning</i> the stash, and then
+      uses that as a temporary variable store. Any previously existing
+      variables are still defined, but any changes made to variables, including
+      setting the new variable values passed aas arguments will affect only the
+      local copy of the stash (although note that it's only a shallow copy, so
+      it's not foolproof). When the template has been processed, the
+      <code>include()</code> method restores the previous variable state by
+      <i>decloning</i> the stash.
+    </p>
+    <p>
+      The context also provides an <a href="[** ttmodlink('Template::Context')
+      **]#method_insert">insert()</a> method to implement the
+      <code>INSERT</code> directive, but no <code>wrapper()</code> method. This
+      functionality can be implemented by rewriting the Perl code and calling
+      <code>include()</code>.
+    </p>
+    <pre>
+      <span class="tt">[% WRAPPER foo -%]</span>
+         blah blah <span class="tt">[% x %]</span>
+      <span class="tt">[%- END %]</span>
+      
+      $context-&gt;include('foo', {
+          content =&gt; 'blah blah ' . $stash-&gt;get('x'),
+      });
+    </pre>
+    <p>
+      Other than the template processing methods <code>process()</code>,
+      <code>include()</code> and <code>insert()</code>, the context defines
+      methods for fetching plugin objects, <a href="[**
+      ttmodlink('Template::Context') **]#method_plugin">plugin()</a>, and
+      filters, <a href="[** ttmodlink('Template::Context')
+      **]#method_filter">filter()</a>.
+    </p>
+    <pre>
+      # TT USE directive
+      <span class="tt">[% USE foo = Bar(10) %]</span>
+      
+      # equivalent Perl
+      $stash-&gt;set('foo', $context-&gt;plugin('Bar', [10]));
+    </pre>
+    <pre>
+      # TT FILTER block
+      <span class="tt">[% FILTER bar(20) %]</span>
+         blah blah blah
+      <span class="tt">[% END %]</span>
+      
+      # equivalent Perl
+      my $filter = $context-&gt;filter('bar', [20]);
+      &amp;$filter('blah blah blah');
+    </pre>
+    <p>
+      Pretty much everything else you might want to do in a template can be
+      done in Perl code. Things like <code>IF</code>, <code>UNLESS</code>,
+      <code>FOREACH</code> and so on all have direct counterparts in Perl.
+    </p>
+    <pre>
+      # TT IF directive
+      <span class="tt">[% IF msg %]</span>
+         Message: <span class="tt">[% msg %]</span>
+      <span class="tt">[% END %]</span>;
+    </pre>
+    <pre>
+      # equivalent Perl
+      if ($stash-&gt;get('msg')) {
+          $output .=  'Message: ';
+          $output .= $stash-&gt;get('msg');
+      }
+    </pre>
+    <p>
+      The best way to get a better understanding of what's going on underneath
+      the hood is to set the <code>$Template::Parser::DEBUG</code> flag to a
+      true value and start processing templates. This will cause the parser to
+      print the generated Perl code for each template it compiles to
+      <code>STDERR</code>. You'll probably also want to set the
+      <code>$Template::Directive::PRETTY</code> option to have the Perl
+      pretty-printed for human consumption.
+    </p>
+    <pre>
+      use Template;
+      use Template::Parser;
+      use Template::Directive;
+      
+      $Template::Parser::DEBUG = 1;
+      $Template::Directive::PRETTY = 1;
+      
+      my $template = Template-&gt;new();
+      $template-&gt;process(\*DATA, { cat =&gt; 'dog', mat =&gt; 'log' });
+      
+      __DATA__
+      The <span class="tt">[% cat %]</span> sat on the <span class="tt">[% mat %]</span>
+    </pre>
+    <p>
+      The output sent to <code>STDOUT</code> remains as you would expect:
+    </p>
+    <pre>
+      The dog sat on the log
+    </pre>
+    <p>
+      The output sent to <code>STDERR</code> would look something like this:
+    </p>
+    <pre>
+      compiled main template document block:
+      sub {
+          my $context = shift || die "template sub called without context\n";
+          my $stash   = $context-&gt;stash;
+          my $output  = '';
+          my $error;
+          
+          eval { BLOCK: {
+              $output .=  "The ";
+              $output .=  $stash-&gt;get('cat');
+              $output .=  " sat on the ";
+              $output .=  $stash-&gt;get('mat');
+              $output .=  "\n";
+          } };
+          if ($@) {
+              $error = $context-&gt;catch($@, \$output);
+              die $error unless $error-&gt;type eq 'return';
+          }
+      
+          return $output;
+      }
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='Hacking on the Template Toolkit' id='section_Hacking_on_the_Template_Toolkit' -**]
+    <p>
+      Please feel free to hack on the Template Toolkit. If you find a bug that
+      needs fixing, if you have an idea for something that's missing, or you
+      feel inclined to tackle something on the TODO list, then by all means go
+      ahead and do it!
+    </p>
+    <p>
+      If you're contemplating something non-trivial then you'll probably want
+      to bring it up on the mailing list first to get an idea about the current
+      state of play, find out if anyone's already working on it, and so on.
+    </p>
+    <p>
+      When you start to hack on the Template Toolkit, please make sure you
+      start from the latest developer release. Stable releases are uploaded to
+      CPAN and have all-numerical version numbers, e.g. 2.04, 2.05. Developer
+      releases are available from the Template Toolkit web site and have a
+      character suffix on the version, e.g. 2.04a, 2.04b, etc.
+    </p>
+    <p>
+      Once you've made your changes, please remember to update the test suite
+      by adding extra tests to one of the existing test scripts in the
+      <code>t</code> sub-directory, or by adding a new test script of your own.
+      And of course, run <code>make test</code> to ensure that all the tests
+      pass with your new code.
+    </p>
+    <p>
+      Don't forget that any files you do add will need to be added to the
+      MANIFEST. Running <code>make manifest</code> will do this for you, but
+      you need to make sure you haven't got any other temporary files lying
+      around that might also get added to it.
+    </p>
+    <p>
+      Documentation is often something that gets overlooked but it's just as
+      important as the code. If you're adding a new module, a plugin module,
+      for example, then it's OK to include the POD documentation in with the
+      module, but <i>please</i> write it all in one piece at the end of the
+      file, <i>after</i> the code (just look at any other
+      <code>Template::*</code> module for an example). It's a religious issue,
+      I know, but I have a strong distaste for POD documentation interspersed
+      throughout the code. In my not-so-humble opinion, it makes both the code
+      and the documentation harder to read (same kinda problem as embedding
+      Perl in HTML).
+    </p>
+    <p>
+      To share your changes with the rest of the world, you'll need to prepare
+      a patch file. To do this you should have 2 directories side-by-side, one
+      which is the original, unmodified distribution directory for the latest
+      developer release, and the other is a copy of that same directory which
+      includes your changes.
+    </p>
+    <p>
+      The following example shows a typical hacking session. First we unpack
+      the latest developer release.
+    </p>
+    <pre>
+      $ tar zxf Template-Toolkit-2.05c.tar.gz
+    </pre>
+    <p>
+      At this point, it's a good idea to rename the directory to give some
+      indicate of what it contains.
+    </p>
+    <pre>
+      $ mv Template-Toolkit-2.05c Template-Toolkit-2.05c-abw-xyz-hack
+    </pre>
+    <p>
+      Then go hack!
+    </p>
+    <pre>
+      $ cd Template-Toolkit-2.05c-abw-xyz-hack
+    </pre>
+    <pre>
+        [ hacking ]
+    </pre>
+    <pre>
+      $ cd ..
+    </pre>
+    <p>
+      When you're all done and ready to prepare a patch, unpack the
+      distribution archive again so that you've got the original to
+      <code>diff</code> against your new code.
+    </p>
+    <pre>
+      $ tar zxf Template-Toolkit-2.05c.tar.gz
+    </pre>
+    <p>
+      You should now have an original distribution directory and a modified
+      version of that same directory, side-by-side.
+    </p>
+    <pre>
+      $ ls
+      Template-Toolkit-2.05c  Template-Toolkit-2.05c-abw-xyz-hack
+    </pre>
+    <p>
+      Now run <code>diff</code> and save the output into an appropriately named
+      patch file.
+    </p>
+    <pre>
+      $ diff -Naur Template-Toolkit-2.05c Template-Toolkit-2.05c-abw-xyz-hack &gt; patch-TT205c-abw-xyz-hack
+    </pre>
+    <p>
+      You can then post the generated patch file to the mailing list,
+      describing what it does, why it does it, how it does it and any other
+      relevant information.
+    </p>
+    <p>
+      If you want to apply someone else's patch then you should start with the
+      same original distribution source on which the patch is based. From
+      within the root of the distribution, run <code>patch</code> feeding in
+      the patch file as standard input. The '<code>p1</code>' option is
+      required to strip the first element of the path name (e.g.
+      <code>Template-Toolkit-2.05c/README</code> becomes <code>README</code>
+      which is then the correct path).
+    </p>
+    <pre>
+      $ tar zxf Template-Toolkit-2.05c.tar.gz
+      $ cd Template-Toolkit-2.05c
+      $ patch -p1 &lt; ../patch-TT205c-abw-xyz-hack
+    </pre>
+    <p>
+      The output generated by <code>patch</code> should be something like the
+      following:
+    </p>
+    <pre>
+      patching file README
+      patching file lib/Template.pm
+      patching file lib/Template/Provider.pm
+      patching file t/provider.t
+    </pre>
+[** END -**]
+
+</div>

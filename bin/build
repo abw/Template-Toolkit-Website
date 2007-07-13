@@ -1,0 +1,15 @@
+#!/bin/bash
+#------------------------------------------------------------------------
+# This script builds the HTML version of the TT2 web site by calling out
+# to ttree to process the HTML in 'templates/pages', adding headers, 
+# footers and other bits and pieces from 'templates/library' and writing 
+# the final output to the 'html' directory.
+#
+# WARNING: 
+#  This script is generated when you run 'bin/configure'.  Any 
+#  changes made here may be lost!
+# 
+# Written by Andy Wardley.  June 2006.
+#------------------------------------------------------------------------
+
+ttree -f /home/abw/web/tt2k7/etc/ttree.cfg $@

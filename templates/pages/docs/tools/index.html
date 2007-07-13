@@ -1,0 +1,54 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='Template Tools' id='section_Template_Tools' -**]
+    <p>
+      The Template Toolkit includes the following command line tools for
+      processing templates.
+    </p>
+    [** WRAPPER page/subsection title='tpage' id='section_tpage' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Tools::tpage') **]">tpage</a>
+      script can be used to process a single template using the Template
+      Toolkit.
+    </p>
+    <pre>
+      $ tpage --define msg="Hello World" greeting.tt2
+    </pre>
+    <p>
+      Use the <code>-h</code> option to get a summary of options:
+    </p>
+    <pre>
+      $ tpage -h
+    </pre>
+    <p>
+      See the <a href="[** ttmodlink('Template::Tools::tpage')
+      **]">Template::Tools::tpage</a> documentation for further information and
+      examples of use.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='ttree' id='section_ttree' class='' -**]
+    <p>
+      The <a href="[** ttmodlink('Template::Tools::ttree') **]">ttree</a>
+      script can be used to process an entire directory of templates.
+    </p>
+    <pre>
+      $ ttree --src /path/to/templates --dest /path/to/output
+    </pre>
+    <p>
+      Use the <code>-h</code> option to get a summary of options:
+    </p>
+    <pre>
+      $ ttree -h
+    </pre>
+    <p>
+      See the <a href="[** ttmodlink('Template::Tools::ttree')
+      **]">Template::Tools::ttree</a> documentation for further information and
+      examples of use.
+    </p>
+    
+    [** END -**]
+[** END -**]
+
+</div>
