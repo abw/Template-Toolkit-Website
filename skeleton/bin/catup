@@ -2,4 +2,4 @@
 rsync -vrazl -e ssh  \
       --exclude logs \
       --exclude .svn \
-      $@ [% root %]/ cat.ourshack.org:web/tt2k7/
+      $@ [% root %]/ cat.ourshack.org:web/tt2.org/

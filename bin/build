@@ -12,4 +12,4 @@
 # Written by Andy Wardley.  June 2006.
 #------------------------------------------------------------------------
 
-ttree -f /home/abw/web/tt2k7/etc/ttree.cfg $@
+ttree -f /home/abw/web/tt2.org/etc/ttree.cfg $@
