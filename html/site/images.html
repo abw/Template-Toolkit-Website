@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../js/tt2.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="author" content="Andy Wardley">
+    <link rel="shortcut icon" href="../images/icons/t.gif" type="image/gif">
   </head>
   <body id="body"> 
     <div id="layout">
@@ -32,9 +33,9 @@
             </a>
           
           <div class="pager">
-            <span class="go back">Back<span class="about">Hello, I'm a talking badger.</span></span>
-            <span class="go up">Up<span class="about">My name is <i>Meles Meles</i>, but you can call me "Badger".</span></span>
-            <span class="go next">Next<span class="about">You can't go to the next page.  Would you like to come foraging for nuts and berries in the forest with me instead?</span></span>
+            <span class="go back">Back<span class="about">You can't go back.  Would you like to come foraging for nuts and berries in the forest with me instead?</span></span>
+            <span class="go up">Up<span class="about">I'm sorry Dave, I can't do that.</span></span>
+            <span class="go next">Next<span class="about">I'd love to help you go to the next page but I can't.  I'm just a badger.</span></span>
           </div>
           </div>
           <h1 class="headline"></h1>
@@ -64,6 +65,8 @@
             <div class="head">
               <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
               <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+              <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
             </div>
             <div class="body">
               <ul class="toc">
@@ -75,7 +78,7 @@
                 </div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/site/images.html last modified 14:58:22 13-Jul-2007
+            http://template-toolkit.org/site/images.html last modified 20:01:07 13-Jul-2007
           </div>
         </div>
         

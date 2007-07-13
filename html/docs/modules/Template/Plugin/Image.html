@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../../../../js/tt2.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="author" content="Andy Wardley">
+    <link rel="shortcut icon" href="../../../../images/icons/t.gif" type="image/gif">
   </head>
   <body id="body"> 
     <div id="layout">
@@ -117,6 +118,8 @@
             <div class="head">
               <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
               <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+              <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
             </div>
             <div class="body">
               <ul class="toc">
@@ -147,6 +150,8 @@
               <div class="head">
                 <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <pre><span class="tt">[% USE Image(filename) %]</span>
@@ -161,6 +166,8 @@
               <div class="head">
                 <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -267,6 +274,8 @@ size: <span class="tt">[% image.size.join(', ') %]</span></pre>
               <div class="head">
                 <h1 id="section_CATCHING_ERRORS" onclick="switch_section(this)" title="Click title to show/hide section content.">CATCHING ERRORS</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -286,6 +295,8 @@ size: <span class="tt">[% image.size.join(', ') %]</span></pre>
               <div class="head">
                 <h1 id="section_USING_Image_Info" onclick="switch_section(this)" title="Click title to show/hide section content.">USING Image::Info</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -301,6 +312,8 @@ size: <span class="tt">[% image.size.join(', ') %]</span></pre>
                   <div class="head">
                     <h2 id="section_file_media_type" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">file_media_type</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -313,6 +326,8 @@ size: <span class="tt">[% image.size.join(', ') %]</span></pre>
                   <div class="head">
                     <h2 id="section_file_ext" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">file_ext</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -325,6 +340,8 @@ size: <span class="tt">[% image.size.join(', ') %]</span></pre>
                   <div class="head">
                     <h2 id="section_color_type" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">color_type</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -352,6 +369,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_resolution" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">resolution</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -376,6 +395,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_SamplesPerPixel" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">SamplesPerPixel</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -388,6 +409,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_BitsPerSample" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">BitsPerSample</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -400,6 +423,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_Comment" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Comment</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -411,6 +436,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_Interlace" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Interlace</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -421,6 +448,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_Compression" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Compression</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -431,6 +460,8 @@ CIELab</pre>
                   <div class="head">
                     <h2 id="section_Gamma" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Gamma</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -444,6 +475,8 @@ CIELab</pre>
               <div class="head">
                 <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -456,6 +489,8 @@ CIELab</pre>
               <div class="head">
                 <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -471,6 +506,8 @@ CIELab</pre>
               <div class="head">
                 <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -483,7 +520,7 @@ CIELab</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Plugin/Image.html last modified 14:40:07 13-Jul-2007
+            http://template-toolkit.org/docs/modules/Template/Plugin/Image.html last modified 20:01:04 13-Jul-2007
           </div>
         </div>
         

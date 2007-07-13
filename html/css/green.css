@@ -1010,37 +1010,7 @@ div.section div.head a.open,
 div.section div.head a.shut,
 div.subsection div.head a.open, 
 div.subsection div.head a.shut {
-    position: absolute;
-    bottom: 4px;
-    right: 45px;
-    margin: 0px;
-    padding: 0px 5px;
-    font-size: 11px;
-    height: 16px;
-    width: 3em;
-    text-align: right;
-    border-right: 1px solid #ddd;
     display: none;
-}
-
-div.section.shut div.head a.open,
-div.subsection.shut div.head a.open {
-    display: block;
-}
-
-div.section.shut div.head a.shut,
-div.subsection.shut div.head a.shut {
-    display: none;
-}
-
-div.section.open div.head a.open,
-div.subsection.open div.head a.open {
-    display: none;
-}
-
-div.section.open div.head a.shut,
-div.subsection.open div.head a.shut {
-    display: block;
 }
 
 div.section div.body {

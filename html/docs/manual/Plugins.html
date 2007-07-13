@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../../js/tt2.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="author" content="Andy Wardley">
+    <link rel="shortcut icon" href="../../images/icons/t.gif" type="image/gif">
   </head>
   <body id="body"> 
     <div id="layout">
@@ -82,6 +83,8 @@
             <div class="head">
               <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
               <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+              <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
             </div>
             <div class="body">
               <ul class="toc">
@@ -115,6 +118,8 @@
               <div class="head">
                 <h1 id="section_TEMPLATE_TOOLKIT_PLUGINS" onclick="switch_section(this)" title="Click title to show/hide section content.">TEMPLATE TOOLKIT PLUGINS</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -127,6 +132,8 @@
                   <div class="head">
                     <h2 id="section_Autoformat" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Autoformat</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -149,6 +156,8 @@
                   <div class="head">
                     <h2 id="section_CGI" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">CGI</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -169,6 +178,8 @@
                   <div class="head">
                     <h2 id="section_Datafile" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Datafile</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -199,6 +210,8 @@ bill : bill@here.com : Bill White : 555-5678</pre>
                   <div class="head">
                     <h2 id="section_Date" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Date</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -217,6 +230,8 @@ File last modified: <span class="tt">[% date.format(template.modtime) %]</span><
                   <div class="head">
                     <h2 id="section_Directory" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Directory</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -235,6 +250,8 @@ File last modified: <span class="tt">[% date.format(template.modtime) %]</span><
                   <div class="head">
                     <h2 id="section_DBI" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">DBI</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -248,6 +265,8 @@ File last modified: <span class="tt">[% date.format(template.modtime) %]</span><
                   <div class="head">
                     <h2 id="section_Dumper" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Dumper</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -263,6 +282,8 @@ File last modified: <span class="tt">[% date.format(template.modtime) %]</span><
                   <div class="head">
                     <h2 id="section_File" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">File</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -280,6 +301,8 @@ File last modified: <span class="tt">[% date.format(template.modtime) %]</span><
                   <div class="head">
                     <h2 id="section_Filter" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Filter</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -314,6 +337,8 @@ sub filter {
                   <div class="head">
                     <h2 id="section_Format" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Format</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -329,6 +354,8 @@ sub filter {
                   <div class="head">
                     <h2 id="section_GD" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">GD</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -341,6 +368,8 @@ sub filter {
                   <div class="head">
                     <h2 id="section_HTML" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">HTML</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -361,6 +390,8 @@ sub filter {
                   <div class="head">
                     <h2 id="section_Iterator" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Iterator</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -383,6 +414,8 @@ sub filter {
                   <div class="head">
                     <h2 id="section_Pod" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Pod</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -403,6 +436,8 @@ sub filter {
                   <div class="head">
                     <h2 id="section_String" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">String</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -422,6 +457,8 @@ The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length
                   <div class="head">
                     <h2 id="section_Table" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Table</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -440,6 +477,8 @@ The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length
                   <div class="head">
                     <h2 id="section_URL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">URL</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -459,6 +498,8 @@ The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length
                   <div class="head">
                     <h2 id="section_Wrap" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Wrap</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -480,6 +521,8 @@ The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length
                   <div class="head">
                     <h2 id="section_XML" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">XML</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -498,7 +541,7 @@ The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Plugins.html last modified 14:40:05 13-Jul-2007
+            http://template-toolkit.org/docs/manual/Plugins.html last modified 20:01:02 13-Jul-2007
           </div>
         </div>
         

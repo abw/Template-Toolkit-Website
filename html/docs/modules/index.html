@@ -14,6 +14,7 @@
     <script type="text/javascript" src="../../js/tt2.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="author" content="Andy Wardley">
+    <link rel="shortcut icon" href="../../images/icons/t.gif" type="image/gif">
   </head>
   <body id="body"> 
     <div id="layout">
@@ -72,6 +73,8 @@
             <div class="head">
               <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
               <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+              <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
             </div>
             <div class="body">
               <ul class="toc">
@@ -104,6 +107,8 @@
               <div class="head">
                 <h1 id="section_Template_Toolkit_Modules" onclick="switch_section(this)" title="Click title to show/hide section content.">Template Toolkit Modules</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
@@ -114,6 +119,8 @@
                   <div class="head">
                     <h2 id="section_Template" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -128,6 +135,8 @@ $tt-&gt;process('hello.html', message =&gt; 'Hello World');</pre>
                   <div class="head">
                     <h2 id="section_Template_Base" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Base</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -141,6 +150,8 @@ $tt-&gt;process('hello.html', message =&gt; 'Hello World');</pre>
                   <div class="head">
                     <h2 id="section_Template_Config" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Config</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -172,6 +183,8 @@ $tt-&gt;process('hello.html', message =&gt; 'Hello World');</pre>
                   <div class="head">
                     <h2 id="section_Template_Constants" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Constants</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -192,6 +205,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Context" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Context</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -206,6 +221,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Document" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Document</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -218,6 +235,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Exception" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Exception</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -229,6 +248,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Filters" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Filters</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -241,6 +262,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Iterator" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Iterator</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -264,6 +287,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Namespace_Constants" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Namespace::Constants</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -276,6 +301,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Parser" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Parser</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -288,6 +315,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Plugin" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Plugin</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -300,6 +329,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Plugins" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Plugins</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -311,6 +342,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Provider" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Provider</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -322,6 +355,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Service" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Service</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -339,6 +374,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Stash" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Stash</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -351,6 +388,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Stash_XS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Stash::XS</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -363,6 +402,8 @@ my $tt = Template-&gt;new({
                   <div class="head">
                     <h2 id="section_Template_Test" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Template::Test</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
                     <p>
@@ -377,7 +418,7 @@ my $tt = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/index.html last modified 14:40:05 13-Jul-2007
+            http://template-toolkit.org/docs/modules/index.html last modified 20:01:02 13-Jul-2007
           </div>
         </div>
         
