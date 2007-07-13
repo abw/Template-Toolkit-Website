@@ -13,6 +13,7 @@
     <script type="text/javascript" src="[% rooturl %]/js/tt2.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="author" content="[% page.author or 'Andy Wardley' %]">
+    <link rel="shortcut icon" href="[% rooturl %]/images/icons/t.gif" type="image/gif">
   </head>
   <body id="body"> 
 [% content | trim | indent(4) -%]
