@@ -31,7 +31,7 @@ div.ieblowsgoats {
 /* shift the 'Top' link rightwards to put it back into place.  The only   */
 /* downside is that the lines under the titles are also shifted left,     */
 /* but we can live with that.  Or rather, IE6 users will have to live     */
-/* with it.  Or download Firefox.
+/* with it.  Or download Firefox.                                         */
 /*------------------------------------------------------------------------*/
 
 div.section div.head,
@@ -91,4 +91,40 @@ div.subsection.open div.head a.shut {
     display: block;
 }
 
+div.smallbook a.badger {
+    margin-right: -50px;
+}
+
+div.largebook {
+}
+
+div.largebook a.badger {
+    margin-right: -96px;
+}
+
+blockquote {
+    position: relative;
+    margin: 0 10px 0 0;
+    padding: 8px 35px;
+    text-align: justify;
+}
+
+blockquote .left,
+blockquote .right {
+    position: relative;
+}
+
+blockquote .left {
+    float: left;
+    margin-left: -25px;
+}
+
+blockquote .right {
+    float: right;
+    margin-right: -25px;
+}
+
+div.thumbnail {
+    height: 70px;
+}
 
