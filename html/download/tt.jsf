@@ -1,0 +1,81 @@
+# JOE syntax highlight file for Template Toolkit Templates
+
+=Idle
+=TTBlock        cyan
+=TTBlockmarker	cyan
+=TTKeyword	green
+=TTComment	green bold
+
+:idle Idle
+	*		idle
+	"["		sbo
+
+:sbo Idle
+	*		idle noeat
+	"%"		ttblock_begin recolor=-2
+
+:ttblock_begin TTBlockmarker
+	*		ttblock noeat
+		
+:ttblock TTBlock
+	*		ttblock
+	"%"		ttblock_percent
+	"A-Z"		ttblock_word buffer
+	"#"             ttblock_comment recolor=-1
+
+:ttblock_comment TTComment
+	*		ttblock_comment
+	"%"		ttblock_comment_percent
+
+:ttblock_comment_percent TTComment
+	"]"		ttblock_end recolor=-2
+
+:ttblock_word TTBlock
+	*		ttblock noeat strings
+	"GET"		ttkw
+	"SET"		ttkw
+	"CALL"          ttkw
+	"DEFAULT"	ttkw
+	"INSERT"	ttkw
+	"INCLUDE"	ttkw
+        "PROCESS"	ttkw
+        "WRAPPER"	ttkw
+        "BLOCK"		ttkw
+        "FOREACH"	ttkw
+        "WHILE"		ttkw
+        "IF"		ttkw
+        "UNLESS"	ttkw
+        "ELSIF"		ttkw
+        "END"		ttkw
+        "SWITCH"	ttkw
+        "CASE"		ttkw
+        "MACRO"		ttkw
+        "FILTER"	ttkw
+        "USE"		ttkw
+        "PERL"		ttkw
+        "RAWPERL"	ttkw
+        "TRY"		ttkw
+        "THROW"		ttkw
+        "CATCH"		ttkw
+        "FINAL"		ttkw
+        "NEXT"		ttkw
+        "LAST"		ttkw
+        "RETURN"	ttkw
+        "STOP"		ttkw
+        "TAGS"		ttkw
+
+        "CLEAR"		ttkw
+        "META"		ttkw
+        "DEBUG"		ttkw
+done
+	"A-Z"		ttblock_word        
+
+:ttkw   TTKeyword
+	*		ttblock noeat
+	
+:ttblock_percent TTBlock
+	*		ttblock noeat
+	"]"		ttblock_end recolor=-2
+
+:ttblock_end TTBlockmarker
+	*		idle noeat
