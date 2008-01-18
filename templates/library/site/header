@@ -1,5 +1,5 @@
 <div id="header">
-  <a href="[% rooturl %]/index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+  <a href="[% page_link(site.pages.${"/index.html"}) %]" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
 [% PROCESS site/trail 
          + site/controls
          | trim | indent(2)

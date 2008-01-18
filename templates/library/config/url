@@ -11,7 +11,7 @@
      js        = "${rooturl}/js"
      svnweb    = 'http://template-toolkit.org/svnweb'
      mailman   = '/mailman'
-     pipermail = 'http://template-toolkit.org/pipermail'
+     pipermail = 'http://lists.template-toolkit.org/pipermail'
    };
 
 -%]

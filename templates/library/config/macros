@@ -15,4 +15,17 @@
       GET "Clear $title";
     END;
 
+    MACRO page_link(p)
+      IF p.host;
+        # page we're linking to has a specific host
+        THROW host "Invalid host specified: $p.host"
+          UNLESS (host = site.host.${p.host});
+        "http://$host$p.uri";
+      ELSIF page.host;
+        # page we're link from has a host, so we need to point back to main site
+        "http://$site.host.main$p.uri";
+      ELSE;
+        # otherwise it's a normal page on the main server
+        "$rooturl$p.uri";
+      END;
 -%]

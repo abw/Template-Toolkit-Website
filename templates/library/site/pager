@@ -6,8 +6,9 @@
       END;
 -%]
 
-[%- BLOCK link -%]
-  <a href="[% rooturl %][% go.uri %]" title="[% go.title or go.name %]" class="go [% where %]">
+[%- BLOCK link;
+       -%]
+  <a href="[% page_link(go) %]" title="[% go.title or go.name %]" class="go [% where %]">
 [%- where | ucfirst %]<span class="about"><strong>[%- go.title or go.name %]</strong>[% go.about IF show_about %]</span></a>
 [%  END -%]
 

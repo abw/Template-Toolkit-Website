@@ -9,7 +9,7 @@
 [%  FOREACH uri IN page.trail;
       item = site.pages.$uri;
 -%]
-  <li[% ' class="last"' IF loop.last %]><a href="[% rooturl %][% item.uri %]">[% item.short or item.name %]</a></li>
+  <li[% ' class="last"' IF loop.last %]><a href="[% page_link(item) %]">[% item.short or item.name %]</a></li>
 [%  END -%]
 </ul>
 [% END %]

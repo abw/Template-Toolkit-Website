@@ -6,7 +6,7 @@
     site = {
         name      = 'template-toolkit.org'
         title     = "The Template Toolkit Web Site"
-        copyright = '1995-2007 Andy Wardley' 
+        copyright = '1995-2008 Andy Wardley' 
         server    = 'http://template-toolkit.org'
         keywords  = 'Template Toolkit, Perl, template, web, html'
         schemes   = ['blue' 'orange' 'green' 'purple' 'grey']
@@ -19,6 +19,12 @@
     site.dir = {
         root     = rootdir
         images   = "$rootdir/images"
+    };
+    
+    site.host = {
+        main   = 'template-toolkit.org'
+        static = 'static.tt2.org'
+        lists  = 'mail.template-toolkit.org'
     };
     
     tt2.version = {

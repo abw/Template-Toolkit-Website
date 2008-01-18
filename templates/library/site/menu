@@ -19,7 +19,7 @@
             # create a hash of data for the menu item
             item = {
                 page  = site.pages.$uri
-                link  = "$rooturl$u"
+                link  = page_link(p)
                 warm  = page.warm.$uri     # current page has hash of pages to warm
                 level = level
             };

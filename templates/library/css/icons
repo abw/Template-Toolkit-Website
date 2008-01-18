@@ -19,7 +19,7 @@ a.abw:hover {
     background-image: url('[% glass %]/badges/andy_wardley_roll.gif');
 }
 
-[% FOREACH badge IN ['html_valid', 'css_valid', 'badger_power'] -%]
+[% FOREACH badge IN ['html_valid', 'css_valid', 'badger_power', 'contentity'] -%]
 .[% badge %] {
     background: url('[% glass %]/badges/[% badge %].gif') no-repeat top left;
 }
@@ -29,3 +29,59 @@ a.[% badge %]:hover {
 }
 
 [% END %]
+
+div.thumbnail {
+    padding-left: 80px; 
+    background: url('/images/icons/textmate64.png') no-repeat top left;
+    min-height: 70px;
+    margin-bottom: 20px;
+}
+
+div.thumbnail h2 {
+    font-size: 
+    16px;
+    color: #444;
+}
+
+div.textmate {
+    background-image: url('/images/icons/textmate64.png');
+}
+
+div.emacs {
+    background-image: url('/images/icons/emacs64.png');
+}
+
+div.kde {
+    background-image: url('/images/icons/kdelogo.png');
+}
+
+div.jedit {
+    background-image: url('/images/icons/jedit.png');
+}
+
+div.joe {
+    background-image: url('/images/icons/joe.png');
+}
+
+div.komodo {
+    background-image: url('/images/icons/komodo.png');
+}
+
+div.osimg {
+    padding-left: 60px; 
+    background: url('/images/icons/mac.png') no-repeat top left;
+    min-height: 50px;
+    margin-bottom: 20px;
+}
+
+div.mac {
+    background-image: url('/images/icons/mac.png');
+}
+
+div.linux {
+    background-image: url('/images/icons/linux.png');
+}
+
+div.windows {
+    background-image: url('/images/icons/windows.png');
+}
