@@ -31,12 +31,14 @@
   about: Information about the Templates mailing list
   next: /mail/templates-announce/index.html
   up: /index.html
+  host: lists
   uri: /mailman/listinfo/templates
 /mail/templates/archive.html:
   name: Archive
   title: Templates Mailing List Archive
   about: Archive for the Templates mailing list.
   up: /mail/templates/index.html
+  host: lists
   uri: /pipermail/templates
 /mail/templates-announce/index.html:
   name: Templates-Announce
@@ -45,12 +47,14 @@
   back: /mail/templates/index.html
   next: /mail/templates-svn/index.html
   up: /index.html
+  host: lists
   uri: /mailman/listinfo/templates-announce
 /mail/templates-announce/archive.html:
   name: Archive
   title: Templates-Announce Mailing List Archive
   about: Archive for the Templates-Announce mailing list.
   up: /mail/templates-announce/index.html
+  host: lists
   uri: /pipermail/templates-announce
 /mail/templates-svn/index.html:
   name: Templates-SVN
@@ -58,12 +62,14 @@
   about: Commit messages from the Template Toolkit subversion repository
   up: /index.html
   back: /mail/templates-announce/index.html
+  host: lists
   uri: /mailman/listinfo/templates-svn
 /mail/templates-svn/archive.html:
   name: Archive
   title: Templates-SVN Mailing List Archive
   about: Archive for the Templates-SVN mailing list.
   up: /mail/templates-svn/index.html
+  host: lists
   uri: /pipermail/templates-svn
 /book.html:
   name: Badger Book
@@ -71,3 +77,12 @@
   about: The Badger Book
   back: /mail/index.html
   up: /index.html
+  next: /python/index.html
+  uri: /book.html
+/python/index.html:
+  name: Template-Python
+  title: Template-Python
+  about: The Python port of the Template Toolkit
+  back: /book.html
+  up: /index.html
+  uri: /python/index.html

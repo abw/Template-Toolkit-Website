@@ -6,6 +6,7 @@
     - /docs/index.html
     - /mail/index.html
     - /book.html
+    - /python/index.html
 /mail/:
   menu:
     - /mail/templates/index.html
@@ -21,3 +22,4 @@
   menu:
     - /mail/templates-svn/archive.html
 /download/:
+/python/:
