@@ -1100,7 +1100,71 @@ a.badger_power:hover {
     background-image: url('../images/glass/grey/badges/badger_power_roll.gif');
 }
 
+.contentity {
+    background: url('../images/glass/grey/badges/contentity.gif') no-repeat top left;
+}
 
+a.contentity:hover {
+    background-image: url('../images/glass/grey/badges/contentity_roll.gif');
+}
+
+
+
+div.thumbnail {
+    padding-left: 80px; 
+    background: url('/images/icons/textmate64.png') no-repeat top left;
+    min-height: 70px;
+    margin-bottom: 20px;
+}
+
+div.thumbnail h2 {
+    font-size: 
+    16px;
+    color: #444;
+}
+
+div.textmate {
+    background-image: url('/images/icons/textmate64.png');
+}
+
+div.emacs {
+    background-image: url('/images/icons/emacs64.png');
+}
+
+div.kde {
+    background-image: url('/images/icons/kdelogo.png');
+}
+
+div.jedit {
+    background-image: url('/images/icons/jedit.png');
+}
+
+div.joe {
+    background-image: url('/images/icons/joe.png');
+}
+
+div.komodo {
+    background-image: url('/images/icons/komodo.png');
+}
+
+div.osimg {
+    padding-left: 60px; 
+    background: url('/images/icons/mac.png') no-repeat top left;
+    min-height: 50px;
+    margin-bottom: 20px;
+}
+
+div.mac {
+    background-image: url('/images/icons/mac.png');
+}
+
+div.linux {
+    background-image: url('/images/icons/linux.png');
+}
+
+div.windows {
+    background-image: url('/images/icons/windows.png');
+}
 table.mailman {
     margin: 10px;
     border: 1px solid #b0d2e9;

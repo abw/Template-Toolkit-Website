@@ -2,19 +2,19 @@
 <html>
   <head>
     <title>Template Toolkit Downloads</title>
-    <link rel="stylesheet" type="text/css" href="../css/blue.css" title="Clear Blue">
-    <link rel="alternate stylesheet" type="text/css" href="../css/orange.css" title="Clear Orange">
-    <link rel="alternate stylesheet" type="text/css" href="../css/green.css" title="Clear Green">
-    <link rel="alternate stylesheet" type="text/css" href="../css/purple.css" title="Clear Purple">
-    <link rel="alternate stylesheet" type="text/css" href="../css/grey.css" title="Clear Grey">
+    <link rel="stylesheet" type="text/css" href="/css/blue.css" title="Clear Blue">
+    <link rel="alternate stylesheet" type="text/css" href="/css/orange.css" title="Clear Orange">
+    <link rel="alternate stylesheet" type="text/css" href="/css/green.css" title="Clear Green">
+    <link rel="alternate stylesheet" type="text/css" href="/css/purple.css" title="Clear Purple">
+    <link rel="alternate stylesheet" type="text/css" href="/css/grey.css" title="Clear Grey">
     <!--[if IE 6]>
-    <link rel="stylesheet" type="text/css" href="../css/ie6.css" />
+    <link rel="stylesheet" type="text/css" href="/css/ie6.css" />
     <![endif]-->
     <link rel="stylesheet" type="text/css" href="/css/print.css" media="print">
-    <script type="text/javascript" src="../js/tt2.js"></script>
+    <script type="text/javascript" src="/js/tt2.js"></script>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="author" content="Andy Wardley">
-    <link rel="shortcut icon" href="../images/icons/t.gif" type="image/gif">
+    <link rel="shortcut icon" href="/images/icons/t.gif" type="image/gif">
   </head>
   <body id="body"> 
     <div id="layout">
@@ -49,7 +49,8 @@
                 <li class="l0"><a href="../download/index.html" class="warm">Download</a></li>
                 <li class="l0"><a href="../docs/index.html">Documentation</a></li>
                 <li class="l0"><a href="../mail/index.html">Mailing Lists</a></li>
-                <li class="l0 last"><a href="../book.html">Badger Book</a></li>
+                <li class="l0"><a href="../book.html">Badger Book</a></li>
+                <li class="l0 last"><a href="../python/index.html">Template-Python</a></li>
               </ul>
               <div class="foot"></div>
             </div>
@@ -57,6 +58,7 @@
               <a href="http://validator.w3.org/check?uri=referer" class="html_valid badge"></a>
               <a href="http://jigsaw.w3.org/css-validator/check/referer" class="css_valid badge"></a>
               <a href="http://wardley.org" class="abw badge"></a>
+              <a href="http://contentity.co.uk/" class="contentity badge"></a>
             </div>
           </div>
           <div id="content">
@@ -80,6 +82,13 @@
                   <li class=""><a href="#developer">Developer Versions</a></li>
                   <li class=""><a href="#svn">Subversion Source Code Repository</a></li>
                   <li class=""><a href="#related">Related Modules</a></li>
+                  <li class=""><a href="#editors">Editor Bundles</a></li>
+                  <li class="sub"><a href="#editors_0">TextMate</a></li>
+                  <li class="sub"><a href="#editors_1">Emacs</a></li>
+                  <li class="sub"><a href="#editors_2">Kate: KDE Advanced Text Editor</a></li>
+                  <li class="sub"><a href="#editors_3">jEdit</a></li>
+                  <li class="sub"><a href="#editors_4">Joe</a></li>
+                  <li class="sub"><a href="#editors_5">Komodo</a></li>
               
               </ul>
             </div>
@@ -228,7 +237,8 @@ $ sudo make install</pre>
                     <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
-                    <p>
+                    <div class="mac osimg">
+                          <p>
                             If you're running Mac OSX (you lucky thing!) then you can install the
                             Template Toolkit using the <a href="#cpan">CPAN module</a> as
                             described above. Run the <b>Terminal</b> application (located in
@@ -242,8 +252,10 @@ $ sudo make install</pre>
                             Christian Schaffner maintains the Fink packages for the Template
                             Toolkit. They can be found in the <code>libs/perlmods</code>. section.
                           </p>
+                        </div>
                   </div>
-                </div><div class="subsection">
+                </div>
+                <div class="subsection">
                   <div class="head">
                     <h2 id="debian" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Debian GNU/Linux</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
@@ -251,7 +263,8 @@ $ sudo make install</pre>
                     <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
-                    <p>
+                    <div class="linux osimg">
+                          <p>
                             Mako Hill maintains the official Template Toolkit packages for 
                             <a href="http://debian.org/" class="ext" title="Debian: a free GNU/Linux operating system for your computer">Debian
                             GNU/Linux</a>. They are available in Debian as <code>libtemplate-perl</code>. The
@@ -274,8 +287,11 @@ $ sudo make install</pre>
                           <p>
                             Of course, you can also install the Template Toolkit on any Unix-like
                             system using the <a href="#cpan">CPAN module</a>, as described above.
+                          </p>
+                        </div>
                   </div>
-                </div><div class="subsection">
+                </div>
+                <div class="subsection">
                   <div class="head">
                     <h2 id="win32" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Microsoft Windows</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
@@ -283,7 +299,8 @@ $ sudo make install</pre>
                     <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
                   </div>
                   <div class="body">
-                    <p>
+                    <div class="windows osimg">
+                          <p>
                             If you're using a Microsoft Windows machine then you 
                             have our sympathies. Nevertheless, you can install 
                             <a href="http://www.activestate.com/Products/ActivePerl/" class="ext" title="ActivePerl: Perl for Microsoft Windows">ActivePerl</a>
@@ -294,6 +311,7 @@ $ sudo make install</pre>
                             have put a page together telling you where you can find the relevant PPM files.
                           </p>
                           <a href="http://www.bugzilla.org/docs/2.18/html/modules-manual-download.html" class="download">Links to ActivePerl PPM packages</a>
+                        </div>
                   </div>
                 </div>
               </div>
@@ -391,10 +409,67 @@ $ sudo make install</pre>
                   </p>
                   <a href="http://template-toolkit.org/svnweb/Template-DBI" class="download">http://template-toolkit.org/svnweb/Template-DBI</a>
               </div>
+            </div>
+            
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="editors" onclick="switch_section(this)" title="Click title to show/hide section content.">Editor Bundles</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <div class="textmate thumbnail">
+                  <h2 id="editors_0">TextMate</h2>
+                  A bundle for <a href="http://macromates.com/" class="ext">TextMate</a> is available 
+                  <a href="http://wardley.org/downloads/Textmate-TT.tar.gz">here.</a>  It 
+                  includes syntax highlighting and a number of auto-completion snippets for 
+                  generating TT code fragments.  TextMate is really <i>very</i> good.  It's 
+                  worth buying a Mac for (not that you need an excuse of course).
+                </div>
+                
+                <div class="emacs thumbnail">
+                  <h2 id="editors_1">Emacs</h2>
+                  Dave Cross has written an <a href="http://www.gnu.org/software/emacs/" class="ext">Emacs</a>
+                  mode for TT, available <a href="http://dave.org.uk/emacs/" class="ext">here</a>.  It 
+                  performs syntax highlighting, although he warns it can be a bit flaky at times.
+                  Patches welcome :-)
+                </div>
+                
+                <div class="kde thumbnail">
+                  <h2 id="editors_2">Kate: KDE Advanced Text Editor</h2>
+                  Krassimir Berov has written a TT syntax highlighting extension for 
+                  <a href="http://kate-editor.org/" class="ext">Kate</a>.  It's available
+                  <a href="http://bcc.svn.sourceforge.net/viewvc/bcc/trunk/misc/" class="ext">here</a>.
+                </div>
+                
+                <div class="jedit thumbnail">
+                  <h2 id="editors_3">jEdit</h2>
+                  Krassimir Berov has also written a TT extension for 
+                  <a href="http://www.jedit.org/" class="ext">jEdit</a>, available from the 
+                  <a href="http://bcc.svn.sourceforge.net/viewvc/bcc/trunk/misc/" class="ext">same place</a>.
+                </div>
+                
+                <div class="joe thumbnail">
+                  <h2 id="editors_4">Joe</h2>
+                  Michael Holzt has written a TT syntax highlighting extension for the
+                  <a href="http://joe-editor.sourceforge.net/" class="ext">Joe editor</a>.  
+                  Download it from <a href="tt.jsf">here</a>.
+                </div>
+                
+                <div class="komodo thumbnail">
+                  <h2 id="editors_5">Komodo</h2>
+                  ActiveState's 
+                  <a href="http://www.activestate.com/Products/komodo_edit/" class="ext">Komodo Edit</a>
+                  and <a href="http://www.activestate.com/Products/komodo_ide/" class="ext">Komodo IDE</a>
+                  both have built-in support for TT.  
+                </div>
+              </div>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/download/index.html last modified 20:01:06 13-Jul-2007
+            http://template-toolkit.org/download/index.html last modified 16:35:08 18-Jan-2008
           </div>
         </div>
         
@@ -408,7 +483,7 @@ $ sudo make install</pre>
           </div>
           </div>
           <div class="copyright">
-            Copyright &copy; 1996-2007 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+            Copyright &copy; 1996-2008 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
           </div>
           <div class="licence">
             The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.
