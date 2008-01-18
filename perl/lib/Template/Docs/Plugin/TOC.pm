@@ -55,7 +55,7 @@ sub tic {
     else {
         $last = $toc->[-1];
         $kids = $last->{kids} || [ ];
-        $last = $kids->[-1]   ||= { };
+        $last = $kids->[ @$kids ? -1 : 0 ] ||= { };
         $kids = $last->{kids} ||= [ ];
         $name = $id || $last->{link} . '_' . scalar(@$kids);
         push(@$kids, {
