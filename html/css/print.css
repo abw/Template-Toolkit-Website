@@ -1147,6 +1147,10 @@ div.komodo {
     background-image: url('/images/icons/komodo.png');
 }
 
+div.vim {
+    background-image: url('/images/icons/vim.gif');
+}
+
 div.osimg {
     padding-left: 60px; 
     background: url('/images/icons/mac.png') no-repeat top left;

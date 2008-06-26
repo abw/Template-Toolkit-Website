@@ -11,6 +11,14 @@
   back: /index.html
   up: /index.html
   uri: /about.html
+/as_used_by.html:
+  name: As Used By
+  title: Template Toolkit Powered Sites
+  next: /download/index.html
+  back: /index.html
+  up: /index.html
+  uri: /as_used_by.html
+  notoc: 1
 /download/index.html:
   name: Download
   title: Template Toolkit Downloads

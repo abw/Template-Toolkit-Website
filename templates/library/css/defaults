@@ -133,6 +133,14 @@ a.ext:hover {
     background-image: url('[% glass %]/extlinkroll.gif');
 }
 
+a.dot {
+    display: inline-block;
+    margin: 0 10px;
+    padding: 0 0 0 20px;
+    min-height: 16px;
+    background: url('[% arrows %]/small/[% warm %]/dot.gif') top left no-repeat;
+}
+
 pre.code {
   margin: 0 20px 15px 20px;
   padding: 10px;
