@@ -52,6 +52,7 @@
     - /docs/modules/Template/Namespace/Constants.html
 /docs/modules/Template/Plugin/:
   menu:
+    - /docs/modules/Template/Plugin/Assert.html
     - /docs/modules/Template/Plugin/Autoformat.html
     - /docs/modules/Template/Plugin/CGI.html
     - /docs/modules/Template/Plugin/Datafile.html
@@ -67,6 +68,7 @@
     - /docs/modules/Template/Plugin/Math.html
     - /docs/modules/Template/Plugin/Pod.html
     - /docs/modules/Template/Plugin/Procedural.html
+    - /docs/modules/Template/Plugin/Scalar.html
     - /docs/modules/Template/Plugin/String.html
     - /docs/modules/Template/Plugin/Table.html
     - /docs/modules/Template/Plugin/URL.html

@@ -27,6 +27,7 @@ Template::Modules: /docs/modules/index.html
 Template::Namespace::Constants: /docs/modules/Template/Namespace/Constants.html
 Template::Parser: /docs/modules/Template/Parser.html
 Template::Plugin: /docs/modules/Template/Plugin.html
+Template::Plugin::Assert: /docs/modules/Template/Plugin/Assert.html
 Template::Plugin::Autoformat: /docs/modules/Template/Plugin/Autoformat.html
 Template::Plugin::CGI: /docs/modules/Template/Plugin/CGI.html
 Template::Plugin::Datafile: /docs/modules/Template/Plugin/Datafile.html
@@ -42,6 +43,7 @@ Template::Plugin::Iterator: /docs/modules/Template/Plugin/Iterator.html
 Template::Plugin::Math: /docs/modules/Template/Plugin/Math.html
 Template::Plugin::Pod: /docs/modules/Template/Plugin/Pod.html
 Template::Plugin::Procedural: /docs/modules/Template/Plugin/Procedural.html
+Template::Plugin::Scalar: /docs/modules/Template/Plugin/Scalar.html
 Template::Plugin::String: /docs/modules/Template/Plugin/String.html
 Template::Plugin::Table: /docs/modules/Template/Plugin/Table.html
 Template::Plugin::URL: /docs/modules/Template/Plugin/URL.html

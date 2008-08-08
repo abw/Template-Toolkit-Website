@@ -25,7 +25,7 @@
       <span class="tt">[% SET a = b IF c %]</span>
     </pre>
     <p>
-      The explcit <code>SET</code> keyword gives the parser the clue it needs
+      The explicit <code>SET</code> keyword gives the parser the clue it needs
       to do the right thing.
     </p>
     <p>
@@ -176,7 +176,7 @@
     </p>
     <p>
       In the mean time, Craig Barrat's post from the mailing list has some
-      useful pointers on how to acheive this using existing modules. See <a
+      useful pointers on how to achieve this using existing modules. See <a
       href="http://tt2.org/pipermail/templates/2001-May/000954.html">http://tt2.org/pipermail/templates/2001-May/000954.html</a>
     </p>
     
@@ -269,7 +269,7 @@
     [** END -**]
     [** WRAPPER page/subsection title='How can I configure variables on a per-request basis?' id='section_How_can_I_configure_variables_on_a_per_request_basis_' class='' -**]
     <p>
-      One easy way to acheive this is to define a single
+      One easy way to achieve this is to define a single
       <code>PRE_PROCESS</code> template which loads in other configuration
       files based on variables defined or other conditions.
     </p>
@@ -355,6 +355,23 @@
       This illustrates the basic principal but you can extend it to perform
       pretty much any kind of per-document initialisation that you require.
     </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Why do I get rubbish for my utf-8 templates?' id='section_Why_do_I_get_rubbish_for_my_utf_8_templates_' class='' -**]
+    <p>
+      First of all, make sure that your template files define a Byte Order Mark
+      (<a href="http://en.wikipedia.org/wiki/Byte_Order_Mark">BOM</a>).
+    </p>
+    <p>
+      If you for some reason don't want to add BOM to your templates, you can
+      force Template to use a particular encoding (e.g. <code>utf8</code>) for
+      your templates with the <code>ENCODING</code> option.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({ 
+          ENCODING =&gt; 'utf8' 
+      });
+    </pre>
     
     [** END -**]
 [** END -**]

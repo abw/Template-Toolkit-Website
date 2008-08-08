@@ -8,9 +8,11 @@
       # use current time and default format
       <span class="tt">[% date.format %]</span>
       
-      # specify time as seconds since epoch or 'h:m:s d-m-y' string
+      # specify time as seconds since epoch
+      # or as a 'h:m:s d-m-y' or 'y-m-d h:m:s' string
       <span class="tt">[% date.format(960973980) %]</span>
       <span class="tt">[% date.format('4:20:36 21/12/2000') %]</span>
+      <span class="tt">[% date.format('2000/12/21 4:20:36') %]</span>
       
       # specify format
       <span class="tt">[% date.format(mytime, '%H:%M:%S') %]</span>
@@ -80,9 +82,9 @@
       File last modified: <span class="tt">[% date.format(filemod_time) %]</span>
     </pre>
     <p>
-      The time/date can also be specified as a string of the form '<code>h:m:s
-      d/m/y</code>'. Any of the characters <code>: / -</code> or space may be
-      used to delimit fields.
+      The time/date can also be specified as a string of the form <code>h:m:s
+      d/m/y</code> or <code>y/m/d h:m:s</code>. Any of the characters : / - or
+      space may be used to delimit fields.
     </p>
     <pre>
       <span class="tt">[% USE day = date(format =&gt; '%A', locale =&gt; 'en_GB') %]</span>

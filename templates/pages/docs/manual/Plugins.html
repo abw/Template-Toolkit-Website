@@ -8,6 +8,37 @@
       should be downloaded from any CPAN site and installed before using the
       plugin.
     </p>
+    [** WRAPPER page/subsection title='Assert' id='section_Assert' class='' -**]
+    <p>
+      New in 2.20! The <a href="[** ttmodlink('Template::Plugin::Assert')
+      **]">Assert</a> plugin adds an <code>assert</code> virtual method that
+      you can use to catch undefined values.
+    </p>
+    <p>
+      For example, consider this dotop:
+    </p>
+    <pre>
+      <span class="tt">[% user.name %]</span>
+    </pre>
+    <p>
+      If <code>user.name</code> is an undefined value then TT will silently
+      ignore the fact and print nothing. If you <code>USE</code> the
+      <code>assert</code> plugin then you can add the <code>assert</code>
+      vmethod between the <code>user</code> and <code>name</code> elements,
+      like so:
+    </p>
+    <pre>
+      <span class="tt">[% user.assert.name %]</span>
+    </pre>
+    <p>
+      Now, if <code>user.name</code> is an undefined value, an exception will
+      be thrown:
+    </p>
+    <pre>
+      assert error - undefined value for name
+    </pre>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='Autoformat' id='section_Autoformat' class='' -**]
     <p>
       The <a href="[** ttmodlink('Template::Plugin::Autoformat')
@@ -274,6 +305,30 @@
            END;
          END
       %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='Scalar' id='section_Scalar' class='' -**]
+    <p>
+      The Template Toolkit calls user-defined subroutines and object methods
+      using Perl's array context by default.
+    </p>
+    <pre>
+      # TT2 calls object methods in array context by default
+      <span class="tt">[% object.method %]</span>
+    </pre>
+    <p>
+      This plugin module provides a way for you to call subroutines and methods
+      in scalar context.
+    </p>
+    <pre>
+      <span class="tt">[% USE scalar %]</span>
+      
+      # force it to use scalar context
+      <span class="tt">[% object.scalar.method %]</span>
+      
+      # also works with subroutine references
+      <span class="tt">[% scalar.my_sub_ref %]</span>
     </pre>
     
     [** END -**]

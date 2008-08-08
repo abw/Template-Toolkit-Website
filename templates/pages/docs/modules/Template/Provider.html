@@ -183,6 +183,23 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='ENCODING' id='section_ENCODING' class='' -**]
+    <p>
+      The Template Toolkit will automatically decode Unicode templates that
+      have a Byte Order Marker (BOM) at the start of the file. This option can
+      be used to set the default encoding for templates that don't define a
+      BOM.
+    </p>
+    <pre>
+      my $provider = Template::Provider-&gt;new({
+          ENCODING =&gt; 'utf8',
+      });
+    </pre>
+    <p>
+      See <a href="#section_Encode">Encode</a> for further information.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='CACHE_SIZE' id='section_CACHE_SIZE' class='' -**]
     <p>
       The <a href="[** ttmodlink('Template::Manual::Config')

@@ -93,6 +93,7 @@
                   <li class="sub"><a href="#section_How_can_I_find_out_the_name_of_the_current_template_being_processed_">How can I find out the name of the current template being processed?</a></li>
                   <li class="sub"><a href="#section_How_do_I_print_the_modification_time_of_the_template_or_component_">How do I print the modification time of the template or component?</a></li>
                   <li class="sub"><a href="#section_How_can_I_configure_variables_on_a_per_request_basis_">How can I configure variables on a per-request basis?</a></li>
+                  <li class="sub"><a href="#section_Why_do_I_get_rubbish_for_my_utf_8_templates_">Why do I get rubbish for my utf-8 templates?</a></li>
                   <li class=""><a href="#section_Questions_About_This_FAQ">Questions About This FAQ</a></li>
                   <li class="sub"><a href="#section_Why_is_this_FAQ_so_short_">Why is this FAQ so short?</a></li>
                   <li class="sub"><a href="#section_Can_I_help_">Can I help?</a></li>
@@ -134,7 +135,7 @@
                         </p>
                         <pre><span class="tt">[% SET a = b IF c %]</span></pre>
                         <p>
-                          The explcit <code>SET</code> keyword gives the parser the clue it needs
+                          The explicit <code>SET</code> keyword gives the parser the clue it needs
                           to do the right thing.
                         </p>
                         <p>
@@ -313,7 +314,7 @@ my $tt2  = Template-&gt;new({
                         </p>
                         <p>
                           In the mean time, Craig Barrat's post from the mailing list has some
-                          useful pointers on how to acheive this using existing modules. See <a
+                          useful pointers on how to achieve this using existing modules. See <a
                           href="http://tt2.org/pipermail/templates/2001-May/000954.html">http://tt2.org/pipermail/templates/2001-May/000954.html</a>
                         </p>
                   </div>
@@ -423,7 +424,7 @@ my $tt2  = Template-&gt;new({
                   </div>
                   <div class="body">
                     <p>
-                          One easy way to acheive this is to define a single
+                          One easy way to achieve this is to define a single
                           <code>PRE_PROCESS</code> template which loads in other configuration
                           files based on variables defined or other conditions.
                         </p>
@@ -494,6 +495,27 @@ col = {
                           pretty much any kind of per-document initialisation that you require.
                         </p>
                   </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Why_do_I_get_rubbish_for_my_utf_8_templates_" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Why do I get rubbish for my utf-8 templates?</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          First of all, make sure that your template files define a Byte Order Mark
+                          (<a href="http://en.wikipedia.org/wiki/Byte_Order_Mark">BOM</a>).
+                        </p>
+                        <p>
+                          If you for some reason don't want to add BOM to your templates, you can
+                          force Template to use a particular encoding (e.g. <code>utf8</code>) for
+                          your templates with the <code>ENCODING</code> option.
+                        </p>
+                        <pre>my $template = Template-&gt;new({ 
+    ENCODING =&gt; 'utf8' 
+});</pre>
+                  </div>
                 </div>
               </div>
             </div>
@@ -536,7 +558,7 @@ col = {
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/faq/index.html last modified 16:35:02 18-Jan-2008
+            http://template-toolkit.org/docs/faq/index.html last modified 14:13:12 08-Aug-2008
           </div>
         </div>
         

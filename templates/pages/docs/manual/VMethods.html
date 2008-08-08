@@ -39,7 +39,18 @@
     </p>
     <pre>
       <span class="tt">[% name = 'foo, bar &amp; baz' %]</span>
-      <span class="tt">[% name.replace('\W+', '_') %]</span>    # foo_bar_baz
+      <span class="tt">[% name.replace('\W+', '_') %]</span>        # foo_bar_baz
+    </pre>
+    <p>
+      You can use <code>$1</code>, <code>$2</code>, etc., to reference captured
+      parts (in parentheses) in the regular expression. Just be careful to
+      <i>single</i> quote the replacement string. If you use <i>double</i>
+      quotes then TT will try and interpolate the variables before passing the
+      string to the <code>replace</code> vmethod.
+    </p>
+    <pre>
+      <span class="tt">[% name = 'FooBarBaz' %]</span>
+      <span class="tt">[% name.replace('([A-Z])', ' $1') %]</span>  # Foo Bar Baz
     </pre>
     
     [** END -**]

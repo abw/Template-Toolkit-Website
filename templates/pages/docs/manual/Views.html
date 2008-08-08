@@ -564,8 +564,8 @@
       sub present {
           my ($self, $view) = @_;
           return "a Foo::Bar object:\n"
-               . "thingies: " . $view.print($self-&gt;{ _THINGIES }) . "\n"
-               . "doodahs: " . $view.print($self-&gt;{ _DOODAHS }) . "\n";
+               . "thingies: " . $view-&gt;print($self-&gt;{ _THINGIES }) . "\n"
+               . "doodahs: " . $view-&gt;print($self-&gt;{ _DOODAHS }) . "\n";
       }
     </pre>
     <p>

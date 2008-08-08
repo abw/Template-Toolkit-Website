@@ -1,0 +1,64 @@
+[% TAGS [** **] %]
+
+<div class="pod">
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
+    <pre>
+      <span class="tt">[% USE assert %]</span>
+      
+      # throws error if any undefined values are returned
+      <span class="tt">[% object.assert.method %]</span>
+      <span class="tt">[% hash.assert.key %]</span>
+      <span class="tt">[% list.assert.item %]</span>
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='DESCRIPTION' id='section_DESCRIPTION' -**]
+    <p>
+      This plugin defines the <code>assert</code> virtual method that can be
+      used to automatically throw errors when undefined values are used.
+    </p>
+    <p>
+      For example, consider this dotop:
+    </p>
+    <pre>
+      <span class="tt">[% user.name %]</span>
+    </pre>
+    <p>
+      If <code>user.name</code> is an undefined value then TT will silently
+      ignore the fact and print nothing. If you <code>USE</code> the
+      <code>assert</code> plugin then you can add the <code>assert</code>
+      vmethod between the <code>user</code> and <code>name</code> elements,
+      like so:
+    </p>
+    <pre>
+      <span class="tt">[% user.assert.name %]</span>
+    </pre>
+    <p>
+      Now, if <code>user.name</code> is an undefined value, an exception will
+      be thrown:
+    </p>
+    <pre>
+      assert error - undefined value for name
+    </pre>
+[** END -**]
+[** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
+    <p>
+      Andy Wardley &lt;abw@wardley.org&gt; <a
+      href="http://wardley.org/">http://wardley.org/</a>
+    </p>
+[** END -**]
+[** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
+    <p>
+      Copyright (C) 2008 Andy Wardley. All Rights Reserved.
+    </p>
+    <p>
+      This module is free software; you can redistribute it and/or modify it
+      under the same terms as Perl itself.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='SEE ALSO' id='section_SEE_ALSO' -**]
+    <p>
+      <a href="[** ttmodlink('Template::Plugin') **]">Template::Plugin</a>
+    </p>
+[** END -**]
+
+</div>

@@ -224,6 +224,17 @@
   <a href="[% site.url.svnweb %]/Template2" class="download">[% site.url.svnweb %]/Template2</a>
 [% END %]
 
+[% WRAPPER page/section id='html_docs' title='HTML Documentation' -%]
+  <p>
+    You can download a copy of the complete HTML documentation for the 
+    Template Toolkit.  It comes in the same shiny colours as this web
+    site for your viewing pleasure.
+  </p>
+  <p>
+    <a href="TT_v[% tt2.version.docs.replace('\W', '', 1) %]_html_docs.tar.gz" class="download">HTML documentation for version [% tt2.version.docs %]</a>
+  </p>
+[% END %]
+
 [% WRAPPER page/section id='related' title='Related Modules' -%]
   <p>
     In times gone by, the Template Toolkit was distributed with a whole

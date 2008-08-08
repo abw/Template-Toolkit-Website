@@ -91,6 +91,7 @@
             <div class="body">
               <ul class="toc">
                   <li class=""><a href="#section_TEMPLATE_TOOLKIT_PLUGINS">TEMPLATE TOOLKIT PLUGINS</a></li>
+                  <li class="sub"><a href="#section_Assert">Assert</a></li>
                   <li class="sub"><a href="#section_Autoformat">Autoformat</a></li>
                   <li class="sub"><a href="#section_CGI">CGI</a></li>
                   <li class="sub"><a href="#section_Datafile">Datafile</a></li>
@@ -105,6 +106,7 @@
                   <li class="sub"><a href="#section_HTML">HTML</a></li>
                   <li class="sub"><a href="#section_Iterator">Iterator</a></li>
                   <li class="sub"><a href="#section_Pod">Pod</a></li>
+                  <li class="sub"><a href="#section_Scalar">Scalar</a></li>
                   <li class="sub"><a href="#section_String">String</a></li>
                   <li class="sub"><a href="#section_Table">Table</a></li>
                   <li class="sub"><a href="#section_URL">URL</a></li>
@@ -131,6 +133,36 @@
                       plugin.
                     </p>
                     <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_Assert" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Assert</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          New in 2.20! The <a href="../../docs/modules/Template/Plugin/Assert.html">Assert</a> plugin adds an <code>assert</code> virtual method that
+                          you can use to catch undefined values.
+                        </p>
+                        <p>
+                          For example, consider this dotop:
+                        </p>
+                        <pre><span class="tt">[% user.name %]</span></pre>
+                        <p>
+                          If <code>user.name</code> is an undefined value then TT will silently
+                          ignore the fact and print nothing. If you <code>USE</code> the
+                          <code>assert</code> plugin then you can add the <code>assert</code>
+                          vmethod between the <code>user</code> and <code>name</code> elements,
+                          like so:
+                        </p>
+                        <pre><span class="tt">[% user.assert.name %]</span></pre>
+                        <p>
+                          Now, if <code>user.name</code> is an undefined value, an exception will
+                          be thrown:
+                        </p>
+                        <pre>assert error - undefined value for name</pre>
+                  </div>
+                </div>    <div class="subsection">
                   <div class="head">
                     <h2 id="section_Autoformat" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Autoformat</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
@@ -436,6 +468,32 @@ sub filter {
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="section_Scalar" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">Scalar</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The Template Toolkit calls user-defined subroutines and object methods
+                          using Perl's array context by default.
+                        </p>
+                        <pre># TT2 calls object methods in array context by default
+<span class="tt">[% object.method %]</span></pre>
+                        <p>
+                          This plugin module provides a way for you to call subroutines and methods
+                          in scalar context.
+                        </p>
+                        <pre><span class="tt">[% USE scalar %]</span>
+
+# force it to use scalar context
+<span class="tt">[% object.scalar.method %]</span>
+
+# also works with subroutine references
+<span class="tt">[% scalar.my_sub_ref %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="section_String" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">String</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -543,7 +601,7 @@ The string "<span class="tt">[% msg %]</span>" is <span class="tt">[% msg.length
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Plugins.html last modified 16:35:03 18-Jan-2008
+            http://template-toolkit.org/docs/manual/Plugins.html last modified 14:13:13 08-Aug-2008
           </div>
         </div>
         

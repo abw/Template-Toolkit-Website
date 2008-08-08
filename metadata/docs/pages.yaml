@@ -223,8 +223,16 @@
   title: Template::Plugin
   up: /docs/modules/Template/index.html
   uri: /docs/modules/Template/Plugin.html
+/docs/modules/Template/Plugin/Assert.html:
+  about: trap undefined values
+  name: Assert.pm
+  next: /docs/modules/Template/Plugin/Autoformat.html
+  title: Template::Plugin::Assert
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Assert.html
 /docs/modules/Template/Plugin/Autoformat.html:
   about: Interface to Text::Autoformat module
+  back: /docs/modules/Template/Plugin/Assert.html
   name: Autoformat.pm
   next: /docs/modules/Template/Plugin/CGI.html
   title: Template::Plugin::Autoformat
@@ -338,13 +346,21 @@
   about: Base class for procedural plugins
   back: /docs/modules/Template/Plugin/Pod.html
   name: Procedural.pm
-  next: /docs/modules/Template/Plugin/String.html
+  next: /docs/modules/Template/Plugin/Scalar.html
   title: Template::Plugin::Procedural
   up: /docs/modules/Template/Plugin/index.html
   uri: /docs/modules/Template/Plugin/Procedural.html
+/docs/modules/Template/Plugin/Scalar.html:
+  about: call object methods in scalar context
+  back: /docs/modules/Template/Plugin/Procedural.html
+  name: Scalar.pm
+  next: /docs/modules/Template/Plugin/String.html
+  title: Template::Plugin::Scalar
+  up: /docs/modules/Template/Plugin/index.html
+  uri: /docs/modules/Template/Plugin/Scalar.html
 /docs/modules/Template/Plugin/String.html:
   about: Object oriented interface for string manipulation
-  back: /docs/modules/Template/Plugin/Procedural.html
+  back: /docs/modules/Template/Plugin/Scalar.html
   name: String.pm
   next: /docs/modules/Template/Plugin/Table.html
   title: Template::Plugin::String

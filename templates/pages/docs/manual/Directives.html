@@ -733,13 +733,13 @@
     </p>
     <pre>
       <span class="tt">[% SWITCH myvar %]</span>
-      <span class="tt">[%   CASE value1 %]</span>
+      <span class="tt">[%   CASE 'value1' %]</span>
              ...
-      <span class="tt">[%   CASE [ value2 value3 ] %]</span>   # multiple values
+      <span class="tt">[%   CASE ['value2', 'value3'] %]</span>   # multiple values
              ...
-      <span class="tt">[%   CASE myhash.keys %]</span>         # ditto
+      <span class="tt">[%   CASE myhash.keys %]</span>            # ditto
              ...
-      <span class="tt">[%   CASE %]</span>                     # default
+      <span class="tt">[%   CASE %]</span>                        # default
              ...
       <span class="tt">[% END %]</span>
     </pre>

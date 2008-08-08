@@ -19,8 +19,8 @@
       <span class="tt">[% FOREACH item = dir.list %]</span>
          <span class="tt">[% IF item.isdir %]</span>
             Directory: <span class="tt">[% item.name %]</span>
-         <span class="tt">[% ELSE 
-            File: [% item.name %]</span>
+         <span class="tt">[% ELSE %]</span>
+            File: <span class="tt">[% item.name %]</span>
          <span class="tt">[% END %]</span>
       <span class="tt">[% END %]</span>
       

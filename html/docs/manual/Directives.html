@@ -844,13 +844,13 @@ foo is 20</pre>
                           matches, there is no drop-through between <code>CASE</code> statements.
                         </p>
                         <pre><span class="tt">[% SWITCH myvar %]</span>
-<span class="tt">[%   CASE value1 %]</span>
+<span class="tt">[%   CASE 'value1' %]</span>
        ...
-<span class="tt">[%   CASE [ value2 value3 ] %]</span>   # multiple values
+<span class="tt">[%   CASE ['value2', 'value3'] %]</span>   # multiple values
        ...
-<span class="tt">[%   CASE myhash.keys %]</span>         # ditto
+<span class="tt">[%   CASE myhash.keys %]</span>            # ditto
        ...
-<span class="tt">[%   CASE %]</span>                     # default
+<span class="tt">[%   CASE %]</span>                        # default
        ...
 <span class="tt">[% END %]</span></pre>
                   </div>
@@ -2418,7 +2418,7 @@ directive debugging is off</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Directives.html last modified 16:35:02 18-Jan-2008
+            http://template-toolkit.org/docs/manual/Directives.html last modified 14:13:12 08-Aug-2008
           </div>
         </div>
         
