@@ -28,7 +28,7 @@
     };
     
     tt2.version = {
-        stable = '2.19'
+        stable = '2.20'
         docs   = '2.20'
     };
 
