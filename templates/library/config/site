@@ -28,9 +28,9 @@
     };
     
     tt2.version = {
-        stable    = '2.20'
-        developer = '2.20_4'
-        docs      = '2.20'
+        stable    = '2.21'
+#       developer = '2.21'
+        docs      = '2.21'
     };
 
     # metadata should be defined by Metadata plugin
