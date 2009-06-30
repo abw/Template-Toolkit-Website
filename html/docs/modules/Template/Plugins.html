@@ -112,6 +112,7 @@
                   <li class=""><a href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a></li>
                   <li class="sub"><a href="#section_PLUGINS">PLUGINS</a></li>
                   <li class="sub"><a href="#section_PLUGIN_BASE">PLUGIN_BASE</a></li>
+                  <li class="sub"><a href="#section_LOAD_PERL">LOAD_PERL</a></li>
                   <li class="sub"><a href="#section_TOLERANT">TOLERANT</a></li>
                   <li class="sub"><a href="#section_DEBUG">DEBUG</a></li>
                   <li class=""><a href="#section_TEMPLATE_TOOLKIT_PLUGINS">TEMPLATE TOOLKIT PLUGINS</a></li>
@@ -289,10 +290,17 @@ my $plugins = Template::Plugins-&gt;new({
 my $plugins = Template::Plugins-&gt;new({
     PLUGIN_BASE =&gt; [   'MyOrg::Template::Plugin',
                        'YourOrg::Template::Plugin'  ],
-});
-
-=head2 LOAD_PERL</pre>
-                        <p>
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_LOAD_PERL" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">LOAD_PERL</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
                           The <a href="../../../docs/manual/Config.html#section_LOAD_PERL">LOAD_PERL</a> option can be set to allow you to
                           load regular Perl modules (i.e. those that don't reside in the
                           <code>Template::Plugin</code> or another user-defined namespace) as
@@ -409,7 +417,7 @@ my $template = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Plugins.html last modified 10:39:34 14-Aug-2008
+            http://template-toolkit.org/docs/modules/Template/Plugins.html last modified 10:56:08 30-Jun-2009
           </div>
         </div>
         

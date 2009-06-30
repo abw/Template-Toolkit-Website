@@ -46,7 +46,6 @@
     <p>
       The source code is distributed as a <code>.tar.gz</code> archive.
       You'll need to unpack it and follow the instructions in the 
-[% IF 0 %]      <a href="[% site.url.docs.install %]">INSTALL</a> file.[% END %]
       <b>INSTALL</b> file.
     </p>
 
@@ -64,6 +63,37 @@
       $ sudo make install
     </pre>
 [%  END -%]
+
+[% WRAPPER page/section id="developer" title="Developer Versions" %]
+[% tt2vs = tt2.version.stable -%]
+  <p>
+    In addition to the stable releases available from CPAN, we also
+    release interim developer versions from time to time.  These contain
+    additional features, bug fixes and other updates over the latest
+    stable version.
+  </p>
+  <p>
+    Developer versions have an additional character
+    suffix (e.g. [% tt2vs %]a, [% tt2vs %]b, etc) and
+    are available to download from this web site.
+    Developer releases eventually go on to become the
+    next stable release and made available on CPAN.
+  </p>
+[% IF tt2.version.developer -%]
+  <p>
+    The current developer version is [% tt2.version.developer %]. 
+  </p>
+  <a href="[% site.url.download %]/Template-Toolkit-[% tt2.version.developer %].tar.gz"
+     class="download" title="Download the latest developer version ([% tt2.version.developer %]) of the Template Toolkit">Download 
+     Template Toolkit developer version [% tt2.version.developer %]</a>
+[% ELSE -%]
+  <p>
+    There are no developer versions released at present.
+  </p>
+[% END -%]
+[% END -%]
+
+
 
 [%  WRAPPER page/section id='cpan' title='Installing with the CPAN Module' -%]
     <p>
@@ -177,35 +207,6 @@
 [%  END -%]
 [% END %]
 
-[% WRAPPER page/section id="developer" title="Developer Versions" %]
-[% tt2vs = tt2.version.stable -%]
-  <p>
-    In addition to the stable releases available from CPAN, we also
-    release interim developer versions from time to time.  These contain
-    additional features, bug fixes and other updates over the latest
-    stable version.
-  </p>
-  <p>
-    Developer versions have an additional character
-    suffix (e.g. [% tt2vs %]a, [% tt2vs %]b, etc) and
-    are available to download from this web site.
-    Developer releases eventually go on to become the
-    next stable release and made available on CPAN.
-  </p>
-[% IF tt2.version.developer -%]
-  <p>
-    The current developer version is [% tt2.version.developer %]. 
-  </p>
-  <a href="[% site.url.download %]/Template-Toolkit-[% tt2.version.developer %].tar.gz"
-     class="download" title="Download the latest developer version ([% tt2.version.developer %]) of the Template Toolkit">Download 
-     Template Toolkit developer version [% tt2.version.developer %]</a>
-[% ELSE -%]
-  <p>
-    There are no developer versions released at present.
-  </p>
-[% END -%]
-[% END -%]
-
 [% svnweb = 'http://search.cpan.org/dist/SVN-Web/' -%]
 
 [% WRAPPER page/section id='svn' title='Subversion Source Code Repository' -%]
@@ -216,7 +217,7 @@
     Template Toolkit source code using a command like this:
   </p>
   <pre class="code">
-    $ svn co svn://svn.tt2.org/Template2/trunk Template2
+    $ svn co svn://svn.tt2.org/tt/Template2/trunk Template2
   </pre>
   <p>
     You can also browse the Subversion repository using the web front-end.
@@ -262,7 +263,7 @@
     shown in the previous section.  e.g.
   </p>
   <pre class="code">
-    $ svn co svn://svn.tt2.org/Template-DBI/trunk Template-DBI
+    $ svn co svn://svn.tt2.org/tt/Template-DBI/trunk Template-DBI
   </pre>
   <p>
     The same goes for viewing these projects via the web interface.  Simply replace
@@ -327,171 +328,4 @@
   <a href="http://www.vim.org/scripts/script.php?script_id=830" class="ext">here</a>.
 </div>
 [% END %]
-
-[% RETURN %]
-
-
-
-=============================================================================
-
-
-<p>
-Please read the 
-<a href="download/stable/README">README</a> 
-file for general information, check the 
-<a href="download/stable/Changes">Changes</a>
-file for details of recent changes, and consult the 
-<a href="download/stable/TODO">TODO</a> 
-file for known bugs, limitations or planned features.  
-All these documents can be found in the distribution 
-archive in the top-level directory.
-</p>
-
-<p>
-Note that you can now also read the 
-documentation <a href="docs.html">online</a>.
-</p>
-
-<p>
-As patches come in for bug fixes, new features, and so on, we apply
-them and make developer releases.  Our trusty band of developers, beta
-testers and other hardcore TT evangelists get to work with the
-developer releases and hopefully thrash out any bugs or potential
-problems.  When we've got a few patches lined up and we're happy that
-all is well, we release a new stable version for general consumption.
-</p>
-
-<p>
-Stable versions have regular version numbers like [% latest.stable %]
-and are available from [% cpan.tt2link %].  Developer releases have a
-letter appended, like [% latest.stable %]a, [% latest.stable %]b, etc
-are are only available from this site.
-</p>
-
-[% IF latest.stable != latest.devel %]
-<p>
-The latest developer release is version [% latest.devel %].
-</p>
-[% INCLUDE download version = latest.devel has_install = 1 %]
-
-[% ELSE %]
-<p>
-There is no developer release at present.  The latest stable release
-is the most recent version available.
-</p>
-[% END %]
-
-   id = 'cvs'
-   title = "Access to the CVS Repository"
-   name = "CVS Access"
-%]
-
-<p>
-You can access the latest working version of the source code directly 
-from the CVS repository.  If you don't already have CVS you can get a 
-copy from <a href="http://www.cvshome.org/">CVSHome.org</a>.
-</p>
-
-<p>
-First you need to set the <code><b>CVSROOT</b></code> environment 
-variable to <code><b>[% cvsroot %]</b></code>.
-<pre>
-    $ CVSROOT=[% cvsroot %]
-    $ export CVSROOT
-</pre>
-or use the <code><b>-d</b></code> option with the <code></b>cvs</b></code>
-command, e.g.
-<pre>
-    $ cvs -d [% cvsroot %] <i>cvs commands...</i>
-</pre>
-</p>
-
-<p>
-Issue the <code><b>cvs login</b></code> command, responding with the password
-<code><b>cvs</b></code> when prompted.
-<pre>
-    $ cvs login
-    (Logging in to cvs@tt2.org)
-    CVS password: <b>cvs</b>
-</pre>
-</p>
-
-<p>
-You can then check out the source for the Template Toolkit using the 
-<code><b>cvs co Template2</b></code> command, adding the <code><b>-z 3</b></code>
-(or something similar) to activate compression
-<pre>
-    $ cvs -z 3 co Template2
-</pre>
-</p>
-
-<p>
-Once you've got the source code checked out, <code><b>cvs
-update</b></code> will sync your local copy with the repository.  If
-you want or need write access to the repository then please <a
-href="mailto:abw@kfs.org">contact me</a>.  You'll also need to fetch
-and compile <a href="/misc/ppw.c">this program</a> to generate an
-encrypted MD5 password.
-</p>
-   id = 'docsrc'
-   title = "Template Toolkit Documentation Source ${latest.docsrc}"
-   name = "docsrc ${latest.docsrc}"
-
-<p>
-The documentation for the [% tt.name %] is built from a set of TT2
-templates, XML files, Perl script and other bits of magic.  You don't
-need this to build and re-build the HTML documentation on your own
-machine, but if you want to hack on the documentation or just see how
-it's all put together then you should download the 'docsrc' bundle,
-unpack it in the [% tt.name %] distribution directory and read the
-README for further details on how to proceed.
-</p>
-
-    bundle  = 'Template-docsrc'
-    version = latest.docsrc
-    notodo  = 1
-    nochanges = 1
-
-
-
-   id = 'v3devel'
-   title = "Template Toolkit v3 Development Snapshot ${latest.v3}"
-   name = "v3 pre-alpha ${latest.v3}"
-
-<p>
-A very early pre-alpha snapshot of some if the modules for Template
-Toolkit version 3 is now available.  This isn't a working implementation
-and probably won't be for quite some time.  It is provided purely for
-developers who are interested in following or contributing to the 
-development of version 3.
-</p>
-
-
-<p>
-Note that you can also browse the <a href="/download/Template-Toolkit-[% latest.v3 %]/">code</a> and <a href="/v3/">documentation</a> online.
-
-   id = 'apache'
-   title = "Apache::Template version ${latest.apache}"
-   name = "Apache::Template ${latest.apache}"
-
-<p>
-Version [% latest.apache %] of the Apache::Template module is now also 
-available.  Please read the 
-<a href="download/Apache-Template-[% latest.apache %]/README">README</a> 
-file for general information, and the 
-<a href="download/Apache-Template-[% latest.apache %]/Changes">Changes</a> 
-file for details of changes in this version.
-</p>
-
-   DEFAULT bundle = 'Template-Toolkit'
-           version = latest.stable
-%]
-<ul>
-<a href="/download/[% bundle %]-[% version %].tar.gz">[% bundle %]-[% version %].tar.gz</a>
-[ <a href="download/[% bundle %]-[% version %]/README">README</a> ]
-[% UNLESS nochanges %][ <a href="download/[% bundle %]-[% version %]/Changes">Changes</a> ][% END %]
-[% UNLESS notodo %][ <a href="download/[% bundle %]-[% version %]/TODO">TODO</a> ][% END %]
-[% IF has_install %][ <a href="download/[% bundle %]-[% version %]/INSTALL">INSTALL</a> ][% END %]
-</ul>
-</p>
 

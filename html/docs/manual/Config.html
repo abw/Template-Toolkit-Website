@@ -104,6 +104,7 @@
                   <li class="sub"><a href="#section_RELATIVE">RELATIVE</a></li>
                   <li class="sub"><a href="#section_DEFAULT">DEFAULT</a></li>
                   <li class="sub"><a href="#section_BLOCKS">BLOCKS</a></li>
+                  <li class="sub"><a href="#section_VIEWS">VIEWS</a></li>
                   <li class="sub"><a href="#section_AUTO_RESET">AUTO_RESET</a></li>
                   <li class="sub"><a href="#section_RECURSION">RECURSION</a></li>
                   <li class=""><a href="#section_Template_Variables">Template Variables</a></li>
@@ -120,6 +121,7 @@
                   <li class="sub"><a href="#section_EVAL_PERL">EVAL_PERL</a></li>
                   <li class="sub"><a href="#section_OUTPUT">OUTPUT</a></li>
                   <li class="sub"><a href="#section_OUTPUT_PATH">OUTPUT_PATH</a></li>
+                  <li class="sub"><a href="#section_STRICT">STRICT</a></li>
                   <li class="sub"><a href="#section_DEBUG">DEBUG</a></li>
                   <li class="sub"><a href="#section_DEBUG_FORMAT">DEBUG_FORMAT</a></li>
                   <li class=""><a href="#section_Caching_and_Compiling_Options">Caching and Compiling Options</a></li>
@@ -732,6 +734,36 @@ my $template = Template-&gt;new({
         another =&gt; Template::Document-&gt;new({ ... }),
     },
 }); </pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_VIEWS" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">VIEWS</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The VIEWS option can be used to define one or more <a href="../../docs/modules/Template/View.html">Template::View</a> objects. They can be
+                          specified as a reference to a hash array or list reference.
+                        </p>
+                        <pre>my $template = Template-&gt;new({
+    VIEWS =&gt; {
+        my_view =&gt; { prefix =&gt; 'my_templates/' },
+    },
+});</pre>
+                        <p>
+                          Be aware of the fact that Perl's hash array are unordered, so if you want
+                          to specify multiple views of which one or more are based on other views,
+                          then you should use a list reference to preserve the order of definition.
+                        </p>
+                        <pre>my $template = Template-&gt;new({
+    VIEWS =&gt; [
+        bottom =&gt; { prefix =&gt; 'bottom/' },
+        middle =&gt; { prefix =&gt; 'middle/', base =&gt; 'bottom' },
+        top    =&gt; { prefix =&gt; 'top/',    base =&gt; 'middle' },
+    ],
+});</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
@@ -1574,6 +1606,28 @@ foreach my $file ('foo.html', 'bar.html') {
                           <code class="file">/tmp/dest/foo.html</code> and <code
                           class="file">/tmp/dest/bar.html</code>, respectively.
                         </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_STRICT" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">STRICT</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          By default the Template Toolkit will silently ignore the use of undefined
+                          variables (a bad design decision that I regret).
+                        </p>
+                        <p>
+                          When the <code>STRICT</code> option is set, the use of any undefined
+                          variables or values will cause an exception to be throw. The exception
+                          will have a <code>type</code> of <code>var.undefined</code> and a message
+                          of the form "undefined variable: xxx".
+                        </p>
+                        <pre>my $template = Template-&gt;new(
+    STRICT =&gt; 1
+);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
@@ -2472,7 +2526,7 @@ my $template = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Config.html last modified 10:39:31 14-Aug-2008
+            http://template-toolkit.org/docs/manual/Config.html last modified 10:56:05 30-Jun-2009
           </div>
         </div>
         

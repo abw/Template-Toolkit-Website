@@ -119,6 +119,9 @@
                   <li class="sub"><a href="#method_last">last()</a></li>
                   <li class="sub"><a href="#method_prev">prev()</a></li>
                   <li class="sub"><a href="#method_next">next()</a></li>
+                  <li class="sub"><a href="#method_parity">parity()</a></li>
+                  <li class="sub"><a href="#method_odd">odd()</a></li>
+                  <li class="sub"><a href="#method_even">even()</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
                   <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
                   <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
@@ -413,6 +416,82 @@ my $iter = Template::Iterator-&gt;new($list);</pre>
                           iterator is on the last item.
                         </p>
                   </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_parity" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">parity()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns the text string <code>even</code> or <code>odd</code> to indicate
+                          the parity of the current iteration count (starting at 1). This is
+                          typically used to create striped <i>zebra tables</i>.
+                        </p>
+                        <pre>&lt;table&gt;
+<span class="tt">[% FOREACH name IN ['Arthur', 'Ford', 'Trillian'] -%]</span>
+  &lt;tr class="<span class="tt">[% loop.parity %]</span>"&gt;
+    &lt;td&gt;<span class="tt">[% name %]</span>&lt;/td&gt;
+  &lt;/tr&gt;
+<span class="tt">[% END %]</span>
+&lt;/table&gt;</pre>
+                        <p>
+                          This will produce the following output:
+                        </p>
+                        <pre>&lt;table&gt;
+  &lt;tr class="odd"&gt;
+    &lt;td&gt;Arthur&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr class="even"&gt;
+    &lt;td&gt;Ford&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr class="odd"&gt;
+    &lt;td&gt;Trillian&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</pre>
+                        <p>
+                          You can then style the <code>tr.odd</code> and <code>tr.even</code>
+                          elements using CSS:
+                        </p>
+                        <pre>tr.odd td {
+    background-color: black;
+    color: white;
+}
+
+tr.even td {
+    background-color: white;
+    color: black;
+}</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_odd" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">odd()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a boolean (0/1) value to indicate if the current iterator count
+                          (starting at 1) is an odd number. In other words, this will return a true
+                          value for the first iterator, the third, fifth, and so on.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_even" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">even()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a boolean (0/1) value to indicate if the current iterator count
+                          (starting at 1) is an even number. In other words, this will return a
+                          true value for the second iteration, the fourth, sixth, and so on.
+                        </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -464,7 +543,7 @@ my $iter = Template::Iterator-&gt;new($list);</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Iterator.html last modified 10:39:32 14-Aug-2008
+            http://template-toolkit.org/docs/modules/Template/Iterator.html last modified 10:56:07 30-Jun-2009
           </div>
         </div>
         

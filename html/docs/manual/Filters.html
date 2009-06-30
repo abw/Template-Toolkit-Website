@@ -99,6 +99,7 @@
                   <li class=""><a href="#section_collapse">collapse</a></li>
                   <li class=""><a href="#section_html">html</a></li>
                   <li class=""><a href="#section_html_entity">html_entity</a></li>
+                  <li class=""><a href="#section_xml">xml</a></li>
                   <li class=""><a href="#section_html_para">html_para</a></li>
                   <li class=""><a href="#section_html_break_html_para_break">html_break / html_para_break</a></li>
                   <li class=""><a href="#section_html_line_break">html_line_break</a></li>
@@ -299,18 +300,41 @@ Binary "&lt;=&gt;" returns -1, 0, or 1 depending on...
                       <code>html_entity</code> filter uses either the <code>Apache::Util</code>
                       module (which is written in C and is therefore faster) or the
                       <code>HTML::Entities</code> module (written in Perl but equally as
-                      comprehensive) to perform the encoding. If one or other of these modules
-                      are installed on your system then the text will be encoded (via the
-                      <code>escape_html()</code> or <code>encode_entities()</code> subroutines
-                      respectively) to convert all extended characters into their appropriate
-                      HTML entities (e.g. converting '<code>é</code>' to
-                      '<code>&amp;eacute;</code>'). If neither module is available on your
-                      system then an '<code>html_entity</code>' exception will be thrown
-                      reporting an appropriate message.
+                      comprehensive) to perform the encoding.
                     </p>
+                    <p>
+                      If one or other of these modules are installed on your system then the
+                      text will be encoded (via the <code>escape_html()</code> or
+                      <code>encode_entities()</code> subroutines respectively) to convert all
+                      extended characters into their appropriate HTML entities (e.g. converting
+                      '<code>é</code>' to '<code>&amp;eacute;</code>'). If neither module is
+                      available on your system then an '<code>html_entity</code>' exception
+                      will be thrown reporting an appropriate message.
+                    </p>
+                    <p>
+                      If you want to force TT to use one of the above modules in preference to
+                      the other, then call either of the <a href="../../docs/modules/Template/Filters.html">Template::Filters</a> class methods:
+                      <a href="../../docs/modules/Template/Filters.html#use_html_entities()">use_html_entities()</a> or <a href="../../docs/modules/Template/Filters.html#use_apache_util()">use_apache_util()</a>.
+                    </p>
+                    <pre>use Template::Filters;
+Template::Filters-&gt;use_html_entities;</pre>
                     <p>
                       For further information on HTML entity encoding, see <a
                       href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_xml" onclick="switch_section(this)" title="Click title to show/hide section content.">xml</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      Same as the <code>html</code> filter, but adds <code>&amp;apos;</code>
+                      which is the fifth XML built-in entity.
                     </p>
               </div>
             </div>
@@ -806,7 +830,7 @@ $template-&gt;process($file, $vars);</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Filters.html last modified 10:39:31 14-Aug-2008
+            http://template-toolkit.org/docs/manual/Filters.html last modified 10:56:06 30-Jun-2009
           </div>
         </div>
         

@@ -9,6 +9,7 @@
      images    = "${rooturl}/images"
      css       = "${rooturl}/css"
      js        = "${rooturl}/js"
+     download  = "${rooturl}/download"
      svnweb    = 'http://template-toolkit.org/svnweb'
      mailman   = '/mailman'
      pipermail = 'http://lists.template-toolkit.org/pipermail'

@@ -215,6 +215,70 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='parity()' id='method_parity' class='method' -**]
+    <p>
+      Returns the text string <code>even</code> or <code>odd</code> to indicate
+      the parity of the current iteration count (starting at 1). This is
+      typically used to create striped <i>zebra tables</i>.
+    </p>
+    <pre>
+      &lt;table&gt;
+      <span class="tt">[% FOREACH name IN ['Arthur', 'Ford', 'Trillian'] -%]</span>
+        &lt;tr class="<span class="tt">[% loop.parity %]</span>"&gt;
+          &lt;td&gt;<span class="tt">[% name %]</span>&lt;/td&gt;
+        &lt;/tr&gt;
+      <span class="tt">[% END %]</span>
+      &lt;/table&gt;
+    </pre>
+    <p>
+      This will produce the following output:
+    </p>
+    <pre>
+      &lt;table&gt;
+        &lt;tr class="odd"&gt;
+          &lt;td&gt;Arthur&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class="even"&gt;
+          &lt;td&gt;Ford&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr class="odd"&gt;
+          &lt;td&gt;Trillian&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+    </pre>
+    <p>
+      You can then style the <code>tr.odd</code> and <code>tr.even</code>
+      elements using CSS:
+    </p>
+    <pre>
+      tr.odd td {
+          background-color: black;
+          color: white;
+      }
+      
+      tr.even td {
+          background-color: white;
+          color: black;
+      }
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='odd()' id='method_odd' class='method' -**]
+    <p>
+      Returns a boolean (0/1) value to indicate if the current iterator count
+      (starting at 1) is an odd number. In other words, this will return a true
+      value for the first iterator, the third, fifth, and so on.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='even()' id='method_even' class='method' -**]
+    <p>
+      Returns a boolean (0/1) value to indicate if the current iterator count
+      (starting at 1) is an even number. In other words, this will return a
+      true value for the second iteration, the fourth, sixth, and so on.
+    </p>
+    
+    [** END -**]
 [** END -**]
 [** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
     <p>

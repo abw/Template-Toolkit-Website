@@ -74,12 +74,12 @@
                   <li class=""><a href="#section_0">Introduction</a></li>
                   <li class=""><a href="#section_1">Pre-Requisites</a></li>
                   <li class=""><a href="#source">Installing from Source Code</a></li>
+                  <li class=""><a href="#developer">Developer Versions</a></li>
                   <li class=""><a href="#cpan">Installing with the CPAN Module</a></li>
                   <li class=""><a href="#binaries">Platform-Specific Binaries</a></li>
                   <li class="sub"><a href="#mac">Mac OSX</a></li>
                   <li class="sub"><a href="#debian">Debian GNU/Linux</a></li>
                   <li class="sub"><a href="#win32">Microsoft Windows</a></li>
-                  <li class=""><a href="#developer">Developer Versions</a></li>
                   <li class=""><a href="#svn">Subversion Source Code Repository</a></li>
                   <li class=""><a href="#html_docs">HTML Documentation</a></li>
                   <li class=""><a href="#related">Related Modules</a></li>
@@ -169,7 +169,6 @@
                     <p>
                       The source code is distributed as a <code>.tar.gz</code> archive.
                       You'll need to unpack it and follow the instructions in the 
-                
                       <b>INSTALL</b> file.
                     </p>
                 
@@ -186,6 +185,38 @@ $ make test
 $ sudo make install</pre>
               </div>
             </div>
+            
+            <div class="section">
+              <div class="head">
+                <h1 id="developer" onclick="switch_section(this)" title="Click title to show/hide section content.">Developer Versions</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                    In addition to the stable releases available from CPAN, we also
+                    release interim developer versions from time to time.  These contain
+                    additional features, bug fixes and other updates over the latest
+                    stable version.
+                  </p>
+                  <p>
+                    Developer versions have an additional character
+                    suffix (e.g. 2.20a, 2.20b, etc) and
+                    are available to download from this web site.
+                    Developer releases eventually go on to become the
+                    next stable release and made available on CPAN.
+                  </p>
+                  <p>
+                    The current developer version is 2.20_4. 
+                  </p>
+                  <a href="../download/Template-Toolkit-2.20_4.tar.gz"
+                     class="download" title="Download the latest developer version (2.20_4) of the Template Toolkit">Download 
+                     Template Toolkit developer version 2.20_4</a>
+              </div>
+            </div>
+            
+            
             
             <div class="section">
               <div class="head">
@@ -323,33 +354,6 @@ $ sudo make install</pre>
             </div>
             
             
-            <div class="section">
-              <div class="head">
-                <h1 id="developer" onclick="switch_section(this)" title="Click title to show/hide section content.">Developer Versions</h1>
-                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
-                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
-                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
-              </div>
-              <div class="body">
-                <p>
-                    In addition to the stable releases available from CPAN, we also
-                    release interim developer versions from time to time.  These contain
-                    additional features, bug fixes and other updates over the latest
-                    stable version.
-                  </p>
-                  <p>
-                    Developer versions have an additional character
-                    suffix (e.g. 2.20a, 2.20b, etc) and
-                    are available to download from this web site.
-                    Developer releases eventually go on to become the
-                    next stable release and made available on CPAN.
-                  </p>
-                  <p>
-                    There are no developer versions released at present.
-                  </p>
-              </div>
-            </div>
-            
             
             <div class="section">
               <div class="head">
@@ -365,7 +369,7 @@ $ sudo make install</pre>
                     If you have subversion installed on your system then you can check out the 
                     Template Toolkit source code using a command like this:
                   </p>
-                  <pre class="code">$ svn co svn://svn.tt2.org/Template2/trunk Template2</pre>
+                  <pre class="code">$ svn co svn://svn.tt2.org/tt/Template2/trunk Template2</pre>
                   <p>
                     You can also browse the Subversion repository using the web front-end.
                     This is implemented using <a href="http://search.cpan.org/dist/SVN-Web/" class="ext">SVN::Web</a>, 
@@ -427,7 +431,7 @@ $ sudo make install</pre>
                     You can check out the source code using a variation of the <code>svn</code> command 
                     shown in the previous section.  e.g.
                   </p>
-                  <pre class="code">$ svn co svn://svn.tt2.org/Template-DBI/trunk Template-DBI</pre>
+                  <pre class="code">$ svn co svn://svn.tt2.org/tt/Template-DBI/trunk Template-DBI</pre>
                   <p>
                     The same goes for viewing these projects via the web interface.  Simply replace
                     <code>Template2</code> with one of the other module names, e.g.
@@ -503,7 +507,7 @@ $ sudo make install</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/download/index.html last modified 06:45:04 26-Sep-2008
+            http://template-toolkit.org/download/index.html last modified 12:55:22 21-May-2009
           </div>
         </div>
         

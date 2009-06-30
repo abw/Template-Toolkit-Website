@@ -138,18 +138,39 @@
       <code>html_entity</code> filter uses either the <code>Apache::Util</code>
       module (which is written in C and is therefore faster) or the
       <code>HTML::Entities</code> module (written in Perl but equally as
-      comprehensive) to perform the encoding. If one or other of these modules
-      are installed on your system then the text will be encoded (via the
-      <code>escape_html()</code> or <code>encode_entities()</code> subroutines
-      respectively) to convert all extended characters into their appropriate
-      HTML entities (e.g. converting '<code>é</code>' to
-      '<code>&amp;eacute;</code>'). If neither module is available on your
-      system then an '<code>html_entity</code>' exception will be thrown
-      reporting an appropriate message.
+      comprehensive) to perform the encoding.
     </p>
+    <p>
+      If one or other of these modules are installed on your system then the
+      text will be encoded (via the <code>escape_html()</code> or
+      <code>encode_entities()</code> subroutines respectively) to convert all
+      extended characters into their appropriate HTML entities (e.g. converting
+      '<code>é</code>' to '<code>&amp;eacute;</code>'). If neither module is
+      available on your system then an '<code>html_entity</code>' exception
+      will be thrown reporting an appropriate message.
+    </p>
+    <p>
+      If you want to force TT to use one of the above modules in preference to
+      the other, then call either of the <a href="[**
+      ttmodlink('Template::Filters') **]">Template::Filters</a> class methods:
+      <a href="[** ttmodlink('Template::Filters')
+      **]#use_html_entities()">use_html_entities()</a> or <a href="[**
+      ttmodlink('Template::Filters')
+      **]#use_apache_util()">use_apache_util()</a>.
+    </p>
+    <pre>
+      use Template::Filters;
+      Template::Filters-&gt;use_html_entities;
+    </pre>
     <p>
       For further information on HTML entity encoding, see <a
       href="http://www.w3.org/TR/REC-html40/sgml/entities.html">http://www.w3.org/TR/REC-html40/sgml/entities.html</a>.
+    </p>
+[** END -**]
+[** WRAPPER page/section title='xml' id='section_xml' -**]
+    <p>
+      Same as the <code>html</code> filter, but adds <code>&amp;apos;</code>
+      which is the fifth XML built-in entity.
     </p>
 [** END -**]
 [** WRAPPER page/section title='html_para' id='section_html_para' -**]

@@ -198,6 +198,22 @@
       }); 
     </pre>
     
+    <h3 class="method" id="section_VIEWS">VIEWS</h3>
+    <p>
+      The <a href="[** ttmodlink('Template::Manual::Config')
+      **]#section_VIEWS">VIEWS</a> option can be used to pre-define one or more
+      <a href="[** ttmodlink('Template::View') **]">Template::View</a> objects.
+    </p>
+    <pre>
+      my $context = Template::Context-&gt;new({
+          VIEWS =&gt; [
+              bottom =&gt; { prefix =&gt; 'bottom/' },
+              middle =&gt; { prefix =&gt; 'middle/', base =&gt; 'bottom' },
+              top    =&gt; { prefix =&gt; 'top/',    base =&gt; 'middle' },
+          ],
+      });
+    </pre>
+    
     <h3 class="method" id="section_TRIM">TRIM</h3>
     <p>
       The <a href="[** ttmodlink('Template::Manual::Config')
@@ -516,6 +532,73 @@
     <p>
       Returns a true value or throws a '<code>filter</code>' exception on
       error.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='define_view($name, \%params)' id='method_define_view' class='method' -**]
+    <p>
+      This method allows you to define a named <a href="[**
+      ttmodlink('Template::View') **]">view</a>.
+    </p>
+    <pre>
+      $context-&gt;define_view( 
+          my_view =&gt; { 
+              prefix =&gt; 'my_templates/' 
+          } 
+      );
+    </pre>
+    <p>
+      The view is then accessible as a template variable.
+    </p>
+    <pre>
+      <span class="tt">[% my_view.print(some_data) %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='define_views($views)' id='method_define_views' class='method' -**]
+    <p>
+      This method allows you to define multiple named <a href="[**
+      ttmodlink('Template::View') **]">views</a>. A reference to a hash array
+      or list reference should be passed as an argument.
+    </p>
+    <pre>
+      $context-&gt;define_view({     # hash reference
+          my_view_one =&gt; { 
+              prefix =&gt; 'my_templates_one/' 
+          },
+          my_view_two =&gt; { 
+              prefix =&gt; 'my_templates_two/' 
+          } 
+      });
+    </pre>
+    <p>
+      If you're defining multiple views of which one or more are based on other
+      views in the same definition then you should pass them as a list
+      reference. This ensures that they get created in the right order (Perl
+      does not preserve the order of items defined in a hash reference so you
+      can't guarantee that your base class view will be defined before your
+      subclass view).
+    </p>
+    <pre>
+      $context-&gt;define_view([     # list referenence
+          my_view_one =&gt; {
+              prefix =&gt; 'my_templates_one/' 
+          },
+          my_view_two =&gt; { 
+              prefix =&gt; 'my_templates_two/' ,
+              base   =&gt; 'my_view_one',
+          } 
+      ]);
+    </pre>
+    <p>
+      The views are then accessible as template variables.
+    </p>
+    <pre>
+      <span class="tt">[% my_view_one.print(some_data) %]</span>
+      <span class="tt">[% my_view_two.print(some_data) %]</span>
+    </pre>
+    <p>
+      See also the <a href="#section_VIEWS">VIEWS</a> option.
     </p>
     
     [** END -**]

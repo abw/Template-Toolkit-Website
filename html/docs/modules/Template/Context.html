@@ -110,6 +110,7 @@
                   <li class="sub"><a href="#method_new">new(\%params) </a></li>
                   <li class="subsub"><a href="#section_VARIABLES">VARIABLES</a></li>
                   <li class="subsub"><a href="#section_BLOCKS">BLOCKS</a></li>
+                  <li class="subsub"><a href="#section_VIEWS">VIEWS</a></li>
                   <li class="subsub"><a href="#section_TRIM">TRIM</a></li>
                   <li class="subsub"><a href="#section_EVAL_PERL">EVAL_PERL</a></li>
                   <li class="subsub"><a href="#section_RECURSION">RECURSION</a></li>
@@ -127,6 +128,8 @@
                   <li class="sub"><a href="#method_catch">catch($exception, \$output)</a></li>
                   <li class="sub"><a href="#method_define_block">define_block($name, $block)</a></li>
                   <li class="sub"><a href="#method_define_filter">define_filter($name, \&amp;filter, $is_dynamic)</a></li>
+                  <li class="sub"><a href="#method_define_view">define_view($name, \%params)</a></li>
+                  <li class="sub"><a href="#method_define_views">define_views($views)</a></li>
                   <li class="sub"><a href="#method_localise">localise(\%vars)</a></li>
                   <li class="sub"><a href="#method_delocalise">delocalise()</a></li>
                   <li class="sub"><a href="#method_visit">visit(\%blocks)</a></li>
@@ -341,6 +344,19 @@ my $context = Template::Context-&gt;new(\%config)
         another =&gt; Template::Document-&gt;new({ ... }),
     },
 }); </pre>
+                        
+                        <h3 class="method" id="section_VIEWS">VIEWS</h3>
+                        <p>
+                          The <a href="../../../docs/manual/Config.html#section_VIEWS">VIEWS</a> option can be used to pre-define one or more
+                          <a href="../../../docs/modules/Template/View.html">Template::View</a> objects.
+                        </p>
+                        <pre>my $context = Template::Context-&gt;new({
+    VIEWS =&gt; [
+        bottom =&gt; { prefix =&gt; 'bottom/' },
+        middle =&gt; { prefix =&gt; 'middle/', base =&gt; 'bottom' },
+        top    =&gt; { prefix =&gt; 'top/',    base =&gt; 'middle' },
+    ],
+});</pre>
                         
                         <h3 class="method" id="section_TRIM">TRIM</h3>
                         <p>
@@ -655,6 +671,73 @@ $context-&gt;throw('yack', 'Too much yacking', \$output);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_define_view" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">define_view($name, \%params)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method allows you to define a named <a href="../../../docs/modules/Template/View.html">view</a>.
+                        </p>
+                        <pre>$context-&gt;define_view( 
+    my_view =&gt; { 
+        prefix =&gt; 'my_templates/' 
+    } 
+);</pre>
+                        <p>
+                          The view is then accessible as a template variable.
+                        </p>
+                        <pre><span class="tt">[% my_view.print(some_data) %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_define_views" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">define_views($views)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method allows you to define multiple named <a href="../../../docs/modules/Template/View.html">views</a>. A reference to a hash array
+                          or list reference should be passed as an argument.
+                        </p>
+                        <pre>$context-&gt;define_view({     # hash reference
+    my_view_one =&gt; { 
+        prefix =&gt; 'my_templates_one/' 
+    },
+    my_view_two =&gt; { 
+        prefix =&gt; 'my_templates_two/' 
+    } 
+});</pre>
+                        <p>
+                          If you're defining multiple views of which one or more are based on other
+                          views in the same definition then you should pass them as a list
+                          reference. This ensures that they get created in the right order (Perl
+                          does not preserve the order of items defined in a hash reference so you
+                          can't guarantee that your base class view will be defined before your
+                          subclass view).
+                        </p>
+                        <pre>$context-&gt;define_view([     # list referenence
+    my_view_one =&gt; {
+        prefix =&gt; 'my_templates_one/' 
+    },
+    my_view_two =&gt; { 
+        prefix =&gt; 'my_templates_two/' ,
+        base   =&gt; 'my_view_one',
+    } 
+]);</pre>
+                        <p>
+                          The views are then accessible as template variables.
+                        </p>
+                        <pre><span class="tt">[% my_view_one.print(some_data) %]</span>
+<span class="tt">[% my_view_two.print(some_data) %]</span></pre>
+                        <p>
+                          See also the <a href="#section_VIEWS">VIEWS</a> option.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="method_localise" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">localise(\%vars)</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -798,7 +881,7 @@ $epflag    = $context-&gt;eval_perl();
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Context.html last modified 10:39:32 14-Aug-2008
+            http://template-toolkit.org/docs/modules/Template/Context.html last modified 10:56:07 30-Jun-2009
           </div>
         </div>
         

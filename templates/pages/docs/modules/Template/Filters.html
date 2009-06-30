@@ -82,6 +82,32 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='use_html_entities()' id='method_use_html_entities' class='method' -**]
+    <p>
+      This class method can be called to configure the <code>html_entity</code>
+      filter to use the <a href="[** cpanmod('HTML::Entities')
+      **]">HTML::Entities</a> module. An error will be raised if it is not
+      installed on your system.
+    </p>
+    <pre>
+      use Template::Filters;
+      Template::Filters-&gt;use_html_entities();
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='use_apache_util()' id='method_use_apache_util' class='method' -**]
+    <p>
+      This class method can be called to configure the <code>html_entity</code>
+      filter to use the <a href="[** cpanmod('Apache::Util')
+      **]">Apache::Util</a> module. An error will be raised if it is not
+      installed on your system.
+    </p>
+    <pre>
+      use Template::Filters;
+      Template::Filters-&gt;use_apache_util();
+    </pre>
+    
+    [** END -**]
 [** END -**]
 [** WRAPPER page/section title='CONFIGURATION OPTIONS' id='section_CONFIGURATION_OPTIONS' -**]
     <p>
