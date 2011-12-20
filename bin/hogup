@@ -2,4 +2,5 @@
 rsync -vrazl -e ssh  \
       --exclude logs \
       --exclude .svn \
-      $@ /home/abw/web/tt2.org/ hog.ourshack.org:web/tt2.org/
+      --exclude .git \
+      $@ /home/abw/web/tt2.org/ hog.ourshack.com:web/tt2.org/
