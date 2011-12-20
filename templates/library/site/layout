@@ -3,6 +3,7 @@
          + site/body
          + site/footer 
          + site/palette
+         + site/fork_me
          | trim | indent(4)
 %]
 </div>

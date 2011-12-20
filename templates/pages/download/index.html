@@ -207,25 +207,21 @@
 [%  END -%]
 [% END %]
 
-[% svnweb = 'http://search.cpan.org/dist/SVN-Web/' -%]
-
-[% WRAPPER page/section id='svn' title='Subversion Source Code Repository' -%]
+[% WRAPPER page/section id='git' title='Github Source Code Repository' -%]
   <p>
     The source code for the Template Toolkit is managed using
-    <a href="http://subversion.tigris.org/" class="ext" title="Subversion: an Open Source revision control system">Subversion</a> (svn).
-    If you have subversion installed on your system then you can check out the 
+    <a href="http://git-scm.com/" class="ext" title="Git: the fast version control system">Git</a>
+    and is hosted at <a href="http://github.com/">Github</a>
+    If you have git installed on your system then you can check out the 
     Template Toolkit source code using a command like this:
   </p>
   <pre class="code">
-    $ svn co svn://svn.tt2.org/tt/Template2/trunk Template2
+    $ git clone git://github.com/abw/Template2.git
   </pre>
   <p>
-    You can also browse the Subversion repository using the web front-end.
-    This is implemented using <a href="[% svnweb %]" class="ext">SVN::Web</a>, 
-    which in turn uses the Template Toolkit to generate the web pages.  So it's
-    a nice example of just one kind of thing you can do with TT.
+    You can browse the repository here:
   </p>
-  <a href="[% site.url.svnweb %]/Template2" class="download">[% site.url.svnweb %]/Template2</a>
+  <a href="[% site.url.github %]" class="download">[% site.url.github %]</a>
 [% END %]
 
 [% WRAPPER page/section id='html_docs' title='HTML Documentation' -%]
@@ -258,18 +254,12 @@
   <a href="http://search.cpan.org/search?query=Template-XML" class="download">Template-XML</a>
   <a href="http://search.cpan.org/search?query=Template-Latex" class="download">Template-Latex</a>
   <p>
-    These modules also have corresponding projects in the Subversion repository.
-    You can check out the source code using a variation of the <code>svn</code> command 
-    shown in the previous section.  e.g.
+    These modules have corresponding projects in the old Subversion repository.
+    You can check out the source code for any of the above projects like so:
   </p>
   <pre class="code">
     $ svn co svn://svn.tt2.org/tt/Template-DBI/trunk Template-DBI
   </pre>
-  <p>
-    The same goes for viewing these projects via the web interface.  Simply replace
-    <code>Template2</code> with one of the other module names, e.g.
-  </p>
-  <a href="[% site.url.svnweb %]/Template-DBI" class="download">[% site.url.svnweb %]/Template-DBI</a>
 [% END %]
 
 [% WRAPPER page/section id='editors' title='Editor Bundles' -%]

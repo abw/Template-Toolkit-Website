@@ -11,6 +11,7 @@
      js        = "${rooturl}/js"
      download  = "${rooturl}/download"
      svnweb    = 'http://template-toolkit.org/svnweb'
+     github    = 'http://github.com/abw/Template2'
      mailman   = '/mailman'
      pipermail = 'http://lists.template-toolkit.org/pipermail'
    };

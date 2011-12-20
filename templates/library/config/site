@@ -6,7 +6,7 @@
     site = {
         name      = 'template-toolkit.org'
         title     = "The Template Toolkit Web Site"
-        copyright = '1995-2008 Andy Wardley' 
+        copyright = '1995-2011 Andy Wardley' 
         server    = 'http://template-toolkit.org'
         keywords  = 'Template Toolkit, Perl, template, web, html'
         schemes   = ['blue' 'orange' 'green' 'purple' 'grey']

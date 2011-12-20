@@ -173,6 +173,17 @@ div.pager strong {
 }
 
 
+a.fork_me {
+    position: absolute; 
+    top: -10px; 
+    right: -10px;
+    border: 0; 
+    z-index: 1000;
+    width: 149px;
+    height: 149px;
+}
+
+
 /*------------------------------------------------------------------------*/
 /* colour selection palette                                               */
 /*------------------------------------------------------------------------*/
@@ -180,7 +191,7 @@ div.pager strong {
 #palette {
     position: absolute;
     top: 0;
-    right: 20px;
+    right: 150px;
     height: 20px;
     margin-top: 0px;
     width: [% 24 * site.schemes.size + 24 %]px;

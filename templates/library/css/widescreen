@@ -10,6 +10,14 @@
     display: none;
 }
 
+#body.wide #layout {
+    margin: 0;
+}
+
+#body.wide a.fork_me {
+  display: none;
+}
+
 #body.wide #header {
     padding: 0 20px 0 20px;
     margin: -50px -20px 0 0;

@@ -14,6 +14,7 @@ body {
 #layout {
     background: white url('[% glass %]/left.gif') repeat-y top left;
     min-width: 600px;
+    margin: 0 120px 0 20px;
 }
 
 
