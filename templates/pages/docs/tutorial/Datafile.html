@@ -82,8 +82,7 @@
                      won    =&gt; 2,
                      drawn  =&gt; 5,
                      lost   =&gt; 9 });
-    </pre>
-    <pre>
+      
       my %data = ( name   =&gt; 'English Premier League',
                    season =&gt; '2000/01',
                    teams  =&gt; \@teams );
@@ -98,12 +97,10 @@
     </p>
     <pre>
       League Standings
-    </pre>
-    <pre>
+      
       League Name: <span class="tt">[% name %]</span>
       Season     : <span class="tt">[% season %]</span>
-    </pre>
-    <pre>
+      
       Teams:
       <span class="tt">[% FOREACH team = teams -%]</span>
       <span class="tt">[% team.name %]</span> <span class="tt">[% team.played -%]</span> 
@@ -115,12 +112,10 @@
     </p>
     <pre>
               League Standings
-    </pre>
-    <pre>
+      
       League Name: English Premier League
       Season     : 2000/01
-    </pre>
-    <pre>
+      
       Teams:
       Man Utd 16 12 3 1
       Bradford 16 2 5 9
@@ -221,19 +216,15 @@
     </p>
     <pre>
       my @cols = qw(name hw hd hl hf ha aw ad al af aa);
-    </pre>
-    <pre>
+      
       my @teams;
       while (&lt;&gt;) {
           chomp;
-    </pre>
-    <pre>
+      
           my %team;
-    </pre>
-    <pre>
+      
           @team{@cols} = split /,/;
-    </pre>
-    <pre>
+      
           push @teams, \%team;
       }
     </pre>
@@ -246,15 +237,12 @@
           $_-&gt;{w} = $_-&gt;{hw} + $_-&gt;{aw};
           $_-&gt;{d} = $_-&gt;{hd} + $_-&gt;{ad};
           $_-&gt;{l} = $_-&gt;{hl} + $_-&gt;{al};
-    </pre>
-    <pre>
+      
           $_-&gt;{pl} = $_-&gt;{w} + $_-&gt;{d} + $_-&gt;{l};
-    </pre>
-    <pre>
+      
           $_-&gt;{f} = $_-&gt;{hf} + $_-&gt;{af};
           $_-&gt;{a} = $_-&gt;{ha} + $_-&gt;{aa};
-    </pre>
-    <pre>
+      
           $_-&gt;{gd} = $_-&gt;{f} - $_-&gt;{a};
           $_-&gt;{pt} = (3 * $_-&gt;{w}) + $_-&gt;{d};
       }
@@ -348,14 +336,11 @@
     <pre>
       use FootballLeague;
       use Template;
-    </pre>
-    <pre>
+      
       my $league = FootballLeague-&gt;new(name =&gt; 'English Premier');
-    </pre>
-    <pre>
+      
       my $tt = Template-&gt;new;
-    </pre>
-    <pre>
+      
       $tt-&gt;process('league_xml.tt', { league =&gt; $league })
           || die $tt-&gt;error;
     </pre>
@@ -366,8 +351,7 @@
     <pre>
       &lt;?xml version="1.0"?&gt;
       &lt;!DOCTYPE LEAGUE SYSTEM "league.dtd"&gt;
-    </pre>
-    <pre>
+      
       &lt;league name="<span class="tt">[% league.name %]</span>" season="<span class="tt">[% league.season %]</span>"&gt;
       <span class="tt">[% FOREACH team = league.teams -%]</span>
         &lt;team name="<span class="tt">[% team.name %]</span>"
@@ -415,17 +399,13 @@
     <pre>
       use FootballLeague;
       use Template;
-    </pre>
-    <pre>
+      
       my ($name, $type, $stats) = @_;
-    </pre>
-    <pre>
+      
       my $league = FootballLeague-&gt;new(name =&gt; $name);
-    </pre>
-    <pre>
+      
       my $tt = Template-&gt;new;
-    </pre>
-    <pre>
+      
       $tt-&gt;process("league_${type}_$stats.tt", 
                    { league =&gt; $league }
                    "league_$stats.$type")

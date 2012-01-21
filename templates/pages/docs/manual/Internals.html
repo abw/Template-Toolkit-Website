@@ -388,8 +388,7 @@
       
       # equivalent Perl
       $stash-&gt;set('foo', $context-&gt;plugin('Bar', [10]));
-    </pre>
-    <pre>
+      
       # TT FILTER block
       <span class="tt">[% FILTER bar(20) %]</span>
          blah blah blah
@@ -409,8 +408,7 @@
       <span class="tt">[% IF msg %]</span>
          Message: <span class="tt">[% msg %]</span>
       <span class="tt">[% END %]</span>;
-    </pre>
-    <pre>
+      
       # equivalent Perl
       if ($stash-&gt;get('msg')) {
           $output .=  'Message: ';
@@ -543,11 +541,9 @@
     </p>
     <pre>
       $ cd Template-Toolkit-2.05c-abw-xyz-hack
-    </pre>
-    <pre>
+      
         [ hacking ]
-    </pre>
-    <pre>
+      
       $ cd ..
     </pre>
     <p>

@@ -317,8 +317,7 @@
       &lt;a href="http://<span class="tt">[% server %]</span>/<span class="tt">[% help %]</span>"&gt;
       &lt;img src="<span class="tt">[% images %]</span>/help.gif"&gt;&lt;/a&gt;
       <span class="tt">[% myorg.name %]</span>
-    </pre>
-    <pre>
+      
       # INTERPOLATE =&gt; 1
       &lt;a href="http://$server/$help"&gt;
       &lt;img src="$images/help.gif"&gt;&lt;/a&gt;
@@ -349,8 +348,7 @@
       <span class="tt">[% INCLUDE foobar %]</span>        # OK
       <span class="tt">[% include foobar %]</span>        # ERROR
       <span class="tt">[% include = 10   %]</span>        # OK, 'include' is a variable
-    </pre>
-    <pre>
+      
       # ANYCASE =&gt; 1
       <span class="tt">[% INCLUDE foobar %]</span>        # OK
       <span class="tt">[% include foobar %]</span>        # OK
@@ -581,7 +579,7 @@
               footer  =&gt; sub { return $some_output_text },
               another =&gt; Template::Document-&gt;new({ ... }),
           },
-      }); 
+      });
     </pre>
     
     [** END -**]
@@ -1566,8 +1564,11 @@
       simple default format if unspecified.
     </p>
     <p>
-      For example, the following template fragment: Hello World
+      For example, the following template fragment:
     </p>
+    <pre>
+      Hello World
+    </pre>
     <p>
       would generate this output:
     </p>
@@ -1657,8 +1658,7 @@
       my $template = Template-&gt;new({
           CACHE_SIZE =&gt; 64,   # only cache 64 compiled templates
       });
-    </pre>
-    <pre>
+      
       my $template = Template-&gt;new({
           CACHE_SIZE =&gt; 0,   # don't cache any compiled templates
       });
@@ -1755,8 +1755,7 @@
           COMPILE_DIR =&gt; '/tmp/ttc',
           COMPILE_EXT =&gt; '.ttc1',
       });
-    </pre>
-    <pre>
+      
       my $template2 = Template-&gt;new({
           COMPILE_DIR =&gt; '/tmp/ttc',
           COMPILE_EXT =&gt; '.ttc2',
@@ -1837,7 +1836,7 @@
               foo =&gt; 'MyOrg::Template::Plugin::Foo',
               bar =&gt; 'MyOrg::Template::Plugin::Bar',
           },  
-      }); 
+      });
     </pre>
     <p>
       The recommended convention is to specify these plugin names in lower
@@ -1895,7 +1894,7 @@
       });
       
       <span class="tt">[% USE Foo %]</span>    # =&gt; MyOrg::Template::Plugin::Foo
-                         or        Template::Plugin::Foo 
+                         or        Template::Plugin::Foo
     </pre>
     <p>
       example 2:
@@ -1912,7 +1911,7 @@
     <pre>
       <span class="tt">[% USE Foo %]</span>    # =&gt;   MyOrg::Template::Plugin::Foo
                          or YourOrg::Template::Plugin::Foo 
-                         or          Template::Plugin::Foo 
+                         or          Template::Plugin::Foo
     </pre>
     <p>
       If you don't want the default <code>Template::Plugin</code> namespace
@@ -1942,7 +1941,7 @@
     </p>
     <pre>
       <span class="tt">[% USE Foo %]</span>    # =&gt;   My::Plugin::Foo
-                         or Your::Plugin::Foo 
+                         or Your::Plugin::Foo
     </pre>
     
     [** END -**]
@@ -2082,7 +2081,7 @@
     <pre>
       <span class="tt">[% FILTER dfilt1(123, 456) %]</span> 
       Blah blah blah
-      <span class="tt">[% END %]</span>              
+      <span class="tt">[% END %]</span>
     </pre>
     <p>
       is approximately equivalent to:

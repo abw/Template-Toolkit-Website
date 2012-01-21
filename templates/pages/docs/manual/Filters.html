@@ -145,7 +145,7 @@
       text will be encoded (via the <code>escape_html()</code> or
       <code>encode_entities()</code> subroutines respectively) to convert all
       extended characters into their appropriate HTML entities (e.g. converting
-      '<code>é</code>' to '<code>&amp;eacute;</code>'). If neither module is
+      '<code>&#xe9;</code>' to '<code>&amp;eacute;</code>'). If neither module is
       available on your system then an '<code>html_entity</code>' exception
       will be thrown reporting an appropriate message.
     </p>
@@ -409,7 +409,7 @@
       We are the more beer wanters!
     </pre>
 [** END -**]
-[** WRAPPER page/section title='remove(string) ' id='section_remove_string_' -**]
+[** WRAPPER page/section title='remove(string)' id='section_remove_string_' -**]
     <p>
       Searches the input text for any occurrences of the specified string and
       removes them. A Perl regular expression may be specified as the search
@@ -425,7 +425,7 @@
       Thecatsatonthemat
     </pre>
 [** END -**]
-[** WRAPPER page/section title='replace(search, replace) ' id='section_replace_search_replace_' -**]
+[** WRAPPER page/section title='replace(search, replace)' id='section_replace_search_replace_' -**]
     <p>
       Similar to the remove filter described above, but taking a second
       parameter which is used as a replacement string for instances of the

@@ -53,7 +53,7 @@
       <span class="tt">[% myview.include('header', title='The Title') %]</span>
       
       # equivalent to
-      <span class="tt">[% INCLUDE header  title='The Title' %]</span> 
+      <span class="tt">[% INCLUDE header  title='The Title' %]</span>
     </pre>
     <p>
       Views accept a number of configuration options which can be used to
@@ -117,7 +117,7 @@
       
       <span class="tt">[% INCLUDE foo %]</span>       # public foo block
       <span class="tt">[% plain.foo %]</span>         # plain foo block 
-      <span class="tt">[% fancy.foo %]</span>         # fancy foo block 
+      <span class="tt">[% fancy.foo %]</span>         # fancy foo block
     </pre>
     <p>
       In addition to <code>BLOCK</code> definitions, a <code>VIEW</code> can
@@ -314,8 +314,7 @@
          <span class="tt">[% plain.foo | replace('plain', 'fancy') %]</span>
          <span class="tt">[% END %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% plain.foo %]</span>     # &lt;plain&gt;public foo block&lt;/plain&gt;
       <span class="tt">[% fancy.foo %]</span>     # &lt;fancy&gt;public foo block&lt;/fancy&gt;
     </pre>

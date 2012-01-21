@@ -4,108 +4,89 @@
 [** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
     <pre>
       # define a view
-      [% VIEW view
+      <span class="tt">[% VIEW view
               # some standard args
               prefix        =&gt; 'my_', 
               suffix        =&gt; '.tt2',
               notfound      =&gt; 'no_such_file'
               ...
-    </pre>
-    <pre>
+      
               # any other data
               title         =&gt; 'My View title'
               other_item    =&gt; 'Joe Random Data'
               ...
-      %]
+      %]</span>
          # add new data definitions, via 'my' self reference
          <span class="tt">[% my.author = "$abw.name &lt;$abw.email&gt;" %]</span>
          <span class="tt">[% my.copy   = "&amp;copy; Copyright 2000 $my.author" %]</span>
-    </pre>
-    <pre>
+      
          # define a local block
          <span class="tt">[% BLOCK header %]</span>
          This is the header block, title: <span class="tt">[% title or my.title %]</span>
          <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       # access data items for view
       <span class="tt">[% view.title %]</span>
       <span class="tt">[% view.other_item %]</span>
-    </pre>
-    <pre>
+      
       # access blocks directly ('include_naked' option, set by default)
       <span class="tt">[% view.header %]</span>
       <span class="tt">[% view.header(title =&gt; 'New Title') %]</span>
-    </pre>
-    <pre>
+      
       # non-local templates have prefix/suffix attached
       <span class="tt">[% view.footer %]</span>           # =&gt; <span class="tt">[% INCLUDE my_footer.tt2 %]</span>
-    </pre>
-    <pre>
+      
       # more verbose form of block access
       <span class="tt">[% view.include( 'header', title =&gt; 'The Header Title' ) %]</span>
       <span class="tt">[% view.include_header( title =&gt; 'The Header Title' ) %]</span>
-    </pre>
-    <pre>
+      
       # very short form of above ('include_naked' option, set by default)
       <span class="tt">[% view.header( title =&gt; 'The Header Title' ) %]</span>
-    </pre>
-    <pre>
+      
       # non-local templates have prefix/suffix attached
       <span class="tt">[% view.footer %]</span>           # =&gt; <span class="tt">[% INCLUDE my_footer.tt2 %]</span>
-    </pre>
-    <pre>
+      
       # fallback on the 'notfound' template ('my_no_such_file.tt2')
       # if template not found 
       <span class="tt">[% view.include('missing') %]</span>
       <span class="tt">[% view.include_missing %]</span>
       <span class="tt">[% view.missing %]</span>
-    </pre>
-    <pre>
+      
       # print() includes a template relevant to argument type
       <span class="tt">[% view.print("some text") %]</span>     # type=TEXT, template='text'
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK my_text.tt2 %]</span>           # 'text' with prefix/suffix
          Text: <span class="tt">[% item %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       # now print() a hash ref, mapped to 'hash' template
       <span class="tt">[% view.print(some_hash_ref) %]</span>   # type=HASH, template='hash'
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK my_hash.tt2 %]</span>           # 'hash' with prefix/suffix
          hash keys: <span class="tt">[% item.keys.sort.join(', ')
       [% END %]</span>
-    </pre>
-    <pre>
+      
       # now print() a list ref, mapped to 'list' template
       <span class="tt">[% view.print(my_list_ref) %]</span>     # type=ARRAY, template='list'
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK my_list.tt2 %]</span>           # 'list' with prefix/suffix
          list: <span class="tt">[% item.join(', ') %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       # print() maps 'My::Object' to 'My_Object'
       <span class="tt">[% view.print(myobj) %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK my_My_Object.tt2 %]</span>
          <span class="tt">[% item.this %]</span>, <span class="tt">[% item.that %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       # update mapping table
       <span class="tt">[% view.map.ARRAY = 'my_list_template' %]</span>
       <span class="tt">[% view.map.TEXT  = 'my_text_block'    %]</span>
-    </pre>
-    <pre>
+      
+      
       # change prefix, suffix, item name, etc.
       <span class="tt">[% view.prefix = 'your_' %]</span>
       <span class="tt">[% view.default = 'anyobj' %]</span>
@@ -146,7 +127,7 @@
       <span class="tt">[% view.view('foo', a =&gt; 20) %]</span>     # =&gt; foo.tt2
     </pre>
     </li>
-    <li id="item_map"><b>map </b>
+    <li id="item_map"><b>map</b>
     <p>
       Hash array mapping reference types to template names. The print() method
       uses this to determine which template to use to present any particular
@@ -157,29 +138,24 @@
       <span class="tt">[% USE view(map =&gt; { ARRAY   =&gt; 'my_list', 
                            HASH    =&gt; 'your_hash',
                            My::Foo =&gt; 'my_foo', } ) %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% view.print(some_text) %]</span>         # =&gt; text
       <span class="tt">[% view.print(a_list) %]</span>            # =&gt; my_list
       <span class="tt">[% view.print(a_hash) %]</span>            # =&gt; your_hash
       <span class="tt">[% view.print(a_foo) %]</span>             # =&gt; my_foo
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK text %]</span>
          Text: <span class="tt">[% item %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK my_list %]</span>
          list: <span class="tt">[% item.join(', ') %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK your_hash %]</span>
          hash keys: <span class="tt">[% item.keys.sort.join(', ')
       [% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK my_foo %]</span> 
          Foo: <span class="tt">[% item.this %]</span>, <span class="tt">[% item.that %]</span>
       <span class="tt">[% END %]</span>
@@ -195,14 +171,12 @@
     </p>
     <pre>
       package Foo;
-    </pre>
-    <pre>
+      
       sub present {
           my ($self, $view) = @_;
           return "a regular view of a Foo\n";
       }
-    </pre>
-    <pre>
+      
       sub debug {
           my ($self, $view) = @_;
           return "a debug view of a Foo\n";
@@ -214,8 +188,7 @@
     <pre>
       <span class="tt">[% USE view %]</span>
       <span class="tt">[% view.print(my_foo_object) %]</span>     # a regular view of a Foo
-    </pre>
-    <pre>
+      
       <span class="tt">[% USE view(method =&gt; 'debug') %]</span>
       <span class="tt">[% view.print(my_foo_object) %]</span>     # a debug view of a Foo
     </pre>
@@ -226,8 +199,7 @@
     </p>
     <pre>
       <span class="tt">[% USE view(default =&gt; 'my_object') %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% view.print(objref) %]</span>            # =&gt; my_object
     </pre>
     <p>
@@ -260,8 +232,7 @@
          <span class="tt">[% item.join(', ') %]</span> 
       <span class="tt">[% END %]</span>
       <span class="tt">[% view.print(a_list) %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% USE view(item =&gt; 'thing') %]</span>
       <span class="tt">[% BLOCK list %]</span> 
          <span class="tt">[% thing.join(', ') %]</span> 
@@ -277,8 +248,7 @@
     <pre>
       <span class="tt">[% USE view %]</span>
       <span class="tt">[% view.view_header() %]</span>                    # =&gt; view('header')
-    </pre>
-    <pre>
+      
       <span class="tt">[% USE view(view_prefix =&gt; 'show_me_the_' %]</span>
       <span class="tt">[% view.show_me_the_header() %]</span>             # =&gt; view('header')
     </pre>
@@ -290,8 +260,7 @@
     </p>
     <pre>
       <span class="tt">[% USE view(view_naked =&gt; 1) %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% view.header() %]</span>                 # =&gt; view('header')
     </pre>
     </li>

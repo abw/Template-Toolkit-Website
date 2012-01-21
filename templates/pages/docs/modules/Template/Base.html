@@ -40,8 +40,7 @@
     <pre>
       my $module = My::Module-&gt;new({ ... })
           || die My::Module-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       my $module = My::Module-&gt;new({ ... })
           || die "constructor error: $My::Module::ERROR\n";
     </pre>
@@ -56,8 +55,7 @@
     <pre>
       my $module = My::Module-&gt;new({ ... })
           || die My::Module-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       $module-&gt;do_something() 
           || die $module-&gt;error(), "\n";
     </pre>

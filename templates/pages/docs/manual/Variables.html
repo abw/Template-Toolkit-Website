@@ -240,8 +240,7 @@
            price = 666
          }
       %]</span>
-    </pre>
-    <pre>
+      
       # perl style
       <span class="tt">[% product = {
            id    =&gt; 'XYZ-2000',
@@ -334,7 +333,7 @@
     <pre>
       my $vars = {
           wizard  =&gt; sub { return join(' ', 'Abracadabra!', @_) },
-      };  
+      };
     </pre>
     <p>
       Example template:
@@ -614,7 +613,7 @@
       necessary.
     </p>
     <pre>
-      <span class="tt">[% users.${me.id}.name %]</span>    
+      <span class="tt">[% users.${me.id}.name %]</span>
     </pre>
     <p>
       Directives such as <code>INCLUDE</code>, <code>PROCESS</code>, etc., that
@@ -993,8 +992,7 @@
       Be not afeard; the isle is full of noises,
       Sounds and sweet airs, that give delight and hurt not.
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% BLOCK box %]</span>
       &lt;blockquote class="prose"&gt;
         <span class="tt">[% content %]</span>

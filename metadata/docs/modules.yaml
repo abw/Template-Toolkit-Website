@@ -28,7 +28,6 @@ Template::Namespace::Constants: /docs/modules/Template/Namespace/Constants.html
 Template::Parser: /docs/modules/Template/Parser.html
 Template::Plugin: /docs/modules/Template/Plugin.html
 Template::Plugin::Assert: /docs/modules/Template/Plugin/Assert.html
-Template::Plugin::Autoformat: /docs/modules/Template/Plugin/Autoformat.html
 Template::Plugin::CGI: /docs/modules/Template/Plugin/CGI.html
 Template::Plugin::Datafile: /docs/modules/Template/Plugin/Datafile.html
 Template::Plugin::Date: /docs/modules/Template/Plugin/Date.html

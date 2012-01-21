@@ -54,8 +54,7 @@
           STATUS_DONE           # iterator is all done (ok)
           STATUS_DECLINED       # provider declined to service request (ok)
           STATUS_ERROR          # general error condition (not ok)
-    </pre>
-    <pre>
+      
       :error
           ERROR_RETURN          # return a status code (e.g. 'stop')
           ERROR_FILE            # file error: I/O, parse, recursion
@@ -63,16 +62,14 @@
           ERROR_PERL            # error in <span class="tt">[% PERL %]</span> block
           ERROR_FILTER          # filter error
           ERROR_PLUGIN          # plugin error
-    </pre>
-    <pre>
+      
       :chomp                  # for PRE_CHOMP and POST_CHOMP
           CHOMP_NONE            # do not remove whitespace
           CHOMP_ONE             # remove whitespace to newline
           CHOMP_ALL             # old name for CHOMP_ONE (deprecated)
           CHOMP_COLLAPSE        # collapse whitespace to a single space
           CHOMP_GREEDY          # remove all whitespace including newlines
-    </pre>
-    <pre>
+      
       :debug
           DEBUG_OFF             # do nothing
           DEBUG_ON              # basic debugging flag
@@ -89,8 +86,7 @@
           DEBUG_ALL             # everything
           DEBUG_CALLER          # add caller file/line info
           DEBUG_FLAGS           # bitmap used internally
-    </pre>
-    <pre>
+      
       :all
           All the above constants.
     </pre>

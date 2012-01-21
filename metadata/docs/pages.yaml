@@ -226,21 +226,13 @@
 /docs/modules/Template/Plugin/Assert.html:
   about: trap undefined values
   name: Assert.pm
-  next: /docs/modules/Template/Plugin/Autoformat.html
+  next: /docs/modules/Template/Plugin/CGI.html
   title: Template::Plugin::Assert
   up: /docs/modules/Template/Plugin/index.html
   uri: /docs/modules/Template/Plugin/Assert.html
-/docs/modules/Template/Plugin/Autoformat.html:
-  about: Interface to Text::Autoformat module
-  back: /docs/modules/Template/Plugin/Assert.html
-  name: Autoformat.pm
-  next: /docs/modules/Template/Plugin/CGI.html
-  title: Template::Plugin::Autoformat
-  up: /docs/modules/Template/Plugin/index.html
-  uri: /docs/modules/Template/Plugin/Autoformat.html
 /docs/modules/Template/Plugin/CGI.html:
   about: Interface to the CGI module
-  back: /docs/modules/Template/Plugin/Autoformat.html
+  back: /docs/modules/Template/Plugin/Assert.html
   name: CGI.pm
   next: /docs/modules/Template/Plugin/Datafile.html
   title: Template::Plugin::CGI

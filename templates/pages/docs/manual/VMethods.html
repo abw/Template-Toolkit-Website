@@ -84,8 +84,7 @@
     </p>
     <pre>
       <span class="tt">[% "We're not worthy!" IF name.match('Larry Wall') %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% IF (matches = name.match('(\w+) (\w+)')) %]</span>
          pattern matches: <span class="tt">[% matches.join(', ') %]</span>
       <span class="tt">[% ELSE %]</span>
@@ -221,7 +220,7 @@
     </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='hash ' id='section_hash_' class='' -**]
+    [** WRAPPER page/subsection title='hash' id='section_hash' class='' -**]
     <p>
       Return the value as a hash reference containing a single entry with the
       key <code>value</code> indicating the original scalar value. As with the
@@ -320,7 +319,7 @@
     </p>
     
     [** END -**]
-    [** WRAPPER page/subsection title='pairs ' id='section_pairs_' class='' -**]
+    [** WRAPPER page/subsection title='pairs' id='section_pairs' class='' -**]
     <p>
       This method returns a list of key/value pairs. They are returned in
       sorted order according to the keys.
@@ -420,7 +419,7 @@
     </p>
     
     [** END -**]
-    [** WRAPPER page/subsection title='delete ' id='section_delete_' class='' -**]
+    [** WRAPPER page/subsection title='delete' id='section_delete' class='' -**]
     <p>
       Delete one or more items from the hash.
     </p>
@@ -544,6 +543,16 @@
       with an <code>author</code> key or objects with an <code>author</code>
       method.
     </p>
+    <p>
+      You can also specify multiple sort keys.
+    </p>
+    <pre>
+      <span class="tt">[% library = books.sort('author', 'title') %]</span>
+    </pre>
+    <p>
+      In this case the books will be sorted primarily by author. If two or more
+      books have authors with the same name then they will be sorted by title.
+    </p>
     
     [** END -**]
     [** WRAPPER page/subsection title='unshift(item), push(item)' id='method_unshift_item_push' class='method' -**]
@@ -553,9 +562,11 @@
     <pre>
       <span class="tt">[% mylist.push(foo) %]</span>
       <span class="tt">[% mylist.push(foo, bar) %]</span>
-      
-      The C&lt;unshift()&gt; method adds an item or items to the start of a list.
     </pre>
+    <p>
+      The <code>unshift()</code> method adds an item or items to the start of a
+      list.
+    </p>
     <pre>
       <span class="tt">[% mylist.unshift(foo) %]</span>
       <span class="tt">[% mylist.push(foo, bar)    %]</span>
@@ -684,7 +695,7 @@
     </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='hash ' id='section_hash_' class='' -**]
+    [** WRAPPER page/subsection title='hash' id='section_hash' class='' -**]
     <p>
       Returns a reference to a hash array comprised of the elements in the
       list. The even-numbered elements (0, 2, 4, etc) become the keys and the

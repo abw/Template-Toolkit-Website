@@ -35,9 +35,19 @@
     [** END -**]
     [** WRAPPER page/subsection title='If I\'m using TT to write out a TT template, is there a good way to escape [% and %]?' id='section_If_I_m_using_TT_to_write_out_a_TT_template_is_there_a_good_way_to_escape_and_' class='' -**]
     <p>
-      You can do something like this: [% stag = "[\%" etag = "%\]" %] and then:
-      [% stag; 'hello'; etag %]
+      You can do something like this:
     </p>
+    <pre>
+      <span class="tt">[% stag = "[\%"
+         etag = "%\]"
+      %]</span>
+    </pre>
+    <p>
+      and then:
+    </p>
+    <pre>
+      <span class="tt">[% stag; 'hello'; etag %]</span>
+    </pre>
     <p>
       Or you can use the <code>TAGS</code> directive, like so:
     </p>
@@ -99,7 +109,7 @@
     </p>
     <pre>
       Does anyone have a quick-n-dirty approach to accessing 
-      cookies from templates? 
+      cookies from templates?
     </pre>
     <p>
       Jonas Liljegren answers:
@@ -303,26 +313,23 @@
       config/style/basic:
     </p>
     <pre>
-      [%  style = {
+      <span class="tt">[%  style = {
               name = style    # save existing 'style' var as 'style.name'
-    </pre>
-    <pre>
+      
               # define various other style variables....
               col = {
                   back =&gt; '#ffffff'
                   text =&gt; '#000000'
                       # ...etc...
               }
-    </pre>
-    <pre>
+      
               logo = {
                       # ...etc...
               }
-    </pre>
-    <pre>
+      
               # ...etc...
           }
-      %]
+      %]</span>
     </pre>
     <p>
       Each source template can declare which section it's in via a META
@@ -360,7 +367,8 @@
     [** WRAPPER page/subsection title='Why do I get rubbish for my utf-8 templates?' id='section_Why_do_I_get_rubbish_for_my_utf_8_templates_' class='' -**]
     <p>
       First of all, make sure that your template files define a Byte Order Mark
-      (<a href="http://en.wikipedia.org/wiki/Byte_Order_Mark">BOM</a>).
+      <a
+      href="http://en.wikipedia.org/wiki/Byte_Order_Mark">http://en.wikipedia.org/wiki/Byte_Order_Mark</a>
     </p>
     <p>
       If you for some reason don't want to add BOM to your templates, you can

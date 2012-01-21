@@ -53,7 +53,6 @@
 /docs/modules/Template/Plugin/:
   menu:
     - /docs/modules/Template/Plugin/Assert.html
-    - /docs/modules/Template/Plugin/Autoformat.html
     - /docs/modules/Template/Plugin/CGI.html
     - /docs/modules/Template/Plugin/Datafile.html
     - /docs/modules/Template/Plugin/Date.html

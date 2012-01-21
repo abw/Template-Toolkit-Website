@@ -17,7 +17,7 @@
     </p>
 [** END -**]
 [** WRAPPER page/section title='METHODS' id='section_METHODS' -**]
-    [** WRAPPER page/subsection title='new(\%params) ' id='method_new' class='method' -**]
+    [** WRAPPER page/subsection title='new(\%params)' id='method_new' class='method' -**]
     <p>
       Constructor method which instantiates and returns a reference to a
       <code>Template::Plugins</code> object. A reference to a hash array of
@@ -106,7 +106,7 @@
               foo =&gt; 'MyOrg::Template::Plugin::Foo',
               bar =&gt; 'MyOrg::Template::Plugin::Bar',
           },  
-      }); 
+      });
     </pre>
     
     [** END -**]
@@ -123,8 +123,7 @@
       my $plugins = Template::Plugins-&gt;new({
           PLUGIN_BASE =&gt; 'MyOrg::Template::Plugin',
       });
-    </pre>
-    <pre>
+      
       # multiple value PLUGIN_BASE
       my $plugins = Template::Plugins-&gt;new({
           PLUGIN_BASE =&gt; [   'MyOrg::Template::Plugin',

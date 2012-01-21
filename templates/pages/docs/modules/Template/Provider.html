@@ -36,7 +36,7 @@
     </p>
 [** END -**]
 [** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
-    [** WRAPPER page/subsection title='new(\%options) ' id='method_new' class='method' -**]
+    [** WRAPPER page/subsection title='new(\%options)' id='method_new' class='method' -**]
     <p>
       Constructor method which instantiates and returns a new
       <code>Template::Provider</code> object. A reference to a hash array of
@@ -117,8 +117,7 @@
       my $provider = Template::Provider-&gt;new({
           INCLUDE_PATH =&gt; '/usr/local/templates',
       });
-    </pre>
-    <pre>
+      
       # multiple paths
       my $provider = Template::Provider-&gt;new({
           INCLUDE_PATH =&gt; [ '/usr/local/templates', 

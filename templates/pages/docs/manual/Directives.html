@@ -81,9 +81,11 @@
       <span class="tt">[% SET title = 'Hello World' %]</span>
     </pre>
     <p>
-      The <code>SET</code> keyword is also optional. [% title = 'Hello World'
-      %]
+      The <code>SET</code> keyword is also optional.
     </p>
+    <pre>
+      <span class="tt">[% title = 'Hello World' %]</span>
+    </pre>
     <p>
       Variables may be assigned the values of other variables, unquoted numbers
       (2.718), literal text ('single quotes') or quoted text ("double quotes").
@@ -861,7 +863,7 @@
     <pre>
          * dick : Richard
          * larry : Lawrence
-         * tom : Thomas      
+         * tom : Thomas
     </pre>
     <p>
       The <code>NEXT</code> directive starts the next iteration in the
@@ -1137,8 +1139,7 @@
     <pre>
       Is there anybody out there?
       Is there anybody out there?
-    </pre>
-    <pre>
+      
       Mother, should I build a wall?
       Mother, should I build a wall?
     </pre>
@@ -1479,7 +1480,7 @@
       local to the macro.
     </p>
     <pre>
-      <span class="tt">[% header(title='Hello World') %]</span>  
+      <span class="tt">[% header(title='Hello World') %]</span>
     </pre>
     <p>
       equivalent to:
@@ -1978,7 +1979,7 @@
          This doesn't
       <span class="tt">[% CATCH food %]</span>
          culinary delights: <span class="tt">[% error.info %]</span>
-      <span class="tt">[% END %]</span>    
+      <span class="tt">[% END %]</span>
     </pre>
     <p>
       generates the following output:
@@ -2000,7 +2001,7 @@
       <span class="tt">[% CATCH food %]</span>
          <span class="tt">[% CLEAR %]</span>
          culinary delights: <span class="tt">[% error.info %]</span>
-      <span class="tt">[% END %]</span>    
+      <span class="tt">[% END %]</span>
     </pre>
     <p>
       Output:

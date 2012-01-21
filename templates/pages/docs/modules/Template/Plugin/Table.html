@@ -217,8 +217,7 @@
       
       # query() returns an iterator
       <span class="tt">[% results = DBI.query('SELECT * FROM alphabet ORDER BY letter') %]</span>
-    </pre>
-    <pre>
+      
       # pass into Table plugin
       <span class="tt">[% USE table(results, rows=8 overlap=1 pad=0) -%]</span>
       

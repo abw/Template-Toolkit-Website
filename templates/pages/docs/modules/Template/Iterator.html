@@ -16,7 +16,7 @@
     </p>
 [** END -**]
 [** WRAPPER page/section title='PUBLIC METHODS' id='section_PUBLIC_METHODS' -**]
-    [** WRAPPER page/subsection title='new($data) ' id='method_new' class='method' -**]
+    [** WRAPPER page/subsection title='new($data)' id='method_new' class='method' -**]
     <p>
       Constructor method. A reference to a list of values is passed as the
       first parameter. Subsequent calls to <a
@@ -89,8 +89,7 @@
           my $class = shift;
           bless [ @_ ], $class;
       }
-    </pre>
-    <pre>
+      
       package main;
       
       my $list = MyListObject-&gt;new('foo', 'bar');

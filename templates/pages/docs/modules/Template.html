@@ -1,7 +1,7 @@
 [% TAGS [** **] %]
 
 <div class="pod">
-[** WRAPPER page/section title='SYNOPSIS ' id='section_SYNOPSIS_' -**]
+[** WRAPPER page/section title='SYNOPSIS' id='section_SYNOPSIS' -**]
     <pre>
       use Template;
       
@@ -70,8 +70,7 @@
     <pre>
       my $tt = Template-&gt;new(\%config)
           || die Template-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       my $tt = Template-&gt;new(\%config)
           || die $Template::ERROR, "\n";
     </pre>
@@ -101,14 +100,12 @@
       # filename
       $tt-&gt;process('welcome.tt2')
           || die $tt-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       # text reference
       $text = "<span class="tt">[% INCLUDE header %]</span>\nHello world!\n<span class="tt">[% INCLUDE footer %]</span>";
       $tt-&gt;process(\$text)
           || die $tt-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       # file handle (GLOB)
       $tt-&gt;process(\*DATA)
           || die $tt-&gt;error(), "\n";
@@ -141,8 +138,7 @@
       # output filename
       $tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
           || die $tt-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       # reference to output subroutine
       sub myout {
           my $output = shift;
@@ -150,8 +146,7 @@
       }
       $tt-&gt;process('welcome.tt2', $vars, \&amp;myout)
           || die $tt-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       # reference to output text string
       my $output = '';
       $tt-&gt;process('welcome.tt2', $vars, \$output)
@@ -239,8 +234,7 @@
     <pre>
       my $tt = Template-&gt;new()
           || die Template-&gt;error(), "\n";
-    </pre>
-    <pre>
+      
       my $tt = Template-&gt;new()
           || die $Template::ERROR, "\n";
     </pre>
@@ -702,8 +696,7 @@
       <span class="tt">[% ELSE %]</span>
        content
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% UNLESS condition %]</span>
          content
       <span class="tt">[% # ELSIF/ELSE as per IF, above %]</span>
@@ -782,8 +775,7 @@
        print "set 'foo' to ", $stash-&gt;get('foo'), "\n";
        print $context-&gt;include('footer', { var =&gt; $val });
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% RAWPERL %]</span>
          # raw perl code goes here, no magic but fast.
          $output .= 'some output';
@@ -866,14 +858,20 @@
       <span class="tt">[% # this is a comment to the end of line
          foo = 'bar'
       %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[%# placing the '#' immediately inside the directive
           tag comments out the entire directive
       %]</span>
     </pre>
     
     [** END -**]
+[** END -**]
+[** WRAPPER page/section title='SOURCE CODE REPOSITORY' id='section_SOURCE_CODE_REPOSITORY' -**]
+    <p>
+      The source code for the Template Toolkit is held in a public git
+      repository on Github: <a
+      href="https://github.com/abw/Template2">https://github.com/abw/Template2</a>
+    </p>
 [** END -**]
 [** WRAPPER page/section title='AUTHOR' id='section_AUTHOR' -**]
     <p>
@@ -883,12 +881,12 @@
 [** END -**]
 [** WRAPPER page/section title='VERSION' id='section_VERSION' -**]
     <p>
-      Template Toolkit version 2.20_1, released April 2009.
+      Template Toolkit version 2.23, released January 2012.
     </p>
 [** END -**]
 [** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
     <p>
-      Copyright (C) 1996-2009 Andy Wardley. All Rights Reserved.
+      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
     </p>
     <p>
       This module is free software; you can redistribute it and/or modify it

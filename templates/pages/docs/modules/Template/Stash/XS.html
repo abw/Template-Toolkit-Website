@@ -5,8 +5,7 @@
     <pre>
       use Template;
       use Template::Stash::XS;
-    </pre>
-    <pre>
+      
       my $stash = Template::Stash::XS-&gt;new(\%vars);
       my $tt2   = Template-&gt;new({ STASH =&gt; $stash });
     </pre>
@@ -40,8 +39,7 @@
     <pre>
       use Template;
       use Template::Stash::XS;
-    </pre>
-    <pre>
+      
       my $stash = Template::Stash::XS-&gt;new(\%vars);
       my $tt2   = Template-&gt;new({ STASH =&gt; $stash });
     </pre>
@@ -52,11 +50,9 @@
     <pre>
       use Template;
       use Template::Config;
-    </pre>
-    <pre>
+      
       $Template::Config::STASH = 'Template::Stash::XS';
-    </pre>
-    <pre>
+      
       my $tt2 = Template-&gt;new();
     </pre>
     <p>
@@ -88,7 +84,7 @@
 [** END -**]
 [** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
     <p>
-      Copyright (C) 1996-2009 Andy Wardley. All Rights Reserved.
+      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
     </p>
     <p>
       This module is free software; you can redistribute it and/or modify it

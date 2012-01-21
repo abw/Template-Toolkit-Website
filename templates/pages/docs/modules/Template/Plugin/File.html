@@ -243,8 +243,7 @@
       <span class="tt">[% file.atime %]</span>      # 987654321
       <span class="tt">[% file.uid   %]</span>      # 500
       <span class="tt">[% file.user  %]</span>      # abw
-    </pre>
-    <pre>
+      
       <span class="tt">[% USE file('foo.html') %]</span>
       
       <span class="tt">[% file.path %]</span>           # foo.html
@@ -253,8 +252,7 @@
       <span class="tt">[% file.root %]</span>       # ''
       <span class="tt">[% file.home %]</span>       # ''
       <span class="tt">[% file.abs  %]</span>       # foo.html
-    </pre>
-    <pre>
+      
       <span class="tt">[% USE file('foo/bar/baz.html') %]</span>
       
       <span class="tt">[% file.path %]</span>           # foo/bar/baz.html
@@ -263,8 +261,7 @@
       <span class="tt">[% file.root %]</span>       # ''
       <span class="tt">[% file.home %]</span>       # ../..
       <span class="tt">[% file.abs  %]</span>       # foo/bar/baz.html
-    </pre>
-    <pre>
+      
       <span class="tt">[% USE file('foo/bar/baz.html', root='/tmp') %]</span>
       
       <span class="tt">[% file.path %]</span>           # foo/bar/baz.html
@@ -273,8 +270,7 @@
       <span class="tt">[% file.root %]</span>       # /tmp
       <span class="tt">[% file.home %]</span>       # ../..
       <span class="tt">[% file.abs  %]</span>       # /tmp/foo/bar/baz.html
-    </pre>
-    <pre>
+      
       # calculate other file paths relative to this file and its root
       <span class="tt">[% USE file('foo/bar/baz.html', root =&gt; '/tmp/tt2') %]</span>
       

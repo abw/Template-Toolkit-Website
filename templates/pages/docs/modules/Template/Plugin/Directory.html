@@ -65,14 +65,12 @@
       <span class="tt">[% FOREACH file IN dir.files %]</span>
          <span class="tt">[% file.name %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       # directories only
       <span class="tt">[% FOREACH file IN dir.dirs %]</span>
          <span class="tt">[% file.name %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       # files and/or directories
       <span class="tt">[% FOREACH file IN dir.list %]</span>
          <span class="tt">[% file.name %]</span> (<span class="tt">[% file.isdir ? 'directory' : 'file' %]</span>)

@@ -7,29 +7,24 @@
       <span class="tt">[% USE String %]</span>
       <span class="tt">[% USE String 'initial text' %]</span>
       <span class="tt">[% USE String text =&gt; 'initial text' %]</span>
-    </pre>
-    <pre>
+      
       # or from an existing String via new()
       <span class="tt">[% newstring = String.new %]</span>
       <span class="tt">[% newstring = String.new('newstring text') %]</span>
       <span class="tt">[% newstring = String.new( text =&gt; 'newstring text' ) %]</span>
-    </pre>
-    <pre>
+      
       # or from an existing String via copy()
       <span class="tt">[% newstring = String.copy %]</span>
-    </pre>
-    <pre>
+      
       # append text to string
       <span class="tt">[% String.append('text to append') %]</span>
-    </pre>
-    <pre>
+      
       # format left, right or center/centre padded
       <span class="tt">[% String.left(20) %]</span>
       <span class="tt">[% String.right(20) %]</span>
       <span class="tt">[% String.center(20) %]</span>   # American spelling
       <span class="tt">[% String.centre(20) %]</span>   # European spelling
-    </pre>
-    <pre>
+      
       # and various other methods...
     </pre>
 [** END -**]
@@ -211,8 +206,7 @@
       <span class="tt">[% FOREACH item.split %]</span>
            ...
       <span class="tt">[% END %]</span>
-    </pre>
-    <pre>
+      
       <span class="tt">[% FOREACH item.split('baz|waz') %]</span>
            ...
       <span class="tt">[% END %]</span>
