@@ -6,7 +6,7 @@
     site = {
         name      = 'template-toolkit.org'
         title     = "The Template Toolkit Web Site"
-        copyright = '1995-2011 Andy Wardley' 
+        copyright = '1995-2012 Andy Wardley' 
         server    = 'http://template-toolkit.org'
         keywords  = 'Template Toolkit, Perl, template, web, html'
         schemes   = ['blue' 'orange' 'green' 'purple' 'grey']
@@ -28,9 +28,9 @@
     };
     
     tt2.version = {
-        stable    = '2.21'
-        developer = '2.21_02'
-        docs      = '2.21'
+        stable    = '2.23'
+#       developer = '2.23'
+        docs      = '2.23'
     };
 
     # metadata should be defined by Metadata plugin

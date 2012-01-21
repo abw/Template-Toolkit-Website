@@ -168,7 +168,7 @@
                     <pre><span class="tt">[% myview.include('header', title='The Title') %]</span>
 
 # equivalent to
-<span class="tt">[% INCLUDE header  title='The Title' %]</span> </pre>
+<span class="tt">[% INCLUDE header  title='The Title' %]</span></pre>
                     <p>
                       Views accept a number of configuration options which can be used to
                       control different aspects of their behaviour. The '<code>prefix</code>'
@@ -230,7 +230,7 @@
 
 <span class="tt">[% INCLUDE foo %]</span>       # public foo block
 <span class="tt">[% plain.foo %]</span>         # plain foo block 
-<span class="tt">[% fancy.foo %]</span>         # fancy foo block </pre>
+<span class="tt">[% fancy.foo %]</span>         # fancy foo block</pre>
                     <p>
                       In addition to <code>BLOCK</code> definitions, a <code>VIEW</code> can
                       contain any other template directives. The entire <code>VIEW</code>
@@ -409,8 +409,9 @@
    <span class="tt">[% BLOCK foo %]</span>
    <span class="tt">[% plain.foo | replace('plain', 'fancy') %]</span>
    <span class="tt">[% END %]</span>
-<span class="tt">[% END %]</span></pre>
-                        <pre><span class="tt">[% plain.foo %]</span>     # &lt;plain&gt;public foo block&lt;/plain&gt;
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% plain.foo %]</span>     # &lt;plain&gt;public foo block&lt;/plain&gt;
 <span class="tt">[% fancy.foo %]</span>     # &lt;fancy&gt;public foo block&lt;/fancy&gt;</pre>
                         <p>
                           Note that the regular <code>INCLUDE/PROCESS/WRAPPER</code> directives
@@ -762,7 +763,7 @@ sub present {
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Views.html last modified 08:22:21 20-Dec-2011
+            http://template-toolkit.org/docs/manual/Views.html last modified 08:21:51 21-Jan-2012
           </div>
         </div>
         

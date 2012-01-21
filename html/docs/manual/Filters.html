@@ -108,8 +108,8 @@
                   <li class=""><a href="#section_indent_pad_">indent(pad)</a></li>
                   <li class=""><a href="#section_truncate_length_dots_">truncate(length,dots)</a></li>
                   <li class=""><a href="#section_repeat_iterations_">repeat(iterations)</a></li>
-                  <li class=""><a href="#section_remove_string_">remove(string) </a></li>
-                  <li class=""><a href="#section_replace_search_replace_">replace(search, replace) </a></li>
+                  <li class=""><a href="#section_remove_string_">remove(string)</a></li>
+                  <li class=""><a href="#section_replace_search_replace_">replace(search, replace)</a></li>
                   <li class=""><a href="#section_redirect_file_options_">redirect(file, options)</a></li>
                   <li class=""><a href="#section_eval_evaltt">eval / evaltt</a></li>
                   <li class=""><a href="#section_perl_evalperl">perl / evalperl</a></li>
@@ -307,7 +307,7 @@ Binary "&lt;=&gt;" returns -1, 0, or 1 depending on...
                       text will be encoded (via the <code>escape_html()</code> or
                       <code>encode_entities()</code> subroutines respectively) to convert all
                       extended characters into their appropriate HTML entities (e.g. converting
-                      '<code>é</code>' to '<code>&amp;eacute;</code>'). If neither module is
+                      '<code>&#xe9;</code>' to '<code>&amp;eacute;</code>'). If neither module is
                       available on your system then an '<code>html_entity</code>' exception
                       will be thrown reporting an appropriate message.
                     </p>
@@ -598,7 +598,7 @@ We are the more beer wanters!</pre>
             </div>
             <div class="section">
               <div class="head">
-                <h1 id="section_remove_string_" onclick="switch_section(this)" title="Click title to show/hide section content.">remove(string) </h1>
+                <h1 id="section_remove_string_" onclick="switch_section(this)" title="Click title to show/hide section content.">remove(string)</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
@@ -618,7 +618,7 @@ We are the more beer wanters!</pre>
             </div>
             <div class="section">
               <div class="head">
-                <h1 id="section_replace_search_replace_" onclick="switch_section(this)" title="Click title to show/hide section content.">replace(search, replace) </h1>
+                <h1 id="section_replace_search_replace_" onclick="switch_section(this)" title="Click title to show/hide section content.">replace(search, replace)</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
@@ -830,7 +830,7 @@ $template-&gt;process($file, $vars);</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Filters.html last modified 08:22:21 20-Dec-2011
+            http://template-toolkit.org/docs/manual/Filters.html last modified 08:21:51 21-Jan-2012
           </div>
         </div>
         

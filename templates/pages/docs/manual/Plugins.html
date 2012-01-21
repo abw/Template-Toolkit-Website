@@ -39,32 +39,6 @@
     </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='Autoformat' id='section_Autoformat' class='' -**]
-    <p>
-      The <a href="[** ttmodlink('Template::Plugin::Autoformat')
-      **]">Template::Plugin::Autoformat</a> plugin is an interface to Damian
-      Conway's <a href="[** cpanmod('Text::Autoformat')
-      **]">Text::Autoformat</a> Perl module which provides advanced text
-      wrapping and formatting. See <a href="[**
-      ttmodlink('Template::Plugin::Autoformat')
-      **]">Template::Plugin::Autoformat</a> and <a href="[**
-      cpanmod('Text::Autoformat') **]">Text::Autoformat</a> for further
-      details.
-    </p>
-    <pre>
-      <span class="tt">[% USE autoformat(left=10, right=20) %]</span>
-      <span class="tt">[% autoformat(mytext) %]</span>	    # call autoformat sub
-      <span class="tt">[% mytext FILTER autoformat %]</span>  # or use autoformat filter
-    </pre>
-    <p>
-      The <a href="[** cpanmod('Text::Autoformat') **]">Text::Autoformat</a>
-      module is available from CPAN:
-    </p>
-    <pre>
-      L&lt;http://www.cpan.org/modules/by-module/Text/&gt;
-    </pre>
-    
-    [** END -**]
     [** WRAPPER page/subsection title='CGI' id='section_CGI' class='' -**]
     <p>
       The <a href="[** ttmodlink('Template::Plugin::CGI') **]">CGI</a> plugin

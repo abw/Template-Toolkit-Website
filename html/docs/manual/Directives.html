@@ -221,9 +221,9 @@
                         </p>
                         <pre><span class="tt">[% SET title = 'Hello World' %]</span></pre>
                         <p>
-                          The <code>SET</code> keyword is also optional. [% title = 'Hello World'
-                          %]
+                          The <code>SET</code> keyword is also optional.
                         </p>
+                        <pre><span class="tt">[% title = 'Hello World' %]</span></pre>
                         <p>
                           Variables may be assigned the values of other variables, unquoted numbers
                           (2.718), literal text ('single quotes') or quoted text ("double quotes").
@@ -973,7 +973,7 @@ Stuff:
                         </p>
                         <pre>* dick : Richard
 * larry : Lawrence
-* tom : Thomas      </pre>
+* tom : Thomas</pre>
                         <p>
                           The <code>NEXT</code> directive starts the next iteration in the
                           <code>FOREACH</code> loop.
@@ -1218,8 +1218,9 @@ Mother, should I build a wall?
                           Output:
                         </p>
                         <pre>Is there anybody out there?
-Is there anybody out there?</pre>
-                        <pre>Mother, should I build a wall?
+Is there anybody out there?
+
+Mother, should I build a wall?
 Mother, should I build a wall?</pre>
                         <p>
                           The <code>FILTER</code> directive automatically quotes the name of the
@@ -1506,7 +1507,7 @@ sub my_filter_sub {
                           Macros can be passed named parameters when called. These values remain
                           local to the macro.
                         </p>
-                        <pre><span class="tt">[% header(title='Hello World') %]</span>  </pre>
+                        <pre><span class="tt">[% header(title='Hello World') %]</span></pre>
                         <p>
                           equivalent to:
                         </p>
@@ -1961,7 +1962,7 @@ A database error has occurred: <span class="tt">[% error.info %]</span></pre>
    This doesn't
 <span class="tt">[% CATCH food %]</span>
    culinary delights: <span class="tt">[% error.info %]</span>
-<span class="tt">[% END %]</span>    </pre>
+<span class="tt">[% END %]</span></pre>
                         <p>
                           generates the following output:
                         </p>
@@ -1979,7 +1980,7 @@ culinary delights: carrots</pre>
 <span class="tt">[% CATCH food %]</span>
    <span class="tt">[% CLEAR %]</span>
    culinary delights: <span class="tt">[% error.info %]</span>
-<span class="tt">[% END %]</span>    </pre>
+<span class="tt">[% END %]</span></pre>
                         <p>
                           Output:
                         </p>
@@ -2418,7 +2419,7 @@ directive debugging is off</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Directives.html last modified 08:22:21 20-Dec-2011
+            http://template-toolkit.org/docs/manual/Directives.html last modified 08:21:51 21-Jan-2012
           </div>
         </div>
         

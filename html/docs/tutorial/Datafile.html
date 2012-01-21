@@ -36,7 +36,7 @@
           <div class="pager">
             <a href="../../docs/tutorial/Web.html" title="Template::Tutorial::Web" class="go back">Back<span class="about"><strong>Template::Tutorial::Web</strong>Generating Web Content Using the Template Toolkit</span></a>
             <a href="../../docs/tutorial/index.html" title="Template::Tutorial" class="go up">Up<span class="about"><strong>Template::Tutorial</strong>Template Toolkit Tutorials</span></a>
-            <span class="go next">Next<span class="about">My name is <i>Meles Meles</i>, but you can call me "Badger".</span></span>
+            <span class="go next">Next<span class="about">I'd love to help you go to the next page but I can't.  I'm just a badger.</span></span>
           </div>
           </div>
           <h1 class="headline">Template::Tutorial::Datafile</h1>
@@ -194,8 +194,9 @@ my $tt = Template-&gt;new;</pre>
                played =&gt; 16,
                won    =&gt; 2,
                drawn  =&gt; 5,
-               lost   =&gt; 9 });</pre>
-                    <pre>my %data = ( name   =&gt; 'English Premier League',
+               lost   =&gt; 9 });
+
+my %data = ( name   =&gt; 'English Premier League',
              season =&gt; '2000/01',
              teams  =&gt; \@teams );</pre>
                     <p>
@@ -206,10 +207,12 @@ my $tt = Template-&gt;new;</pre>
                     <p>
                       Here is a template that we might use to process this data.
                     </p>
-                    <pre>League Standings</pre>
-                    <pre>League Name: <span class="tt">[% name %]</span>
-Season     : <span class="tt">[% season %]</span></pre>
-                    <pre>Teams:
+                    <pre>League Standings
+
+League Name: <span class="tt">[% name %]</span>
+Season     : <span class="tt">[% season %]</span>
+
+Teams:
 <span class="tt">[% FOREACH team = teams -%]</span>
 <span class="tt">[% team.name %]</span> <span class="tt">[% team.played -%]</span> 
  <span class="tt">[% team.won %]</span> <span class="tt">[% team.drawn %]</span> <span class="tt">[% team.lost %]</span>
@@ -217,10 +220,12 @@ Season     : <span class="tt">[% season %]</span></pre>
                     <p>
                       Running this template with this data gives us the following output
                     </p>
-                    <pre>League Standings</pre>
-                    <pre>League Name: English Premier League
-Season     : 2000/01</pre>
-                    <pre>Teams:
+                    <pre>        League Standings
+
+League Name: English Premier League
+Season     : 2000/01
+
+Teams:
 Man Utd 16 12 3 1
 Bradford 16 2 5 9</pre>
                     <p>
@@ -322,13 +327,17 @@ Leicester,4,3,1,10,8,4,2,2,7,4</pre>
                           and against; h and a at the front of a data item name indicates whether
                           it's a home or away statistic):
                         </p>
-                        <pre>my @cols = qw(name hw hd hl hf ha aw ad al af aa);</pre>
-                        <pre>my @teams;
+                        <pre>my @cols = qw(name hw hd hl hf ha aw ad al af aa);
+
+my @teams;
 while (&lt;&gt;) {
-    chomp;</pre>
-                        <pre>my %team;</pre>
-                        <pre>@team{@cols} = split /,/;</pre>
-                        <pre>    push @teams, \%team;
+    chomp;
+
+    my %team;
+
+    @team{@cols} = split /,/;
+
+    push @teams, \%team;
 }</pre>
                         <p>
                           We can then go thru the teams again and calculate all of the derived data
@@ -337,11 +346,14 @@ while (&lt;&gt;) {
                         <pre>foreach (@teams) {
     $_-&gt;{w} = $_-&gt;{hw} + $_-&gt;{aw};
     $_-&gt;{d} = $_-&gt;{hd} + $_-&gt;{ad};
-    $_-&gt;{l} = $_-&gt;{hl} + $_-&gt;{al};</pre>
-                        <pre>$_-&gt;{pl} = $_-&gt;{w} + $_-&gt;{d} + $_-&gt;{l};</pre>
-                        <pre>$_-&gt;{f} = $_-&gt;{hf} + $_-&gt;{af};
-$_-&gt;{a} = $_-&gt;{ha} + $_-&gt;{aa};</pre>
-                        <pre>    $_-&gt;{gd} = $_-&gt;{f} - $_-&gt;{a};
+    $_-&gt;{l} = $_-&gt;{hl} + $_-&gt;{al};
+
+    $_-&gt;{pl} = $_-&gt;{w} + $_-&gt;{d} + $_-&gt;{l};
+
+    $_-&gt;{f} = $_-&gt;{hf} + $_-&gt;{af};
+    $_-&gt;{a} = $_-&gt;{ha} + $_-&gt;{aa};
+
+    $_-&gt;{gd} = $_-&gt;{f} - $_-&gt;{a};
     $_-&gt;{pt} = (3 * $_-&gt;{w}) + $_-&gt;{d};
 }</pre>
                         <p>
@@ -425,18 +437,22 @@ $b-&gt;{pt} &lt;=&gt; $b-&gt;{pt} || $b-&gt;{gd} &lt;=&gt; $a-&gt;{gd}
                       would be hidden away in <code>FootballLeague.pm</code>.
                     </p>
                     <pre>use FootballLeague;
-use Template;</pre>
-                    <pre>my $league = FootballLeague-&gt;new(name =&gt; 'English Premier');</pre>
-                    <pre>my $tt = Template-&gt;new;</pre>
-                    <pre>$tt-&gt;process('league_xml.tt', { league =&gt; $league })
+use Template;
+
+my $league = FootballLeague-&gt;new(name =&gt; 'English Premier');
+
+my $tt = Template-&gt;new;
+
+$tt-&gt;process('league_xml.tt', { league =&gt; $league })
     || die $tt-&gt;error;</pre>
                     <p>
                       And the template in <code>league_xml.tt</code> would look something like
                       this:
                     </p>
                     <pre>&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE LEAGUE SYSTEM "league.dtd"&gt;</pre>
-                    <pre>&lt;league name="<span class="tt">[% league.name %]</span>" season="<span class="tt">[% league.season %]</span>"&gt;
+&lt;!DOCTYPE LEAGUE SYSTEM "league.dtd"&gt;
+
+&lt;league name="<span class="tt">[% league.name %]</span>" season="<span class="tt">[% league.season %]</span>"&gt;
 <span class="tt">[% FOREACH team = league.teams -%]</span>
   &lt;team name="<span class="tt">[% team.name %]</span>"
         pos="<span class="tt">[% team.pos %]</span>"
@@ -488,11 +504,15 @@ use Template;</pre>
                       template is required and process it.
                     </p>
                     <pre>use FootballLeague;
-use Template;</pre>
-                    <pre>my ($name, $type, $stats) = @_;</pre>
-                    <pre>my $league = FootballLeague-&gt;new(name =&gt; $name);</pre>
-                    <pre>my $tt = Template-&gt;new;</pre>
-                    <pre>$tt-&gt;process("league_${type}_$stats.tt", 
+use Template;
+
+my ($name, $type, $stats) = @_;
+
+my $league = FootballLeague-&gt;new(name =&gt; $name);
+
+my $tt = Template-&gt;new;
+
+$tt-&gt;process("league_${type}_$stats.tt", 
              { league =&gt; $league }
              "league_$stats.$type")
     || die $tt-&gt;error;</pre>
@@ -564,7 +584,7 @@ use Template;</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/tutorial/Datafile.html last modified 08:22:23 20-Dec-2011
+            http://template-toolkit.org/docs/tutorial/Datafile.html last modified 08:21:53 21-Jan-2012
           </div>
         </div>
         

@@ -34,7 +34,7 @@
             </a>
           
           <div class="pager">
-            <span class="go back">Back<span class="about">Have you seen my skateboard?  I left it around here somewhere...</span></span>
+            <span class="go back">Back<span class="about">My name is <i>Meles Meles</i>, but you can call me "Badger".</span></span>
             <a href="../../docs/modules/index.html" title="Template::Modules" class="go up">Up<span class="about"><strong>Template::Modules</strong>Template Toolkit Modules</span></a>
             <a href="../../docs/modules/Template/index.html" title="Template::* Modules" class="go next">Next<span class="about"><strong>Template::* Modules</strong></span></a>
           </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="body">
               <ul class="toc">
-                  <li class=""><a href="#section_SYNOPSIS_">SYNOPSIS </a></li>
+                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
                   <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
                   <li class=""><a href="#section_METHODS">METHODS</a></li>
                   <li class="sub"><a href="#method_new">new(\%config)</a></li>
@@ -160,6 +160,7 @@
                   <li class="sub"><a href="#section_STOP">STOP</a></li>
                   <li class="sub"><a href="#section_TAGS">TAGS</a></li>
                   <li class="sub"><a href="#section_COMMENTS">COMMENTS</a></li>
+                  <li class=""><a href="#section_SOURCE_CODE_REPOSITORY">SOURCE CODE REPOSITORY</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
                   <li class=""><a href="#section_VERSION">VERSION</a></li>
                   <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
@@ -171,7 +172,7 @@
                 <div class="pod">
             <div class="section">
               <div class="head">
-                <h1 id="section_SYNOPSIS_" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS </h1>
+                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
@@ -260,8 +261,9 @@ $template-&gt;process($input, $vars)
                           examining the <code>$Template::ERROR</code> package variable directly.
                         </p>
                         <pre>my $tt = Template-&gt;new(\%config)
-    || die Template-&gt;error(), "\n";</pre>
-                        <pre>my $tt = Template-&gt;new(\%config)
+    || die Template-&gt;error(), "\n";
+
+my $tt = Template-&gt;new(\%config)
     || die $Template::ERROR, "\n";</pre>
                         <p>
                           For convenience, configuration items may also be specified as a list of
@@ -291,12 +293,14 @@ $template-&gt;process($input, $vars)
                         </p>
                         <pre># filename
 $tt-&gt;process('welcome.tt2')
-    || die $tt-&gt;error(), "\n";</pre>
-                        <pre># text reference
+    || die $tt-&gt;error(), "\n";
+
+# text reference
 $text = "<span class="tt">[% INCLUDE header %]</span>\nHello world!\n<span class="tt">[% INCLUDE footer %]</span>";
 $tt-&gt;process(\$text)
-    || die $tt-&gt;error(), "\n";</pre>
-                        <pre># file handle (GLOB)
+    || die $tt-&gt;error(), "\n";
+
+# file handle (GLOB)
 $tt-&gt;process(\*DATA)
     || die $tt-&gt;error(), "\n";
 
@@ -325,15 +329,17 @@ accessible via the DATA "file handle".
                         </p>
                         <pre># output filename
 $tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
-    || die $tt-&gt;error(), "\n";</pre>
-                        <pre># reference to output subroutine
+    || die $tt-&gt;error(), "\n";
+
+# reference to output subroutine
 sub myout {
     my $output = shift;
     ...
 }
 $tt-&gt;process('welcome.tt2', $vars, \&amp;myout)
-    || die $tt-&gt;error(), "\n";</pre>
-                        <pre># reference to output text string
+    || die $tt-&gt;error(), "\n";
+
+# reference to output text string
 my $output = '';
 $tt-&gt;process('welcome.tt2', $vars, \$output)
     || die $tt-&gt;error(), "\n";
@@ -415,8 +421,9 @@ $tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
                           <code>$ERROR</code> package variable. Thus, the following are equivalent.
                         </p>
                         <pre>my $tt = Template-&gt;new()
-    || die Template-&gt;error(), "\n";</pre>
-                        <pre>my $tt = Template-&gt;new()
+    || die Template-&gt;error(), "\n";
+
+my $tt = Template-&gt;new()
     || die $Template::ERROR, "\n";</pre>
                         <p>
                           When called as an object method, it returns the value of the internal
@@ -971,8 +978,9 @@ Your footer here...</pre>
  content
 <span class="tt">[% ELSE %]</span>
  content
-<span class="tt">[% END %]</span></pre>
-                        <pre><span class="tt">[% UNLESS condition %]</span>
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% UNLESS condition %]</span>
    content
 <span class="tt">[% # ELSIF/ELSE as per IF, above %]</span>
    content
@@ -1069,8 +1077,9 @@ Your footer here...</pre>
  $stash-&gt;set('foo', 10);
  print "set 'foo' to ", $stash-&gt;get('foo'), "\n";
  print $context-&gt;include('footer', { var =&gt; $val });
-<span class="tt">[% END %]</span></pre>
-                        <pre><span class="tt">[% RAWPERL %]</span>
+<span class="tt">[% END %]</span>
+
+<span class="tt">[% RAWPERL %]</span>
    # raw perl code goes here, no magic but fast.
    $output .= 'some output';
 <span class="tt">[% END %]</span></pre>
@@ -1179,12 +1188,28 @@ Your footer here...</pre>
                         </p>
                         <pre><span class="tt">[% # this is a comment to the end of line
    foo = 'bar'
-%]</span></pre>
-                        <pre><span class="tt">[%# placing the '#' immediately inside the directive
+%]</span>
+
+<span class="tt">[%# placing the '#' immediately inside the directive
     tag comments out the entire directive
 %]</span></pre>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_SOURCE_CODE_REPOSITORY" onclick="switch_section(this)" title="Click title to show/hide section content.">SOURCE CODE REPOSITORY</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      The source code for the Template Toolkit is held in a public git
+                      repository on Github: <a
+                      href="https://github.com/abw/Template2">https://github.com/abw/Template2</a>
+                    </p>
               </div>
             </div>
             <div class="section">
@@ -1210,7 +1235,7 @@ Your footer here...</pre>
               </div>
               <div class="body">
                 <p>
-                      Template Toolkit version 2.20_1, released April 2009.
+                      Template Toolkit version 2.23, released January 2012.
                     </p>
               </div>
             </div>
@@ -1223,7 +1248,7 @@ Your footer here...</pre>
               </div>
               <div class="body">
                 <p>
-                      Copyright (C) 1996-2009 Andy Wardley. All Rights Reserved.
+                      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
                     </p>
                     <p>
                       This module is free software; you can redistribute it and/or modify it
@@ -1235,7 +1260,7 @@ Your footer here...</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template.html last modified 08:22:23 20-Dec-2011
+            http://template-toolkit.org/docs/modules/Template.html last modified 08:21:53 21-Jan-2012
           </div>
         </div>
         

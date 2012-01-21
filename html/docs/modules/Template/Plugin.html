@@ -265,8 +265,9 @@ sub new {
     bless {
         _DSN =&gt; $dsn,
     }, $class;
-}</pre>
-                        <pre>package main;
+}
+
+package main;
 
 my $something = MyPlugin-&gt;new()
     || die MyPlugin-&gt;error(), "\n";
@@ -344,8 +345,9 @@ sub new {
 
 sub add_to_cache   { ... }
 
-sub get_from_cache { ... }</pre>
-                    <pre>package MyClient;
+sub get_from_cache { ... }
+
+package MyClient;
 
 sub new {
     my ($class, $server, $blah) = @_;
@@ -420,7 +422,7 @@ sub put {
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Plugin.html last modified 08:22:23 20-Dec-2011
+            http://template-toolkit.org/docs/modules/Template/Plugin.html last modified 08:21:53 21-Jan-2012
           </div>
         </div>
         

@@ -185,8 +185,9 @@ my $object = My::Module-&gt;new({ doodah =&gt; 'foobar' })
                           class.
                         </p>
                         <pre>my $module = My::Module-&gt;new({ ... })
-    || die My::Module-&gt;error(), "\n";</pre>
-                        <pre>my $module = My::Module-&gt;new({ ... })
+    || die My::Module-&gt;error(), "\n";
+
+my $module = My::Module-&gt;new({ ... })
     || die "constructor error: $My::Module::ERROR\n";</pre>
                   </div>
                 </div>    <div class="subsection">
@@ -203,8 +204,9 @@ my $object = My::Module-&gt;new({ doodah =&gt; 'foobar' })
                           <code>$ERROR</code> variable in the derived class's package.
                         </p>
                         <pre>my $module = My::Module-&gt;new({ ... })
-    || die My::Module-&gt;error(), "\n";</pre>
-                        <pre>$module-&gt;do_something() 
+    || die My::Module-&gt;error(), "\n";
+
+$module-&gt;do_something() 
     || die $module-&gt;error(), "\n";</pre>
                         <p>
                           When called with parameters (multiple params are concatenated), this
@@ -331,7 +333,7 @@ $module-&gt;foobar();</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Base.html last modified 08:22:21 20-Dec-2011
+            http://template-toolkit.org/docs/modules/Template/Base.html last modified 08:21:52 21-Jan-2012
           </div>
         </div>
         
