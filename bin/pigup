@@ -1,0 +1,6 @@
+# script to rsync everything up onto ourshack (tt2.org)
+rsync -vrazl -e ssh  \
+      --exclude logs \
+      --exclude .svn \
+      --exclude .git \
+      $@ /home/abw/web/tt2.org/ pig.ourshack.com:web/tt2.org/
