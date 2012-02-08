@@ -25,6 +25,7 @@ ServerAlias     static.tt2.org
 ServerAlias     lists.template-toolkit.org
 ServerAlias     lists.template-toolkit.com
 ServerAlias     lists.tt2.org
+ServerAlias     tt2
 ServerAdmin     webmaster@template-toolkit.org
 
 DocumentRoot    /home/abw/web/tt2.org/html/

@@ -9,5 +9,5 @@ css/green.css : css/tt2.css
 css/orange.css : css/tt2.css
 css/purple.css : css/tt2.css
 css/grey.css : css/tt2.css
-css/tt2.css : css/controls css/defaults css/layout css/menu css/pod css/sections css/toc css/widescreen
+css/tt2.css : css/controls css/defaults css/layout css/menu css/pod css/sections css/toc css/widescreen css/icons
 js/tt2.js : js/cookie js/loader js/style js/switcher

@@ -265,11 +265,26 @@
 [% WRAPPER page/section id='editors' title='Editor Bundles' -%]
 <div class="textmate thumbnail">
   <h2>TextMate</h2>
-  A bundle for <a href="http://macromates.com/" class="ext">TextMate</a> is available 
-  <a href="http://wardley.org/downloads/Textmate-TT.tar.gz">here.</a>  It 
-  includes syntax highlighting and a number of auto-completion snippets for 
-  generating TT code fragments.  TextMate is really <i>very</i> good.  It's 
-  worth buying a Mac for (not that you need an excuse of course).
+  A TT bundle for <a href="http://macromates.com/" class="ext">TextMate</a> 
+  is available.  This is version [% tt2.version.textmate %]
+  which has full support for TT2. including syntax highlighting and a number 
+  of auto-completion snippets for generating TT code fragments.
+  It also has limited support for the forthcoming TT3
+  template language.  Language definitions are provided for TT2/TT3 in
+  stand-alone files, or embedded in HTML (HTML + TT2, HTML + TT3).
+  <a href="[% site.url.textmate.tgz %]" class="download">Textmate-TT-[% tt2.version.textmate %].tar.gz</a>
+  <a href="[% site.url.textmate.zip %]" class="download">Textmate-TT-[% tt2.version.textmate %].zip</a>
+</div>
+
+
+<div class="sublime thumbnail">
+  <h2>Sublime Text 2</h2>
+  The <a href="http://www.sublimetext.com/" class="ext">Sublime Text 2</a> 
+  editor uses the same bundle format as 
+  <a href="http://macromates.com/" class="ext">TextMate</a> so you can use
+  the TextMate bundles above.  Simply unpack the download archive and 
+  drag the <code>Template Toolkit.tmbundle</code> folder to 
+  <code>~/Library/Application Support/Sublime Text 2/Packages</code>.
 </div>
 
 <div class="emacs thumbnail">

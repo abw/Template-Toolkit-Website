@@ -47,6 +47,10 @@ div.textmate {
     background-image: url('/images/icons/textmate64.png');
 }
 
+div.sublime {
+    background-image: url('/images/icons/sublime64.png');
+}
+
 div.emacs {
     background-image: url('/images/icons/emacs64.png');
 }

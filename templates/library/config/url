@@ -1,19 +1,23 @@
-[% # This configuration template defines various URLs for different
-   # parts of the site (e.g. home page, css file, images directory, 
-   # etc), relative to the 'rooturl' variable which is defined in 
-   # config/root.
+[%  # This configuration template defines various URLs for different
+    # parts of the site (e.g. home page, css file, images directory, 
+    # etc), relative to the 'rooturl' variable which is defined in 
+    # config/root.
 
-   site.url = {
-     root      = rooturl
-     home      = "${rooturl}/index.html"
-     images    = "${rooturl}/images"
-     css       = "${rooturl}/css"
-     js        = "${rooturl}/js"
-     download  = "${rooturl}/download"
-     svnweb    = 'http://template-toolkit.org/svnweb'
-     github    = 'http://github.com/abw/Template2'
-     mailman   = '/mailman'
-     pipermail = 'http://lists.template-toolkit.org/pipermail'
-   };
+    site.url = {
+        root      = rooturl
+        home      = "${rooturl}/index.html"
+        images    = "${rooturl}/images"
+        css       = "${rooturl}/css"
+        js        = "${rooturl}/js"
+        download  = "${rooturl}/download"
+        svnweb    = 'http://template-toolkit.org/svnweb'
+        github    = 'http://github.com/abw/Template2'
+        mailman   = '/mailman'
+        pipermail = 'http://lists.template-toolkit.org/pipermail'
+        textmate  = {
+          tgz     = "/download/Textmate-TT-${tt2.version.textmate}.tar.gz"
+          zip     = "/download/Textmate-TT-${tt2.version.textmate}.zip"
+        }
+    };
 
 -%]

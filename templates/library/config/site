@@ -31,6 +31,7 @@
         stable    = '2.24'
 #       developer = '2.23'
         docs      = '2.24'
+        textmate  = '0.02'
     };
 
     # metadata should be defined by Metadata plugin
