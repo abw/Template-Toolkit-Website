@@ -450,6 +450,14 @@
     </pre>
     
     [** END -**]
+    [** WRAPPER page/subsection title='insert($template)' id='method_insert' class='method' -**]
+    <p>
+      This method returns the source content of a template file without
+      performing any evaluation. It is used to implement the
+      <code>INSERT</code> directive.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='throw($error_type, $error_message, \$output)' id='method_throw' class='method' -**]
     <p>
       Raises an exception in the form of a <a href="[**
@@ -535,6 +543,25 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='define_vmethod($type, $name, $code)' id='method_define_vmethod' class='method' -**]
+    <p>
+      This method is a wrapper around the <a href="[**
+      ttmodlink('Template::Stash') **]">Template::Stash</a> <a href="[**
+      ttmodlink('Template::Stash')
+      **]#method_define_vmethod">define_vmethod()</a> method. It can be used to
+      define new virtual methods.
+    </p>
+    <pre>
+      # define a new scalar (item) virtual method
+      $context-&gt;define_vmethod(
+          item =&gt; ucfirst =&gt; sub {
+              my $text = shift;
+              return ucfirst $text;
+          }
+      )
+    </pre>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='define_view($name, \%params)' id='method_define_view' class='method' -**]
     <p>
       This method allows you to define a named <a href="[**
@@ -602,6 +629,14 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='stash()' id='method_stash' class='method' -**]
+    <p>
+      This method returns the <a href="[** ttmodlink('Template::Stash')
+      **]">Template::Stash</a> object used internally to manage template
+      variables.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='localise(\%vars)' id='method_localise' class='method' -**]
     <p>
       Clones the stash to create a context with localised variables. Returns a
@@ -640,6 +675,13 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='view()' id='method_view' class='method' -**]
+    <p>
+      This method creates a <a href="[** ttmodlink('Template::View')
+      **]">Template::View</a> object bound to the context.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='reset()' id='method_reset' class='method' -**]
     <p>
       Clears the local <a href="#section_BLOCKS">BLOCKS</a> cache of any
@@ -647,6 +689,48 @@
       href="#section_BLOCKS">BLOCKS</a> specified as a configuration item to
       the constructor will be reinstated.
     </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='debugging($flag, @args)' id='method_debugging' class='method' -**]
+    <p>
+      This method is used to control debugging output. It is used to implement
+      the <a href="[** ttmodlink('Template::Manual::Directives')
+      **]#section_DEBUG">DEBUG</a> directive.
+    </p>
+    <p>
+      The first argument can be <code>on</code> or <code>off</code> to enable
+      or disable debugging respectively. The numerical values <code>0</code>
+      and <code>1</code> can also be used if you prefer.
+    </p>
+    <pre>
+      $context-&gt;debugging('on');
+    </pre>
+    <p>
+      Alternately, the first argument can be <code>format</code> to define a
+      new debug message format. The second argument should be the format string
+      which can contain any of the <code>$file</code>, <code>$line</code> or
+      <code>$text</code> symbols to indicate where the relevant values should
+      be inserted.
+    </p>
+    <pre>
+      # note single quotes to prevent interpolated of variables
+      $context-&gt;debugging( format =&gt; '## $file line $line: $text' );
+    </pre>
+    <p>
+      The final use of this method is to generate debugging messages
+      themselves. The first argument should be <code>msg</code>, followed by a
+      reference to a hash array of value to insert into the debugging format
+      string.
+    </p>
+    <pre>
+      $context-&gt;debugging( 
+          msg =&gt; {
+              line =&gt; 20,
+              file =&gt; 'example.tt',
+              text =&gt; 'Trampoline! Trampoline!',
+          }
+      );
+    </pre>
     
     [** END -**]
     [** WRAPPER page/subsection title='AUTOLOAD' id='section_AUTOLOAD' class='' -**]
@@ -671,7 +755,7 @@
 [** END -**]
 [** WRAPPER page/section title='COPYRIGHT' id='section_COPYRIGHT' -**]
     <p>
-      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
     </p>
     <p>
       This module is free software; you can redistribute it and/or modify it

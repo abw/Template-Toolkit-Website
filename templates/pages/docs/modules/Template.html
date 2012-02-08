@@ -9,7 +9,7 @@
       my $config = {
           INCLUDE_PATH =&gt; '/search/path',  # or list ref
           INTERPOLATE  =&gt; 1,               # expand "$var" in plain text
-          POST_CHOMP   =&gt; 1,               # cleanup whitespace 
+          POST_CHOMP   =&gt; 1,               # cleanup whitespace
           PRE_PROCESS  =&gt; 'header',        # prefix each template
           EVAL_PERL    =&gt; 1,               # evaluate Perl code blocks
       };
@@ -112,7 +112,7 @@
       
       __END__
       <span class="tt">[% INCLUDE header %]</span>
-      This is a template defined in the __END__ section which is 
+      This is a template defined in the __END__ section which is
       accessible via the DATA "file handle".
       <span class="tt">[% INCLUDE footer %]</span>
     </pre>
@@ -160,9 +160,9 @@
     <pre>
       sub handler {
           my $req = shift;
-          
+      
           # ...your code here...
-          
+      
           # direct output to Apache::Request via $req-&gt;print($output)
           $tt-&gt;process($file, $vars, $req) || do {
               $req-&gt;log_reason($tt-&gt;error());
@@ -212,7 +212,7 @@
       # use default OUTPUT (sub is called)
       $tt-&gt;process('welcome.tt2', $vars)
           || die $tt-&gt;error(), "\n";
-          
+      
       # write file to '/tmp/welcome.html'
       $tt-&gt;process('welcome.tt2', $vars, 'welcome.html')
           || die $tt-&gt;error(), "\n";
@@ -290,6 +290,15 @@
       runtime processing of templates. This method returns a reference to that
       object and is equivalent to
       <code>$template-&gt;service-&gt;context()</code>.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='template($name)' id='method_template' class='method' -**]
+    <p>
+      This method is a simple wrapper around the <a href="[**
+      ttmodlink('Template::Context') **]">Template::Context</a> method of the
+      same name. It returns a compiled template for the source provided as an
+      argument.
     </p>
     
     [** END -**]

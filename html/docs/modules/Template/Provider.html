@@ -109,6 +109,7 @@
                   <li class=""><a href="#section_PUBLIC_METHODS">PUBLIC METHODS</a></li>
                   <li class="sub"><a href="#method_new">new(\%options)</a></li>
                   <li class="sub"><a href="#method_fetch">fetch($name)</a></li>
+                  <li class="sub"><a href="#method_load">load($name)</a></li>
                   <li class="sub"><a href="#method_store">store($name, $template)</a></li>
                   <li class="sub"><a href="#method_include_path">include_path(\@newpath)</a></li>
                   <li class="sub"><a href="#method_paths">paths()</a></li>
@@ -223,6 +224,19 @@
                           message generated. If the <a href="#section_TOLERANT">TOLERANT</a> option
                           is set the the method returns <code>(undef, STATUS_DECLINED)</code>
                           instead of returning an error.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_load" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">load($name)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Loads a template without parsing or compiling it. This is used by the the
+                          <a href="../../../docs/manual/Directives.html#section_INSERT">INSERT</a> directive.
                         </p>
                   </div>
                 </div>    <div class="subsection">
@@ -638,7 +652,7 @@ my $template = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Provider.html last modified 08:25:58 21-Jan-2012
+            http://template-toolkit.org/docs/modules/Template/Provider.html last modified 07:19:29 08-Feb-2012
           </div>
         </div>
         

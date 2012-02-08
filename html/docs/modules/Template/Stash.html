@@ -110,8 +110,14 @@
                   <li class="sub"><a href="#method_new">new(\%params)</a></li>
                   <li class="sub"><a href="#method_get">get($variable)</a></li>
                   <li class="sub"><a href="#method_set">set($variable, $value, $default)</a></li>
+                  <li class="sub"><a href="#method_update">update($variables)</a></li>
+                  <li class="sub"><a href="#method_getref">getref($variable)</a></li>
                   <li class="sub"><a href="#method_clone">clone(\%params)</a></li>
                   <li class="sub"><a href="#method_declone">declone()</a></li>
+                  <li class="sub"><a href="#method_define_vmethod">define_vmethod($type, $name, $code)</a></li>
+                  <li class=""><a href="#section_INTERNAL_METHODS">INTERNAL METHODS</a></li>
+                  <li class="sub"><a href="#method_dotop">dotop($root, $item, \@args, $lvalue)</a></li>
+                  <li class="sub"><a href="#method_undefined">undefined($ident, $args)</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
                   <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
                   <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
@@ -273,6 +279,38 @@ $stash-&gt;set('IMPORT', $stash-&gt;get('foo'));</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_update" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">update($variables)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method can be used to set or update several variables in one go.
+                        </p>
+                        <pre>$stash-&gt;update({
+    foo =&gt; 10,
+    bar =&gt; 20,
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_getref" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">getref($variable)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This undocumented feature returns a closure which can be called to get
+                          the value of a variable. It is used to implement variable references
+                          which are evlauted lazily.
+                        </p>
+                        <pre><span class="tt">[% x = \foo.bar.baz %]</span>          # x is a reference to foo.bar.baz
+<span class="tt">[% x %]</span>                         # evalautes foo.bar.baz</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="method_clone" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">clone(\%params)</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -316,6 +354,75 @@ $stash-&gt;set('IMPORT', $stash-&gt;get('foo'));</pre>
                           above.
                         </p>
                   </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_define_vmethod" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">define_vmethod($type, $name, $code)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method can be used to define new virtual methods. The first argument
+                          should be either <code>scalar</code> or <code>item</code> to define
+                          scalar virtual method, <code>hash</code> to define hash virtual methods,
+                          or either <code>array</code> or <code>list</code> for list virtual
+                          methods. The second argument should be the name of the new method. The
+                          third argument should be a reference to a subroutine implementing the
+                          method. The data item on which the virtual method is called is passed to
+                          the subroutine as the first argument.
+                        </p>
+                        <pre>$stash-&gt;define_vmethod(
+    item =&gt; ucfirst =&gt; sub {
+        my $text = shift;
+        return ucfirst $text
+    }
+);</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_INTERNAL_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">INTERNAL METHODS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_dotop" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">dotop($root, $item, \@args, $lvalue)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This is the core <code>dot</code> operation method which evaluates
+                          elements of variables against their root.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_undefined" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">undefined($ident, $args)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method is called when <a href="#method_get">get()</a> encounters an
+                          undefined value. If the
+                          <code>STRICT|Template::Manual::Config#STRICT</code> option is in effect
+                          then it will throw an exception indicating the use of an undefined value.
+                          Otherwise it will silently return an empty string.
+                        </p>
+                        <p>
+                          The method can be redefined in a subclass to implement alternate handling
+                          of undefined values.
+                        </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -342,7 +449,7 @@ $stash-&gt;set('IMPORT', $stash-&gt;get('foo'));</pre>
               </div>
               <div class="body">
                 <p>
-                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
                     </p>
                     <p>
                       This module is free software; you can redistribute it and/or modify it
@@ -367,7 +474,7 @@ $stash-&gt;set('IMPORT', $stash-&gt;get('foo'));</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Stash.html last modified 08:25:58 21-Jan-2012
+            http://template-toolkit.org/docs/modules/Template/Stash.html last modified 07:19:29 08-Feb-2012
           </div>
         </div>
         

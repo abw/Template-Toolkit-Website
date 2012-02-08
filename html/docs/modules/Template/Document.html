@@ -111,9 +111,14 @@
                   <li class="sub"><a href="#method_process">process($context)</a></li>
                   <li class="sub"><a href="#method_block">block()</a></li>
                   <li class="sub"><a href="#method_blocks">blocks()</a></li>
+                  <li class="sub"><a href="#method_variables">variables()</a></li>
                   <li class="sub"><a href="#section_AUTOLOAD">AUTOLOAD</a></li>
-                  <li class=""><a href="#section_PACKAGE_SUB_ROUTINES">PACKAGE SUB-ROUTINES</a></li>
+                  <li class=""><a href="#section_CLASS_METHODS">CLASS METHODS</a></li>
+                  <li class="sub"><a href="#method_as_perl">as_perl($content)</a></li>
                   <li class="sub"><a href="#method_write_perl_file">write_perl_file(\%config)</a></li>
+                  <li class=""><a href="#section_INTERNAL_FUNCTIONS">INTERNAL FUNCTIONS</a></li>
+                  <li class="sub"><a href="#method_catch_warnings">catch_warnings()</a></li>
+                  <li class="sub"><a href="#method_is_utf8">is_utf8()</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
                   <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
                   <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
@@ -318,6 +323,19 @@ print $doc-&gt;process($context);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_variables" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">variables()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns a reference to a hash of variables used in the template. This
+                          requires the <a href="../../../docs/manual/Config.html#section_TRACE_VARS">TRACE_VARS</a> option to be enabled.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="section_AUTOLOAD" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">AUTOLOAD</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -334,13 +352,38 @@ print $doc-&gt;process($context);</pre>
             </div>
             <div class="section">
               <div class="head">
-                <h1 id="section_PACKAGE_SUB_ROUTINES" onclick="switch_section(this)" title="Click title to show/hide section content.">PACKAGE SUB-ROUTINES</h1>
+                <h1 id="section_CLASS_METHODS" onclick="switch_section(this)" title="Click title to show/hide section content.">CLASS METHODS</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
-                <div class="subsection">
+                <p>
+                      These methods are used internally.
+                    </p>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_as_perl" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">as_perl($content)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method generate a Perl representation of the template.
+                        </p>
+                        <pre>my $perl = Template::Document-&gt;as_perl({
+    BLOCK     =&gt; $main_block,
+    DEFBLOCKS =&gt; {
+        foo   =&gt; $foo_block,
+        bar   =&gt; $bar_block,
+    },
+    METADATA  =&gt; {
+        name  =&gt; 'my_template',
+    }
+});</pre>
+                  </div>
+                </div>    <div class="subsection">
                   <div class="head">
                     <h2 id="method_write_perl_file" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">write_perl_file(\%config)</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
@@ -349,16 +392,55 @@ print $doc-&gt;process($context);</pre>
                   </div>
                   <div class="body">
                     <p>
-                          This package subroutine is provided to effect persistence of compiled
-                          templates. If the <code>COMPILE_EXT</code> option (to indicate a file
-                          extension for saving compiled templates) then the <a href="../../../docs/modules/Template/Parser.html">Template::Parser</a> module calls this
-                          subroutine before calling the <a href="#method_new">new()</a>
-                          constructor. At this stage, the parser has a representation of the
-                          template as text strings containing Perl code. We can write that to a
-                          file, enclosed in a small wrapper which will allow us to susequently
-                          <code>require()</code> the file and have Perl parse and compile it into a
-                          <code>Template::Document</code>. Thus we have persistence of compiled
-                          templates.
+                          This method is used to write compiled Perl templates to disk. If the
+                          <code>COMPILE_EXT</code> option (to indicate a file extension for saving
+                          compiled templates) then the <a href="../../../docs/modules/Template/Parser.html">Template::Parser</a> module calls this subroutine before calling the
+                          <a href="#method_new">new()</a> constructor. At this stage, the parser
+                          has a representation of the template as text strings containing Perl
+                          code. We can write that to a file, enclosed in a small wrapper which will
+                          allow us to susequently <code>require()</code> the file and have Perl
+                          parse and compile it into a <code>Template::Document</code>. Thus we have
+                          persistence of compiled templates.
+                        </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_INTERNAL_FUNCTIONS" onclick="switch_section(this)" title="Click title to show/hide section content.">INTERNAL FUNCTIONS</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_catch_warnings" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">catch_warnings()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This is a simple handler used to catch any errors that arise when the
+                          compiled Perl template is first evaluated (that is, evaluated by Perl to
+                          create a template subroutine at compile, rather than the template being
+                          processed at runtime).
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_is_utf8" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">is_utf8()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This is mapped to <code>utf8::is_utf8</code> for versions of Perl that
+                          have it (&gt; 5.008) or to <code>Encode::is_utf8</code> for Perl 5.008.
+                          Earlier versions of Perl are not supported.
                         </p>
                   </div>
                 </div>
@@ -387,7 +469,7 @@ print $doc-&gt;process($context);</pre>
               </div>
               <div class="body">
                 <p>
-                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
                     </p>
                     <p>
                       This module is free software; you can redistribute it and/or modify it
@@ -412,7 +494,7 @@ print $doc-&gt;process($context);</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Document.html last modified 08:25:57 21-Jan-2012
+            http://template-toolkit.org/docs/modules/Template/Document.html last modified 07:19:28 08-Feb-2012
           </div>
         </div>
         

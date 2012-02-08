@@ -34,7 +34,7 @@
             </a>
           
           <div class="pager">
-            <span class="go back">Back<span class="about">My name is <i>Meles Meles</i>, but you can call me "Badger".</span></span>
+            <span class="go back">Back<span class="about">If you are going back, be sure to wear some flowers in your hair...</span></span>
             <a href="../../docs/modules/index.html" title="Template::Modules" class="go up">Up<span class="about"><strong>Template::Modules</strong>Template Toolkit Modules</span></a>
             <a href="../../docs/modules/Template/index.html" title="Template::* Modules" class="go next">Next<span class="about"><strong>Template::* Modules</strong></span></a>
           </div>
@@ -89,6 +89,7 @@
                   <li class="sub"><a href="#method_error">error()</a></li>
                   <li class="sub"><a href="#method_service">service()</a></li>
                   <li class="sub"><a href="#method_context">context()</a></li>
+                  <li class="sub"><a href="#method_template">template($name)</a></li>
                   <li class=""><a href="#section_CONFIGURATION_SUMMARY">CONFIGURATION SUMMARY</a></li>
                   <li class="sub"><a href="#section_Template_Style_and_Parsing_Options">Template Style and Parsing Options</a></li>
                   <li class="subsub"><a href="#section_START_TAG_END_TAG">START_TAG, END_TAG</a></li>
@@ -184,7 +185,7 @@
 my $config = {
     INCLUDE_PATH =&gt; '/search/path',  # or list ref
     INTERPOLATE  =&gt; 1,               # expand "$var" in plain text
-    POST_CHOMP   =&gt; 1,               # cleanup whitespace 
+    POST_CHOMP   =&gt; 1,               # cleanup whitespace
     PRE_PROCESS  =&gt; 'header',        # prefix each template
     EVAL_PERL    =&gt; 1,               # evaluate Perl code blocks
 };
@@ -306,7 +307,7 @@ $tt-&gt;process(\*DATA)
 
 __END__
 <span class="tt">[% INCLUDE header %]</span>
-This is a template defined in the __END__ section which is 
+This is a template defined in the __END__ section which is
 accessible via the DATA "file handle".
 <span class="tt">[% INCLUDE footer %]</span></pre>
                         <p>
@@ -480,6 +481,20 @@ my $tt = Template-&gt;new()
                           runtime processing of templates. This method returns a reference to that
                           object and is equivalent to
                           <code>$template-&gt;service-&gt;context()</code>.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_template" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">template($name)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method is a simple wrapper around the <a href="../../docs/modules/Template/Context.html">Template::Context</a> method of the
+                          same name. It returns a compiled template for the source provided as an
+                          argument.
                         </p>
                   </div>
                 </div>
@@ -1260,7 +1275,7 @@ Your footer here...</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template.html last modified 08:25:58 21-Jan-2012
+            http://template-toolkit.org/docs/modules/Template.html last modified 07:19:29 08-Feb-2012
           </div>
         </div>
         

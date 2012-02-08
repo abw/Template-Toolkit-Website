@@ -2,12 +2,87 @@
 
 <div class="pod">
 [** WRAPPER page/section title='Scalar Virtual Methods' id='section_Scalar_Virtual_Methods' -**]
+    [** WRAPPER page/subsection title='chunk(size)' id='method_chunk' class='method' -**]
+    <p>
+      Splits the value into a list of chunks of a certain size.
+    </p>
+    <pre>
+      <span class="tt">[% ccard_no = "1234567824683579";
+         ccard_no.chunk(4).join
+      %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      1234 5678 2468 3579
+    </pre>
+    <p>
+      If the size is specified as a negative number then the text will be
+      chunked from right-to-left. This gives the correct grouping for numbers,
+      for example.
+    </p>
+    <pre>
+      <span class="tt">[% number = 1234567;
+         number.chunk(-3).join(',')
+      %]</span>
+    </pre>
+    <p>
+      Output:
+    </p>
+    <pre>
+      1,234,567
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='collapse' id='section_collapse' class='' -**]
+    <p>
+      Returns the text with any leading and trailing whitespace removed and any
+      internal sequences of whitespace converted to a single space
+    </p>
+    <pre>
+      <span class="tt">[% text = "  The bird\n  is the word" %]</span>
+      <span class="tt">[% text.collapse %]</span>       # The bird is the word
+    </pre>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='defined' id='section_defined' class='' -**]
     <p>
       Returns true if the value is defined.
     </p>
     <pre>
       <span class="tt">[% user = get_user(uid) IF uid.defined %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='dquote' id='section_dquote' class='' -**]
+    <p>
+      Returns the text with any double quote characters escaped with a
+      backslash prefix. Any newline characters in the text will be replaced
+      with "\n".
+    </p>
+    <pre>
+      <span class="tt">[% quote = 'He said "Oh really?"' %]</span>
+      <span class="tt">[% quote.dquote %]</span>        # He said \"Oh really?\"
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='hash' id='section_hash' class='' -**]
+    <p>
+      Return the value as a hash reference containing a single entry with the
+      key <code>value</code> indicating the original scalar value. As with the
+      <code>list</code> virtual method, this is generally used to help massage
+      data into different formats.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='lcfirst' id='section_lcfirst' class='' -**]
+    <p>
+      Returns the text with the first letter converted to lower case.
+    </p>
+    <pre>
+      <span class="tt">[% word = 'BIRD' %]</span>
+      <span class="tt">[% word.lcfirst %]</span>        # bIRD
     </pre>
     
     [** END -**]
@@ -19,6 +94,81 @@
       <span class="tt">[% IF password.length &lt; 8 %]</span>
          Password too short, dumbass!
       <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='list' id='section_list' class='' -**]
+    <p>
+      Return the value as a single element list. This can be useful if you have
+      a variable which may contain a single item or a list and you want to
+      treat them equally. The <code>list</code> method can be called against a
+      list reference and will simply return the original reference, effectively
+      a no-op.
+    </p>
+    <pre>
+      <span class="tt">[% thing.list.size %]</span>     # thing can be a scalar or a list
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='lower' id='section_lower' class='' -**]
+    <p>
+      Returns the text in lower case.
+    </p>
+    <pre>
+      <span class="tt">[% word = 'BIRD' %]</span>
+      <span class="tt">[% word.lower %]</span>          # bird
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='match(pattern, global)' id='method_match' class='method' -**]
+    <p>
+      Performs a regular expression match on the string using the pattern
+      passed as an argument. If the pattern matches the string then the method
+      returns a reference to a list of any strings captured within parenthesis
+      in the pattern.
+    </p>
+    <pre>
+      <span class="tt">[% name = 'Larry Wall' %]</span>
+      <span class="tt">[% matches = name.match('(\w+) (\w+)') %]</span>
+      <span class="tt">[% matches.1 %]</span>, <span class="tt">[% matches.0 %]</span>    # Wall, Larry
+    </pre>
+    <p>
+      If the pattern does not match then the method returns false, rather than
+      returning an empty list which Perl and the Template Toolkit both consider
+      to be a true value. This allows you to write expression like this.
+    </p>
+    <pre>
+      <span class="tt">[% "We're not worthy!" IF name.match('Larry Wall') %]</span>
+      
+      <span class="tt">[% IF (matches = name.match('(\w+) (\w+)')) %]</span>
+         pattern matches: <span class="tt">[% matches.join(', ') %]</span>
+      <span class="tt">[% ELSE %]</span>
+         pattern does not match
+      <span class="tt">[% END %]</span>
+    </pre>
+    <p>
+      Any regex modifiers, like <code>/s</code>, should be added in the regex
+      using the <code>(?s)</code> syntax. For example, to modify the regex to
+      disregard whitespace (the <code>/x</code> switch), use:
+    </p>
+    <pre>
+      <span class="tt">[% re = '(?x)
+                 (\w+)
+                 [ ]
+                 (\w+)
+               ';
+        matches = name.match(re);
+      %]</span>
+    </pre>
+    <p>
+      To perform a global search to match the pattern as many times as it
+      appears in the source string, provide a true value for the
+      <code>global</code> argument following the pattern.
+    </p>
+    <pre>
+      <span class="tt">[% text = 'bandanna';
+         text.match('an+', 1).join(', )      # an, ann
+      %]</span>
     </pre>
     
     [** END -**]
@@ -65,58 +215,6 @@
     </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='match(pattern, global)' id='method_match' class='method' -**]
-    <p>
-      Performs a regular expression match on the string using the pattern
-      passed as an argument. If the pattern matches the string then the method
-      returns a reference to a list of any strings captured within parenthesis
-      in the pattern.
-    </p>
-    <pre>
-      <span class="tt">[% name = 'Larry Wall' %]</span>
-      <span class="tt">[% matches = name.match('(\w+) (\w+)') %]</span>
-      <span class="tt">[% matches.1 %]</span>, <span class="tt">[% matches.0 %]</span>		# Wall, Larry
-    </pre>
-    <p>
-      If the pattern does not match then the method returns false, rather than
-      returning an empty list which Perl and the Template Toolkit both consider
-      to be a true value. This allows you to write expression like this.
-    </p>
-    <pre>
-      <span class="tt">[% "We're not worthy!" IF name.match('Larry Wall') %]</span>
-      
-      <span class="tt">[% IF (matches = name.match('(\w+) (\w+)')) %]</span>
-         pattern matches: <span class="tt">[% matches.join(', ') %]</span>
-      <span class="tt">[% ELSE %]</span>
-         pattern does not match
-      <span class="tt">[% END %]</span>
-    </pre>
-    <p>
-      Any regex modifiers, like <code>/s</code>, should be added in the regex
-      using the <code>(?s)</code> syntax. For example, to modify the regex to
-      disregard whitespace (the <code>/x</code> switch), use:
-    </p>
-    <pre>
-      <span class="tt">[% re = '(?x)
-                 (\w+)
-                 [ ]
-                 (\w+)
-               ';
-        matches = name.match(re);
-      %]</span>
-    </pre>
-    <p>
-      To perform a global search to match the pattern as many times as it
-      appears in the source string, provide a true value for the
-      <code>global</code> argument following the pattern.
-    </p>
-    <pre>
-      <span class="tt">[% text = 'bandanna';
-         text.match('an+', 1).join(', )      # an, ann
-      %]</span>
-    </pre>
-    
-    [** END -**]
     [** WRAPPER page/subsection title='search(pattern)' id='method_search' class='method' -**]
     <p>
       Performs a similar function to <a href="#section_match">match</a> but
@@ -134,6 +232,13 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='size' id='section_size' class='' -**]
+    <p>
+      Always returns 1 for scalar values. This method is provided for
+      consistency with the hash and list size methods.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='split(pattern)' id='method_split' class='method' -**]
     <p>
       Calls Perl's <code>split()</code> function to split a string into a list
@@ -143,39 +248,6 @@
       <span class="tt">[% FOREACH dir IN mypath.split(':') %]</span>
          <span class="tt">[% dir %]</span>
       <span class="tt">[% END %]</span>
-    </pre>
-    
-    [** END -**]
-    [** WRAPPER page/subsection title='chunk(size)' id='method_chunk' class='method' -**]
-    <p>
-      Splits the value into a list of chunks of a certain size.
-    </p>
-    <pre>
-      <span class="tt">[% ccard_no = "1234567824683579";
-         ccard_no.chunk(4).join
-      %]</span>
-    </pre>
-    <p>
-      Output:
-    </p>
-    <pre>
-      1234 5678 2468 3579
-    </pre>
-    <p>
-      If the size is specified as a negative number then the text will be
-      chunked from right-to-left. This gives the correct grouping for numbers,
-      for example.
-    </p>
-    <pre>
-      <span class="tt">[% number = 1234567;
-         number.chunk(-3).join(',')
-      %]</span>
-    </pre>
-    <p>
-      Output:
-    </p>
-    <pre>
-      1,234,567
     </pre>
     
     [** END -**]
@@ -207,33 +279,45 @@
     </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='list' id='section_list' class='' -**]
+    [** WRAPPER page/subsection title='squote' id='section_squote' class='' -**]
     <p>
-      Return the value as a single element list. This can be useful if you have
-      a variable which may contain a single item or a list and you want to
-      treat them equally. The <code>list</code> method can be called against a
-      list reference and will simply return the original reference, effectively
-      a no-op.
+      Returns the text with any single quote characters escaped with a
+      backslash prefix.
     </p>
     <pre>
-      <span class="tt">[% thing.list.size %]</span>  # thing can be a scalar or a list
+      <span class="tt">[% tim = "Tim O'Reilly" %]</span>
+      <span class="tt">[% tim.squote %]</span>          # Tim O\'Reilly
     </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='hash' id='section_hash' class='' -**]
+    [** WRAPPER page/subsection title='trim' id='section_trim' class='' -**]
     <p>
-      Return the value as a hash reference containing a single entry with the
-      key <code>value</code> indicating the original scalar value. As with the
-      <code>list</code> virtual method, this is generally used to help massage
-      data into different formats.
+      Returns the text with any leading and trailing whitespace removed.
     </p>
+    <pre>
+      <span class="tt">[% text = '  hello  world  ' %]</span>
+      <span class="tt">[% text.trim %]</span>           # hello  world
+    </pre>
     
     [** END -**]
-    [** WRAPPER page/subsection title='size' id='section_size' class='' -**]
+    [** WRAPPER page/subsection title='ucfirst' id='section_ucfirst' class='' -**]
     <p>
-      Always returns 1 for scalar values. This method is provided for
-      consistency with the hash and list size methods.
+      Returns the text with the first letter converted to upper case.
     </p>
+    <pre>
+      <span class="tt">[% word = 'bird' %]</span>
+      <span class="tt">[% word.ucfirst %]</span>        # Bird
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='upper' id='section_upper' class='' -**]
+    <p>
+      Returns the text in upper case.
+    </p>
+    <pre>
+      <span class="tt">[% word = 'bird' %]</span>
+      <span class="tt">[% word.upper %]</span>          # BIRD
+    </pre>
     
     [** END -**]
 [** END -**]
@@ -296,7 +380,7 @@
             a = 10
             b = 20
          };
-         
+      
          hash.items.join(', ')    # a, 10, b, 20
       %]</span>
     </pre>
@@ -612,7 +696,7 @@
          two   = [ 4 5 6 ];
          three = [ 7 8 9 ];
          one.import(two, three);
-         one.join(', );     # 1, 2, 3, 4, 5, 6, 7, 8, 9       
+         one.join(', );     # 1, 2, 3, 4, 5, 6, 7, 8, 9
       %]</span>
     </pre>
     
@@ -685,10 +769,10 @@
     <pre>
       <span class="tt">[% # push a single item, an_item
          CALL list.splice(-1, 0, an_item);
-         
+      
          # push the items from another_list
          CALL list.splice(-1, 0, another_list);
-         
+      
          # push a reference to another_list
          CALL list.splice(-1, 0, [ another_list ]);
       %]</span>
@@ -714,7 +798,7 @@
     <pre>
       <span class="tt">[% list = ['beer', 'peanuts'] %]</span>
       <span class="tt">[% hash = list.hash(1) %]</span>
-      <span class="tt">[% hash.1  %]</span>               # beer          
+      <span class="tt">[% hash.1  %]</span>               # beer
       <span class="tt">[% hash.2  %]</span>               # peanuts
     </pre>
     

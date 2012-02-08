@@ -124,17 +124,22 @@
                   <li class="sub"><a href="#method_filter">filter($name, \@args, $alias)</a></li>
                   <li class="sub"><a href="#method_process">process($template, \%vars)</a></li>
                   <li class="sub"><a href="#method_include">include($template, \%vars)</a></li>
+                  <li class="sub"><a href="#method_insert">insert($template)</a></li>
                   <li class="sub"><a href="#method_throw">throw($error_type, $error_message, \$output)</a></li>
                   <li class="sub"><a href="#method_catch">catch($exception, \$output)</a></li>
                   <li class="sub"><a href="#method_define_block">define_block($name, $block)</a></li>
                   <li class="sub"><a href="#method_define_filter">define_filter($name, \&amp;filter, $is_dynamic)</a></li>
+                  <li class="sub"><a href="#method_define_vmethod">define_vmethod($type, $name, $code)</a></li>
                   <li class="sub"><a href="#method_define_view">define_view($name, \%params)</a></li>
                   <li class="sub"><a href="#method_define_views">define_views($views)</a></li>
+                  <li class="sub"><a href="#method_stash">stash()</a></li>
                   <li class="sub"><a href="#method_localise">localise(\%vars)</a></li>
                   <li class="sub"><a href="#method_delocalise">delocalise()</a></li>
                   <li class="sub"><a href="#method_visit">visit(\%blocks)</a></li>
                   <li class="sub"><a href="#method_leave">leave()</a></li>
+                  <li class="sub"><a href="#method_view">view()</a></li>
                   <li class="sub"><a href="#method_reset">reset()</a></li>
+                  <li class="sub"><a href="#method_debugging">debugging($flag, @args)</a></li>
                   <li class="sub"><a href="#section_AUTOLOAD">AUTOLOAD</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
                   <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
@@ -578,6 +583,20 @@ $filter = $context-&gt;filter('padright');</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_insert" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">insert($template)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method returns the source content of a template file without
+                          performing any evaluation. It is used to implement the
+                          <code>INSERT</code> directive.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="method_throw" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">throw($error_type, $error_message, \$output)</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -671,6 +690,26 @@ $context-&gt;throw('yack', 'Too much yacking', \$output);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_define_vmethod" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">define_vmethod($type, $name, $code)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method is a wrapper around the <a href="../../../docs/modules/Template/Stash.html">Template::Stash</a> <a href="../../../docs/modules/Template/Stash.html#method_define_vmethod">define_vmethod()</a> method. It can be used to
+                          define new virtual methods.
+                        </p>
+                        <pre># define a new scalar (item) virtual method
+$context-&gt;define_vmethod(
+    item =&gt; ucfirst =&gt; sub {
+        my $text = shift;
+        return ucfirst $text;
+    }
+)</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="method_define_view" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">define_view($name, \%params)</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -738,6 +777,19 @@ $context-&gt;throw('yack', 'Too much yacking', \$output);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_stash" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">stash()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method returns the <a href="../../../docs/modules/Template/Stash.html">Template::Stash</a> object used internally to manage template
+                          variables.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="method_localise" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">localise(\%vars)</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -795,6 +847,18 @@ $context-&gt;throw('yack', 'Too much yacking', \$output);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="method_view" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">view()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method creates a <a href="../../../docs/modules/Template/View.html">Template::View</a> object bound to the context.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="method_reset" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">reset()</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -807,6 +871,47 @@ $context-&gt;throw('yack', 'Too much yacking', \$output);</pre>
                           href="#section_BLOCKS">BLOCKS</a> specified as a configuration item to
                           the constructor will be reinstated.
                         </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_debugging" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">debugging($flag, @args)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This method is used to control debugging output. It is used to implement
+                          the <a href="../../../docs/manual/Directives.html#section_DEBUG">DEBUG</a> directive.
+                        </p>
+                        <p>
+                          The first argument can be <code>on</code> or <code>off</code> to enable
+                          or disable debugging respectively. The numerical values <code>0</code>
+                          and <code>1</code> can also be used if you prefer.
+                        </p>
+                        <pre>$context-&gt;debugging('on');</pre>
+                        <p>
+                          Alternately, the first argument can be <code>format</code> to define a
+                          new debug message format. The second argument should be the format string
+                          which can contain any of the <code>$file</code>, <code>$line</code> or
+                          <code>$text</code> symbols to indicate where the relevant values should
+                          be inserted.
+                        </p>
+                        <pre># note single quotes to prevent interpolated of variables
+$context-&gt;debugging( format =&gt; '## $file line $line: $text' );</pre>
+                        <p>
+                          The final use of this method is to generate debugging messages
+                          themselves. The first argument should be <code>msg</code>, followed by a
+                          reference to a hash array of value to insert into the debugging format
+                          string.
+                        </p>
+                        <pre>$context-&gt;debugging( 
+    msg =&gt; {
+        line =&gt; 20,
+        file =&gt; 'example.tt',
+        text =&gt; 'Trampoline! Trampoline!',
+    }
+);</pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
@@ -851,7 +956,7 @@ $epflag    = $context-&gt;eval_perl();
               </div>
               <div class="body">
                 <p>
-                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                      Copyright (C) 1996-2012 Andy Wardley. All Rights Reserved.
                     </p>
                     <p>
                       This module is free software; you can redistribute it and/or modify it
@@ -881,7 +986,7 @@ $epflag    = $context-&gt;eval_perl();
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Context.html last modified 08:25:57 21-Jan-2012
+            http://template-toolkit.org/docs/modules/Template/Context.html last modified 07:19:27 08-Feb-2012
           </div>
         </div>
         
