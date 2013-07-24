@@ -83,6 +83,7 @@
               <ul class="toc">
                   <li class=""><a href="#section_USAGE">USAGE</a></li>
                   <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
+                  <li class="sub"><a href="#section_The_code_class_file_tpagerc_code_Configuration_File">The <code class="file">.tpagerc</code> Configuration File</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
                   <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
                   <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
@@ -128,11 +129,35 @@ tpage header myfile footer &gt; myfile.html</pre>
                       template variables. e.g.
                     </p>
                     <pre>tpage --define author="Andy Wardley" skeleton.pm &gt; MyModule.pm</pre>
+                    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_The_code_class_file_tpagerc_code_Configuration_File" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">The <code class="file">.tpagerc</code> Configuration File</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
                     <p>
-                      See <a href="../../docs/modules/Template.html">Template</a> for general
-                      information about the Perl Template Toolkit and the template language and
-                      features.
-                    </p>
+                          You can use a <code class="file">.tpagerc</code> file in your home
+                          directory.
+                        </p>
+                        <p>
+                          The purpose of this file is to set any <i>global</i> configuration
+                          options that you want applied <i>every</i> time <code
+                          class="file">tpage</code> is run. For example, you can use the
+                          <code>include_path</code> to use template files from a generic template
+                          directory.
+                        </p>
+                        <p>
+                          Run <code>tpage -h</code> for a summary of the options available.
+                        </p>
+                        <p>
+                          See <a href="../../docs/modules/Template.html">Template</a> for general
+                          information about the Perl Template Toolkit and the template language and
+                          features.
+                        </p>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="section">
@@ -182,7 +207,7 @@ tpage header myfile footer &gt; myfile.html</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/tools/tpage.html last modified 07:21:57 08-Feb-2012
+            http://template-toolkit.org/docs/tools/tpage.html last modified 08:10:55 24-Jul-2013
           </div>
         </div>
         

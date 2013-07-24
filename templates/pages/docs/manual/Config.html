@@ -2,6 +2,22 @@
 
 <div class="pod">
 [** WRAPPER page/section title='Template Style and Parsing Options' id='section_Template_Style_and_Parsing_Options' -**]
+    [** WRAPPER page/subsection title='ENCODING' id='section_ENCODING' class='' -**]
+    <p>
+      The <code>ENCODING</code> option specifies the template files' character
+      encoding:
+    </p>
+    <pre>
+      my $template = Template-&gt;new({ 
+          END_TAG =&gt; 'utf8',
+      });
+    </pre>
+    <p>
+      A template which starts with a Unicode byte order mark (BOM) will have
+      its encoding detected automatically.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='START_TAG, END_TAG' id='section_START_TAG_END_TAG' class='' -**]
     <p>
       The <code>START_TAG</code> and <code>END_TAG</code> options are used to
@@ -155,7 +171,7 @@
       <code>CHOMP_GREEDY</code> constants in the <a href="[**
       ttmodlink('Template::Constants') **]">Template::Constants</a> module.
       <code>CHOMP_ALL</code> is also defined as an alias for
-      <code>CHOMP_ONE</code> to provide backwards compatability with earlier
+      <code>CHOMP_ONE</code> to provide backwards compatibility with earlier
       version of the Template Toolkit.
     </p>
     <p>
@@ -555,7 +571,7 @@
       });
     </pre>
     <p>
-      If a non-existant template is requested through the Template <a href="[**
+      If a non-existent template is requested through the Template <a href="[**
       ttmodlink('Template') **]#method_process">process()</a> method, or by an
       <code>INCLUDE</code>, <code>PROCESS</code> or <code>WRAPPER</code>
       directive, then the <code>DEFAULT</code> template will instead be
@@ -1597,7 +1613,7 @@
     <p>
       The <code>DEBUG_FORMAT</code> option can be used to specify a format
       string for the debugging messages generated via the
-      <code>DEBUG_DIRS</code> option described above. Any occurances of
+      <code>DEBUG_DIRS</code> option described above. Any occurrences of
       <code>$file</code>, <code>$line</code> or <code>$text</code> will be
       replaced with the current file name, line or directive text,
       respectively. Notice how the format is single quoted to prevent Perl from
@@ -2266,7 +2282,7 @@
       passed as the only parameter to the Perl subroutines that represent
       "compiled" template documents. Template subroutines make callbacks into
       the context object to access Template Toolkit functionality, for example,
-      to to <code>INCLUDE</code> or <code>PROCESS</code> another template (<a
+      to <code>INCLUDE</code> or <code>PROCESS</code> another template (<a
       href="[** ttmodlink('Template::Context')
       **]#method_include">include()</a> and <a href="[**
       ttmodlink('Template::Context') **]#method_process">process()</a> methods,

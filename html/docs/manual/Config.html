@@ -91,6 +91,7 @@
             <div class="body">
               <ul class="toc">
                   <li class=""><a href="#section_Template_Style_and_Parsing_Options">Template Style and Parsing Options</a></li>
+                  <li class="sub"><a href="#section_ENCODING">ENCODING</a></li>
                   <li class="sub"><a href="#section_START_TAG_END_TAG">START_TAG, END_TAG</a></li>
                   <li class="sub"><a href="#section_TAG_STYLE">TAG_STYLE</a></li>
                   <li class="sub"><a href="#section_PRE_CHOMP_POST_CHOMP">PRE_CHOMP, POST_CHOMP</a></li>
@@ -159,6 +160,26 @@
               </div>
               <div class="body">
                 <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_ENCODING" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">ENCODING</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>ENCODING</code> option specifies the template files' character
+                          encoding:
+                        </p>
+                        <pre>my $template = Template-&gt;new({ 
+    END_TAG =&gt; 'utf8',
+});</pre>
+                        <p>
+                          A template which starts with a Unicode byte order mark (BOM) will have
+                          its encoding detected automatically.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
                   <div class="head">
                     <h2 id="section_START_TAG_END_TAG" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">START_TAG, END_TAG</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
@@ -307,7 +328,7 @@ Bar</pre>
                           <code>CHOMP_ONE</code>, <code>CHOMP_COLLAPSE</code> and
                           <code>CHOMP_GREEDY</code> constants in the <a href="../../docs/modules/Template/Constants.html">Template::Constants</a> module.
                           <code>CHOMP_ALL</code> is also defined as an alias for
-                          <code>CHOMP_ONE</code> to provide backwards compatability with earlier
+                          <code>CHOMP_ONE</code> to provide backwards compatibility with earlier
                           version of the Template Toolkit.
                         </p>
                         <p>
@@ -708,7 +729,7 @@ my $template = Template-&gt;new({
     DEFAULT =&gt; 'notfound.html',
 });</pre>
                         <p>
-                          If a non-existant template is requested through the Template <a href="../../docs/modules/Template.html#method_process">process()</a> method, or by an
+                          If a non-existent template is requested through the Template <a href="../../docs/modules/Template.html#method_process">process()</a> method, or by an
                           <code>INCLUDE</code>, <code>PROCESS</code> or <code>WRAPPER</code>
                           directive, then the <code>DEFAULT</code> template will instead be
                           processed, if defined. Note that the <code>DEFAULT</code> template is not
@@ -1743,7 +1764,7 @@ World</pre>
                     <p>
                           The <code>DEBUG_FORMAT</code> option can be used to specify a format
                           string for the debugging messages generated via the
-                          <code>DEBUG_DIRS</code> option described above. Any occurances of
+                          <code>DEBUG_DIRS</code> option described above. Any occurrences of
                           <code>$file</code>, <code>$line</code> or <code>$text</code> will be
                           replaced with the current file name, line or directive text,
                           respectively. Notice how the format is single quoted to prevent Perl from
@@ -2420,7 +2441,7 @@ Blah blah blah
                           passed as the only parameter to the Perl subroutines that represent
                           "compiled" template documents. Template subroutines make callbacks into
                           the context object to access Template Toolkit functionality, for example,
-                          to to <code>INCLUDE</code> or <code>PROCESS</code> another template (<a
+                          to <code>INCLUDE</code> or <code>PROCESS</code> another template (<a
                           href="../../docs/modules/Template/Context.html#method_include">include()</a> and <a href="../../docs/modules/Template/Context.html#method_process">process()</a> methods,
                           respectively), to <code>USE</code> a plugin (<a href="../../docs/modules/Template/Context.html#method_plugin">plugin()</a>) or
                           instantiate a filter (<a href="../../docs/modules/Template/Context.html#method_filter">filter()</a>) or to access the stash (<a href="../../docs/modules/Template/Context.html#method_stash">stash()</a>) which
@@ -2531,7 +2552,7 @@ my $template = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Config.html last modified 07:21:54 08-Feb-2012
+            http://template-toolkit.org/docs/manual/Config.html last modified 08:10:53 24-Jul-2013
           </div>
         </div>
         

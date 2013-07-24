@@ -22,7 +22,7 @@
     [** WRAPPER page/subsection title='escape(text)' id='method_escape' class='method' -**]
     <p>
       Returns the source text with any HTML reserved characters such as
-      <code>&lt;</code>, <code>&gt;</code>, etc., correctly esacped to their
+      <code>&lt;</code>, <code>&gt;</code>, etc., correctly escaped to their
       entity equivalents.
     </p>
     
@@ -32,6 +32,50 @@
       Returns the elements of the hash array passed by reference correctly
       formatted (e.g. values quoted and correctly escaped) as attributes for an
       HTML element.
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='add_attribute(attributes)' id='method_add_attribute' class='method' -**]
+    <p>
+      This provides a way to incrementally add attributes to the object. The
+      values passed in are stored in the object. Calling <a
+      href="#section_element">element</a> with just a tag or <a
+      href="#section_attributes">attributes</a> without an parameters will used
+      the saved attributes.
+    </p>
+    <pre>
+      USE tag = HTML;
+      tag.add_attributes( { class =&gt; 'navbar' } );
+      tag.add_attributes( { id =&gt; 'foo' } );
+      tag.add_attributes( { class =&gt; 'active' } );
+      
+      tag.element( 'li' ); # &lt;li class="navbar active" id="foo"&gt;
+    </pre>
+    <p>
+      This method has two aliases: add_attribute() and add().
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='replace_attribute(attributes)' id='method_replace_attribute' class='method' -**]
+    <p>
+      This will replace an attribute value instead of add to existing.
+    </p>
+    <pre>
+      USE tag = HTML;
+      tag.add_attributes( { class =&gt; 'navbar' } );
+      tag.add_attributes( { id =&gt; 'foo' } );
+      tag.replace_attributes( { class =&gt; 'active' } );
+      
+      tag.element( 'li' ); # &lt;li class="active" id="foo"&gt;
+    </pre>
+    <p>
+      This method has two aliases: replace_attribute() and replace().
+    </p>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='clear_attributes' id='section_clear_attributes' class='' -**]
+    <p>
+      Clears any saved attributes
     </p>
     
     [** END -**]

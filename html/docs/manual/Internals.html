@@ -543,11 +543,12 @@ sub {
                       state of play, find out if anyone's already working on it, and so on.
                     </p>
                     <p>
-                      When you start to hack on the Template Toolkit, please make sure you
-                      start from the latest developer release. Stable releases are uploaded to
-                      CPAN and have all-numerical version numbers, e.g. 2.04, 2.05. Developer
-                      releases are available from the Template Toolkit web site and have a
-                      character suffix on the version, e.g. 2.04a, 2.04b, etc.
+                      The source code repository for the Template Toolkit is hosted at Github.
+                    </p>
+                    <pre>https://github.com/abw/Template2</pre>
+                    <p>
+                      Clone the repository, make your changes, commit them, then send a pull
+                      request.
                     </p>
                     <p>
                       Once you've made your changes, please remember to update the test suite
@@ -575,79 +576,24 @@ sub {
                       Perl in HTML).
                     </p>
                     <p>
-                      To share your changes with the rest of the world, you'll need to prepare
-                      a patch file. To do this you should have 2 directories side-by-side, one
-                      which is the original, unmodified distribution directory for the latest
-                      developer release, and the other is a copy of that same directory which
-                      includes your changes.
+                      Then add a line to the Changes file giving a very brief description of
+                      what you've done. There's no need to go into detail here (save that for
+                      the commit message, comments in code or docuemtation where appropriate).
                     </p>
                     <p>
-                      The following example shows a typical hacking session. First we unpack
-                      the latest developer release.
-                    </p>
-                    <pre>$ tar zxf Template-Toolkit-2.05c.tar.gz</pre>
-                    <p>
-                      At this point, it's a good idea to rename the directory to give some
-                      indicate of what it contains.
-                    </p>
-                    <pre>$ mv Template-Toolkit-2.05c Template-Toolkit-2.05c-abw-xyz-hack</pre>
-                    <p>
-                      Then go hack!
-                    </p>
-                    <pre>$ cd Template-Toolkit-2.05c-abw-xyz-hack
-
-  [ hacking ]
-
-$ cd ..</pre>
-                    <p>
-                      When you're all done and ready to prepare a patch, unpack the
-                      distribution archive again so that you've got the original to
-                      <code>diff</code> against your new code.
-                    </p>
-                    <pre>$ tar zxf Template-Toolkit-2.05c.tar.gz</pre>
-                    <p>
-                      You should now have an original distribution directory and a modified
-                      version of that same directory, side-by-side.
-                    </p>
-                    <pre>$ ls
-Template-Toolkit-2.05c  Template-Toolkit-2.05c-abw-xyz-hack</pre>
-                    <p>
-                      Now run <code>diff</code> and save the output into an appropriately named
-                      patch file.
-                    </p>
-                    <pre>$ diff -Naur Template-Toolkit-2.05c Template-Toolkit-2.05c-abw-xyz-hack &gt; patch-TT205c-abw-xyz-hack</pre>
-                    <p>
-                      You can then post the generated patch file to the mailing list,
-                      describing what it does, why it does it, how it does it and any other
-                      relevant information.
+                      Please also make sure you add your name to the
+                      lib/Template/Manual/Credits.pod file (if it isn't already there).
                     </p>
                     <p>
-                      If you want to apply someone else's patch then you should start with the
-                      same original distribution source on which the patch is based. From
-                      within the root of the distribution, run <code>patch</code> feeding in
-                      the patch file as standard input. The '<code>p1</code>' option is
-                      required to strip the first element of the path name (e.g.
-                      <code>Template-Toolkit-2.05c/README</code> becomes <code>README</code>
-                      which is then the correct path).
+                      Then commit your changes and send a pull request.
                     </p>
-                    <pre>$ tar zxf Template-Toolkit-2.05c.tar.gz
-$ cd Template-Toolkit-2.05c
-$ patch -p1 &lt; ../patch-TT205c-abw-xyz-hack</pre>
-                    <p>
-                      The output generated by <code>patch</code> should be something like the
-                      following:
-                    </p>
-                    <pre>patching file README
-patching file lib/Template.pm
-patching file lib/Template/Provider.pm
-patching file t/provider.t</pre>
               </div>
             </div>
             
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Internals.html last modified 07:21:55 08-Feb-2012
+            http://template-toolkit.org/docs/manual/Internals.html last modified 08:10:53 24-Jul-2013
           </div>
         </div>
         

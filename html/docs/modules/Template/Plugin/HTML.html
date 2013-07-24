@@ -131,6 +131,9 @@
                   <li class=""><a href="#section_METHODS">METHODS</a></li>
                   <li class="sub"><a href="#method_escape">escape(text)</a></li>
                   <li class="sub"><a href="#method_attributes">attributes(hash)</a></li>
+                  <li class="sub"><a href="#method_add_attribute">add_attribute(attributes)</a></li>
+                  <li class="sub"><a href="#method_replace_attribute">replace_attribute(attributes)</a></li>
+                  <li class="sub"><a href="#section_clear_attributes">clear_attributes</a></li>
                   <li class="sub"><a href="#method_element">element(type, attributes)</a></li>
                   <li class=""><a href="#section_DEBUGGING">DEBUGGING</a></li>
                   <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
@@ -191,7 +194,7 @@
                   <div class="body">
                     <p>
                           Returns the source text with any HTML reserved characters such as
-                          <code>&lt;</code>, <code>&gt;</code>, etc., correctly esacped to their
+                          <code>&lt;</code>, <code>&gt;</code>, etc., correctly escaped to their
                           entity equivalents.
                         </p>
                   </div>
@@ -207,6 +210,64 @@
                           Returns the elements of the hash array passed by reference correctly
                           formatted (e.g. values quoted and correctly escaped) as attributes for an
                           HTML element.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_add_attribute" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">add_attribute(attributes)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This provides a way to incrementally add attributes to the object. The
+                          values passed in are stored in the object. Calling <a
+                          href="#section_element">element</a> with just a tag or <a
+                          href="#section_attributes">attributes</a> without an parameters will used
+                          the saved attributes.
+                        </p>
+                        <pre>USE tag = HTML;
+tag.add_attributes( { class =&gt; 'navbar' } );
+tag.add_attributes( { id =&gt; 'foo' } );
+tag.add_attributes( { class =&gt; 'active' } );
+
+tag.element( 'li' ); # &lt;li class="navbar active" id="foo"&gt;</pre>
+                        <p>
+                          This method has two aliases: add_attribute() and add().
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_replace_attribute" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">replace_attribute(attributes)</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This will replace an attribute value instead of add to existing.
+                        </p>
+                        <pre>USE tag = HTML;
+tag.add_attributes( { class =&gt; 'navbar' } );
+tag.add_attributes( { id =&gt; 'foo' } );
+tag.replace_attributes( { class =&gt; 'active' } );
+
+tag.element( 'li' ); # &lt;li class="active" id="foo"&gt;</pre>
+                        <p>
+                          This method has two aliases: replace_attribute() and replace().
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_clear_attributes" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">clear_attributes</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Clears any saved attributes
                         </p>
                   </div>
                 </div>    <div class="subsection">
@@ -303,7 +364,7 @@
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Plugin/HTML.html last modified 07:21:56 08-Feb-2012
+            http://template-toolkit.org/docs/modules/Template/Plugin/HTML.html last modified 08:10:54 24-Jul-2013
           </div>
         </div>
         

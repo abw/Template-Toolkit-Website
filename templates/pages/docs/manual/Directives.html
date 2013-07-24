@@ -377,7 +377,7 @@
       <code>INCLUDE</code> directive. However, be aware that because of the
       localisation issues explained above (if you skipped the previous
       Technical Note above then you might want to go back and read it or skip
-      this section too), the variables might not actualy be "local". If the
+      this section too), the variables might not actually be "local". If the
       first element of the variable name already references a hash array then
       the variable update will affect the original variable.
     </p>
@@ -1434,7 +1434,7 @@
     </pre>
     <p>
       The <a href="[** ttmodlink('Template::Plugin::CGI') **]">CGI</a> plugin
-      is an example of one which delegates to another Perl module. In this this
+      is an example of one which delegates to another Perl module. In this
       case, to Lincoln Stein's <code>CGI</code> module. All of the methods
       provided by the <code>CGI</code> module are available via the plugin.
     </p>
@@ -1813,7 +1813,7 @@
       <span class="tt">[% END %]</span>
     </pre>
     <p>
-      output (assuming a non-existant database called '<code>foobar</code>'):
+      output (assuming a non-existent database called '<code>foobar</code>'):
     </p>
     <pre>
       ERROR!  Type: DBI
@@ -1899,7 +1899,7 @@
       Note that the <code>DEFAULT</code> option (disabled by default) allows
       you to specify a default file to be used any time a template file can't
       be found. This will prevent file exceptions from ever being raised when a
-      non-existant file is requested (unless, of course, the
+      non-existent file is requested (unless, of course, the
       <code>DEFAULT</code> file your specify doesn't exist). Errors encountered
       once the file has been found (i.e. read error, parse error) will be
       raised as file exceptions as per usual.
@@ -1933,7 +1933,7 @@
       the first <code>INCLUDE</code> directive works as expected. We're using a
       variable to provide the name of the template we want to include,
       <code>user.header</code>, and it's possible this contains the name of a
-      non-existant template, or perhaps one containing invalid template
+      non-existent template, or perhaps one containing invalid template
       directives. If the <code>INCLUDE</code> fails with a <code>file</code>
       error then we <code>CATCH</code> it in the inner block and
       <code>INCLUDE</code> the default <code>header</code> file instead. Any
