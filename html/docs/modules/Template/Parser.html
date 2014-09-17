@@ -243,7 +243,7 @@ $template = $parser-&gt;parse($text)
                           character sequences or regular expressions that mark the start and end of
                           a template directive.
                         </p>
-                        <pre>my $parser = Template::Parser-&gt;new({ 
+                        <pre>my $parser = Template::Parser-&gt;new({
     START_TAG =&gt; quotemeta('&lt;+'),
     END_TAG   =&gt; quotemeta('+&gt;'),
 });</pre>
@@ -261,7 +261,7 @@ $template = $parser-&gt;parse($text)
                           href="#section_START_TAG">START_TAG</a> and <a
                           href="#section_END_TAG">END_TAG</a> according to pre-defined tag styles.
                         </p>
-                        <pre>my $parser = Template::Parser-&gt;new({ 
+                        <pre>my $parser = Template::Parser-&gt;new({
     TAG_STYLE =&gt; 'star',     # [* ... *]
 });</pre>
                   </div>
@@ -294,7 +294,7 @@ $template = $parser-&gt;parse($text)
                           The <a href="../../../docs/manual/Config.html#section_INTERPOLATE">INTERPOLATE</a> flag can be set to allow
                           variables to be embedded in plain text blocks.
                         </p>
-                        <pre>my $parser = Template::Parser-&gt;new({ 
+                        <pre>my $parser = Template::Parser-&gt;new({
     INTERPOLATE =&gt; 1,
 });</pre>
                         <p>
@@ -338,7 +338,7 @@ The day today is ${day.today}.</pre>
                         </p>
                         <pre>use MyOrg::Template::Grammar;
 
-my $parser = Template::Parser-&gt;new({ 
+my $parser = Template::Parser-&gt;new({
     GRAMMAR = MyOrg::Template::Grammar-&gt;new();
 });</pre>
                         <p>
@@ -428,7 +428,7 @@ specified in the Perl README file.</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Parser.html last modified 08:10:54 24-Jul-2013
+            http://template-toolkit.org/docs/modules/Template/Parser.html last modified 08:52:38 17-Sep-2014
           </div>
         </div>
         

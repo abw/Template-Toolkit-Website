@@ -307,7 +307,7 @@ Binary "&lt;=&gt;" returns -1, 0, or 1 depending on...
                       text will be encoded (via the <code>escape_html()</code> or
                       <code>encode_entities()</code> subroutines respectively) to convert all
                       extended characters into their appropriate HTML entities (e.g. converting
-                      '<code>&#xe9;</code>' to '<code>&amp;eacute;</code>'). If neither module is
+                      '<code>?</code>' to '<code>&amp;eacute;</code>'). If neither module is
                       available on your system then an '<code>html_entity</code>' exception
                       will be thrown reporting an appropriate message.
                     </p>
@@ -428,7 +428,7 @@ Mary had a little lamb.&lt;br&gt;</pre>
               <div class="body">
                 <p>
                       This filter URI escapes the input text, converting any characters outside
-                      of the permitted URI character set (as defined by RFC 2396) into a
+                      of the permitted URI character set (as defined by RFC 3986) into a
                       <code>%nn</code> hex escape.
                     </p>
                     <pre><span class="tt">[% 'my file.html' | uri %]</span></pre>
@@ -486,9 +486,24 @@ baz%3Dbam&amp;title=Earth%3A%20%22Mostly%20Harmless%22"&gt;</pre>
                       Please note that this behaviour was changed in version 2.16 of the
                       Template Toolkit. Prior to that, the uri filter did not encode the
                       reserved characters, making it technically incorrect according to the RFC
-                      2396 specification. So we fixed it in 2.16 and provided the url filter to
-                      implement the old behaviour of not encoding reserved characters.
+                      2396 specification (since superceded by RFC2732 and RFC3986). So we fixed
+                      it in 2.16 and provided the url filter to implement the old behaviour of
+                      not encoding reserved characters.
                     </p>
+                    <p>
+                      As of version 2.26 of the Template Toolkit, the <code>uri</code> and <a
+                      href="#section_url">url</a> filters use the unsafe character set defined
+                      by RFC3986. This means that certain characters ("(", ")", "~", "*", "!"
+                      and the single quote "'") are now deemed unsafe and will be escaped as
+                      hex character sequences. The double quote character ('"') is now deemed
+                      safe and will not be escaped.
+                    </p>
+                    <p>
+                      If you want to enable the old behaviour then call the
+                      <code>use_rfc2732()</code> method in <a href="../../docs/modules/Template/Filters.html">Template::Filters</a>
+                    </p>
+                    <pre>use Template::Filters
+Template::Filters-&gt;use_rfc2732;</pre>
               </div>
             </div>
             <div class="section">
@@ -830,7 +845,7 @@ $template-&gt;process($file, $vars);</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Filters.html last modified 08:10:53 24-Jul-2013
+            http://template-toolkit.org/docs/manual/Filters.html last modified 08:52:37 17-Sep-2014
           </div>
         </div>
         

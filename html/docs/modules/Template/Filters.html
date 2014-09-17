@@ -111,6 +111,8 @@
                   <li class="sub"><a href="#method_fetch">fetch($name, \@args, $context)</a></li>
                   <li class="sub"><a href="#method_use_html_entities">use_html_entities()</a></li>
                   <li class="sub"><a href="#method_use_apache_util">use_apache_util()</a></li>
+                  <li class="sub"><a href="#method_use_rfc2732">use_rfc2732()</a></li>
+                  <li class="sub"><a href="#method_use_rfc3986">use_rfc3986()</a></li>
                   <li class=""><a href="#section_CONFIGURATION_OPTIONS">CONFIGURATION OPTIONS</a></li>
                   <li class="sub"><a href="#section_FILTERS">FILTERS</a></li>
                   <li class="sub"><a href="#section_TOLERANT">TOLERANT</a></li>
@@ -265,6 +267,34 @@ Template::Filters-&gt;use_html_entities();</pre>
                         <pre>use Template::Filters;
 Template::Filters-&gt;use_apache_util();</pre>
                   </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_use_rfc2732" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">use_rfc2732()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This class method can be called to configure the <code>uri</code> and
+                          <code>url</code> filters to use the older RFC2732 standard for matching
+                          unsafe characters.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="method_use_rfc3986" class="method" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">use_rfc3986()</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          This class method can be called to configure the <code>uri</code> and
+                          <code>url</code> filters to use the newer RFC3986 standard for matching
+                          unsafe characters.
+                        </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -376,7 +406,7 @@ my $template = Template-&gt;new({
               </div>
               <div class="body">
                 <p>
-                      Copyright (C) 1996-2007 Andy Wardley. All Rights Reserved.
+                      Copyright (C) 1996-2014 Andy Wardley. All Rights Reserved.
                     </p>
                     <p>
                       This module is free software; you can redistribute it and/or modify it
@@ -401,7 +431,7 @@ my $template = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Filters.html last modified 08:10:54 24-Jul-2013
+            http://template-toolkit.org/docs/modules/Template/Filters.html last modified 08:52:38 17-Sep-2014
           </div>
         </div>
         

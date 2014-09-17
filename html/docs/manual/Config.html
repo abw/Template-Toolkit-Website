@@ -93,6 +93,7 @@
                   <li class=""><a href="#section_Template_Style_and_Parsing_Options">Template Style and Parsing Options</a></li>
                   <li class="sub"><a href="#section_ENCODING">ENCODING</a></li>
                   <li class="sub"><a href="#section_START_TAG_END_TAG">START_TAG, END_TAG</a></li>
+                  <li class="sub"><a href="#section_OUTLINE_TAG">OUTLINE_TAG</a></li>
                   <li class="sub"><a href="#section_TAG_STYLE">TAG_STYLE</a></li>
                   <li class="sub"><a href="#section_PRE_CHOMP_POST_CHOMP">PRE_CHOMP, POST_CHOMP</a></li>
                   <li class="sub"><a href="#section_TRIM">TRIM</a></li>
@@ -171,8 +172,8 @@
                           The <code>ENCODING</code> option specifies the template files' character
                           encoding:
                         </p>
-                        <pre>my $template = Template-&gt;new({ 
-    END_TAG =&gt; 'utf8',
+                        <pre>my $template = Template-&gt;new({
+    ENCODING =&gt; 'utf8',
 });</pre>
                         <p>
                           A template which starts with a Unicode byte order mark (BOM) will have
@@ -190,7 +191,7 @@
                     <p>
                           The <code>START_TAG</code> and <code>END_TAG</code> options are used to
                           specify character sequences or regular expressions that mark the start
-                          and end of a template directive. The default values for
+                          and end of inline template directives. The default values for
                           <code>START_TAG</code> and <code>END_TAG</code> are '<code>[%</code>' and
                           '<code>%]</code>' respectively, giving us the familiar directive style:
                         </p>
@@ -200,7 +201,7 @@
                           use the Perl <code>quotemeta</code> function) if they are intended to
                           represent literal characters.
                         </p>
-                        <pre>my $template = Template-&gt;new({ 
+                        <pre>my $template = Template-&gt;new({
     START_TAG =&gt; quotemeta('&lt;+'),
     END_TAG   =&gt; quotemeta('+&gt;'),
 });</pre>
@@ -217,6 +218,34 @@
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="section_OUTLINE_TAG" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">OUTLINE_TAG</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          The <code>OUTLINE_TAG</code> option can be used to enable single-line
+                          "outline" directives.
+                        </p>
+                        <pre>my $template = Template-&gt;new({
+    OUTLINE_TAG =&gt; '%%',
+});</pre>
+                        <p>
+                          This allows you to use both inline and outline tags like so:
+                        </p>
+                        <pre>%% IF user
+Hello <span class="tt">[% user.name %]</span>
+%% END</pre>
+                        <p>
+                          The <code>OUTLINE_TAG</code> string (or regex) must appear at the start
+                          of a line. The directive continues until the end of the line. The newline
+                          character at the end of the line is considered to be the invisible
+                          end-of-directive marker and is removed.
+                        </p>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="section_TAG_STYLE" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">TAG_STYLE</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -228,7 +257,7 @@
                           <code>START_TAG</code> and <code>END_TAG</code> according to pre-defined
                           tag styles.
                         </p>
-                        <pre>my $template = Template-&gt;new({ 
+                        <pre>my $template = Template-&gt;new({
     TAG_STYLE =&gt; 'star',
 });</pre>
                         <p>
@@ -243,8 +272,23 @@ asp         &lt;% ... %&gt;               (ASP)
 mason       &lt;% ...  &gt;               (HTML::Mason)
 html        &lt;!-- ... --&gt;            (HTML comments)</pre>
                         <p>
-                          Any values specified for <code>START_TAG</code> and/or
-                          <code>END_TAG</code> will override those defined by a
+                          The <code>outline</code> style uses the default markers for
+                          <code>START_TAG</code> and <code>END_TAG</code> (<code>[%</code> and
+                          <code>%]</code> respectively) and additionally defines
+                          <code>OUTLINE_TAG</code> to be <code>%%</code>.
+                        </p>
+                        <pre>my $template = Template-&gt;new({
+    TAG_STYLE =&gt; 'outline',
+});</pre>
+                        <p>
+                          This allows you to use both inline and outline tags like so:
+                        </p>
+                        <pre>%% IF user
+Hello <span class="tt">[% user.name %]</span>
+%% END</pre>
+                        <p>
+                          Any values specified for <code>START_TAG</code>, <code>END_TAG</code>
+                          and/or <code>OUTLINE_TAG</code> will override those defined by a
                           <code>TAG_STYLE</code>.
                         </p>
                         <p>
@@ -424,7 +468,7 @@ Line 1 of foo
                           will be processed is as "<code>\nLine 1 of foo\n</code>". When
                           <code>INCLUDE</code>d, the surrounding newlines will also be introduced.
                         </p>
-                        <pre>before 
+                        <pre>before
 <span class="tt">[% INCLUDE foo %]</span>
 after</pre>
                         <p>
@@ -461,7 +505,7 @@ after</pre>
                           <code>START_TAG</code> and <code>END_TAG</code>) to be recognised and
                           interpolated accordingly.
                         </p>
-                        <pre>my $template = Template-&gt;new({ 
+                        <pre>my $template = Template-&gt;new({
     INTERPOLATE =&gt; 1,
 });</pre>
                         <p>
@@ -518,10 +562,10 @@ $myorg.name
                           variable of the same name as a reserved word, regardless of case. The
                           reserved words are currently:
                         </p>
-                        <pre>GET CALL SET DEFAULT INSERT INCLUDE PROCESS WRAPPER 
+                        <pre>GET CALL SET DEFAULT INSERT INCLUDE PROCESS WRAPPER
 IF UNLESS ELSE ELSIF FOR FOREACH WHILE SWITCH CASE
 USE PLUGIN FILTER MACRO PERL RAWPERL BLOCK META
-TRY THROW CATCH FINAL NEXT LAST BREAK RETURN STOP 
+TRY THROW CATCH FINAL NEXT LAST BREAK RETURN STOP
 CLEAR TO STEP AND OR NOT MOD DIV END</pre>
                         <p>
                           The only lower case reserved words that cannot be used for variables,
@@ -566,7 +610,7 @@ my $template = Template-&gt;new({
 });
 
 my $template = Template-&gt;new({
-    INCLUDE_PATH =&gt; [ '/usr/local/templates', 
+    INCLUDE_PATH =&gt; [ '/usr/local/templates',
                       '/tmp/my/templates' ],
 });</pre>
                         <p>
@@ -582,8 +626,8 @@ my $template = Template-&gt;new({
                           a subroutine or an object which implements a <code>paths()</code> method.
                         </p>
                         <pre>my $template = Template-&gt;new({
-    INCLUDE_PATH =&gt; [ '/usr/local/templates', 
-                      \&amp;incpath_generator, 
+    INCLUDE_PATH =&gt; [ '/usr/local/templates',
+                      \&amp;incpath_generator,
                       My::IncPath::Generator-&gt;new( ... ) ],
 });</pre>
                         <p>
@@ -1188,7 +1232,7 @@ $template-&gt;process('foo.html');</pre>
                         <p>
                           foo.html:
                         </p>
-                        <pre><span class="tt">[% META 
+                        <pre><span class="tt">[% META
    title     = 'The Foo Page'
    author    = 'Fred Foo'
    copyright = '2000 Fred Foo'
@@ -1591,7 +1635,7 @@ my $template = Template-&gt;new({
                         <pre>$t-&gt;process($file, $vars, "/tmp/foo");
 $t-&gt;process($file, $vars, \$output);
 $t-&gt;process($file, $vars, \*MYGLOB);
-$t-&gt;process($file, $vars, \@output); 
+$t-&gt;process($file, $vars, \@output);
 $t-&gt;process($file, $vars, $r);  # Apache::Request
 ...</pre>
                   </div>
@@ -1620,7 +1664,7 @@ my $vars = {
 
 foreach my $file ('foo.html', 'bar.html') {
     $template-&gt;process($file, $vars, $file)
-        || die $template-&gt;error();  
+        || die $template-&gt;error();
 }</pre>
                         <p>
                           This example will read the input files <code
@@ -1736,7 +1780,7 @@ my $template = Template-&gt;new({
                           would generate this output:
                         </p>
                         <pre>## input text line 1 :  ##
-Hello 
+Hello
 ## input text line 2 : World ##
 World</pre>
                         </li>
@@ -2018,7 +2062,7 @@ C:/TT2/Cache/D/My Templates</pre>
         cgi =&gt; 'MyOrg::Template::Plugin::CGI',
         foo =&gt; 'MyOrg::Template::Plugin::Foo',
         bar =&gt; 'MyOrg::Template::Plugin::Bar',
-    },  
+    },
 });</pre>
                         <p>
                           The recommended convention is to specify these plugin names in lower
@@ -2088,7 +2132,7 @@ C:/TT2/Cache/D/My Templates</pre>
                           template:
                         </p>
                         <pre><span class="tt">[% USE Foo %]</span>    # =&gt;   MyOrg::Template::Plugin::Foo
-                   or YourOrg::Template::Plugin::Foo 
+                   or YourOrg::Template::Plugin::Foo
                    or          Template::Plugin::Foo</pre>
                         <p>
                           If you don't want the default <code>Template::Plugin</code> namespace
@@ -2240,13 +2284,13 @@ Blah blah blah.
     return sub {
         my $text = shift;
         # do something to modify $text...
-        return $text;           
+        return $text;
     }
 }</pre>
                         <p>
                           The following template fragment:
                         </p>
-                        <pre><span class="tt">[% FILTER dfilt1(123, 456) %]</span> 
+                        <pre><span class="tt">[% FILTER dfilt1(123, 456) %]</span>
 Blah blah blah
 <span class="tt">[% END %]</span></pre>
                         <p>
@@ -2541,7 +2585,7 @@ my $template = Template-&gt;new({
                         </p>
                         <pre>use MyOrg::Template::Grammar;
 
-my $template = Template-&gt;new({ 
+my $template = Template-&gt;new({
     GRAMMAR = MyOrg::Template::Grammar-&gt;new();
 });</pre>
                   </div>
@@ -2552,7 +2596,7 @@ my $template = Template-&gt;new({
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Config.html last modified 08:10:53 24-Jul-2013
+            http://template-toolkit.org/docs/manual/Config.html last modified 08:52:37 17-Sep-2014
           </div>
         </div>
         
