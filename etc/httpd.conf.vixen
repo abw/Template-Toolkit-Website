@@ -1,0 +1,97 @@
+#------------------------------------------------------------------------
+# This is the Apache configuration file for the Template Toolkit 
+# website.  It points Apache to the right locations for the HTML pages 
+# and images.
+#
+# You can include it into your main Apache httpd.conf file like this:
+#
+#     Include /Users/abw/web/tt2.org/etc/httpd.conf
+#
+# Written by Andy Wardley.  June 2007.
+#
+# WARNING:
+#  This configuration file is generated when you run 
+# 'bin/configure'.  Any changes made here may be lost!
+# 
+#------------------------------------------------------------------------
+
+ServerName      template-toolkit.org
+ServerAlias     template-toolkit.com
+ServerAlias     tt2.org
+ServerAlias     www.template-toolkit.org
+ServerAlias     www.template-toolkit.com
+ServerAlias     www.tt2.org
+ServerAlias     static.tt2.org
+ServerAlias     lists.template-toolkit.org
+ServerAlias     lists.template-toolkit.com
+ServerAlias     lists.tt2.org
+ServerAlias     tt2
+ServerAdmin     webmaster@template-toolkit.org
+
+DocumentRoot    /Users/abw/web/tt2.org/html/
+ErrorLog        /Users/abw/web/tt2.org/logs/error_log
+CustomLog       /Users/abw/web/tt2.org/logs/access_log common
+AddHandler      cgi-script  .cgi
+
+Alias           /images/           /Users/abw/web/tt2.org/images/
+Alias           /svnweb            /home/abw/subversion/ttsvnweb
+Alias           /pipermail/        /usr/local/mailman/archives/public/
+Alias           /mailman/icons/    /usr/local/mailman/icons/
+ScriptAlias     /mailman/          /usr/local/mailman/cgi-bin/
+
+# Perl Conference papers have moved to wardley.org
+Redirect      permanent  /tpc4/index.html              http://wardley.org/computers/perl/conference/template_web_site/index.html
+Redirect      permanent  /tpc5/kitesurfing/index.html  http://wardley.org/computers/perl/conference/camel_kitesurfing/index.html
+Redirect      permanent  /tpc5/camelot/index.html      http://wardley.org/computers/perl/conference/camelot.html
+Redirect      permanent  /docs.html                    http://template-toolkit.org/docs/index.html
+Redirect      permanent  /info.html                    http://template-toolkit.org/about.html
+Redirect      permanent  /download.html                http://template-toolkit.org/download/index.html
+
+
+RedirectMatch permanent  /docs/\w+/Manual/(.*)         http://template-toolkit.org/docs/manual/$1
+RedirectMatch permanent  /docs/\w+/Modules/(.*)        http://template-toolkit.org/docs/modules/$1
+RedirectMatch permanent  /docs/\w+/Tools/(.*)          http://template-toolkit.org/docs/tools/$1
+RedirectMatch permanent  /docs/\w+/Tutorial/(.*)       http://template-toolkit.org/docs/tutorial/$1
+RedirectMatch permanent  /docs/\w+/FAQ/(.*)            http://template-toolkit.org/docs/faq/$1
+
+Redirect      permanent  /mailman/                     http://mail.template-toolkit.org/mailman/
+Redirect      permanent  /pipermail/                   http://mail.template-toolkit.org/pipermail/
+
+<Directory /Users/abw/web/tt2.org/html/>
+    Options MultiViews Indexes FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<Directory /Users/abw/web/tt2.org/images/>
+    Options Indexes
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<Directory  /usr/local/mailman/cgi-bin>
+    Options ExecCGI FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<Directory  /usr/local/mailman/archives/public>
+    Options FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+<Directory /home/abw/subversion/ttsvnweb>
+    AllowOverride None
+    Options None
+    SetHandler perl-script
+    PerlHandler SVN::Web
+</Directory>
+
+<Directory /home/abw/subversion/ttsvnweb/css>
+    SetHandler default-handler
+</Directory>
