@@ -8,8 +8,8 @@
       encoding:
     </p>
     <pre>
-      my $template = Template-&gt;new({ 
-          END_TAG =&gt; 'utf8',
+      my $template = Template-&gt;new({
+          ENCODING =&gt; 'utf8',
       });
     </pre>
     <p>
@@ -22,7 +22,7 @@
     <p>
       The <code>START_TAG</code> and <code>END_TAG</code> options are used to
       specify character sequences or regular expressions that mark the start
-      and end of a template directive. The default values for
+      and end of inline template directives. The default values for
       <code>START_TAG</code> and <code>END_TAG</code> are '<code>[%</code>' and
       '<code>%]</code>' respectively, giving us the familiar directive style:
     </p>
@@ -35,7 +35,7 @@
       represent literal characters.
     </p>
     <pre>
-      my $template = Template-&gt;new({ 
+      my $template = Template-&gt;new({
           START_TAG =&gt; quotemeta('&lt;+'),
           END_TAG   =&gt; quotemeta('+&gt;'),
       });
@@ -56,6 +56,32 @@
     </pre>
     
     [** END -**]
+    [** WRAPPER page/subsection title='OUTLINE_TAG' id='section_OUTLINE_TAG' class='' -**]
+    <p>
+      The <code>OUTLINE_TAG</code> option can be used to enable single-line
+      "outline" directives.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          OUTLINE_TAG =&gt; '%%',
+      });
+    </pre>
+    <p>
+      This allows you to use both inline and outline tags like so:
+    </p>
+    <pre>
+      %% IF user
+      Hello <span class="tt">[% user.name %]</span>
+      %% END
+    </pre>
+    <p>
+      The <code>OUTLINE_TAG</code> string (or regex) must appear at the start
+      of a line. The directive continues until the end of the line. The newline
+      character at the end of the line is considered to be the invisible
+      end-of-directive marker and is removed.
+    </p>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='TAG_STYLE' id='section_TAG_STYLE' class='' -**]
     <p>
       The <code>TAG_STYLE</code> option can be used to set both
@@ -63,7 +89,7 @@
       tag styles.
     </p>
     <pre>
-      my $template = Template-&gt;new({ 
+      my $template = Template-&gt;new({
           TAG_STYLE =&gt; 'star',
       });
     </pre>
@@ -81,8 +107,27 @@
       html        &lt;!-- ... --&gt;            (HTML comments)
     </pre>
     <p>
-      Any values specified for <code>START_TAG</code> and/or
-      <code>END_TAG</code> will override those defined by a
+      The <code>outline</code> style uses the default markers for
+      <code>START_TAG</code> and <code>END_TAG</code> (<code>[%</code> and
+      <code>%]</code> respectively) and additionally defines
+      <code>OUTLINE_TAG</code> to be <code>%%</code>.
+    </p>
+    <pre>
+      my $template = Template-&gt;new({
+          TAG_STYLE =&gt; 'outline',
+      });
+    </pre>
+    <p>
+      This allows you to use both inline and outline tags like so:
+    </p>
+    <pre>
+      %% IF user
+      Hello <span class="tt">[% user.name %]</span>
+      %% END
+    </pre>
+    <p>
+      Any values specified for <code>START_TAG</code>, <code>END_TAG</code>
+      and/or <code>OUTLINE_TAG</code> will override those defined by a
       <code>TAG_STYLE</code>.
     </p>
     <p>
@@ -219,7 +264,7 @@
     </p>
     <pre>
       <span class="tt">[% FOREACH user IN userlist %]</span>
-       
+      
          <span class="tt">[%= user =%]</span>
       
       <span class="tt">[% END %]</span>
@@ -282,7 +327,7 @@
       <code>INCLUDE</code>d, the surrounding newlines will also be introduced.
     </p>
     <pre>
-      before 
+      before
       <span class="tt">[% INCLUDE foo %]</span>
       after
     </pre>
@@ -319,7 +364,7 @@
       interpolated accordingly.
     </p>
     <pre>
-      my $template = Template-&gt;new({ 
+      my $template = Template-&gt;new({
           INTERPOLATE =&gt; 1,
       });
     </pre>
@@ -376,10 +421,10 @@
       reserved words are currently:
     </p>
     <pre>
-      GET CALL SET DEFAULT INSERT INCLUDE PROCESS WRAPPER 
+      GET CALL SET DEFAULT INSERT INCLUDE PROCESS WRAPPER
       IF UNLESS ELSE ELSIF FOR FOREACH WHILE SWITCH CASE
       USE PLUGIN FILTER MACRO PERL RAWPERL BLOCK META
-      TRY THROW CATCH FINAL NEXT LAST BREAK RETURN STOP 
+      TRY THROW CATCH FINAL NEXT LAST BREAK RETURN STOP
       CLEAR TO STEP AND OR NOT MOD DIV END
     </pre>
     <p>
@@ -413,7 +458,7 @@
       });
       
       my $template = Template-&gt;new({
-          INCLUDE_PATH =&gt; [ '/usr/local/templates', 
+          INCLUDE_PATH =&gt; [ '/usr/local/templates',
                             '/tmp/my/templates' ],
       });
     </pre>
@@ -431,8 +476,8 @@
     </p>
     <pre>
       my $template = Template-&gt;new({
-          INCLUDE_PATH =&gt; [ '/usr/local/templates', 
-                            \&amp;incpath_generator, 
+          INCLUDE_PATH =&gt; [ '/usr/local/templates',
+                            \&amp;incpath_generator,
                             My::IncPath::Generator-&gt;new( ... ) ],
       });
     </pre>
@@ -449,7 +494,7 @@
     <pre>
       sub incpath_generator {
           # ...some code...
-          
+      
           if ($all_is_well) {
               return \@list_of_directories;
           }
@@ -470,9 +515,9 @@
       
       sub paths {
           my $self = shift;
-          
+      
           # ...some code...
-          
+      
           if ($all_is_well) {
               return \@list_of_directories;
           }
@@ -1020,7 +1065,7 @@
       foo.html:
     </p>
     <pre>
-      <span class="tt">[% META 
+      <span class="tt">[% META
          title     = 'The Foo Page'
          author    = 'Fred Foo'
          copyright = '2000 Fred Foo'
@@ -1444,7 +1489,7 @@
       $t-&gt;process($file, $vars, "/tmp/foo");
       $t-&gt;process($file, $vars, \$output);
       $t-&gt;process($file, $vars, \*MYGLOB);
-      $t-&gt;process($file, $vars, \@output); 
+      $t-&gt;process($file, $vars, \@output);
       $t-&gt;process($file, $vars, $r);  # Apache::Request
       ...
     </pre>
@@ -1470,7 +1515,7 @@
       
       foreach my $file ('foo.html', 'bar.html') {
           $template-&gt;process($file, $vars, $file)
-              || die $template-&gt;error();  
+              || die $template-&gt;error();
       }
     </pre>
     <p>
@@ -1590,7 +1635,7 @@
     </p>
     <pre>
       ## input text line 1 :  ##
-      Hello 
+      Hello
       ## input text line 2 : World ##
       World
     </pre>
@@ -1851,7 +1896,7 @@
               cgi =&gt; 'MyOrg::Template::Plugin::CGI',
               foo =&gt; 'MyOrg::Template::Plugin::Foo',
               bar =&gt; 'MyOrg::Template::Plugin::Bar',
-          },  
+          },
       });
     </pre>
     <p>
@@ -1926,7 +1971,7 @@
     </p>
     <pre>
       <span class="tt">[% USE Foo %]</span>    # =&gt;   MyOrg::Template::Plugin::Foo
-                         or YourOrg::Template::Plugin::Foo 
+                         or YourOrg::Template::Plugin::Foo
                          or          Template::Plugin::Foo
     </pre>
     <p>
@@ -2083,11 +2128,11 @@
     <pre>
       sub dynamic_filter_factory {
           my ($context, @args) = @_;
-          
+      
           return sub {
               my $text = shift;
               # do something to modify $text...
-              return $text;           
+              return $text;
           }
       }
     </pre>
@@ -2095,7 +2140,7 @@
       The following template fragment:
     </p>
     <pre>
-      <span class="tt">[% FILTER dfilt1(123, 456) %]</span> 
+      <span class="tt">[% FILTER dfilt1(123, 456) %]</span>
       Blah blah blah
       <span class="tt">[% END %]</span>
     </pre>
@@ -2385,7 +2430,7 @@
     <pre>
       use MyOrg::Template::Grammar;
       
-      my $template = Template-&gt;new({ 
+      my $template = Template-&gt;new({
           GRAMMAR = MyOrg::Template::Grammar-&gt;new();
       });
     </pre>

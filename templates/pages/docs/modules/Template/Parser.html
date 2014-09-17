@@ -79,7 +79,7 @@
       a template directive.
     </p>
     <pre>
-      my $parser = Template::Parser-&gt;new({ 
+      my $parser = Template::Parser-&gt;new({
           START_TAG =&gt; quotemeta('&lt;+'),
           END_TAG   =&gt; quotemeta('+&gt;'),
       });
@@ -94,7 +94,7 @@
       href="#section_END_TAG">END_TAG</a> according to pre-defined tag styles.
     </p>
     <pre>
-      my $parser = Template::Parser-&gt;new({ 
+      my $parser = Template::Parser-&gt;new({
           TAG_STYLE =&gt; 'star',     # [* ... *]
       });
     </pre>
@@ -123,7 +123,7 @@
       variables to be embedded in plain text blocks.
     </p>
     <pre>
-      my $parser = Template::Parser-&gt;new({ 
+      my $parser = Template::Parser-&gt;new({
           INTERPOLATE =&gt; 1,
       });
     </pre>
@@ -163,7 +163,7 @@
     <pre>
       use MyOrg::Template::Grammar;
       
-      my $parser = Template::Parser-&gt;new({ 
+      my $parser = Template::Parser-&gt;new({
           GRAMMAR = MyOrg::Template::Grammar-&gt;new();
       });
     </pre>

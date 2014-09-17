@@ -25,6 +25,7 @@ ServerAlias     static.tt2.org
 ServerAlias     lists.template-toolkit.org
 ServerAlias     lists.template-toolkit.com
 ServerAlias     lists.tt2.org
+ServerAlias     tt2
 ServerAdmin     webmaster@template-toolkit.org
 
 DocumentRoot    [% root %]/html/
@@ -66,6 +67,9 @@ RedirectMatch permanent  /docs/\w+/Modules/(.*)        [% tt2 %]/docs/modules/$1
 RedirectMatch permanent  /docs/\w+/Tools/(.*)          [% tt2 %]/docs/tools/$1
 RedirectMatch permanent  /docs/\w+/Tutorial/(.*)       [% tt2 %]/docs/tutorial/$1
 RedirectMatch permanent  /docs/\w+/FAQ/(.*)            [% tt2 %]/docs/faq/$1
+
+Redirect      permanent  /mailman/                     http://mail.template-toolkit.org/mailman/
+Redirect      permanent  /pipermail/                   http://mail.template-toolkit.org/pipermail/
 
 <Directory [% root %]/html/>
     Options MultiViews Indexes FollowSymLinks
