@@ -21,9 +21,9 @@ use File::Find::Rule;
 my $root = dir($Bin)->parent;
 my $skel = $root->subdir('skeleton');
 my $safe = "$root";
-if ($safe =~ s[/Users/][/home/]) {
-   warn "WARNING: Changing /Users/ to /home/ for portability\n";
-}
+#if ($safe =~ s[/Users/][/home/]) {
+#   warn "WARNING: Changing /Users/ to /home/ for portability\n";
+#}
 
 my $tt   = Template->new({
     INCLUDE_PATH => $skel,
@@ -37,11 +37,11 @@ my @files = map {
     # remove source directory to give relative path
     s[^$skel/][];
     $_;
-} $rule->or( 
+} $rule->or(
     # either find a .svn directory and ignore it
-    $rule->new->directory->name('.svn')->prune->discard, 
+    $rule->new->directory->name('.svn')->prune->discard,
     # or find for a regular file
-    $rule->new->file 
+    $rule->new->file
 )->in("$skel");
 
 # now process all files found
@@ -56,4 +56,3 @@ foreach my $file (@files) {
     chmod( (stat $infile)[2] & 07777, $outfile )
         || warn "chmod($outfile): $!\n";
 }
-
