@@ -107,7 +107,7 @@ sub view_head1 {
 
     if ($title eq 'NAME') {
         my $text = $head1->content();
-        @$meta{ qw( module summary ) } = map { 
+        @$meta{ qw( module summary ) } = map {
             s/^\s+//m; # remove leading whitespace
             s/\s$//m;  # return trailing whitespace
             $_ || '';  # pass modified value through
@@ -127,7 +127,7 @@ sub view_head1 {
     my $id = $title;
     $id =~ s/\W+/_/g;
     $id = "section_$id";
-    
+
     $title =~ s/'/\\'/g;
     return <<EOF;
 [** WRAPPER page/section title='$title' id='$id' -**]
@@ -156,7 +156,7 @@ sub view_head2 {
         $id = "section_$name";
 #        $title = qq{<h2 id="$name">$title</h2>};
     }
-    
+
     my $content = $head2->content->present($self);
     $title =~ s/'/\\'/g;
     return <<EOF;
@@ -184,10 +184,10 @@ sub view_head3 {
         $id = "section_$name";
 #        $title = qq{<h2 id="$name">$title</h2>};
     }
-    
+
     my $content = $head3->content->present($self);
     $title =~ s/"/&quot;/g;
-    
+
     $class = $class ? " class=\"$class\"" : '';
     $id    = $id    ? " id=\"$id\""       : '';
     return <<EOF;
@@ -221,7 +221,7 @@ sub view_item {
             $title  = qq{<b>$title</b>} if $content;
         }
     }
-    
+
     my $tag = $anchor ? qq{<li id="item_${anchor}">}
                       : qq{<li>};
 
@@ -235,6 +235,7 @@ sub view_verbatim {
         s/&/&amp;/g;
         s/</&lt;/g;
         s/>/&gt;/g;
+        s{^(\s*%%.*?)$}{<span class="tt">$1</span>}gsm;
         s/^( {4}|\t)//gm;
         s/^/  /gm;
         s{(\[%.*?%\])}{<span class="tt">$1</span>}gs;
@@ -391,7 +392,7 @@ Template::Docs::Pod::HTML - convert POD to HTML
 =head1 SYNOPSIS
 
     use Template::Docs::Pod::HTML;
-    
+
     my $html = Template::Docs::Pod::HTML->convert_pod_file($filename);
 
 =head1 DESCRIPTION

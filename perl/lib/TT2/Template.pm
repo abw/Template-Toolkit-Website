@@ -1,4 +1,4 @@
-# subclass of Template module which pre-defines configuration values, 
+# subclass of Template module which pre-defines configuration values,
 # variables, etc.
 
 package TT2::Template;
@@ -27,6 +27,7 @@ sub ttcode {
         s/</&lt;/g;
         s/>/&gt;/g;
         s{(\[%.*?%\])}{<span class="tt">$1</span>}gs;
+        s{^(%%.*)$}{<span class="tt">$1</span>}gm;
     }
     return "<pre class=\"tt\">\n$text\n</pre>\n";
 }

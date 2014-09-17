@@ -183,13 +183,13 @@ Name: <span class="tt">[% name %]</span>  (<span class="tt">[%id%]</span>)</pre>
                     <p>
                       You can write it like this instead:
                     </p>
-                    <pre>%% IF some.list.size
+                    <pre><span class="tt">    %% IF some.list.size</span>
   &lt;ul&gt;
-%%   FOREACH item IN some.list
+<span class="tt">    %%   FOREACH item IN some.list</span>
     &lt;li&gt;<span class="tt">[% item.html %]</span>&lt;/li&gt;
-%%   END
+<span class="tt">    %%   END</span>
   &lt;/ul&gt;
-%% END</pre>
+<span class="tt">    %% END</span></pre>
                     <p>
                       Outline tags aren't enabled by default. There are a numbers of ways you
                       can enable them. The first is to use the <code>TAGS</code> directive to
@@ -197,7 +197,7 @@ Name: <span class="tt">[% name %]</span>  (<span class="tt">[%id%]</span>)</pre>
                       to use them. This will enable outline tags from that point on.
                     </p>
                     <pre><span class="tt">[% TAGS outline -%]</span>
-%% INCLUDE header</pre>
+<span class="tt">    %% INCLUDE header</span></pre>
                     <p>
                       You can set the <code>TAGS</code> back to the <code>default</code> value
                       at some point later in the template if you want to disable them:
@@ -493,7 +493,7 @@ Danger Will Robinson
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Syntax.html last modified 14:47:39 17-Sep-2014
+            http://template-toolkit.org/docs/manual/Syntax.html last modified 15:19:52 17-Sep-2014
           </div>
         </div>
         

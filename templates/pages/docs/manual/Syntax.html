@@ -73,13 +73,13 @@
       You can write it like this instead:
     </p>
     <pre>
-      %% IF some.list.size
+      <span class="tt">    %% IF some.list.size</span>
         &lt;ul&gt;
-      %%   FOREACH item IN some.list
+      <span class="tt">    %%   FOREACH item IN some.list</span>
           &lt;li&gt;<span class="tt">[% item.html %]</span>&lt;/li&gt;
-      %%   END
+      <span class="tt">    %%   END</span>
         &lt;/ul&gt;
-      %% END
+      <span class="tt">    %% END</span>
     </pre>
     <p>
       Outline tags aren't enabled by default. There are a numbers of ways you
@@ -89,7 +89,7 @@
     </p>
     <pre>
       <span class="tt">[% TAGS outline -%]</span>
-      %% INCLUDE header
+      <span class="tt">    %% INCLUDE header</span>
     </pre>
     <p>
       You can set the <code>TAGS</code> back to the <code>default</code> value
