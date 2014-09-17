@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------
-# This is the Apache configuration file for the Template Toolkit 
-# website.  It points Apache to the right locations for the HTML pages 
+# This is the Apache configuration file for the Template Toolkit
+# website.  It points Apache to the right locations for the HTML pages
 # and images.
 #
 # You can include it into your main Apache httpd.conf file like this:
@@ -10,9 +10,9 @@
 # Written by Andy Wardley.  June 2007.
 #
 # WARNING:
-#  This configuration file is generated when you run 
+#  This configuration file is generated when you run
 # 'bin/configure'.  Any changes made here may be lost!
-# 
+#
 #------------------------------------------------------------------------
 
 ServerName      template-toolkit.org
@@ -25,7 +25,7 @@ ServerAlias     static.tt2.org
 ServerAlias     lists.template-toolkit.org
 ServerAlias     lists.template-toolkit.com
 ServerAlias     lists.tt2.org
-ServerAlias     tt2
+ServerAlias     tt2.local.wardley.org
 ServerAdmin     webmaster@template-toolkit.org
 
 DocumentRoot    /Users/abw/web/tt2.org/html/
