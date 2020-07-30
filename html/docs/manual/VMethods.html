@@ -21,7 +21,7 @@
         <div id="header">
           <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
           <ul id="trail">
-            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/index.html">Documentation</a></li>
             <li><a href="../../docs/manual/index.html">Manual</a></li>
             <li class="last"><a href="../../docs/manual/VMethods.html">VMethods</a></li>
           </ul>
@@ -67,9 +67,8 @@
                 <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
                 <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
                 <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
-                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
-                <li class="l0"><a href="../../book.html">Badger Book</a></li>
-                <li class="l0 last"><a href="../../python/index.html">Template-Python</a></li>
+                <li class="l0"><a href="../../mail.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
               </ul>
               <div class="foot"></div>
             </div>
@@ -98,6 +97,7 @@
                   <li class="sub"><a href="#section_hash">hash</a></li>
                   <li class="sub"><a href="#section_lcfirst">lcfirst</a></li>
                   <li class="sub"><a href="#section_length">length</a></li>
+                  <li class="sub"><a href="#section_empty">empty</a></li>
                   <li class="sub"><a href="#section_list">list</a></li>
                   <li class="sub"><a href="#section_lower">lower</a></li>
                   <li class="sub"><a href="#method_match">match(pattern, global)</a></li>
@@ -124,10 +124,12 @@
                   <li class="sub"><a href="#section_defined_exists">defined, exists</a></li>
                   <li class="sub"><a href="#section_delete">delete</a></li>
                   <li class="sub"><a href="#section_size">size</a></li>
+                  <li class="sub"><a href="#section_empty">empty</a></li>
                   <li class="sub"><a href="#section_item">item</a></li>
                   <li class=""><a href="#section_List_Virtual_Methods">List Virtual Methods</a></li>
                   <li class="sub"><a href="#section_first_last">first, last</a></li>
                   <li class="sub"><a href="#section_size_max">size, max</a></li>
+                  <li class="sub"><a href="#section_empty">empty</a></li>
                   <li class="sub"><a href="#section_defined">defined</a></li>
                   <li class="sub"><a href="#section_reverse">reverse</a></li>
                   <li class="sub"><a href="#section_join">join</a></li>
@@ -141,6 +143,7 @@
                   <li class="sub"><a href="#method_slice">slice(from, to)</a></li>
                   <li class="sub"><a href="#method_splice">splice(offset, length, list)</a></li>
                   <li class="sub"><a href="#section_hash">hash</a></li>
+                  <li class="sub"><a href="#section_item">item</a></li>
                   <li class=""><a href="#section_Automagic_Promotion_of_Scalar_to_List_for_Virtual_Methods">Automagic Promotion of Scalar to List for Virtual Methods</a></li>
                   <li class=""><a href="#section_Defining_Custom_Virtual_Methods">Defining Custom Virtual Methods</a></li>
               
@@ -278,6 +281,21 @@
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="section_empty" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">empty</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns true if the string is empty:
+                        </p>
+                        <pre><span class="tt">[% IF details.empty %]</span>
+   No details specified
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="section_list" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">list</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -354,7 +372,7 @@
                           <code>global</code> argument following the pattern.
                         </p>
                         <pre><span class="tt">[% text = 'bandanna';
-   text.match('an+', 1).join(', )      # an, ann
+   text.match('an+', 1).join(', ')      # an, ann
 %]</span></pre>
                   </div>
                 </div>    <div class="subsection">
@@ -796,6 +814,21 @@
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
+                    <h2 id="section_empty" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">empty</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns true if the hash is empty:
+                        </p>
+                        <pre><span class="tt">[% IF config.empty %]</span>
+   No configuration available
+<span class="tt">[% END %]</span></pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
                     <h2 id="section_item" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">item</h2>
                     <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                     <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
@@ -850,6 +883,21 @@
                           number (size - 1), respectively.
                         </p>
                         <pre><span class="tt">[% results.size %]</span> search results matched your query</pre>
+                  </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_empty" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">empty</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns true if the list is empty:
+                        </p>
+                        <pre><span class="tt">[% IF results.empty %]</span>
+   No results found
+<span class="tt">[% END %]</span></pre>
                   </div>
                 </div>    <div class="subsection">
                   <div class="head">
@@ -1021,7 +1069,16 @@
    two   = [ 4 5 6 ];
    three = [ 7 8 9 ];
    one.import(two, three);
-   one.join(', );     # 1, 2, 3, 4, 5, 6, 7, 8, 9
+   one.join(', ');     # 1, 2, 3, 4, 5, 6, 7, 8, 9
+%]</span></pre>
+                        <p>
+                          Import also allows chaining. The below syntax is equivalent.
+                        </p>
+                        <pre><span class="tt">[% one   = [ 1 2 3 ];
+   two   = [ 4 5 6 ];
+   three = [ 7 8 9 ];
+   one.import(two, three).join(', ');        # 1, 2, 3, 4, 5, 6, 7, 8, 9
+# or:  one.import(two).import(three).join(', '); # 1, 2, 3, 4, 5, 6, 7, 8, 9
 %]</span></pre>
                   </div>
                 </div>    <div class="subsection">
@@ -1134,6 +1191,19 @@
 <span class="tt">[% hash.1  %]</span>               # beer
 <span class="tt">[% hash.2  %]</span>               # peanuts</pre>
                   </div>
+                </div>    <div class="subsection">
+                  <div class="head">
+                    <h2 id="section_item" onclick="switch_subsection(this)" title="Click title to show/hide sub-section content.">item</h2>
+                    <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                    <a href="#" class="shut" title="Close sub-section content" onclick="switch_subsection(this); return false;">Close</a>
+                    <a href="#" class="open" title="Open sub-section content" onclick="switch_subsection(this); return false;">Open</a>
+                  </div>
+                  <div class="body">
+                    <p>
+                          Returns an item from the list using an index passed as an argument.
+                        </p>
+                        <pre><span class="tt">[% list.item(0) %]</span>  # same as list.0</pre>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1236,7 +1306,7 @@ $Template::Stash::LIST_OPS-&gt;{ odd } = sub {
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/VMethods.html last modified 15:19:52 17-Sep-2014
+            http://template-toolkit.org/docs/manual/VMethods.html last modified 12:50:49 30-Jul-2020
           </div>
         </div>
         
@@ -1250,7 +1320,7 @@ $Template::Stash::LIST_OPS-&gt;{ odd } = sub {
           </div>
           </div>
           <div class="copyright">
-            Copyright &copy; 1996-2014 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+            Copyright &copy; 1996-2020 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
           </div>
           <div class="licence">
             The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.

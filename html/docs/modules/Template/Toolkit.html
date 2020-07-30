@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title>Template::Grammar</title>
+    <title>Template::Toolkit</title>
     <link rel="stylesheet" type="text/css" href="/css/blue.css" title="Clear Blue">
     <link rel="alternate stylesheet" type="text/css" href="/css/orange.css" title="Clear Orange">
     <link rel="alternate stylesheet" type="text/css" href="/css/green.css" title="Clear Green">
@@ -24,7 +24,7 @@
             <li><a href="../../../docs/index.html">Documentation</a></li>
             <li><a href="../../../docs/modules/index.html">Modules</a></li>
             <li><a href="../../../docs/modules/Template/index.html">Template::*</a></li>
-            <li class="last"><a href="../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
+            <li class="last"><a href="../../../docs/modules/Template/Toolkit.html">Toolkit.pm</a></li>
           </ul>
           <div class="controls">
             <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
@@ -35,15 +35,15 @@
             </a>
           
           <div class="pager">
-            <a href="../../../docs/modules/Template/Filters.html" title="Template::Filters" class="go back">Back<span class="about"><strong>Template::Filters</strong>Post-processing filters for template blocks</span></a>
+            <a href="../../../docs/modules/Template/Test.html" title="Template::Test" class="go back">Back<span class="about"><strong>Template::Test</strong>Module for automating TT2 test scripts</span></a>
             <a href="../../../docs/modules/Template/index.html" title="Template::* Modules" class="go up">Up<span class="about"><strong>Template::* Modules</strong></span></a>
-            <a href="../../../docs/modules/Template/Iterator.html" title="Template::Iterator" class="go next">Next<span class="about"><strong>Template::Iterator</strong>Data iterator used by the FOREACH directive</span></a>
+            <a href="../../../docs/modules/Template/VMethods.html" title="Template::VMethods" class="go next">Next<span class="about"><strong>Template::VMethods</strong>Virtual methods for variables</span></a>
           </div>
           </div>
-          <h1 class="headline">Template::Grammar</h1>
-          <h2 class="subhead">Parser state/rule tables for the TT grammar</h2>
+          <h1 class="headline">Template::Toolkit</h1>
+          <h2 class="subhead">Template Processing System</h2>
         
-          <a href="http://template-toolkit.org/docs/modules/Template/Grammar.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Grammar.html</a>
+          <a href="http://template-toolkit.org/docs/modules/Template/Toolkit.html" class="permalink">http://template-toolkit.org/docs/modules/Template/Toolkit.html</a>
         </div>
         <div id="page">
           <div id="sidebar">
@@ -64,7 +64,7 @@
                 <li class="l3"><a href="../../../docs/modules/Template/Document.html">Document.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Exception.html">Exception.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Filters.html">Filters.pm</a></li>
-                <li class="l3"><a href="../../../docs/modules/Template/Grammar.html" class="warm">Grammar.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Grammar.html">Grammar.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Iterator.html">Iterator.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Namespace/index.html">Namespace::*</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Parser.html">Parser.pm</a></li>
@@ -76,7 +76,7 @@
                 <li class="l3"><a href="../../../docs/modules/Template/Stash.html">Stash.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Stash/index.html">Stash::*</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/Test.html">Test.pm</a></li>
-                <li class="l3"><a href="../../../docs/modules/Template/Toolkit.html">Toolkit.pm</a></li>
+                <li class="l3"><a href="../../../docs/modules/Template/Toolkit.html" class="warm">Toolkit.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/VMethods.html">VMethods.pm</a></li>
                 <li class="l3"><a href="../../../docs/modules/Template/View.html">View.pm</a></li>
                 <li class="l1"><a href="../../../docs/tools/index.html">Tools</a></li>
@@ -104,11 +104,11 @@
             </div>
             <div class="body">
               <ul class="toc">
-                  <li class=""><a href="#section_SYNOPSIS">SYNOPSIS</a></li>
-                  <li class=""><a href="#section_DESCRIPTION">DESCRIPTION</a></li>
-                  <li class=""><a href="#section_AUTHOR">AUTHOR</a></li>
-                  <li class=""><a href="#section_COPYRIGHT">COPYRIGHT</a></li>
-                  <li class=""><a href="#section_SEE_ALSO">SEE ALSO</a></li>
+                  <li class=""><a href="#section_Introduction">Introduction</a></li>
+                  <li class=""><a href="#section_Documentation">Documentation</a></li>
+                  <li class=""><a href="#section_Author">Author</a></li>
+                  <li class=""><a href="#section_Copyright">Copyright</a></li>
+                  <li class=""><a href="#section_See_Also">See Also</a></li>
               
               </ul>
             </div>
@@ -117,62 +117,160 @@
                 <div class="pod">
             <div class="section">
               <div class="head">
-                <h1 id="section_SYNOPSIS" onclick="switch_section(this)" title="Click title to show/hide section content.">SYNOPSIS</h1>
-                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
-                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
-                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
-              </div>
-              <div class="body">
-                <pre># no user serviceable parts inside</pre>
-              </div>
-            </div>
-            <div class="section">
-              <div class="head">
-                <h1 id="section_DESCRIPTION" onclick="switch_section(this)" title="Click title to show/hide section content.">DESCRIPTION</h1>
+                <h1 id="section_Introduction" onclick="switch_section(this)" title="Click title to show/hide section content.">Introduction</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
-                      This module defines the state and rule tables that the <a href="../../../docs/modules/Template/Parser.html">Template::Parser</a> module uses to
-                      parse templates. It is generated from a YACC-like grammar using the
-                      <code>Parse::Yapp</code> module. The <code class="file">parser</code>
-                      sub-directory of the Template Toolkit source distribution contains the
-                      grammar and other files required to generate this module.
+                      The Template Toolkit is a collection of Perl modules which implement a
+                      fast, flexible, powerful and extensible template processing system.
                     </p>
                     <p>
-                      But you don't need to worry about any of that unless you're planning to
-                      modify the Template Toolkit language.
-                    </p>
-              </div>
-            </div>
-            <div class="section">
-              <div class="head">
-                <h1 id="section_AUTHOR" onclick="switch_section(this)" title="Click title to show/hide section content.">AUTHOR</h1>
-                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
-                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
-                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
-              </div>
-              <div class="body">
-                <p>
-                      Andy Wardley &lt;abw@wardley.org&gt;
+                      It is "input-agnostic" and can be used equally well for processing any
+                      kind of text documents: HTML, XML, CSS, Javascript, Perl code, plain
+                      text, and so on. However, it is most often used for generating static and
+                      dynamic web content, so that's what we'll focus on here.
                     </p>
                     <p>
-                      <a href="http://wardley.org/">http://wardley.org/</a>
+                      Although the Template Toolkit is written in Perl, you don't need to be a
+                      Perl programmer to use it. It was designed to allow non-programmers to
+                      easily create and maintain template-based web sites without having to
+                      mess around writing Perl code or going crazy with cut-n-paste.
+                    </p>
+                    <p>
+                      However, the Template Toolkit is also designed to be extremely flexible
+                      and extensible. If you are a Perl programmer, or know someone who is,
+                      then you can easily hook the Template Toolkit into your existing code,
+                      data, databases and web applications. Furthermore, you can easily extend
+                      the Template Toolkit through the use of its plugin mechanism and other
+                      developer APIs.
+                    </p>
+                    <p>
+                      Whatever context you use it in, the primary purpose of the Template
+                      Toolkit is to allow you to create a clear separation between the
+                      presentation elements of your web site and everything else.
+                    </p>
+                    <p>
+                      If you're generating static web pages, then you can use it to separate
+                      the commonly repeated user interface elements on each page (headers,
+                      menus, footers, etc.) from the core content. If you're generating dynamic
+                      web pages for the front end of a web application, then you'll also be
+                      using it to keep the back-end Perl code entirely separate from the
+                      front-end HTML templates. Either way, a <i>clear separation of
+                      concerns</i> is what allow you to concentrate on one thing at a time
+                      without the other things getting in your way. And that's what the
+                      Template Toolkit is all about.
                     </p>
               </div>
             </div>
             <div class="section">
               <div class="head">
-                <h1 id="section_COPYRIGHT" onclick="switch_section(this)" title="Click title to show/hide section content.">COPYRIGHT</h1>
+                <h1 id="section_Documentation" onclick="switch_section(this)" title="Click title to show/hide section content.">Documentation</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
-                      Copyright (C) 1996-2020 Andy Wardley. All Rights Reserved.
+                      The documentation for the Template Toolkit is organised into five
+                      sections.
+                    </p>
+                    <p>
+                      The <a href="../../../docs/manual/index.html">Template::Manual</a>
+                      contains detailed information about using the Template Toolkit. It gives
+                      examples of its use and includes a full reference of the template
+                      language, configuration options, filters, plugins and other component
+                      parts.
+                    </p>
+                    <p>
+                      The <a href="../../../docs/modules/index.html">Template::Modules</a> page lists the Perl modules that comprise the
+                      Template Toolkit. It gives a brief explanation of what each of them does,
+                      and provides a link to the complete documentation for each module for
+                      further information. If you're a Perl programmer looking to use the
+                      Template Toolkit from your Perl programs then this section is likely to
+                      be of interest.
+                    </p>
+                    <p>
+                      Most, if not all of the information you need to call the Template Toolkit
+                      from Perl is in the documentation for the <a href="../../../docs/modules/Template.html">Template</a> module. You only really need to
+                      start thinking about the other modules if you want to extend or modify
+                      the Template Toolkit in some way, or if you're interested in looking
+                      under the hood to see how it all works.
+                    </p>
+                    <p>
+                      The documentation for each module is embedded as POD in each module, so
+                      you can always use <code>perldoc</code> from the command line to read a
+                      module's documentation. e.g.
+                    </p>
+                    <pre>$ perldoc Template
+$ perldoc Template::Context
+  ...etc...</pre>
+                    <p>
+                      It's worth noting that all the other documentation, including the user
+                      manual is available as POD. e.g.
+                    </p>
+                    <pre>$ perldoc Template::Manual
+$ perldoc Template::Manual::Config
+  ...etc...</pre>
+                    <p>
+                      The <a href="../../../docs/tools/index.html">Template::Tools</a>
+                      section contains the documentation for <a
+                      href="#section_tpage">Template::Tools::tpage</a> and <a
+                      href="#section_ttree">Template::Tools::ttree</a>. These are two command
+                      line programs that are distributed with the Template Toolkit. <a
+                      href="../../../docs/tools/tpage.html">tpage</a> is used to
+                      process a single template file, <a href="../../../docs/tools/ttree.html">ttree</a> for processing entire
+                      directories of template files.
+                    </p>
+                    <p>
+                      The <a href="../../../docs/tutorial/index.html">Template::Tutorial</a> section contains two introductory tutorials
+                      on using the Template Toolkit. The first is <a href="../../../docs/tutorial/Web.html">Template::Tutorial::Web</a> on
+                      generating web content. The second is <a href="../../../docs/tutorial/Datafile.html">Template::Tutorial::Datafile</a> on using the Template Toolkit to
+                      generate other data formats including XML.
+                    </p>
+                    <p>
+                      The final section of the manual is <a href="../../../docs/faq/index.html">Template::FAQ</a> which contains answers
+                      to some of the Frequently Asked Questions about the Template Toolkit.
+                    </p>
+                    <p>
+                      You can read the documentation in HTML format either online at the
+                      Template Toolkit web site, <a
+                      href="http://template-toolkit.org/">http://template-toolkit.org/</a>, or
+                      by downloading the HTML version of the documentation from <a
+                      href="http://template-toolkit.org/download/index.html#html_docs">http://template-toolkit.org/download/index.html#html_docs</a>
+                      and unpacking it on your local machine.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Author" onclick="switch_section(this)" title="Click title to show/hide section content.">Author</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      The Template Toolkit was written by Andy Wardley (<a
+                      href="http://wardley.org/">http://wardley.org/</a> <a
+                      href="#section_mailto:abw@wardley.org">mailto:abw@wardley.org</a>) with
+                      assistance and contributions from a great number of people. Please see <a
+                      href="../../../docs/manual/Credits.html">Template::Manual::Credits</a> for a full list.
+                    </p>
+              </div>
+            </div>
+            <div class="section">
+              <div class="head">
+                <h1 id="section_Copyright" onclick="switch_section(this)" title="Click title to show/hide section content.">Copyright</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                      Copyright (C) 1996-2013 Andy Wardley. All Rights Reserved.
                     </p>
                     <p>
                       This module is free software; you can redistribute it and/or modify it
@@ -182,14 +280,14 @@
             </div>
             <div class="section">
               <div class="head">
-                <h1 id="section_SEE_ALSO" onclick="switch_section(this)" title="Click title to show/hide section content.">SEE ALSO</h1>
+                <h1 id="section_See_Also" onclick="switch_section(this)" title="Click title to show/hide section content.">See Also</h1>
                 <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
                 <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
                 <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
               </div>
               <div class="body">
                 <p>
-                      <a href="../../../docs/modules/Template/Parser.html">Template::Parser</a>
+                      <a href="../../../docs/modules/Template.html">Template</a>, <a href="../../../docs/manual/index.html">Template::Manual</a>, <a href="../../../docs/modules/index.html">Template::Modules</a>, <a href="../../../docs/tools/index.html">Template::Tools</a>, <a href="../../../docs/tutorial/index.html">Template::Tutorial</a>
                     </p>
               </div>
             </div>
@@ -197,7 +295,7 @@
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/modules/Template/Grammar.html last modified 12:50:49 30-Jul-2020
+            http://template-toolkit.org/docs/modules/Template/Toolkit.html last modified 12:50:49 30-Jul-2020
           </div>
         </div>
         
@@ -205,9 +303,9 @@
           <a href="http://opensource.org/" class="osi"></a>
           <div class="controls">
           <div class="pager">
-            <a href="../../../docs/modules/Template/Filters.html" title="Template::Filters" class="go back">Back<span class="about"><strong>Template::Filters</strong></span></a>
+            <a href="../../../docs/modules/Template/Test.html" title="Template::Test" class="go back">Back<span class="about"><strong>Template::Test</strong></span></a>
             <a href="../../../docs/modules/Template/index.html" title="Template::* Modules" class="go up">Up<span class="about"><strong>Template::* Modules</strong></span></a>
-            <a href="../../../docs/modules/Template/Iterator.html" title="Template::Iterator" class="go next">Next<span class="about"><strong>Template::Iterator</strong></span></a>
+            <a href="../../../docs/modules/Template/VMethods.html" title="Template::VMethods" class="go next">Next<span class="about"><strong>Template::VMethods</strong></span></a>
           </div>
           </div>
           <div class="copyright">

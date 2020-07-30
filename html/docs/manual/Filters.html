@@ -21,7 +21,7 @@
         <div id="header">
           <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
           <ul id="trail">
-            <li><a href="../../docs/index.html">Docs</a></li>
+            <li><a href="../../docs/index.html">Documentation</a></li>
             <li><a href="../../docs/manual/index.html">Manual</a></li>
             <li class="last"><a href="../../docs/manual/Filters.html">Filters</a></li>
           </ul>
@@ -67,9 +67,8 @@
                 <li class="l1"><a href="../../docs/tools/index.html">Tools</a></li>
                 <li class="l1"><a href="../../docs/tutorial/index.html">Tutorial</a></li>
                 <li class="l1"><a href="../../docs/faq/index.html">FAQ</a></li>
-                <li class="l0"><a href="../../mail/index.html">Mailing Lists</a></li>
-                <li class="l0"><a href="../../book.html">Badger Book</a></li>
-                <li class="l0 last"><a href="../../python/index.html">Template-Python</a></li>
+                <li class="l0"><a href="../../mail.html">Mailing Lists</a></li>
+                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
               </ul>
               <div class="foot"></div>
             </div>
@@ -491,12 +490,16 @@ baz%3Dbam&amp;title=Earth%3A%20%22Mostly%20Harmless%22"&gt;</pre>
                       not encoding reserved characters.
                     </p>
                     <p>
-                      As of version 2.26 of the Template Toolkit, the <code>uri</code> and <a
+                      As of version 2.28 of the Template Toolkit, the <code>uri</code> and <a
                       href="#section_url">url</a> filters use the unsafe character set defined
-                      by RFC3986. This means that certain characters ("(", ")", "~", "*", "!"
-                      and the single quote "'") are now deemed unsafe and will be escaped as
-                      hex character sequences. The double quote character ('"') is now deemed
-                      safe and will not be escaped.
+                      by RFC3986. This means that certain characters ("(", ")", "*", "!", "'",
+                      and '"') are now deemed unsafe and will be escaped as hex character
+                      sequences.
+                    </p>
+                    <p>
+                      The ability to use the RFC3986 character set was added in 2.26 but not
+                      enabled by default; double quote was incorrectly deemed safe in 2.26 but
+                      correctly escaped in 2.27.
                     </p>
                     <p>
                       If you want to enable the old behaviour then call the
@@ -845,7 +848,7 @@ $template-&gt;process($file, $vars);</pre>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/docs/manual/Filters.html last modified 15:19:52 17-Sep-2014
+            http://template-toolkit.org/docs/manual/Filters.html last modified 12:50:49 30-Jul-2020
           </div>
         </div>
         
@@ -859,7 +862,7 @@ $template-&gt;process($file, $vars);</pre>
           </div>
           </div>
           <div class="copyright">
-            Copyright &copy; 1996-2014 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
+            Copyright &copy; 1996-2020 <a href="http://wardley.org/">Andy Wardley</a>.  All Rights Reserved.
           </div>
           <div class="licence">
             The <a href="http://template-toolkit.org/">Template Toolkit</a> is <a href="http://opensource.org/">Open Source</a> software.

@@ -125,12 +125,13 @@
       %]</span>
     </pre>
     <p>
-      You can concatenate strings together using the <code>' _ '</code>
-      operator. In Perl 5, the <code>.</code> is used for string concatenation,
-      but in Perl 6, as in the Template Toolkit, the <code>.</code> will be
-      used as the method calling operator and <code>' _ '</code> will be used
-      for string concatenation. Note that the operator must be specified with
-      surrounding whitespace which, as Larry says, is construed as a feature:
+      You can concatenate strings together using the <code>'_'</code>
+      underscore operator. In Perl 5, the <code>.</code> dot is used for string
+      concatenation, but in Perl 6, as in the Template Toolkit, the
+      <code>.</code> dot will be used as the method calling operator and
+      <code>'_'</code> underscore will be used for string concatenation. Note
+      that the operator must be specified with surrounding whitespace which, as
+      Larry says, is construed as a feature:
     </p>
     <pre>
       <span class="tt">[% copyright = '(C) Copyright' _ year _ ' ' _ author %]</span>

@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------
-# This is the Apache configuration file for the Template Toolkit 
-# website.  It points Apache to the right locations for the HTML pages 
+# This is the Apache configuration file for the Template Toolkit
+# website.  It points Apache to the right locations for the HTML pages
 # and images.
 #
 # You can include it into your main Apache httpd.conf file like this:
@@ -10,9 +10,18 @@
 # Written by Andy Wardley.  June 2007.
 #
 # WARNING:
-#  This configuration file is generated when you run 
-# 'bin/configure'.  Any changes made here may be lost!
-# 
+#  The etc/httpd.conf.default configuration file is generated when you
+#  run the `bin/configure` script.  You should copy and amend this file
+#  as necessary for your web server.
+#
+#  Any permanent changes should be made to the source template in
+#  skeleton/etc/httpd.conf.default.  Then run the `bin/configure` to
+#  regenerate the output version as etc/httpd.conf.default
+#
+#------------------------------------------------------------------------
+# CONFIGURATION OPTIONS:
+#------------------------------------------------------------------------
+
 #------------------------------------------------------------------------
 
 ServerName      template-toolkit.org
@@ -26,42 +35,23 @@ ServerAlias     lists.template-toolkit.org
 ServerAlias     lists.template-toolkit.com
 ServerAlias     lists.tt2.org
 ServerAlias     tt2
+# NOTE that *.local.wardley.org resolves to 127.0.0.0 so this should
+# work for testing on a local development machine.
+ServerAlias     tt2.local.wardley.org
 ServerAdmin     webmaster@template-toolkit.org
 
 DocumentRoot    /Users/abw/web/tt2.org/html/
 ErrorLog        /Users/abw/web/tt2.org/logs/error_log
 CustomLog       /Users/abw/web/tt2.org/logs/access_log common
-AddHandler      cgi-script  .cgi
 
-Alias           /images/           /Users/abw/web/tt2.org/images/
-Alias           /svnweb            /home/abw/subversion/ttsvnweb
-Alias           /pipermail/        /usr/local/mailman/archives/public/
-Alias           /mailman/icons/    /usr/local/mailman/icons/
-ScriptAlias     /mailman/          /usr/local/mailman/cgi-bin/
-
-# Perl Conference papers have moved to wardley.org
-Redirect      permanent  /tpc4/index.html              http://wardley.org/computers/perl/conference/template_web_site/index.html
-Redirect      permanent  /tpc5/kitesurfing/index.html  http://wardley.org/computers/perl/conference/camel_kitesurfing/index.html
-Redirect      permanent  /tpc5/camelot/index.html      http://wardley.org/computers/perl/conference/camelot.html
-Redirect      permanent  /docs.html                    http://template-toolkit.org/docs/index.html
-Redirect      permanent  /info.html                    http://template-toolkit.org/about.html
-Redirect      permanent  /download.html                http://template-toolkit.org/download/index.html
-
-
-RedirectMatch permanent  /docs/\w+/Manual/(.*)         http://template-toolkit.org/docs/manual/$1
-RedirectMatch permanent  /docs/\w+/Modules/(.*)        http://template-toolkit.org/docs/modules/$1
-RedirectMatch permanent  /docs/\w+/Tools/(.*)          http://template-toolkit.org/docs/tools/$1
-RedirectMatch permanent  /docs/\w+/Tutorial/(.*)       http://template-toolkit.org/docs/tutorial/$1
-RedirectMatch permanent  /docs/\w+/FAQ/(.*)            http://template-toolkit.org/docs/faq/$1
-
-Redirect      permanent  /mailman/                     http://mail.template-toolkit.org/mailman/
-Redirect      permanent  /pipermail/                   http://mail.template-toolkit.org/pipermail/
+Alias           /images/ /Users/abw/web/tt2.org/images/
 
 <Directory /Users/abw/web/tt2.org/html/>
     Options MultiViews Indexes FollowSymLinks
     AllowOverride None
     Order allow,deny
     Allow from all
+    Require all granted
 </Directory>
 
 <Directory /Users/abw/web/tt2.org/images/>
@@ -69,29 +59,5 @@ Redirect      permanent  /pipermail/                   http://mail.template-tool
     AllowOverride None
     Order allow,deny
     Allow from all
-</Directory>
-
-<Directory  /usr/local/mailman/cgi-bin>
-    Options ExecCGI FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-</Directory>
-
-<Directory  /usr/local/mailman/archives/public>
-    Options FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-</Directory>
-
-<Directory /home/abw/subversion/ttsvnweb>
-    AllowOverride None
-    Options None
-    SetHandler perl-script
-    PerlHandler SVN::Web
-</Directory>
-
-<Directory /home/abw/subversion/ttsvnweb/css>
-    SetHandler default-handler
+    Require all granted
 </Directory>

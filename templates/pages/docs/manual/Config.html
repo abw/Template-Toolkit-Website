@@ -170,7 +170,7 @@
       default.
     </p>
     <pre>
-      my $template = Template-E&lt;gt&gt;new({
+      my $template = Template-&gt;new({
           PRE_CHOMP  =&gt; 1,
           POST_CHOMP =&gt; 1,
       });
@@ -249,7 +249,7 @@
     </pre>
     <p>
       To remove all whitespace including any number of newlines, use the
-      '<code>~</code>' character instead.
+      ('<code>~</code>') tilde character instead.
     </p>
     <pre>
       <span class="tt">[% FOREACH user IN userlist %]</span>
@@ -260,7 +260,7 @@
     </pre>
     <p>
       To collapse all whitespace to a single space, use the '<code>=</code>'
-      character.
+      equals sign character.
     </p>
     <pre>
       <span class="tt">[% FOREACH user IN userlist %]</span>
@@ -277,9 +277,9 @@
     </pre>
     <p>
       If you have <code>PRE_CHOMP</code> or <code>POST_CHOMP</code> set as
-      configuration options then you can use '<code>+</code>' to disable any
-      chomping options (i.e. leave the whitespace intact) on a per-directive
-      basis.
+      configuration options then you can use the '<code>+</code>' plus sign to
+      disable any chomping options (i.e. leave the whitespace intact) on a
+      per-directive basis.
     </p>
     <pre>
       <span class="tt">[% FOREACH user IN userlist %]</span>
@@ -369,9 +369,10 @@
       });
     </pre>
     <p>
-      Variables should be prefixed by a '<code>$</code>' to identify them.
-      Curly braces can be used in the familiar Perl/shell style to explicitly
-      scope the variable name where required.
+      Variables should be prefixed by a '<code>$</code>' dollar sign to
+      identify them. Curly braces '<code>{</code>' and '<code>}</code>' can be
+      used in the familiar Perl/shell style to explicitly scope the variable
+      name where required.
     </p>
     <pre>
       # INTERPOLATE =&gt; 0
@@ -445,8 +446,8 @@
       isn't defined locally as a <code>BLOCK</code>, each of the
       <code>INCLUDE_PATH</code> directories is searched in turn to locate the
       template file. Multiple directories can be specified as a reference to a
-      list or as a single string where each directory is delimited by
-      '<code>:</code>'.
+      list or as a single string where each directory is delimited by the
+      '<code>:</code>' colon character.
     </p>
     <pre>
       my $template = Template-&gt;new({
@@ -464,9 +465,9 @@
     </pre>
     <p>
       On Win32 systems, a little extra magic is invoked, ignoring delimiters
-      that have '<code>:</code>' followed by a '<code>/</code>' or
-      '<code>\</code>'. This avoids confusion when using directory names like
-      '<code>C:\Blah Blah</code>'.
+      that have '<code>:</code>' colon followed by a '<code>/</code>' slash or
+      '<code>\</code>' blackslash. This avoids confusion when using directory
+      names like '<code>C:\Blah Blah</code>'.
     </p>
     <p>
       When specified as a list, the <code>INCLUDE_PATH</code> path can contain
@@ -534,7 +535,7 @@
     <p>
       Used to provide an alternative delimiter character sequence for
       separating paths specified in the <code>INCLUDE_PATH</code>. The default
-      value for <code>DELIMITER</code> is '<code>:</code>'.
+      value for <code>DELIMITER</code> is the '<code>:</code>' colon character.
     </p>
     <pre>
       my $template = Template-&gt;new({
@@ -544,10 +545,10 @@
     </pre>
     <p>
       On Win32 systems, the default delimiter is a little more intelligent,
-      splitting paths only on '<code>:</code>' characters that aren't followed
-      by a '<code>/</code>'. This means that the following should work as
-      planned, splitting the <code>INCLUDE_PATH</code> into 2 separate
-      directories, <code>C:/foo</code> and <code>C:/bar</code>.
+      splitting paths only on '<code>:</code>' colon characters that aren't
+      followed by a '<code>/</code>' slash character. This means that the
+      following should work as planned, splitting the <code>INCLUDE_PATH</code>
+      into 2 separate directories, <code>C:/foo</code> and <code>C:/bar</code>.
     </p>
     <pre>
       # on Win32 only
@@ -558,7 +559,7 @@
     <p>
       However, if you're using Win32 then it's recommended that you explicitly
       set the <code>DELIMITER</code> character to something else (e.g.
-      '<code>;</code>') rather than rely on this subtle magic.
+      '<code>;</code>' semicolon) rather than rely on this subtle magic.
     </p>
     
     [** END -**]
@@ -1445,7 +1446,7 @@
       example 3 (file handle):
     </p>
     <pre>
-      open (TOUT, "&gt; $file") || die "$file: $!\n";
+      open (TOUT, "&gt;", $file) || die "$file: $!\n";
       my $template = Template-&gt;new({
           OUTPUT =&gt; \*TOUT,
       });

@@ -1,28 +1,86 @@
-Configure the web site scripts/config files
-  $ bin/configure
+This is the source code for the Template Toolkit web site.
 
-Generate HTML from TT modules:
-  $ bin/podmods ~/tt/Template2/lib/
+You will need to have the following modules installed (and perhaps some
+others too that I've missed):
 
-Generate HTML from about.pod
-  $ bin/pod2html pod/about.pod > templates/pages/about.html
+    Template
+    AppConfig
+    Path::Class
+    File::Find::Rule
+    Pod::POM
 
-Build the web site (only those pages changed)
-  $ bin/build   (+ any ttree options)
-e.g.
-  $ bin/build -a     # build all pages
+Start by running the `bin/configure` script:
 
+    $ bin/configure
+
+This processes the templates in the `skeleton` directory to create the
+`bin/build` script, the `etc/ttree.cfg` configuration file and a
+default configuration file for the Apache web server in
+`etc/httpd.conf.default'.
+
+The site is built from templates in the `templates/pages` directory.
+The `templates/library` directory contains other template components.
+The `bin/build` script is a wrapper around `tree` to build the site.
+
+    $ bin/build
+
+You can pass any `ttree` options to the script on the command line.
+For example, the build all pages regardless of timestamps:
+
+    $ bin/build -a
+
+For further information on the options:
+
+    $ bin/build -h
+
+The generated HTML pages are written to the `html` directory.
+
+The HTML documentation for the Template Toolkit is generated from the
+POD documentation.  The `bin/podmods` script should be used as the first
+step.
+
+Specify a path to the `lib` directory of a Template Toolkit distribution
+as a command line argument:
+
+    $ bin/podmods /path/to/a/copy/of/Template2/lib/
+
+This converts the POD documentation in the Perl modules into HTML page
+templates that are written to the `templates/pages/docs/` directory.
+
+It also generates the following YAML files that contain page metadata
+for the documentation pages:
+
+    metadata/docs/modules.yaml
+    metadata/docs/pages.yaml
+    metadata/docs/sections.yaml
+
+Note that this generates page templates rather than the final HTML
+pages.  You will then need to run the `bin/build` script again to
+convert any new documentation templates to their final HTML pages.
+
+    $ bin/build
+
+The `templates/pages/about.html` pages is generated from the POD
+documentation in `pod/about.pod`.
+
+    $ bin/pod2html pod/about.pod > templates/pages/about.html
+
+You will also need to run the `bin/build` script again to convert
+the `templates/pages/about.html` template to the equivalent HTML
+page in `html/about.html`.
+
+    $ bin/build
 
 Directories
 -----------
-   bin         scripts
-   etc         config files
-   html        HTML output pages
-   images      images
-   logs        for apache logfiles
-   metadata    contains YAML files providing site/page metadata
-   perl        perl modules (TT plugins, etc)
-   pod         src pod file for web pages (e.g. about.pod)
-   skeleton    skeleton templates used by bin/configure
-   templates   web site page templates and template components
 
+    bin         scripts
+    etc         config files
+    html        HTML output pages
+    images      images
+    logs        for apache logfiles
+    metadata    contains YAML files providing site/page metadata
+    perl        perl modules (TT plugins, etc)
+    pod         src pod file for web pages (e.g. about.pod)
+    skeleton    skeleton templates used by bin/configure
+    templates   web site page templates and template components

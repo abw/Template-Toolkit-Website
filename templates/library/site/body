@@ -5,6 +5,6 @@
 %]
   <br class="clear" />
   <div class="pageinfo">
-    [% site.server %]/[% template.name %] last modified [% Date.format(template.modified) %]
+    [% site.server %]/[% template.name %] last modified [% Date.format(template.modtime) %]
   </div>
 </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title>The Template Toolkit Web Site</title>
+    <title>Template Toolkit Mailing Lists</title>
     <link rel="stylesheet" type="text/css" href="/css/blue.css" title="Clear Blue">
     <link rel="alternate stylesheet" type="text/css" href="/css/orange.css" title="Clear Orange">
     <link rel="alternate stylesheet" type="text/css" href="/css/green.css" title="Clear Green">
@@ -19,11 +19,9 @@
   <body id="body"> 
     <div id="layout">
         <div id="header">
-          <a href="../../index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
+          <a href="/index.html" id="logo" title="Click for the Home Page"><span class="alt">TT2 Home Page</span></a>
           <ul id="trail">
-            <li><a href="../.."></a></li>
-            <li><a href="../.."></a></li>
-            <li class="last"><a href="../.."></a></li>
+            <li class="last"><a href="/mail.html">Mailing Lists</a></li>
           </ul>
           <div class="controls">
             <a href="#" class="menu show" onclick="widescreen_off(); return false" title="Show Menu">
@@ -34,24 +32,24 @@
             </a>
           
           <div class="pager">
-            <span class="go back">Back<span class="about">Help!  I'm stuck on this web page and I can't get off.  Please don't go back, help me!</span></span>
-            <span class="go up">Up<span class="about">You may think I look cute and cuddly, but I've got a fiery temper.</span></span>
-            <span class="go next">Next<span class="about">Are you looking at my nuts?  I spent ages foraging for them.  Hands off!</span></span>
+            <a href="/docs/index.html" title="Template Toolkit Documentation" class="go back">Back<span class="about"><strong>Template Toolkit Documentation</strong></span></a>
+            <a href="/index.html" title="Template Toolkit Home Page" class="go up">Up<span class="about"><strong>Template Toolkit Home Page</strong></span></a>
+            <a href="/book.html" title="Perl Template Toolkit" class="go next">Next<span class="about"><strong>Perl Template Toolkit</strong>The Badger Book</span></a>
           </div>
           </div>
-          <h1 class="headline"></h1>
+          <h1 class="headline">Template Toolkit Mailing Lists</h1>
         
-          <a href="http://template-toolkit.org/mail/templates/archive.html" class="permalink">http://template-toolkit.org/mail/templates/archive.html</a>
+          <a href="http://template-toolkit.org/mail.html" class="permalink">http://template-toolkit.org/mail.html</a>
         </div>
         <div id="page">
           <div id="sidebar">
             <div id="menu">
               <ul class="menu">
-                <li class="l0 first"><a href="../../about.html">About</a></li>
-                <li class="l0"><a href="../../download/index.html">Download</a></li>
-                <li class="l0"><a href="../../docs/index.html">Documentation</a></li>
-                <li class="l0"><a href="../../mail.html">Mailing Lists</a></li>
-                <li class="l0 last"><a href="../../book.html">Badger Book</a></li>
+                <li class="l0 first"><a href="/about.html">About</a></li>
+                <li class="l0"><a href="/download/index.html">Download</a></li>
+                <li class="l0"><a href="/docs/index.html">Documentation</a></li>
+                <li class="l0"><a href="/mail.html" class="warm">Mailing Lists</a></li>
+                <li class="l0 last"><a href="/book.html">Badger Book</a></li>
               </ul>
               <div class="foot"></div>
             </div>
@@ -63,25 +61,46 @@
             </div>
           </div>
           <div id="content">
-            <script language="JavaScript">
-            <!--
-            function resize_iframe() {
-              var node   = document.getElementById("iframe");
-              var height = document.body.clientHeight || window.innerWidth;       // IE / Firefox
-              node.style.height = parseInt(height - node.offsetTop - 8) + "px";
-            }
-            window.onresize = resize_iframe; 
-            //-->
-            </script>
-            <iframe src="http://lists.template-toolkit.org/pipermail/templates/" id="iframe" width="100%" height="600" 
-                    frameborder="0" marginheight="0" marginwidth="0" onload="resize_iframe()">
-              Your browser does not support the HTML &lt;iframe&gt; element.
-              Please <a href="http://lists.template-toolkit.org/pipermail/templates/">click here</a> to
-              visit the Templates archive.
-            </iframe></div>
+          <div class="section">
+            <div class="head">
+              <h1 id="contents" onclick="switch_section(this)" title="Click title to show/hide section content.">Contents</h1>
+              <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+              <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+              <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+            </div>
+            <div class="body">
+              <ul class="toc">
+                  <li class=""><a href="#templates">Templates Mailing List</a></li>
+              
+              </ul>
+            </div>
+          </div>
+          
+                <div class="section">
+              <div class="head">
+                <h1 id="templates" onclick="switch_section(this)" title="Click title to show/hide section content.">Templates Mailing List</h1>
+                <a href="#body" class="top" title="Back up to the top of the page" >Top</a>
+                <a href="#" class="shut" title="Close section content" onclick="switch_section(this); return false;">Close</a>
+                <a href="#" class="open" title="Open section content" onclick="switch_section(this); return false;">Open</a>
+              </div>
+              <div class="body">
+                <p>
+                  The <i>templates</i> mailing list exists for reporting information, asking
+                  questions, discussing development or any other topic relevant to the
+                  Template Toolkit.
+                </p>
+                <p>
+                  To subscribe, send an email to <a href="mailto:template-toolkit+subscribe@groups.io">template-toolkit+subscribe@groups.io</a>
+                </p>
+                <p>
+                  You can also use the web interface:
+                </p>
+                <a href="https://groups.io/g/template-toolkit" class="download">https://groups.io/g/template-toolkit</a>
+              </div>
+            </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/mail/templates/archive.html last modified 08:42:26 17-Sep-2014
+            http://template-toolkit.org/mail.html last modified 15:02:28 30-Jul-2020
           </div>
         </div>
         
@@ -89,9 +108,9 @@
           <a href="http://opensource.org/" class="osi"></a>
           <div class="controls">
           <div class="pager">
-            <span class="go back">Back<span class="about"></span></span>
-            <span class="go up">Up<span class="about"></span></span>
-            <span class="go next">Next<span class="about"></span></span>
+            <a href="/docs/index.html" title="Template Toolkit Documentation" class="go back">Back<span class="about"><strong>Template Toolkit Documentation</strong></span></a>
+            <a href="/index.html" title="Template Toolkit Home Page" class="go up">Up<span class="about"><strong>Template Toolkit Home Page</strong></span></a>
+            <a href="/book.html" title="Perl Template Toolkit" class="go next">Next<span class="about"><strong>Perl Template Toolkit</strong></span></a>
           </div>
           </div>
           <div class="copyright">

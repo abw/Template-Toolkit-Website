@@ -5,6 +5,7 @@
     <pre>
       <span class="tt">[% USE mydata = datafile('/path/to/datafile') %]</span>
       <span class="tt">[% USE mydata = datafile('/path/to/datafile', delim = '|') %]</span>
+      <span class="tt">[% USE mydata = datafile('/path/to/datafile', encoding = 'UTF-8') %]</span>
       
       <span class="tt">[% FOREACH record = mydata %]</span>
          <span class="tt">[% record.this %]</span>  <span class="tt">[% record.that %]</span>
@@ -24,7 +25,9 @@
       A absolute filename must be specified (for this initial implementation at
       least - in a future version it might also use the
       <code>INCLUDE_PATH</code>). An optional <code>delim</code> parameter may
-      also be provided to specify an alternate delimiter character.
+      also be provided to specify an alternate delimiter character. The
+      optional <code>encoding</code> parameter may be used to specify the input
+      file encoding.
     </p>
     <pre>
       <span class="tt">[% USE userlist = datafile('/path/to/file/users')     %]</span>

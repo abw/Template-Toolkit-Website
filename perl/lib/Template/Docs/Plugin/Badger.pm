@@ -36,9 +36,11 @@ sub quote {
         if $where eq 'next';
     $last++;
     $last %= @badger_quotes;
-    return sprintf($format, $where);
+    {
+        # avoid: "Redundant argument in sprintf" warning
+        no warnings;
+        return sprintf($format, $where);
+    }
 }
 
 1;
-
-    

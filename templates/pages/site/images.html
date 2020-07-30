@@ -1,4 +1,10 @@
-[% 
+[%  # gnarly hack to regenerate GIF images with different colours
+    # You don't need to generate this unless you've changed the scheme
+    # colours.
+
+    RETURN;   # bail out now
+
+
    imgdir  = site.dir.images
    biodir  = "$imgdir/biochrome";
    skindir = "$imgdir/glass";
@@ -10,7 +16,7 @@
      BioChrome.write_file("$skindir/$scheme/$out");
 #     debug_msg("$biodir/$in => $skindir/$scheme/$out");
    END;
-   
+
    debug2("Generating images for colour schemes");
    FOREACH name IN site.schemes;
      debug3("    + $name");
@@ -18,7 +24,7 @@
      bio_image('extlink.gif', 'extlink.gif', name, ['ffffff', col.link]);
      bio_image('extlink.gif', 'extlinkvis.gif', name, ['ffffff', col.seen]);
      bio_image('extlink.gif', 'extlinkroll.gif', name, ['ffffff', col.roll]);
-     
+
      base   = Colour.RGB(col.back).hsv;
      dull   = base.copy.adjust( sat   = '-10%' );
      dark   = base.copy.adjust( value = '-10%' ).rgb;
@@ -26,10 +32,10 @@
      light  = dull.copy.adjust( value = '10%' ).rgb;
      dull   = dull.rgb;
      scheme = base.rgb.scheme;
-     
-     cols = [ scheme.lighter, dark, dark, scheme.mid ]; 
-#     cols = [ col.back, scheme.dark, scheme.dark, scheme.light ]; 
-     roll = [ 'ffffff', '666666', col.roll, 'aaaaaa' ]; 
+
+     cols = [ scheme.lighter, dark, dark, scheme.mid ];
+#     cols = [ col.back, scheme.dark, scheme.dark, scheme.light ];
+     roll = [ 'ffffff', '666666', col.roll, 'aaaaaa' ];
 
      FOREACH badge IN ['andy_wardley', 'html_valid', 'css_valid', 'badger_power', 'contentity'];
         bio_image("badges/${badge}.gif", "badges/${badge}.gif", name, cols);

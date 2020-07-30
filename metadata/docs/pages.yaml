@@ -6,15 +6,6 @@
   title: Template::FAQ
   up: /docs/index.html
   uri: /docs/faq/index.html
-/docs/index.html:
-  about: Template Processing System
-  back: /download/index.html
-  name: Documentation
-  next: /mail/index.html
-  short: Docs
-  title: Template Toolkit Documentation
-  up: /index.html
-  uri: /docs/index.html
 /docs/manual/Config.html:
   about: Configuration options
   back: /docs/manual/VMethods.html
@@ -453,13 +444,21 @@
   about: Module for automating TT2 test scripts
   back: /docs/modules/Template/Stash/index.html
   name: Test.pm
-  next: /docs/modules/Template/VMethods.html
+  next: /docs/modules/Template/Toolkit.html
   title: Template::Test
   up: /docs/modules/Template/index.html
   uri: /docs/modules/Template/Test.html
+/docs/modules/Template/Toolkit.html:
+  about: Template Processing System
+  back: /docs/modules/Template/Test.html
+  name: Toolkit.pm
+  next: /docs/modules/Template/VMethods.html
+  title: Template::Toolkit
+  up: /docs/modules/Template/index.html
+  uri: /docs/modules/Template/Toolkit.html
 /docs/modules/Template/VMethods.html:
   about: Virtual methods for variables
-  back: /docs/modules/Template/Test.html
+  back: /docs/modules/Template/Toolkit.html
   name: VMethods.pm
   next: /docs/modules/Template/View.html
   title: Template::VMethods

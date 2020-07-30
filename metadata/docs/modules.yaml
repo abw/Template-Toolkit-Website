@@ -55,7 +55,7 @@ Template::Stash: /docs/modules/Template/Stash.html
 Template::Stash::Context: /docs/modules/Template/Stash/Context.html
 Template::Stash::XS: /docs/modules/Template/Stash/XS.html
 Template::Test: /docs/modules/Template/Test.html
-Template::Toolkit: /docs/index.html
+Template::Toolkit: /docs/modules/Template/Toolkit.html
 Template::Tools: /docs/tools/index.html
 Template::Tools::tpage: /docs/tools/tpage.html
 Template::Tools::ttree: /docs/tools/ttree.html

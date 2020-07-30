@@ -6,7 +6,7 @@
     site = {
         name      = 'template-toolkit.org'
         title     = "The Template Toolkit Web Site"
-        copyright = '1995-2014 Andy Wardley'
+        copyright = '1995-2020 Andy Wardley'
         server    = 'http://template-toolkit.org'
         keywords  = 'Template Toolkit, Perl, template, web, html'
         schemes   = ['blue' 'orange' 'green' 'purple' 'grey']
@@ -28,7 +28,7 @@
     };
 
     tt2.version = {
-        stable    = '2.26'
+        stable    = '3.009'
 #       developer = '2.23'
         docs      = '2.24'
         textmate  = '0.02'

@@ -321,12 +321,16 @@
       not encoding reserved characters.
     </p>
     <p>
-      As of version 2.26 of the Template Toolkit, the <code>uri</code> and <a
+      As of version 2.28 of the Template Toolkit, the <code>uri</code> and <a
       href="#section_url">url</a> filters use the unsafe character set defined
-      by RFC3986. This means that certain characters ("(", ")", "~", "*", "!"
-      and the single quote "'") are now deemed unsafe and will be escaped as
-      hex character sequences. The double quote character ('"') is now deemed
-      safe and will not be escaped.
+      by RFC3986. This means that certain characters ("(", ")", "*", "!", "'",
+      and '"') are now deemed unsafe and will be escaped as hex character
+      sequences.
+    </p>
+    <p>
+      The ability to use the RFC3986 character set was added in 2.26 but not
+      enabled by default; double quote was incorrectly deemed safe in 2.26 but
+      correctly escaped in 2.27.
     </p>
     <p>
       If you want to enable the old behaviour then call the

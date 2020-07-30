@@ -23,9 +23,10 @@
       # named parameters 
       <span class="tt">[% date.format(mytime, format = '%H:%M:%S') %]</span>
       <span class="tt">[% date.format(locale = 'en_GB') %]</span>
-      <span class="tt">[% date.format(time   = date.now, 
-                     format = '%H:%M:%S', 
-                     locale = 'en_GB) %]</span>
+      <span class="tt">[% date.format(time       = date.now,
+                     format     = '%H:%M:%S',
+                     locale     = 'en_GB'
+                     use_offset = 1) %]</span>
       
       # specify default format to plugin
       <span class="tt">[% USE date(format = '%H:%M:%S', locale = 'de_DE') %]</span>
@@ -115,6 +116,13 @@
       Note that in this case, if the local time is not GMT, then also
       specifying '<code>%Z</code>' (time zone) in the format parameter will
       lead to an extremely misleading result.
+    </p>
+    <p>
+      To maintain backwards compatibility, using the <code>%z</code>
+      placeholder in the format string (to output the UTC offset) currently
+      requires the <code>use_offset</code> parameter to be set to a true value.
+      This can also be passed as the fifth parameter to format (but the former
+      will probably be clearer).
     </p>
     <p>
       Any or all of these parameters may be named. Positional parameters should

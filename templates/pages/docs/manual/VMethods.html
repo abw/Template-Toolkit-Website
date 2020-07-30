@@ -97,6 +97,17 @@
     </pre>
     
     [** END -**]
+    [** WRAPPER page/subsection title='empty' id='section_empty' class='' -**]
+    <p>
+      Returns true if the string is empty:
+    </p>
+    <pre>
+      <span class="tt">[% IF details.empty %]</span>
+         No details specified
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='list' id='section_list' class='' -**]
     <p>
       Return the value as a single element list. This can be useful if you have
@@ -167,7 +178,7 @@
     </p>
     <pre>
       <span class="tt">[% text = 'bandanna';
-         text.match('an+', 1).join(', )      # an, ann
+         text.match('an+', 1).join(', ')      # an, ann
       %]</span>
     </pre>
     
@@ -518,6 +529,17 @@
     </p>
     
     [** END -**]
+    [** WRAPPER page/subsection title='empty' id='section_empty' class='' -**]
+    <p>
+      Returns true if the hash is empty:
+    </p>
+    <pre>
+      <span class="tt">[% IF config.empty %]</span>
+         No configuration available
+      <span class="tt">[% END %]</span>
+    </pre>
+    
+    [** END -**]
     [** WRAPPER page/subsection title='item' id='section_item' class='' -**]
     <p>
       Returns an item from the hash using a key passed as an argument.
@@ -553,6 +575,17 @@
     </p>
     <pre>
       <span class="tt">[% results.size %]</span> search results matched your query
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='empty' id='section_empty' class='' -**]
+    <p>
+      Returns true if the list is empty:
+    </p>
+    <pre>
+      <span class="tt">[% IF results.empty %]</span>
+         No results found
+      <span class="tt">[% END %]</span>
     </pre>
     
     [** END -**]
@@ -696,7 +729,18 @@
          two   = [ 4 5 6 ];
          three = [ 7 8 9 ];
          one.import(two, three);
-         one.join(', );     # 1, 2, 3, 4, 5, 6, 7, 8, 9
+         one.join(', ');     # 1, 2, 3, 4, 5, 6, 7, 8, 9
+      %]</span>
+    </pre>
+    <p>
+      Import also allows chaining. The below syntax is equivalent.
+    </p>
+    <pre>
+      <span class="tt">[% one   = [ 1 2 3 ];
+         two   = [ 4 5 6 ];
+         three = [ 7 8 9 ];
+         one.import(two, three).join(', ');        # 1, 2, 3, 4, 5, 6, 7, 8, 9
+      # or:  one.import(two).import(three).join(', '); # 1, 2, 3, 4, 5, 6, 7, 8, 9
       %]</span>
     </pre>
     
@@ -800,6 +844,15 @@
       <span class="tt">[% hash = list.hash(1) %]</span>
       <span class="tt">[% hash.1  %]</span>               # beer
       <span class="tt">[% hash.2  %]</span>               # peanuts
+    </pre>
+    
+    [** END -**]
+    [** WRAPPER page/subsection title='item' id='section_item' class='' -**]
+    <p>
+      Returns an item from the list using an index passed as an argument.
+    </p>
+    <pre>
+      <span class="tt">[% list.item(0) %]</span>  # same as list.0
     </pre>
     
     [** END -**]

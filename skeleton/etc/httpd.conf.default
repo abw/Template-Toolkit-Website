@@ -1,6 +1,6 @@
 #------------------------------------------------------------------------
-# This is the Apache configuration file for the Template Toolkit 
-# website.  It points Apache to the right locations for the HTML pages 
+# This is the Apache configuration file for the Template Toolkit
+# website.  It points Apache to the right locations for the HTML pages
 # and images.
 #
 # You can include it into your main Apache httpd.conf file like this:
@@ -10,9 +10,21 @@
 # Written by Andy Wardley.  June 2007.
 #
 # WARNING:
-#  This configuration file is generated when you run 
-# 'bin/configure'.  Any changes made here may be lost!
-# 
+#  The etc/httpd.conf.default configuration file is generated when you
+#  run the `bin/configure` script.  You should copy and amend this file
+#  as necessary for your web server.
+#
+#  Any permanent changes should be made to the source template in
+#  skeleton/etc/httpd.conf.default.  Then run the `bin/configure` to
+#  regenerate the output version as etc/httpd.conf.default
+#
+#------------------------------------------------------------------------
+# CONFIGURATION OPTIONS:
+#------------------------------------------------------------------------
+[%  # Apache v2.4 requires "Require all granted" to be added to each
+    # section.  Set this true if you're using Apache 2.4 or later
+    APACHE_24 = 1
+%]
 #------------------------------------------------------------------------
 
 ServerName      template-toolkit.org
@@ -26,56 +38,25 @@ ServerAlias     lists.template-toolkit.org
 ServerAlias     lists.template-toolkit.com
 ServerAlias     lists.tt2.org
 ServerAlias     tt2
+# NOTE that *.local.wardley.org resolves to 127.0.0.0 so this should
+# work for testing on a local development machine.
+ServerAlias     tt2.local.wardley.org
 ServerAdmin     webmaster@template-toolkit.org
 
 DocumentRoot    [% root %]/html/
 ErrorLog        [% root %]/logs/error_log
 CustomLog       [% root %]/logs/access_log common
-AddHandler      cgi-script  .cgi
 
-Alias           /images/           [% root %]/images/
-Alias           /svnweb            /home/abw/subversion/ttsvnweb
-Alias           /pipermail/        /usr/local/mailman/archives/public/
-Alias           /mailman/icons/    /usr/local/mailman/icons/
-ScriptAlias     /mailman/          /usr/local/mailman/cgi-bin/
-
-# Perl Conference papers have moved to wardley.org
-[% tpc = 'http://wardley.org/computers/perl/conference' -%]
-[% tt2 = 'http://template-toolkit.org' -%]
-Redirect      permanent  /tpc4/index.html              [% tpc %]/template_web_site/index.html
-Redirect      permanent  /tpc5/kitesurfing/index.html  [% tpc %]/camel_kitesurfing/index.html
-Redirect      permanent  /tpc5/camelot/index.html      [% tpc %]/camelot.html
-Redirect      permanent  /docs.html                    [% tt2 %]/docs/index.html
-Redirect      permanent  /info.html                    [% tt2 %]/about.html
-Redirect      permanent  /download.html                [% tt2 %]/download/index.html
-
-[% IF 0 -%]
-<IfModule mod_rewrite.c>
-    RewriteEngine   On
-    RewriteLogLevel 2
-    RewriteLog      [% root %]/logs/rewrite_log    
-    RewriteRule     ^/docs/\w+/Manual/(.*)          [% tt2 %]/docs/manual/$1
-    RewriteRule     ^/docs/\w+/Modules/(.*)         [% tt2 %]/docs/modules/$1
-    RewriteRule     ^/docs/\w+/Tools/(.*)           [% tt2 %]/docs/tools/$1
-    RewriteRule     ^/docs/\w+/Tutorial/(.*)        [% tt2 %]/docs/tutorial/$1
-    RewriteRule     ^/docs/\w+/FAQ/(.*)             [% tt2 %]/docs/faq/$1
-</IfModule>
-[% END -%]
-
-RedirectMatch permanent  /docs/\w+/Manual/(.*)         [% tt2 %]/docs/manual/$1
-RedirectMatch permanent  /docs/\w+/Modules/(.*)        [% tt2 %]/docs/modules/$1
-RedirectMatch permanent  /docs/\w+/Tools/(.*)          [% tt2 %]/docs/tools/$1
-RedirectMatch permanent  /docs/\w+/Tutorial/(.*)       [% tt2 %]/docs/tutorial/$1
-RedirectMatch permanent  /docs/\w+/FAQ/(.*)            [% tt2 %]/docs/faq/$1
-
-Redirect      permanent  /mailman/                     http://mail.template-toolkit.org/mailman/
-Redirect      permanent  /pipermail/                   http://mail.template-toolkit.org/pipermail/
+Alias           /images/ [% root %]/images/
 
 <Directory [% root %]/html/>
     Options MultiViews Indexes FollowSymLinks
     AllowOverride None
     Order allow,deny
     Allow from all
+[%  IF APACHE_24 -%]
+    Require all granted
+[%  END -%]
 </Directory>
 
 <Directory [% root %]/images/>
@@ -83,29 +64,7 @@ Redirect      permanent  /pipermail/                   http://mail.template-tool
     AllowOverride None
     Order allow,deny
     Allow from all
-</Directory>
-
-<Directory  /usr/local/mailman/cgi-bin>
-    Options ExecCGI FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-</Directory>
-
-<Directory  /usr/local/mailman/archives/public>
-    Options FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
-</Directory>
-
-<Directory /home/abw/subversion/ttsvnweb>
-    AllowOverride None
-    Options None
-    SetHandler perl-script
-    PerlHandler SVN::Web
-</Directory>
-
-<Directory /home/abw/subversion/ttsvnweb/css>
-    SetHandler default-handler
+[%  IF APACHE_24 -%]
+    Require all granted
+[%  END -%]
 </Directory>
