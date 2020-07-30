@@ -1,6 +1,6 @@
 [%  # This configuration template defines various URLs for different
-    # parts of the site (e.g. home page, css file, images directory, 
-    # etc), relative to the 'rooturl' variable which is defined in 
+    # parts of the site (e.g. home page, css file, images directory,
+    # etc), relative to the 'rooturl' variable which is defined in
     # config/root.
 
     site.url = {
@@ -12,6 +12,7 @@
         download  = "${rooturl}/download"
         svnweb    = 'http://template-toolkit.org/svnweb'
         github    = 'http://github.com/abw/Template2'
+        github_web = 'http://github.com/abw/Template-Toolkit-Website'
         mailman   = '/mailman'
         pipermail = 'http://lists.template-toolkit.org/pipermail'
         textmate  = {

@@ -107,13 +107,13 @@
                 <p>
                   The Template Toolkit is free in both senses of the word:
                   <i>free beer</i> and <i>free speech</i>.
-                  It is <i>free</i> in the first sense because it costs 
+                  It is <i>free</i> in the first sense because it costs
                   absolutely nothing to download and use the Template Toolkit.
                   And it's <i>free</i> in the second sense because it's
-                  distributed under an 
+                  distributed under an
                   <a href="http://opensource.org" class="ext" title="Open Source: the way forward">Open Source</a> license.
                   That mean that you get the full source code to the Template
-                  Toolkit <i>and</i> you're explicitly granted the right 
+                  Toolkit <i>and</i> you're explicitly granted the right
                   to modify and adapt the code, should you so wish.
                 </p>
               </div>
@@ -135,12 +135,12 @@
                   Mac OSX). It's <a href="http://cpan.org/ports/index.html" title="Perl
                   Ports">freely available</a> for virtually every modern operating system
                   under the sun, so you have no excuse for not installing it if you don't
-                  already have it. Don't be scared now.  You don't have to write any Perl 
+                  already have it. Don't be scared now.  You don't have to write any Perl
                   code to use the Template Toolkit.
                 </p>
                 
                 <p>
-                  The Template Toolkit also depends on the Perl 
+                  The Template Toolkit also depends on the Perl
                   <a href="http://search.cpan.org/search?query=AppConfig" class="ext">AppConfig</a>
                   module being installed.  But if you use the <a href="#cpan">CPAN module</a> as
                   described below then it will take care of this for you.
@@ -164,11 +164,11 @@
                     </p>
                 
                     <a href="http://cpan.org/modules/by-module/Template/Template-Toolkit-3.009.tar.gz"
-                      class="download" title="Download the latest stable version (3.009) of the Template Toolkit">Download 
+                      class="download" title="Download the latest stable version (3.009) of the Template Toolkit">Download
                       Template Toolkit stable version 3.009</a>
                     <p>
                       The source code is distributed as a <code>.tar.gz</code> archive.
-                      You'll need to unpack it and follow the instructions in the 
+                      You'll need to unpack it and follow the instructions in the
                       <b>INSTALL</b> file.
                     </p>
                 
@@ -201,7 +201,7 @@ $ sudo make install</pre>
                     stable version.
                   </p>
                   <p>
-                    Developer versions have an additional numerical 
+                    Developer versions have an additional numerical
                     suffix (e.g. 3.009_01, 3.009_02, etc) and
                     are available to download from this web site.  You can
                     also download them from CPAN.  Note however that the CPAN
@@ -252,7 +252,7 @@ $ sudo make install</pre>
               </div>
               <div class="body">
                 <p>
-                      You can also get the Template Toolkit in "binary form" for 
+                      You can also get the Template Toolkit in "binary form" for
                       installation on various platforms.  Don't be misled by the name -
                       you still get the full source code for the Template Toolkit, but
                       it's delivered in a packaged format that you can install straight
@@ -269,14 +269,14 @@ $ sudo make install</pre>
                   <div class="body">
                     <div class="mac osimg">
                           <p>
-                            If you're running Mac OSX (you lucky thing!) then you can install the
+                            If you're running Mac OSX then you can install the
                             Template Toolkit using the <a href="#cpan">CPAN module</a> as
                             described above. Run the <b>Terminal</b> application (located in
                             Applications/Utilities) and enter the <code>sudo cpan Template</code>
                             command at the prompt.
                           </p>
                           <p>
-                            Alternately, if you have 
+                            Alternately, if you have
                             <a href="http://fink.sourceforge.net/" class="ext" title="Fink: an Open Source package manager for Mac OSX">Fink</a>
                             installed then you can use it to install the Template Toolkit.
                             Christian Schaffner maintains the Fink packages for the Template
@@ -295,7 +295,7 @@ $ sudo make install</pre>
                   <div class="body">
                     <div class="linux osimg">
                           <p>
-                            Mako Hill maintains the official Template Toolkit packages for 
+                            Mako Hill maintains the official Template Toolkit packages for
                             <a href="http://debian.org/" class="ext" title="Debian: a free GNU/Linux operating system for your computer">Debian
                             GNU/Linux</a>. They are available in Debian as <code>libtemplate-perl</code>. The
                             Debian package pages for the latest versions can be found at:
@@ -308,8 +308,8 @@ $ sudo make install</pre>
                           </p>
                           <a href="http://people.debian.org/~mako/outgoing/libtemplate-perl/" class="download">http://people.debian.org/~mako/outgoing/libtemplate-perl/</a>
                           <p>
-                            If you use <code>stable</code> or <code>testing</code> and 
-                            want to use the latest Template Toolkit packages, then 
+                            If you use <code>stable</code> or <code>testing</code> and
+                            want to use the latest Template Toolkit packages, then
                             simply add the following line to your <code>sources.list</code>
                             file:
                           </p>
@@ -331,11 +331,10 @@ $ sudo make install</pre>
                   <div class="body">
                     <div class="windows osimg">
                           <p>
-                            If you're using a Microsoft Windows machine then you 
-                            have our sympathies.  However, if you're using 
+                            If you're using a Microsoft Windows machine and you're using
                             <a href="http://strawberryperl.com/" class="ext" title="Strawberry Perl: Perl for Microsoft Windows">Strawberry Perl</a>
                             then you can install TT using the <a href="#cpan">CPAN module</a> as
-                            described above.  If you're using 
+                            described above.  If you're using
                             <a href="http://www.activestate.com/Products/ActivePerl/" class="ext" title="ActivePerl: Perl for Microsoft Windows">ActivePerl</a>
                             and then use the Perl Package Manager (PPM) to install the Template Toolkit.
                           </p>
@@ -363,7 +362,7 @@ $ sudo make install</pre>
                     The source code for the Template Toolkit is managed using
                     <a href="http://git-scm.com/" class="ext" title="Git: the fast version control system">Git</a>
                     and is hosted at <a href="http://github.com/" class="ext">Github</a>
-                    If you have git installed on your system then you can check out the 
+                    If you have git installed on your system then you can check out the
                     Template Toolkit source code using a command like this:
                   </p>
                   <pre class="code">$ git clone git://github.com/abw/Template2.git</pre>
@@ -371,6 +370,12 @@ $ sudo make install</pre>
                     You can browse the repository here:
                   </p>
                   <a href="http://github.com/abw/Template2" class="download">http://github.com/abw/Template2</a>
+                
+                  <p>
+                    The source code for this website is also hosted at
+                    <a href="http://github.com/" class="ext">Github</a>:
+                  </p>
+                  <a href="http://github.com/abw/Template-Toolkit-Website" class="download">http://github.com/abw/Template-Toolkit-Website</a>
               </div>
             </div>
             
@@ -384,7 +389,7 @@ $ sudo make install</pre>
               </div>
               <div class="body">
                 <p>
-                    You can download a copy of the complete HTML documentation for the 
+                    You can download a copy of the complete HTML documentation for the
                     Template Toolkit.  It comes in the same shiny colours as this web
                     site for your viewing pleasure.
                   </p>
@@ -411,7 +416,7 @@ $ sudo make install</pre>
                     library.
                   </p>
                   <p>
-                    In a fit of common sense, they were eventually removed from the core 
+                    In a fit of common sense, they were eventually removed from the core
                     Template Toolkit distribution and made available as separate bundles.
                     You can download them from CPAN using the following links or you can
                     install them using the <a href="#cpan">CPAN module</a> as described above.
@@ -439,9 +444,9 @@ $ sudo make install</pre>
               <div class="body">
                 <div class="textmate thumbnail">
                   <h2 id="editors_0">TextMate</h2>
-                  A TT bundle for <a href="http://macromates.com/" class="ext">TextMate</a> 
+                  A TT bundle for <a href="http://macromates.com/" class="ext">TextMate</a>
                   is available.  This is version 0.02
-                  which has full support for TT2. including syntax highlighting and a number 
+                  which has full support for TT2. including syntax highlighting and a number
                   of auto-completion snippets for generating TT code fragments.
                   It also has limited support for the forthcoming TT3
                   template language.  Language definitions are provided for TT2/TT3 in
@@ -453,19 +458,19 @@ $ sudo make install</pre>
                 
                 <div class="sublime thumbnail">
                   <h2 id="editors_1">Sublime Text 2</h2>
-                  The <a href="http://www.sublimetext.com/" class="ext">Sublime Text 2</a> 
-                  editor uses the same bundle format as 
+                  The <a href="http://www.sublimetext.com/" class="ext">Sublime Text 2</a>
+                  editor uses the same bundle format as
                   <a href="http://macromates.com/" class="ext">TextMate</a> so you can use
-                  the TextMate bundles above.  Simply unpack the download archive and 
-                  drag the <code>Template Toolkit.tmbundle</code> folder to 
+                  the TextMate bundles above.  Simply unpack the download archive and
+                  drag the <code>Template Toolkit.tmbundle</code> folder to
                   <code>~/Library/Application Support/Sublime Text 2/Packages</code>.
                 </div>
                 
                 <div class="emacs thumbnail">
                   <h2 id="editors_2">Emacs</h2>
                   Dave Cross has written an <a href="http://www.gnu.org/software/emacs/" class="ext">Emacs</a>
-                  mode for TT, available <a href="http://dave.org.uk/emacs/" class="ext">here</a>.  It 
-                  performs syntax highlighting, although he warns it can be a bit flaky at times 
+                  mode for TT, available <a href="http://dave.org.uk/emacs/" class="ext">here</a>.  It
+                  performs syntax highlighting, although he warns it can be a bit flaky at times
                   (patches welcome).  <a href="http://ourcomments.org/Emacs/nXhtml/doc/nxhtml.html">nXhtml</a>
                   is an addon to Emacs for editing XHTML, PHP and similar things.  It includes Dave's
                   Emacs mode and uses it in the multi major modes.
@@ -473,7 +478,7 @@ $ sudo make install</pre>
                 
                 <div class="kde thumbnail">
                   <h2 id="editors_3">Kate: KDE Advanced Text Editor</h2>
-                  Krassimir Berov has written a TT syntax highlighting extension for 
+                  Krassimir Berov has written a TT syntax highlighting extension for
                   <a href="http://kate-editor.org/" class="ext">Kate</a>.  It's available
                   <a href="http://bcc.svn.sourceforge.net/viewvc/bcc/trunk/misc/" class="ext">here</a>.
                 </div>
@@ -487,30 +492,30 @@ $ sudo make install</pre>
                 <div class="joe thumbnail">
                   <h2 id="editors_5">Joe</h2>
                   Michael Holzt has written a TT syntax highlighting extension for the
-                  <a href="http://joe-editor.sourceforge.net/" class="ext">Joe editor</a>.  
+                  <a href="http://joe-editor.sourceforge.net/" class="ext">Joe editor</a>.
                   Download it from <a href="tt.jsf">here</a>.
                 </div>
                 
                 <div class="komodo thumbnail">
                   <h2 id="editors_6">Komodo</h2>
-                  ActiveState's 
+                  ActiveState's
                   <a href="http://www.activestate.com/Products/komodo_edit/" class="ext">Komodo Edit</a>
                   and <a href="http://www.activestate.com/Products/komodo_ide/" class="ext">Komodo IDE</a>
-                  both have built-in support for TT.  
+                  both have built-in support for TT.
                 </div>
                 
                 <div class="vim thumbnail">
                   <h2 id="editors_7">Vim</h2>
-                  Atsushi Moriki has written a syntax highlight file for 
+                  Atsushi Moriki has written a syntax highlight file for
                   <a href="http://www.vim.org/" class="ext">Vim</a>.
-                  You can fetch it from 
+                  You can fetch it from
                   <a href="http://www.vim.org/scripts/script.php?script_id=830" class="ext">here</a>.
                 </div>
               </div>
             </div></div>
           <br class="clear" />
           <div class="pageinfo">
-            http://template-toolkit.org/download/index.html last modified 08:42:26 17-Sep-2014
+            http://template-toolkit.org/download/index.html last modified 15:36:23 30-Jul-2020
           </div>
         </div>
         
